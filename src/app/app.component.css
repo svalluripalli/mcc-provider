@@ -5,25 +5,36 @@ mat-tab-group {
 }
 
 .mat-tab-label {
-  min-width: 25px;
+  min-width: 20rem;
   padding: 2%;
   background-color: lightblue;
   color: black;
-  border: black;
   width: 22%;
-  border-width: medium;
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
 }
 
 .mat-tab-label.mat-tab-label-active {
-  min-width: 25px;
+  min-width: 20rem;
   padding: 2%;
   background-color: white;
+  border-color: black;
   color: black;
-  border: black;
   width: 22%;
-  border-width: thick;
+  border-width: 2px;
+  border-style: solid;
 }
 
+::ng-deep.mat-tab-label .mat-tab-label-content {
+  flex-wrap: wrap;
+}
+
+::ng-deep.mat-tab-label .mat-tab-label-content span {
+  display: flex;
+  flex: 1 0 100%;
+  justify-content: center;
+}
 
 
 
