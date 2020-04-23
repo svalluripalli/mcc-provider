@@ -1,8 +1,9 @@
 
-  <mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
+  <mat-table [dataSource]="dataSource">
     <!-- Position Column -->
     <ng-container matColumnDef="checked">
-      <mat-header-cell *matHeaderCellDef>Check</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>
+        <mat-icon svgIcon="airplane"></mat-icon></mat-header-cell>
       <mat-cell *matCellDef="let diagnosis">
         <mat-checkbox [(ngModel)]="diagnosis.checked"></mat-checkbox>
       </mat-cell>
@@ -10,7 +11,7 @@
 
     <!-- Position Column -->
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Condition </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Condition </mat-header-cell>
       <mat-cell *matCellDef="let diagnosis"> {{diagnosis.name}} </mat-cell>
     </ng-container>
 
@@ -26,6 +27,6 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (click)="row.highlighted = !row.highlighted" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></mat-row>
   </mat-table>
 
-  
+
 
 
