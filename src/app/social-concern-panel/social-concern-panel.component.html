@@ -1,0 +1,41 @@
+<mat-panel-title class="tile-header">Social Concerns</mat-panel-title>
+<mat-table [dataSource]="dataSource">
+  <!-- Position Column -->
+  <ng-container matColumnDef="checked">
+    <mat-header-cell *matHeaderCellDef>
+
+      <mat-icon>check</mat-icon>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let diagnosis">
+      <mat-checkbox [(ngModel)]="diagnosis.checked"></mat-checkbox>
+    </mat-cell>
+  </ng-container>
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Concern</mat-header-cell>
+    <mat-cell *matCellDef="let concern"> {{concern.name}} </mat-cell>
+  </ng-container>
+  <!-- Position Column -->
+  <ng-container matColumnDef="data">
+    <mat-header-cell *matHeaderCellDef>Value</mat-header-cell>
+    <mat-cell *matCellDef="let concern"> {{concern.data}} </mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="date">
+    <mat-header-cell *matHeaderCellDef>Last update</mat-header-cell>
+    <mat-cell *matCellDef="let concern"> {{concern.date}} </mat-cell>
+  </ng-container>
+  <!--
+  <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  -->
+
+  <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+
+  <mat-row *matRowDef="let row; columns: displayedColumns;"
+           [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (click)="row.highlighted = !row.highlighted"
+           (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></mat-row>
+  -->
+</mat-table>
