@@ -10,7 +10,7 @@ export class ActiveDiagnosisPanelComponent implements OnInit {
   constructor() { }
   displayedColumns = ['checked', 'name', 'date'];
   dataSource = DIAGNOISIS_DATA;
-  ngOnInit(): void {
+      ngOnInit(): void {
   }
 
 }

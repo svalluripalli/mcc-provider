@@ -26,6 +26,6 @@ export interface Diagnosis {
 }
 
 const DIAGNOISIS_DATA: Diagnosis[] = [
-  {checked: false, name: 'Chronic Kidney Disease', date: '04/26/2015' },
-  {checked: false, name: 'Diabetes', date: '12/13/2015' }
+  {checked: false, name: 'Depression', date: '04/26/2015' },
+  {checked: false, name: 'Hypertention', date: '12/13/2015' }
 ]

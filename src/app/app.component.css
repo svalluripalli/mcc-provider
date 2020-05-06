@@ -1,7 +1,10 @@
 mat-tab-group {
   margin: 2%;
   width: 96%;
-  max-width: 96%
+  max-width: 96%;
+  height: -webkit-fill-available;
+  height: -moz-available;
+  height: stretch;
 }
 
 .mat-tab-label {
@@ -38,3 +41,21 @@ mat-tab-group {
 
 
 
+.example-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+
+.tile-header
+{
+  display: flex;
+  flex: 1 0 100%;
+  justify-content: center;
+}
+
+.center-name
+{
+  flex: 1 1 auto;
+  text-align: center;
+}

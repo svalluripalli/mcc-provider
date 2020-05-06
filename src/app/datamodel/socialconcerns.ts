@@ -1,100 +1,157 @@
-export class Socialconcerns {
-   fields = [
+import {cloneDeep} from 'lodash';
+
+
+export interface Concern {
+  name: string;
+  data: string;
+  description: string;
+  fhirpath: string;
+  default: string;
+  date: string;
+  highlighted?: boolean;
+  hovered?: boolean;
+}
+
+
+export class SocialConcerns {
+
+static concerns: Concern[] = [
      {
        name: 'Food Security',
+       data: 'TDB',
        description: '',
        fhirpath: '',
-       default: ''
+       default: '',
+       date: ''
      },
      {
        name: 'Transportation Access',
+       data: 'TDB',
        description: '',
        fhirpath: '',
-       default: ''
+       default: '',
+       date: ''
      },
      {
        name: 'Housing Stability',
+       data: 'TDB',
        description: '',
        fhirpath: '',
-       default: ''
+       default: '',
+       date: ''
      },
      {
        name: 'Primary Language',
+       data: 'TDB',
        description: '',
-       fhirpath: 'From Demographics',
-       default: ''
+       fhirpath: '',
+       default: '',
+       date: ''
      },
      {
        name: 'Health Insurance Status/Type',
+       data: 'TDB',
        description: '',
        fhirpath: '',
-       default: ''
+       default: '',
+       date: ''
      },
      {
        name: 'History of Abuse',
+       data: 'TDB',
        description: '',
        fhirpath: '',
-       default: ''
+       default: '',
+       date: ''
      },
      {
        name: 'Smoking Status',
+       data: 'TDB',
        description: '',
        fhirpath: '',
-       default: ''
+       default: '',
+       date: ''
      },
      {
-       name: 'Hea;th Literacy',
+       name: 'Health Literacy',
+       data: 'TDB',
        description: '',
        fhirpath: '',
-       default: ''
+       default: '',
+       date: ''
      },
      {
        name: 'Computer/Phone Access',
+       data: 'TDB',
        description: '',
        fhirpath: '',
-       default: ''
+       default: '',
+       date: ''
      },
      {
-       name: 'ALcohol Abuse',
+       name: 'Alcohol Abuse',
+       data: 'TDB',
        description: '',
        fhirpath: '',
-       default: ''
+       default: '',
+       date: ''
      },
      {
        name: 'Substance Abuse',
+       data: 'TDB',
        description: '',
        fhirpath: '',
-       default: ''
+       default: '',
+       date: ''
      },
      {
        name: 'Caregiver Characteristics',
+       data: 'TDB',
        description: '',
        fhirpath: '',
-       default: ''
+       default: '',
+       date: ''
      },
      {
        name: 'Characteristics of Home Environment',
+       data: 'TDB',
        description: '',
        fhirpath: '',
-       default: ''
+       default: '',
+       date: ''
      },
      {
        name: 'Employment Status',
+       data: 'TDB',
        description: '',
        fhirpath: '',
-       default: ''
+       default: '',
+       date: ''
      },
      {
        name: 'Education Level',
+       data: 'TDB',
        description: '',
        fhirpath: '',
-       default: ''
+       default: '',
+       date: ''
      },
      {
        name: 'Enviromental Conditions',
+       data: 'TDB',
        description: '',
        fhirpath: '',
-       default: ''
+       default: '',
+       date: ''
      },
    ];
+
+  static getBaseConcerns(): Concern[]
+  {
+    /* return cloneDeep(this.concerns); */
+    const str = 'Getting concerns';
+    console.log(str);
+    return this.concerns;
+  }
 }
+

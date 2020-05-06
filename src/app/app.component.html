@@ -1,13 +1,46 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>MCC Careplan</span>
+    <!-- This fills the remaining space of the current row -->
+    <span class="center-name">Betty Johnson, DOB: 07/13/1973</span>
+    <span class="example-fill-remaining-space"></span>
+    <mat-icon>person</mat-icon>
+    <mat-icon>folder</mat-icon>
+    <mat-icon>account_circle</mat-icon>
+    <mat-icon class="settings-icon" (click)="sidenav.toggle()">settings</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
 
-<app-demographics-panel></app-demographics-panel>
+<mat-sidenav-container>
+  <mat-sidenav position="end" #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')"
+               (closed)="events.push('close!')">
+    <table>
+      <tr>
+        <td>Server URL:</td>
+        <td>https://api.logicahealth.org/MCCeCarePlanTest/open/</td>
+      </tr>
+      <tr>
+        <td>Connection Status</td>
+        <td>Disconnected (NYI)</td>
+      </tr>
+      <tr><td><button>Connect</button></td><td><button>Disconnect</button></td></tr>
+      <tr></tr>
+    </table>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-demographics-panel></app-demographics-panel>
 
-<mat-tab-group>
-  <mat-tab label="Health and Social Concerns">
-    <app-health-and-social-concerns></app-health-and-social-concerns>
-  </mat-tab>
-  <mat-tab label="Goals">
-    <app-goals></app-goals>
-  </mat-tab>
-  <mat-tab label="Health Maintance and Interventions"></mat-tab>
-  <mat-tab label="Health Status Evaluation and Outcomes"></mat-tab>
-</mat-tab-group>
+    <mat-tab-group>
+      <mat-tab label="Health and Social Concerns">
+        <app-health-and-social-concerns></app-health-and-social-concerns>
+      </mat-tab>
+      <mat-tab label="Goals">
+        <app-goals></app-goals>
+      </mat-tab>
+      <mat-tab label="Health Maintance and Interventions"></mat-tab>
+      <mat-tab label="Health Status Evaluation and Outcomes"></mat-tab>
+      <mat-tab label="Care Team">
+      </mat-tab>
+    </mat-tab-group>
+  </mat-sidenav-content>
+</mat-sidenav-container>

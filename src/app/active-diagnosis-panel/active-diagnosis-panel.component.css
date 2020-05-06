@@ -1,8 +1,12 @@
+.mat-grid-tile-header
+{
+
+}
 
 mat-table {
   vertical-align: top;
-  min-width: 380px;
-  width: 600px;
+  min-width: 500px;
+
 }
 
 .mat-column-checked {
@@ -57,4 +61,11 @@ th.mat-header-cell, td.mat-cell {
   text-align: left;
   border: 1px solid #CCC;
   padding: 0 !important;
+}
+
+.app-active-diagnosis-panel {
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+  horiz-align: left;
 }
