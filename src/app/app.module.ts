@@ -22,6 +22,7 @@ import { DiagnosisPanelComponent } from './diagnosis-panel/diagnosis-panel.compo
 import { SocialConcernPanelComponent } from './social-concern-panel/social-concern-panel.component';
 
 
+
 const routes: Routes = []; // sets up routes constant where you define your routes
 
 @NgModule({

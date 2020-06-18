@@ -10,8 +10,11 @@ mat-tab-group {
 .mat-tab-label {
   min-width: 20rem;
   padding: 2%;
+  /*
   background-color: lightblue;
   color: black;
+
+   */
   width: 22%;
   border-width: 2px;
   border-color: black;

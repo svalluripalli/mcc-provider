@@ -16,10 +16,20 @@
       <mat-cell *matCellDef="let diagnosis"> {{diagnosis.name}} </mat-cell>
     </ng-container>
 
+    <!-- Rx Filter Column -->
+    <ng-container matColumnDef="rxfilter">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let diagnosis"><mat-icon matTooltip="Switch to Health Maintance using this codition as a focus" aria-label="Selection to change to the Health Maintance and Intervention tab using this condition as a focus">local_pharmacy</mat-icon></mat-cell>
+    </ng-container>
+    <!-- Tredn Filter Column -->
+    <ng-container matColumnDef="trend">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let diagnosis"><mat-icon matTooltip="Switch to Heath Status using this condition as a focus" aria-label="Selection to change to the the Health Status Evaluation and Outcomes using this condition as a focus">timeline</mat-icon></mat-cell>
+    </ng-container>
     <!-- Name Column -->
     <ng-container matColumnDef="date">
       <mat-header-cell *matHeaderCellDef> Date of Initial Diagnosis</mat-header-cell>
-      <mat-cell *matCellDef="let diagnosis"> {{diagnosis.date}} </mat-cell>
+      <mat-cell *matCellDef="let diagnosis">{{diagnosis.date}}</mat-cell>
     </ng-container>
 
 

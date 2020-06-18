@@ -6,6 +6,16 @@ mat-table {
   width: 600px;
 }
 
+mat-header-row {
+  min-height: 48px;
+  height: 48px !important;
+}
+
+mat-row {
+  min-height: 24px;
+  height: 24px !important;
+}
+
 .mat-column-checked {
   word-wrap: break-word !important;
   white-space: unset !important;
@@ -25,8 +35,40 @@ mat-table {
 .mat-column-condition{
   word-wrap: break-word !important;
   white-space: unset !important;
-  flex: 0 0 70% !important;
-  width: 70% !important;
+  flex: 0 0 60% !important;
+  width: 60% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-column-rxfilter{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 5% !important;
+  width: 5% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-column-trend{
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 5% !important;
+  width: 5% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
 

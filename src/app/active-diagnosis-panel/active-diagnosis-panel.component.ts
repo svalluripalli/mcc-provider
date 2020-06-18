@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ActiveDiagnosisPanelComponent implements OnInit {
 
   constructor() { }
-  displayedColumns = ['checked', 'name', 'date'];
+  displayedColumns = ['checked', 'name', 'rxfilter', 'trend', 'date'];
   dataSource = DIAGNOISIS_DATA;
       ngOnInit(): void {
   }

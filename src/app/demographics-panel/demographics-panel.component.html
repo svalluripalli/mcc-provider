@@ -1,5 +1,57 @@
 
 <mat-expansion-panel>
   <mat-expansion-panel-header>
+    <table width="100%">
+      <tr>
+        <td colspan="2">
+          <b>Name:</b> {{dataservice.demographic.name}}
+        </td>
+        <td>
+          <b>Date of Birth:</b> {{dataservice.demographic.dateOfBirth}}
+        </td>
+        <td>
+          <b>Sex:</b> {{dataservice.demographic.gender}}
+        </td>
+        <td>
+          <b>Race:</b> {{dataservice.demographic.race}}
+        </td>
+        <td>
+          <b>Ethnicity:</b> {{dataservice.demographic.ethnicity}}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <b>Title:</b> {{dataservice.careplan.title}}
+        </td>
+        <td>
+          <b>Status:</b> {{dataservice.careplan.status}}
+        </td>
+        <td>
+          <b>Period:</b> {{getPeriodText(dataservice.careplan.periodStarts,dataservice.careplan.periodEnds)}}
+        </td>
+        <td>
+          <b>Addresses:</b> {{dataservice.careplan.addressesSummary}}
+        </td>
+        <td>
+          <b>Patient Id:</b> {{dataservice.demographic.id}}
+        </td>
+      </tr>
+    </table>
   </mat-expansion-panel-header>
+  <table width="100%">
+    <tr>
+      <td><b>Date Last Revised:</b> {{getDateLastRevised()}}</td>
+      <td><b>Careplan Id:</b> {{dataservice.careplan.id}}</td>
+    </tr>
+    <tr>
+      <td><b>Careplan Category</b> {{dataservice.careplan.categorySummary}}</td>
+      <td><b>Intent:</b> {{dataservice.careplan.intent}}</td>
+    </tr>
+    <tr>
+      <td><b>Description:</b> {{dataservice.careplan.description}}</td>
+    </tr>
+    <tr>
+      <td><b>Notes:</b> {{dataservice.careplan.notes}}</td>
+    </tr>
+  </table>
 </mat-expansion-panel>
