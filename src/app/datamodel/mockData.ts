@@ -2,6 +2,24 @@ import {TargetValue} from './targetvalue';
 import {GoalLists} from './goallists';
 import {MedicationSummary} from './medicationSummary';
 import {Education} from './education';
+import {Referral} from './referral';
+
+
+export const mockReferrals: Referral[] = [
+  {
+    purpose: 'Nephrology',
+    date: '10/28/2012',
+    referrer: 'John Primary Care, MD',
+    receivingClincian: 'Natalie Nephrologist'
+  },
+  {
+    purpose: 'Dietitian',
+    date: '09/17/2015',
+    referrer: 'John Primary Care, MD',
+    receivingClincian: 'Debbie Dietitian'
+  },
+];
+
 
 export const mockEducation: Education[] = [
   {

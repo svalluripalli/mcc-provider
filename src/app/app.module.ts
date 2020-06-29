@@ -29,6 +29,8 @@ import { MedicationPanelComponent } from './medication-panel/medication-panel.co
 import { EducationPanelComponent } from './education-panel/education-panel.component';
 import { NutritionPanelComponent } from './nutrition-panel/nutrition-panel.component';
 import { ReferralPanelComponent } from './referral-panel/referral-panel.component';
+import { HealthStatusComponent } from './health-status/health-status.component';
+import { CareTeamComponent } from './care-team/care-team.component';
 
 
 
@@ -52,7 +54,9 @@ const routes: Routes = []; // sets up routes constant where you define your rout
     MedicationPanelComponent,
     EducationPanelComponent,
     NutritionPanelComponent,
-    ReferralPanelComponent
+    ReferralPanelComponent,
+    HealthStatusComponent,
+    CareTeamComponent
   ],
   imports: [
     FlexLayoutModule,

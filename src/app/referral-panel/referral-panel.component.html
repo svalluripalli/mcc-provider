@@ -1,9 +1,9 @@
 <div class="group-header" >Referrals</div>
-<table mat-table [dataSource]="dataService.education" width="100%">
+<table mat-table [dataSource]="dataService.referrals" width="100%">
 
-  <ng-container matColumnDef="topic">
-    <th mat-header-cell *matHeaderCellDef width="60%">Topic</th>
-    <td mat-cell *matCellDef="let item"> {{item.topic}} </td>
+  <ng-container matColumnDef="purpose">
+    <th mat-header-cell *matHeaderCellDef>Purpose</th>
+    <td mat-cell *matCellDef="let item"> {{item.purpose}} </td>
   </ng-container>
 
   <ng-container matColumnDef="date">
@@ -11,12 +11,17 @@
     <td mat-cell *matCellDef="let item"> {{item.date}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="assessment">
-    <th mat-header-cell *matHeaderCellDef>Provider Assessment of Understanding</th>
-    <td mat-cell *matCellDef="let item"> {{item.assessmentOfUnderstanding}}</td>
+  <ng-container matColumnDef="referrer">
+    <th mat-header-cell *matHeaderCellDef>Referring Clincian</th>
+    <td mat-cell *matCellDef="let item"> {{item.referrer}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="who">
+    <th mat-header-cell *matHeaderCellDef>Receiving Clincian</th>
+    <td mat-cell *matCellDef="let i"> {{i.receivingClincian}}</td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'outofrange': row.status == 'high'}" (click)="row.highlighted = !row.highlighted" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
