@@ -3,6 +3,15 @@ import { Demographic } from './datamodel/demographics';
 import {SubjectDataService} from './subject-data-service.service';
 import {CareplanService} from './careplan.service';
 import {CarePlan} from './datamodel/carePlan';
+import {SocialConcerns} from './datamodel/socialconcerns';
+import {ConditionLists} from './datamodel/conditionLists';
+import {TargetValue} from './datamodel/targetvalue';
+import {mockEducation, mockNutrition, mockTargetData} from './datamodel/mockData';
+import {mockGoalList} from './datamodel/mockData';
+import {mockMedicationSummary} from './datamodel/mockData';
+import {GoalLists} from './datamodel/goallists';
+import {MedicationSummary} from './datamodel/medicationSummary';
+import {Education} from './datamodel/education';
 
 @Injectable({
   providedIn: 'root'
@@ -10,26 +19,44 @@ import {CarePlan} from './datamodel/carePlan';
 
 export class DataService  {
 
-  private baseURL = 'http://localhost:8080/patient';
-  demographic: Demographic;
   currentPatientId: string;
-  careplan: CarePlan;
   currentCareplaId: string;
+  demographic: Demographic;
+  careplan: CarePlan;
+  socialConcerns: SocialConcerns[];
+  conditions: ConditionLists;
+  targetValues: TargetValue[];
+  goals: GoalLists;
+  medications: MedicationSummary[];
+  education: Education[];
+  nutrition: Education[];
 
   constructor(private subjectdataservice: SubjectDataService, private careplanservice: CareplanService) { }
 
-  setCurrentSubject(patientId: string): void
+  async setCurrentSubject(patientId: string): Promise<boolean>
   {
     this.currentPatientId = patientId;
     this.subjectdataservice.getSubject(this.currentPatientId)
       .subscribe(demograhic => this.demographic = demograhic);
+    this.subjectdataservice.getConditions(this.currentPatientId)
+      .subscribe(condition => this.conditions = condition);
+    this.medications = mockMedicationSummary;
+    this.education = mockEducation;
+    this.nutrition = mockNutrition;
+    return true;
   }
 
-  setCurrentCarePlabn(planId: string): void
+  async setCurrentCarePlan(planId: string): Promise<boolean>
   {
     this.currentCareplaId = planId;
     this.careplanservice.getCarePlan(this.currentCareplaId)
       .subscribe(careplan => this.careplan = careplan);
+    this.subjectdataservice.getSocialConcerns(this.currentPatientId, this.currentCareplaId)
+      .subscribe(concerns => this.socialConcerns = concerns);
+    this.targetValues = mockTargetData;
+    this.goals = mockGoalList;
+    return true;
   }
-}
 
+
+}

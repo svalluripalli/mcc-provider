@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {SubjectDataService} from '../subject-data-service.service';
+import {DataService} from '../data.service';
 
 
 @Component({
@@ -10,15 +11,13 @@ import {SubjectDataService} from '../subject-data-service.service';
 
 export class SocialConcernPanelComponent implements OnInit {
 
-  constructor(private subjectdataservice: SubjectDataService) {
+  constructor(public dataService: DataService) {
   }
 
   displayedColumns = ['name', 'data', 'date'];
 
-  dataSource;
 
   ngOnInit(): void {
-    this.dataSource = this.subjectdataservice.getConcerns();
   }
 
 }

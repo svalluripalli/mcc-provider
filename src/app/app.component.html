@@ -16,17 +16,13 @@
                (closed)="events.push('close!')">
     <table>
       <tr>
-        <td>Server URL:</td>
-        <td><input type="url" value="https://api.logicahealth.org/MCCeCarePlanTest/open/" aria-label="Input field for the current FHIR connection"><</td>
+        <td><p>FHIR Server URL:</p></td>
+        <td><p>https://api.logicahealth.org/MCCeCarePlanTest/open/</p></td>
       </tr>
       <tr>
-        <td>Connection Status:</td>
-        <td>Disconnected (NYI)</td>
+        <td><p>API Server URL</p></td>
+        <td><p>{{apiURL}}</p></td>
       </tr>
-      <tr><td>
-
-        <button matTooltip="Connect to FHIR Server" aria-label="Button to connect to the FHIR Server">Connect</button></td><td><button>Disconnect</button></td></tr>
-      <tr></tr>
     </table>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -39,8 +35,10 @@
       <mat-tab label="Goals" matTooltip="View careplan goals" aria-label="Tab to select the goals group">
         <app-goals></app-goals>
       </mat-tab>
-      <mat-tab label="Health Maintance and Interventions" matTooltip="View health mainance and interventions" aria-label="Tab to select the health maintance group"></mat-tab>
-      <mat-tab label="Health Status Evaluation and Outcomes" aria-label="Tab to select the health status and evaluation group"></mat-tab>
+      <mat-tab label="Health Maintenance & Interventions" matTooltip="View health maintenance and interventions" aria-label="Tab to select the health maintance group">
+        <app-maintenance-and-interventions></app-maintenance-and-interventions>
+      </mat-tab>
+      <mat-tab label="Health Status Evaluation & Outcomes" aria-label="Tab to select the health status and evaluation group"></mat-tab>
       <mat-tab label="Care Team" area-label="Tab to select the care team group">
       </mat-tab>
     </mat-tab-group>

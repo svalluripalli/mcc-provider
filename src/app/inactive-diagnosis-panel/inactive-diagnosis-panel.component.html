@@ -1,37 +1,37 @@
-<mat-panel-title class="tile-header" >Inactive Diagnoses</mat-panel-title>
-<mat-table [dataSource]="dataSource">
+<mat-panel-title class="group-header" >Inactive Diagnoses</mat-panel-title>
+<mat-table [dataSource]="dataservice.conditions.inactiveConditions">
   <!-- Position Column -->
   <ng-container matColumnDef="checked">
     <mat-header-cell *matHeaderCellDef>
 
       <mat-icon>check</mat-icon></mat-header-cell>
-    <mat-cell *matCellDef="let diagnosis">
-      <mat-checkbox [(ngModel)]="diagnosis.checked"></mat-checkbox>
+    <mat-cell *matCellDef="let condition">
+      <mat-checkbox [(ngModel)]="condition.checked"></mat-checkbox>
     </mat-cell>
   </ng-container>
 
   <!-- Position Column -->
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>Condition </mat-header-cell>
-    <mat-cell *matCellDef="let diagnosis"> {{diagnosis.name}} </mat-cell>
+    <mat-cell *matCellDef="let condition"> {{condition.code.text}} </mat-cell>
   </ng-container>
 
 
   <!-- Rx Filter Column -->
   <ng-container matColumnDef="rxfilter">
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
-    <mat-cell *matCellDef="let diagnosis"><mat-icon matTooltip="Switch to Health Maintance using this codition as a focus" aria-label="Selection to change to the Health Maintance and Intervention tab using this condition as a focus">local_pharmacy</mat-icon></mat-cell>
+    <mat-cell *matCellDef="let condition"><mat-icon matTooltip="Switch to Health Maintance using this codition as a focus" aria-label="Selection to change to the Health Maintance and Intervention tab using this condition as a focus">local_pharmacy</mat-icon></mat-cell>
   </ng-container>
-  <!-- Tredn Filter Column -->
+  <!-- Trend Filter Column -->
   <ng-container matColumnDef="trend">
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
-    <mat-cell *matCellDef="let diagnosis"><mat-icon matTooltip="Switch to Heath Status using this condition as a focus" aria-label="Selection to change to the the Health Status Evaluation and Outcomes using this condition as a focus">timeline</mat-icon></mat-cell>
+    <mat-cell *matCellDef="let condition"><mat-icon matTooltip="Switch to Heath Status using this condition as a focus" aria-label="Selection to change to the the Health Status Evaluation and Outcomes using this condition as a focus">timeline</mat-icon></mat-cell>
   </ng-container>
 
   <!-- Name Column -->
   <ng-container matColumnDef="date">
     <mat-header-cell *matHeaderCellDef> Date of Initial Diagnosis</mat-header-cell>
-    <mat-cell *matCellDef="let diagnosis"> {{diagnosis.date}} </mat-cell>
+    <mat-cell *matCellDef="let condition"> {{condition.firstOnset}} </mat-cell>
   </ng-container>
 
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {DataService} from '../data.service';
 
 @Component({
   selector: 'app-active-diagnosis-panel',
@@ -7,14 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActiveDiagnosisPanelComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dataservice: DataService) { }
   displayedColumns = ['checked', 'name', 'rxfilter', 'trend', 'date'];
-  dataSource = DIAGNOISIS_DATA;
+  /* dataSource = DIAGNOISIS_DATA; */
       ngOnInit(): void {
   }
 
 }
-
+/*
 export interface Diagnosis {
   checked: boolean;
   name: string;
@@ -27,3 +28,4 @@ const DIAGNOISIS_DATA: Diagnosis[] = [
   {checked: false, name: 'Chronic Kidney Disease', date: '04/26/2015' },
   {checked: false, name: 'Diabetes', date: '12/13/2015' }
 ]
+*/

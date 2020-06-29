@@ -2,6 +2,7 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {SubjectDataService} from './subject-data-service.service';
 import {CareplanService} from './careplan.service';
 import {DataService} from './data.service';
+import {environment} from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -15,10 +16,12 @@ export class AppComponent implements OnInit {
   title = 'providersmartapp';
   events: string[] = [];
   opened: boolean;
+  apiURL: string;
 
   ngOnInit(): void {
     this.dataservice.setCurrentSubject('cc-pat-betsy');
-    this.dataservice.setCurrentCarePlabn('cc-careplan-betsy-ckd');
+    this.dataservice.setCurrentCarePlan('cc-careplan-betsy-ckd');
+    this.apiURL = environment.mccapiUrl;
   }
 
 }

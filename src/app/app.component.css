@@ -57,8 +57,18 @@ mat-tab-group {
   justify-content: center;
 }
 
+.group-header {
+  display: flex;
+  flex: 1 0 100%;
+  justify-content: center;
+  vertical-align: top;
+  background: blue;
+  color: white;
+}
+
 .center-name
 {
   flex: 1 1 auto;
   text-align: center;
 }
+

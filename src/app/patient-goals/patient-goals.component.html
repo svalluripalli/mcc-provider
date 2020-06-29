@@ -1,0 +1,19 @@
+<mat-panel-title class="group-header" >Patient Goals</mat-panel-title>
+<mat-table [dataSource]="dataservice.goals.activePatientGoals">
+
+  <ng-container matColumnDef="rank">
+    <mat-header-cell *matHeaderCellDef>Rank</mat-header-cell>
+    <mat-cell *matCellDef="let goal"> {{goal.rank}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef>Goal</mat-header-cell>
+    <mat-cell *matCellDef="let goal"> {{goal.description}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+  <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (click)="row.highlighted = !row.highlighted" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></mat-row>
+</mat-table>
+
+<button>Add Patient Goal</button>

@@ -2,21 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { environment} from '../environments/environment';
-
-import { CarePlan } from './datamodel/carePlan';
-import { MessageService } from './message.service';
-
-@Injectable({providedIn: 'root'})
-/* cc-careplan-betsy-ckd */
+import {MessageService} from './message.service';
+import {Demographic} from './datamodel/demographics';
+import {SocialConcerns} from './datamodel/socialconcerns';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CareplanService {
+export class SocialConcernService {
 
-  private baseURL = '/careplan';
 
+  private baseURL = 'http://localhost:8080/socialconcern';
+  private queryURL = 'http://localhost:8080/socialconcern';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -25,30 +22,38 @@ export class CareplanService {
   constructor(private http: HttpClient,  private messageService: MessageService) { }
 
 
-  /** GET Cqareplan by id. Return `undefined` when id not found */
-  getCarePlanNo404<Data>(id: string): Observable<CarePlan> {
-    const url = `${environment.mccapiUrl}${this.baseURL}/${id}`;
-    return this.http.get<CarePlan[]>(url)
+
+  /** GET Demographic by id. Return `undefined` when id not found */
+  getSubjectNo404<Data>(id: string, subjectId: string): Observable<SocialConcerns> {
+    const url = `${this.baseURL}/${id}?subject={subjectId}`;
+    return this.http.get<SocialConcerns[]>(url)
       .pipe(
-        map(careplans => careplans[0]), // returns a {0|1} element array
+        map(socialConcerns => socialConcerns[0]), // returns a {0|1} element array
         tap(h => {
           const outcome = h ? `fetched` : `did not find`;
           this.log(`${outcome} hero id=${id}`);
         }),
-        catchError(this.handleError<CarePlan>(`Plan id=${id}`))
+        catchError(this.handleError<SocialConcerns>(`Subject id=${subjectId}`))
       );
   }
 
-  /** GET careplan by id. Will 404 if id not found */
-  getCarePlan(id: string): Observable<CarePlan> {
-    const url = `${environment.mccapiUrl}${this.baseURL}/${id}`;
-    return this.http.get<CarePlan>(url).pipe(
-      tap(_ => this.log(`fetched careplan id=${id}`)),
-      catchError(this.handleError<CarePlan>(`getCarePlan id=${id}`))
+  /** GET Subject by id. Will 404 if id not found */
+  getSubject(id: string): Observable<Demographic> {
+    const url = `${this.baseURL}/${id}?subject={subjectId}`;
+    return this.http.get<Demographic>(url).pipe(
+      tap(_ => this.log(`fetched subject id=${id}`)),
+      catchError(this.handleError<Demographic>(`getSubject id=${id}`))
     );
   }
 
 
+  getPateintsSortedByNamne()
+  {
+    /*
+    https://api.logicahealth.org/MCCeCarePlanTest/open/Patient?_sort=family,given
+     */
+
+  }
 
   /**
    * Handle Http operation that failed.

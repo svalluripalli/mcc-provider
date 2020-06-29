@@ -20,6 +20,15 @@ import { ActiveDiagnosisPanelComponent } from './active-diagnosis-panel/active-d
 import { InactiveDiagnosisPanelComponent } from './inactive-diagnosis-panel/inactive-diagnosis-panel.component';
 import { DiagnosisPanelComponent } from './diagnosis-panel/diagnosis-panel.component';
 import { SocialConcernPanelComponent } from './social-concern-panel/social-concern-panel.component';
+import { ClinicalGoalsComponent } from './clinical-goals/clinical-goals.component';
+import { PatientChoicesComponent } from './patient-choices/patient-choices.component';
+import { TargetValuesComponent } from './target-values/target-values.component';
+import { PatientGoalsComponent } from './patient-goals/patient-goals.component';
+import { MaintenanceAndInterventionsComponent } from './maintenance-and-interventions/maintenance-and-interventions.component';
+import { MedicationPanelComponent } from './medication-panel/medication-panel.component';
+import { EducationPanelComponent } from './education-panel/education-panel.component';
+import { NutritionPanelComponent } from './nutrition-panel/nutrition-panel.component';
+import { ReferralPanelComponent } from './referral-panel/referral-panel.component';
 
 
 
@@ -34,7 +43,16 @@ const routes: Routes = []; // sets up routes constant where you define your rout
     ActiveDiagnosisPanelComponent,
     InactiveDiagnosisPanelComponent,
     DiagnosisPanelComponent,
-    SocialConcernPanelComponent
+    SocialConcernPanelComponent,
+    ClinicalGoalsComponent,
+    PatientChoicesComponent,
+    TargetValuesComponent,
+    PatientGoalsComponent,
+    MaintenanceAndInterventionsComponent,
+    MedicationPanelComponent,
+    EducationPanelComponent,
+    NutritionPanelComponent,
+    ReferralPanelComponent
   ],
   imports: [
     FlexLayoutModule,

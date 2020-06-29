@@ -1,0 +1,32 @@
+mat-grid-tile
+{
+  /* background: lightskyblue; */
+}
+
+app-medication-panel {
+  width: inherit;
+  vertical-align: top;
+  height: -webkit-fill-available;
+  height: -moz-available;
+  height: stretch;
+}
+
+app-education-panel{
+  width: inherit;
+  vertical-align: top;
+  height: -webkit-fill-available;
+  height: -moz-available;
+  height: stretch;
+  overflow: scroll;
+}
+
+
+app-education-panel{
+  width: inherit;
+  vertical-align: top;
+  height: -webkit-fill-available;
+  height: -moz-available;
+  height: stretch;
+  overflow: scroll;
+}
+
