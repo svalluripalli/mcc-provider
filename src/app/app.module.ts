@@ -31,6 +31,12 @@ import { NutritionPanelComponent } from './nutrition-panel/nutrition-panel.compo
 import { ReferralPanelComponent } from './referral-panel/referral-panel.component';
 import { HealthStatusComponent } from './health-status/health-status.component';
 import { CareTeamComponent } from './care-team/care-team.component';
+import { ClinicalTestResultsComponent } from './clinical-test-results/clinical-test-results.component';
+import { LabTestResultComponent } from './lab-test-result/lab-test-result.component';
+import { BloodPressureComponent } from './blood-pressure/blood-pressure.component';
+import { EGFRComponent } from './e-gfr/e-gfr.component';
+import { WeightOverTimeComponent } from './weight-over-time/weight-over-time.component';
+import { UACRComponent } from './uacr/uacr.component';
 
 
 
@@ -56,7 +62,13 @@ const routes: Routes = []; // sets up routes constant where you define your rout
     NutritionPanelComponent,
     ReferralPanelComponent,
     HealthStatusComponent,
-    CareTeamComponent
+    CareTeamComponent,
+    ClinicalTestResultsComponent,
+    LabTestResultComponent,
+    BloodPressureComponent,
+    EGFRComponent,
+    WeightOverTimeComponent,
+    UACRComponent
   ],
   imports: [
     FlexLayoutModule,

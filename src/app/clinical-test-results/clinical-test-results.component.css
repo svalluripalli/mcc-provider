@@ -1,0 +1,14 @@
+
+table.internal,td.internal, td.internal {
+  border: none;
+  border-style: hidden;
+}
+
+table,td, th {
+  border-collapse: collapse;
+  border: black;
+  border-width: 1px;
+  border-style: solid;
+  margin-inside: 0;
+  margin-outside: 0;
+}
