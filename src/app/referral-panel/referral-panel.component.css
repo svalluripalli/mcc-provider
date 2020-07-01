@@ -1,12 +1,4 @@
 
-
-.group-header_save {
-  justify-content: center;
-  vertical-align: top;
-  background: blue;
-  color: white;
-}
-
 mat-table {
   vertical-align: top;
 }

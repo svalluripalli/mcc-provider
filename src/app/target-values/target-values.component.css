@@ -1,86 +1,26 @@
-mat-grid-tile .mat-figure {
-  justify-content: center;
-  vertical-align: top;
-}
 
 mat-table {
   vertical-align: top;
-  min-width: 500px;
 }
-mat-header-row {
+
+tr.mat-table {
+  vertical-align: top;
+  min-width: 700px;
+}
+
+tr.mat-header-row {
   min-height: 24px;
   height: 24px !important;
 }
 
-mat-row {
+tr.mat-row {
   min-height: 24px;
   height: 24px !important;
   background-color: lightgreen;
 }
 
-mat-row.outofrange {
+tr.mat-row.outofrange {
   min-height: 24px;
   height: 24px !important;
   background-color: lightyellow;
-}
-
-.mat-column-measure {
-  word-wrap: break-word !important;
-  white-space: unset !important;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  word-break: break-word;
-
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
-
-.mat-column-mostRecentResult {
-  word-wrap: break-word !important;
-  white-space: unset !important;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  word-break: break-word;
-
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
-.mat-column-date {
-  word-wrap: break-word !important;
-  white-space: unset !important;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  word-break: break-word;
-
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
-.mat-column-target {
-  word-wrap: break-word !important;
-  white-space: unset !important;
-
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  word-break: break-word;
-
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
-
-th.mat-header-cell, td.mat-cell {
-  text-align: left;
-  border: 1px solid #CCC;
-  padding: 0 !important;
 }

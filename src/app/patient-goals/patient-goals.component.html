@@ -1,19 +1,19 @@
-<mat-panel-title class="group-header" >Patient Goals</mat-panel-title>
-<mat-table [dataSource]="dataservice.goals.activePatientGoals">
+<div class="group-header" >Patient Goals</div>
+<table mat-table [dataSource]="dataservice.goals.activePatientGoals" width="100%">
 
   <ng-container matColumnDef="rank">
-    <mat-header-cell *matHeaderCellDef>Rank</mat-header-cell>
-    <mat-cell *matCellDef="let goal"> {{goal.rank}} </mat-cell>
+    <th mat-header-cell *matHeaderCellDef>Rank</th>
+    <td mat-cell *matCellDef="let goal"> {{goal.rank}} </td>
   </ng-container>
 
   <ng-container matColumnDef="description">
-    <mat-header-cell *matHeaderCellDef>Goal</mat-header-cell>
-    <mat-cell *matCellDef="let goal"> {{goal.description}} </mat-cell>
+    <th mat-header-cell *matHeaderCellDef>Goal</th>
+    <td mat-cell *matCellDef="let goal"> {{goal.description}} </td>
   </ng-container>
 
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
-  <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (click)="row.highlighted = !row.highlighted" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></mat-row>
-</mat-table>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (click)="row.highlighted = !row.highlighted" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></tr>
+</table>
 
 <button>Add Patient Goal</button>

@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule} from '@angular/flex-layout';
 import { FormsModule} from '@angular/forms';
 import { ServiceWorkerModule} from '@angular/service-worker';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppMaterialModuleModule} from './app-material-module/app-material-module.module';
 
@@ -37,6 +38,7 @@ import { BloodPressureComponent } from './blood-pressure/blood-pressure.componen
 import { EGFRComponent } from './e-gfr/e-gfr.component';
 import { WeightOverTimeComponent } from './weight-over-time/weight-over-time.component';
 import { UACRComponent } from './uacr/uacr.component';
+import { BPGraphComponent } from './bpgraph/bpgraph.component';
 
 
 
@@ -68,10 +70,12 @@ const routes: Routes = []; // sets up routes constant where you define your rout
     BloodPressureComponent,
     EGFRComponent,
     WeightOverTimeComponent,
-    UACRComponent
+    UACRComponent,
+    BPGraphComponent
   ],
   imports: [
     FlexLayoutModule,
+    ChartsModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppMaterialModuleModule,

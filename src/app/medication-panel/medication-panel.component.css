@@ -1,5 +1,6 @@
 
-.group-header {
+
+.group-header_save {
   justify-content: center;
   vertical-align: top;
   background: blue;
@@ -10,79 +11,23 @@ mat-table {
   vertical-align: top;
 }
 
-mat-table {
+tr.mat-table {
   vertical-align: top;
   min-width: 700px;
 }
-mat-header-row {
+
+tr.mat-header-row {
   min-height: 24px;
   height: 24px !important;
 }
 
-mat-row {
+tr.mat-row {
   min-height: 24px;
   height: 24px !important;
 }
 
 
-.zmat-column {
-  word-wrap: break-word !important;
-  white-space: unset !important;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  word-break: break-word;
-
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
-
-.zmat-column-name {
-  word-wrap: break-word !important;
-  white-space: unset !important;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  word-break: break-word;
-
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
-.zmat-column-dose {
-  word-wrap: break-word !important;
-  white-space: unset !important;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  word-break: break-word;
-
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
-
-.zmat-column-doseForm {
-  word-wrap: break-word !important;
-  white-space: unset !important;
-
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  word-break: break-word;
-
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
-
-zth.mat-header-cell, ztd.mat-cell {
+th.mat-header-cell, td.mat-cell {
   text-align: left;
-  border: 1px solid #CCC;
   padding: 0 !important;
 }

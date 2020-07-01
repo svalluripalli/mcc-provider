@@ -1,47 +1,46 @@
 <div class="group-header" >Medications</div>
 <table mat-table [dataSource]="dataService.medications" width="100%">
-
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-    <mat-cell *matCellDef="let med"> {{med.name}} </mat-cell>
+    <th mat-header-cell  *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let med"> {{med.name}} </td>
   </ng-container>
 
   <ng-container matColumnDef="classortype">
-    <mat-header-cell *matHeaderCellDef>Class/Type</mat-header-cell>
-    <mat-cell *matCellDef="let med"> {{med.classOrType}} </mat-cell>
+    <th mat-header-cell *matHeaderCellDef>Class/Type</th>
+    <td mat-cell *matCellDef="let med"> {{med.classOrType}} </td>
   </ng-container>
 
   <ng-container matColumnDef="dose">
-    <mat-header-cell *matHeaderCellDef>Dose</mat-header-cell>
-    <mat-cell *matCellDef="let med"> {{med.dose}} </mat-cell>
+    <th mat-header-cell *matHeaderCellDef>Dose</th>
+    <td mat-cell *matCellDef="let med"> {{med.dose}} </td>
   </ng-container>
 
   <ng-container matColumnDef="doseForm">
-    <mat-header-cell *matHeaderCellDef>Dose Form</mat-header-cell>
-    <mat-cell *matCellDef="let med"> {{med.doseForm}} </mat-cell>
+    <th mat-header-cell *matHeaderCellDef>Dose Form</th>
+    <td mat-cell *matCellDef="let med"> {{med.doseForm}} </td>
   </ng-container>
 
 
   <ng-container matColumnDef="prescribedBy">
-    <mat-header-cell *matHeaderCellDef>Prescribing Clinician</mat-header-cell>
-    <mat-cell *matCellDef="let med"> {{med.prescribedBy}} </mat-cell>
+    <th mat-header-cell *matHeaderCellDef>Prescribing Clinician</th>
+    <td mat-cell *matCellDef="let med"> {{med.prescribedBy}} </td>
   </ng-container>
 
 
   <ng-container matColumnDef="startDate">
-    <mat-header-cell *matHeaderCellDef>Start Date</mat-header-cell>
-    <mat-cell *matCellDef="let med"> {{med.startDate}} </mat-cell>
+    <th mat-header-cell *matHeaderCellDef>Start Date</th>
+    <td mat-cell *matCellDef="let med"> {{med.startDate}} </td>
   </ng-container>
 
   <ng-container matColumnDef="adverseReactions">
-    <mat-header-cell *matHeaderCellDef>History of Adverse Reactions</mat-header-cell>
-    <mat-cell *matCellDef="let med"> {{med.adverseReactions}} </mat-cell>
+    <th mat-header-cell *matHeaderCellDef>History of Adverse Reactions</th>
+    <td mat-cell *matCellDef="let med"> {{med.adverseReactions}} </td>
   </ng-container>
 
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-  <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'outofrange': row.status == 'high'}" (click)="row.highlighted = !row.highlighted" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></mat-row>
 </table>
 
 

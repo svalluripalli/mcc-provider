@@ -1,68 +1,33 @@
-mat-grid-tile .mat-figure {
-  align-items: flex-start;
-  justify-content: normal;
+
+
+.group-header_save {
+  justify-content: center;
   vertical-align: top;
-  horiz-align: left;
-  flex: 0 0 auto !important;
+  background: blue;
+  color: white;
 }
 
 mat-table {
   vertical-align: top;
-  min-width: 500px;
-  width: 600px;
 }
-mat-header-row {
+
+tr.mat-table {
+  vertical-align: top;
+  min-width: 700px;
+}
+
+tr.mat-header-row {
   min-height: 24px;
   height: 24px !important;
 }
 
-mat-row {
+tr.mat-row {
   min-height: 24px;
   height: 24px !important;
-}
-
-.mat-column-goal {
-  word-wrap: break-word !important;
-  white-space: unset !important;
-  flex: 0 0 85% !important;
-  width: 85% !important;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  word-break: break-word;
-
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
-
-.mat-column-rank {
-  word-wrap: break-word !important;
-  white-space: unset !important;
-  flex: 0 0 10% !important;
-  width: 10% !important;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  word-break: break-word;
-
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
 }
 
 
 th.mat-header-cell, td.mat-cell {
   text-align: left;
-  border: 1px solid #CCC;
   padding: 0 !important;
-}
-
-.app-social-concern-panel {
-  width: 100%;
-  height: 100%;
-  vertical-align: top;
-  horiz-align: left;
 }
