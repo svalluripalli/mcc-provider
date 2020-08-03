@@ -13,7 +13,7 @@ export class UACRComponent implements OnInit {
     { data: [
         {
           x: new Date('2016-12-12T00:00:00Z'),
-          y: 38
+          y: 301
         },
         {
           x: new Date('2017-01-10T00:00:00Z'),
@@ -46,7 +46,7 @@ export class UACRComponent implements OnInit {
     maintainAspectRatio: true,
     scales: {
       yAxes: {
-        id: 'y-axis-0-uacr',
+        id: 'y-axis-0',
         type: 'linear',
         ticks: {
           suggestedMax: 400,
@@ -54,7 +54,7 @@ export class UACRComponent implements OnInit {
         }
       },
       xAxes: {
-        id: 'x-axis-0-uacr',
+        id: 'x-axis-0',
         type: 'time',
         ticks: {
           suggestedMin: new Date('2016-11-30'),
@@ -74,34 +74,34 @@ export class UACRComponent implements OnInit {
         drawTime: 'beforeDatasetsDraw',
         type: 'box',
         id: 'uacr-ok',
-        xScaleID: 'x-axis-0-uacr',
-        yScaleID: 'y-axis-0-uacr',
+        xScaleID: 'x-axis-0',
+        yScaleID: 'y-axis-0',
         borderWidth: 0,
         yMin: 0,
-        yMax: 29,
-        backgroundColor: 'rgba(227, 127, 104,0.3)'
+        yMax: 30,
+        backgroundColor: 'rgba(128, 204, 113,0.3)'
       },
         {
           drawTime: 'beforeDatasetsDraw',
           type: 'box',
           id: 'uacr-warning',
-          xScaleID: 'x-axis-0-uacr',
-          yScaleID: 'y-axis-0-uacr',
+          xScaleID: 'x-axis-0',
+          yScaleID: 'y-axis-0',
           borderWidth: 0,
           yMin: 30,
-          yMax: 299,
-          backgroundColor: 'rgba(235, 229, 117,0.3)'
+          yMax: 300,
+          backgroundColor: 'rgba(247, 245, 116,0.3)'
         },
         {
           drawTime: 'beforeDatasetsDraw',
           type: 'box',
           id: 'uacr-critical',
-          xScaleID: 'x-axis-0-uacr',
-          yScaleID: 'y-axis-0-uacr',
+          xScaleID: 'x-axis-0',
+          yScaleID: 'y-axis-0',
           borderWidth: 0,
           yMin: 300,
           yMax: 400,
-          backgroundColor: 'rgba(46, 204, 113,0.3)'
+          backgroundColor: 'rgba(227, 127, 104,0.3)'
         }
       ]
     }
@@ -109,6 +109,7 @@ export class UACRComponent implements OnInit {
 
   public lineChartColors: Color[] = [
     {
+      backgroundColor: 'white',
       borderColor: 'black',
     },
   ];
