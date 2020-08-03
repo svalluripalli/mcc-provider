@@ -98,7 +98,21 @@ export class BPGraphComponent implements OnInit {
   ];
 
   lineChartLegend = true;
-  lineChartPlugins = [];
+  lineChartPlugins =  [
+    {
+      annotation: {
+        annotations: {
+          drawTime: 'beforeDatasetsDraw',
+          type: 'box',
+          xScaleID: 'x-axis-0',
+          yScaleID: 'y-axis-0',
+          borderWidth: 0,
+          yMin: 70,
+          yMax: 130,
+          backgroundColor: 'rgba(46, 204, 113,0.3)'
+        }
+      }
+    }];
   lineChartType = 'line';
 
   constructor() { }

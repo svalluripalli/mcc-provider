@@ -5,3 +5,7 @@
 .resultGood{
   background-color: palegreen;
 }
+
+.resultCritical{
+  background-color: lightpink;
+}

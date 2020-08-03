@@ -1,7 +1,19 @@
-<b>Change in UAVR over Time</b>
+<b>Change in UACR over Time</b>
 <table width="100%">
   <tr>
-    <td>Graph goes here</td>
+    <td>
+      <div class="uACR">
+        <canvas baseChart
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                [plugins]="lineChartPlugins" height="200">
+        </canvas>
+      </div>
+      </td>
     <td>
       <table width="100%">
         <tr>
@@ -10,27 +22,27 @@
         </tr>
         <tr class="resultGood">
           <td>05/21/2017</td>
-          <td>1345 mg/g</td>
+          <td>28 mg/g</td>
         </tr>
-        <tr class="resultGood">
+        <tr class="resultBorderline">
           <td>04/23/2017</td>
-          <td>1320 mg/g</td>
+          <td>31 mg/g</td>
         </tr>
-        <tr class="resultGood">
+        <tr class="resultBorderline">
           <td>03/11/2017</td>
-          <td>1310 mg/g</td>
+          <td>32 mg/g</td>
         </tr>
-        <tr class="resultGood">
+        <tr class="resultBorderline">
           <td>02/11/2017</td>
-          <td>1310 mg/g</td>
+          <td>35 mg/g</td>
         </tr>
-        <tr class="resultGood">
+        <tr class="resultBorderline">
           <td>01/10/2017</td>
-          <td>1345 mg/g</td>
+          <td>37 mg/g</td>
         </tr>
         <tr class="resultGood">
           <td>12/12/2016</td>
-          <td>1345 mg/g</td>
+          <td>38 mg/g</td>
         </tr>
       </table>
     </td>
