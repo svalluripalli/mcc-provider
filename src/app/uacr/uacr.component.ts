@@ -46,6 +46,7 @@ export class UACRComponent implements OnInit {
     maintainAspectRatio: true,
     scales: {
       yAxes: {
+        id: 'y-axis-0-uacr',
         type: 'linear',
         ticks: {
           suggestedMax: 400,
@@ -53,6 +54,7 @@ export class UACRComponent implements OnInit {
         }
       },
       xAxes: {
+        id: 'x-axis-0-uacr',
         type: 'time',
         ticks: {
           suggestedMin: new Date('2016-11-30'),
@@ -71,8 +73,9 @@ export class UACRComponent implements OnInit {
       annotations: [{
         drawTime: 'beforeDatasetsDraw',
         type: 'box',
-        xScaleID: 'x-axis-1',
-        yScaleID: 'y-axis-1',
+        id: 'uacr-ok',
+        xScaleID: 'x-axis-0-uacr',
+        yScaleID: 'y-axis-0-uacr',
         borderWidth: 0,
         yMin: 0,
         yMax: 29,
@@ -81,8 +84,9 @@ export class UACRComponent implements OnInit {
         {
           drawTime: 'beforeDatasetsDraw',
           type: 'box',
-          xScaleID: 'x-axis-1',
-          yScaleID: 'y-axis-1',
+          id: 'uacr-warning',
+          xScaleID: 'x-axis-0-uacr',
+          yScaleID: 'y-axis-0-uacr',
           borderWidth: 0,
           yMin: 30,
           yMax: 299,
@@ -91,8 +95,9 @@ export class UACRComponent implements OnInit {
         {
           drawTime: 'beforeDatasetsDraw',
           type: 'box',
-          xScaleID: 'x-axis-1',
-          yScaleID: 'y-axis-1',
+          id: 'uacr-critical',
+          xScaleID: 'x-axis-0-uacr',
+          yScaleID: 'y-axis-0-uacr',
           borderWidth: 0,
           yMin: 300,
           yMax: 400,

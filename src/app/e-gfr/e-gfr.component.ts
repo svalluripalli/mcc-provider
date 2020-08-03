@@ -14,7 +14,7 @@ export class EGFRComponent implements OnInit {
     { data: [
         {
           x: new Date('2016-12-12T00:00:00Z'),
-          y: 46
+          y: 14
         },
         {
           x: new Date('2017-01-10T00:00:00Z'),
@@ -47,6 +47,7 @@ export class EGFRComponent implements OnInit {
     maintainAspectRatio: true,
     scales: {
       yAxes: {
+        id: 'y-axis-0',
         type: 'linear',
         ticks: {
           suggestedMax: 100,
@@ -54,6 +55,7 @@ export class EGFRComponent implements OnInit {
         }
       },
       xAxes: {
+        id: 'x-axis-0',
         type: 'time',
         ticks: {
           suggestedMin: new Date('2016-11-30'),
@@ -73,6 +75,7 @@ export class EGFRComponent implements OnInit {
         {
           drawTime: 'beforeDatasetsDraw',
           type: 'box',
+          id: 'egfr-critical',
           xScaleID: 'x-axis-0',
           yScaleID: 'y-axis-0',
           borderWidth: 0,
@@ -83,16 +86,18 @@ export class EGFRComponent implements OnInit {
         {
           drawTime: 'beforeDatasetsDraw',
           type: 'box',
+          id: 'egfr-warning',
           xScaleID: 'x-axis-0',
           yScaleID: 'y-axis-0',
           borderWidth: 0,
-          yMin: 16,
-          yMax: 59,
+          yMin: 15,
+          yMax: 60,
           backgroundColor: 'rgba(247, 245, 116,0.3)'
         },
         {
           drawTime: 'beforeDatasetsDraw',
           type: 'box',
+          id: 'egfr-ok',
           xScaleID: 'x-axis-0',
           yScaleID: 'y-axis-0',
           borderWidth: 0,
