@@ -38,10 +38,14 @@ export class DataService  {
   async setCurrentSubject(patientId: string): Promise<boolean>
   {
     this.currentPatientId = patientId;
+    /*
     this.subjectdataservice.getSubject(this.currentPatientId)
       .subscribe(demograhic => this.demographic = demograhic);
     this.subjectdataservice.getConditions(this.currentPatientId)
       .subscribe(condition => this.conditions = condition);
+     */
+    this.updateDemographics();
+    this.updateConditions();
     this.medications = mockMedicationSummary;
     this.education = mockEducation;
     this.nutrition = mockNutrition;
@@ -52,14 +56,38 @@ export class DataService  {
   async setCurrentCarePlan(planId: string): Promise<boolean>
   {
     this.currentCareplaId = planId;
+    this.updateCarePlan();
+    this.updateSocialConcerns();
+    /*
     this.careplanservice.getCarePlan(this.currentCareplaId)
       .subscribe(careplan => this.careplan = careplan);
     this.subjectdataservice.getSocialConcerns(this.currentPatientId, this.currentCareplaId)
       .subscribe(concerns => this.socialConcerns = concerns);
+    */
     this.targetValues = mockTargetData;
     this.goals = mockGoalList;
     return true;
   }
-
-
+  async updateCarePlan(): Promise<boolean> {
+    this.careplanservice.getCarePlan(this.currentCareplaId)
+      .subscribe(careplan => this.careplan = careplan);
+    return true;
+  }
+  async updateSocialConcerns(): Promise<boolean> {
+    this.subjectdataservice.getSocialConcerns(this.currentPatientId, this.currentCareplaId)
+      .subscribe(concerns => this.socialConcerns = concerns);
+    return true;
+  }
+  async updateDemographics(): Promise<boolean> {
+    this.subjectdataservice.getSubject(this.currentPatientId)
+      .subscribe(demograhic => this.demographic = demograhic);
+    this.subjectdataservice.getConditions(this.currentPatientId)
+      .subscribe(condition => this.conditions = condition);
+    return true;
+  }
+  async updateConditions(): Promise<boolean> {
+    this.subjectdataservice.getConditions(this.currentPatientId)
+      .subscribe(condition => this.conditions = condition);
+    return true;
+  }
 }
