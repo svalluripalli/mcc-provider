@@ -3,7 +3,50 @@ import {GoalLists} from './goallists';
 import {MedicationSummary} from './medicationSummary';
 import {Education} from './education';
 import {Referral} from './referral';
+import {Contact} from './contact';
 
+export const mockContacts: Contact[] = [
+  {
+    type: 'person',
+    role: 'patient',
+    name: 'Name goes here',
+    phone: '(xxx) xxx-xxxx',
+    email: 'xxx@xxxx.org',
+    address: 'xxx streat, city, state zipxxx'
+  },
+  {
+    type: 'person',
+    role: 'alternate_contact',
+    name: 'Name goes here',
+    phone: '(xxx) xxx-xxxx',
+    email: 'xxx@xxxx.org',
+    address: 'xxx streat, city, state zipxxx'
+  },
+  {
+    type: 'person',
+    role: 'provider',
+    name: 'Dr Name goes here',
+    phone: '(xxx) xxx-xxxx',
+    email: 'xxx@xxxx.org',
+    address: 'xxx streat, city, state zipxxx'
+  },
+  {
+    type: 'organization',
+    role: 'primary_care',
+    name: 'Name goes here',
+    phone: '(xxx) xxx-xxxx',
+    email: 'xxx@xxxx.org',
+    address: 'xxx streat, city, state zipxxx'
+  },
+  {
+    type: 'organization',
+    role: 'insurance',
+    name: 'Name goes here',
+    phone: '(xxx) xxx-xxxx',
+    email: 'xxx@xxxx.org',
+    address: 'xxx streat, city, state zipxxx'
+  }
+];
 
 export const mockReferrals: Referral[] = [
   {

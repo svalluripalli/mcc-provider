@@ -6,13 +6,14 @@ import {CarePlan} from './datamodel/carePlan';
 import {SocialConcerns} from './datamodel/socialconcerns';
 import {ConditionLists} from './datamodel/conditionLists';
 import {TargetValue} from './datamodel/targetvalue';
-import {mockEducation, mockNutrition, mockReferrals, mockTargetData} from './datamodel/mockData';
+import {mockContacts, mockEducation, mockNutrition, mockReferrals, mockTargetData} from './datamodel/mockData';
 import {mockGoalList} from './datamodel/mockData';
 import {mockMedicationSummary} from './datamodel/mockData';
 import {GoalLists} from './datamodel/goallists';
 import {MedicationSummary} from './datamodel/medicationSummary';
 import {Education} from './datamodel/education';
 import {Referral} from './datamodel/referral';
+import {Contact} from './datamodel/contact';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,7 @@ export class DataService  {
   education: Education[];
   nutrition: Education[];
   referrals: Referral[];
+  contacts: Contact[];
 
   constructor(private subjectdataservice: SubjectDataService, private careplanservice: CareplanService) { }
 
@@ -50,6 +52,7 @@ export class DataService  {
     this.education = mockEducation;
     this.nutrition = mockNutrition;
     this.referrals = mockReferrals;
+    this.contacts = mockContacts;
     return true;
   }
 
