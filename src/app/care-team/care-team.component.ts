@@ -8,7 +8,7 @@ import {DataService} from '../data.service';
 })
 export class CareTeamComponent implements OnInit {
   gridColumns = 4;
-  constructor(public dataservice: DataService) {}
+  constructor(public dataservice: DataService) {console.log(this.dataservice.contacts); }
 
   ngOnInit(): void {
 
