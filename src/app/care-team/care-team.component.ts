@@ -7,10 +7,11 @@ import {DataService} from '../data.service';
   styleUrls: ['./care-team.component.css']
 })
 export class CareTeamComponent implements OnInit {
-
-  constructor(public dataservice: DataService) { }
+  gridColumns = 4;
+  constructor(public dataservice: DataService) {}
 
   ngOnInit(): void {
+
   }
 
 }
