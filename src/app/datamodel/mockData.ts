@@ -134,132 +134,132 @@ export const mockMedicationSummary: MedicationSummary[] = [
 ];
 
 export const mockTargetData: TargetValue[] = [
-  {
-    measure: 'Systolic Blood Pressure (mm Hg)',
-    mostRecentResult: '155',
-    date: '02/13/2017',
-    target: '<140',
-    status: 'high'
-  },
-  {
-    measure: 'Diastolic Blood Pressure (mm Hg)',
-    mostRecentResult: '92',
-    date: '02/13/2017',
-    target: '<80',
-    status: 'high'
-  },
-  {
-    measure: 'Potassium (mEq/L)',
-    mostRecentResult: '4.8',
-    date: '02/05/2017',
-    target: '3.5-5.0',
-    status: 'good'
-  },
-  {
-    measure: 'Bicarbonate (mEq/L)',
-    mostRecentResult: '23',
-    date: '02/05/2017',
-    target: '>22',
-    status: 'good'
-  },
-  {
-    measure: 'Phosphorous (mEq/dL)',
-    mostRecentResult: '4.3',
-    date: '02/05/2017',
-    target: '2.5-4.5',
-    status: 'good'
-  },
-  {
-    measure: 'Calcium (mEq/dL)',
-    mostRecentResult: '10.1',
-    date: '02/05/2017',
-    target: '8.5-10.2',
-    status: 'good'
-  },
-  {
-    measure: 'Diabetes: A1C (%)',
-    mostRecentResult: '8',
-    date: '02/05/2017',
-    target: '<7',
-    status: 'high'
-  },
-  {
-    measure: 'LDL Cholesterol (mg/dL)',
-    mostRecentResult: '120',
-    date: '02/05/2017',
-    target: '<100',
-    status: 'high'
-  }
-];
+    {
+      measure: 'Systolic Blood Pressure (mm Hg)',
+      mostRecentResult: '155',
+      date: '02/13/2017',
+      target: '<140',
+      status: 'high'
+    },
+    {
+      measure: 'Diastolic Blood Pressure (mm Hg)',
+      mostRecentResult: '92',
+      date: '02/13/2017',
+      target: '<80',
+      status: 'high'
+    },
+    {
+      measure: 'Potassium (mEq/L)',
+      mostRecentResult: '4.8',
+      date: '02/05/2017',
+      target: '3.5-5.0',
+      status: 'good'
+    },
+    {
+      measure: 'Bicarbonate (mEq/L)',
+      mostRecentResult: '23',
+      date: '02/05/2017',
+      target: '>22',
+      status: 'good'
+    },
+    {
+      measure: 'Phosphorous (mEq/dL)',
+      mostRecentResult: '4.3',
+      date: '02/05/2017',
+      target: '2.5-4.5',
+      status: 'good'
+    },
+    {
+      measure: 'Calcium (mEq/dL)',
+      mostRecentResult: '10.1',
+      date: '02/05/2017',
+      target: '8.5-10.2',
+      status: 'good'
+    },
+    {
+      measure: 'Diabetes: A1C (%)',
+      mostRecentResult: '8',
+      date: '02/05/2017',
+      target: '<7',
+      status: 'high'
+    },
+    {
+      measure: 'LDL Cholesterol (mg/dL)',
+      mostRecentResult: '120',
+      date: '02/05/2017',
+      target: '<100',
+      status: 'high'
+    }
+  ];
 
 export const mockGoalList: GoalLists = {
-  activeClinicalGoals: [
-    {
-      description: 'Slow CKD Progression',
-      rank: 1,
-      active: true,
-      type: 'clinical'
-    },
-    {
-      description: 'Manage Cardiovascular Risk',
-      rank: 2,
-      active: true,
-      type: 'clinical'
-    },
-    {
-      description: 'Prevent CKD Complications',
-      rank: 3,
-      active: true,
-      type: 'clinical'
-    },
-    {
-      description: 'Maintain Target Thyroid Level',
-      rank: 4,
-      active: true,
-      type: 'clinical'
-    },
-    {
-      description: 'Manage Depression',
-      rank: 5,
-      active: true,
-      type: 'clinical'
-    },
-    {
-      description: 'Manage Congestive Heart Failure',
-      rank: 6,
-      active: true,
-      type: 'clinical'
-    },
-    {
-      description: 'Rehabilitate Angle Injury',
-      rank: 7,
-      active: true,
-      type: 'clinical'
-    },
-    {
-      description: 'Maintain Immunization Status',
-      rank: 8,
-      active: true,
-      type: 'clinical'
-    }
-  ],
-  inactiveClinicalGoals: [],
-  activePatientGoals: [
-    {
-      description: 'Maximize Quality of Life',
-      rank: 1,
-      active: true,
-      type: 'patient'
-    },
-    {
-      description: 'Major Health Events: Kidney Failure, Hospitalizations',
-      rank: 2,
-      active: true,
-      type: 'patient'
-    }
-  ],
-  inactivePatientGoals: []
-};
+    activeClinicalGoals: [
+      {
+        description: 'Slow CKD Progression',
+        rank: 1,
+        active: true,
+        type: 'clinical'
+      },
+      {
+        description: 'Manage Cardiovascular Risk',
+        rank: 2,
+        active: true,
+        type: 'clinical'
+      },
+      {
+        description: 'Prevent CKD Complications',
+        rank: 3,
+        active: true,
+        type: 'clinical'
+      },
+      {
+        description: 'Maintain Target Thyroid Level',
+        rank: 4,
+        active: true,
+        type: 'clinical'
+      },
+      {
+        description: 'Manage Depression',
+        rank: 5,
+        active: true,
+        type: 'clinical'
+      },
+      {
+        description: 'Manage Congestive Heart Failure',
+        rank: 6,
+        active: true,
+        type: 'clinical'
+      },
+      {
+        description: 'Rehabilitate Angle Injury',
+        rank: 7,
+        active: true,
+        type: 'clinical'
+      },
+      {
+        description: 'Maintain Immunization Status',
+        rank: 8,
+        active: true,
+        type: 'clinical'
+      }
+    ],
+    inactiveClinicalGoals: [],
+    activePatientGoals: [
+      {
+        description: 'Maximize Quality of Life',
+        rank: 1,
+        active: true,
+        type: 'patient'
+      },
+      {
+        description: 'Major Health Events: Kidney Failure, Hospitalizations',
+        rank: 2,
+        active: true,
+        type: 'patient'
+      }
+    ],
+    inactivePatientGoals: []
+  };
 
 export const dummySubject: Demographic = {
   name: 'No Patient Selected',
