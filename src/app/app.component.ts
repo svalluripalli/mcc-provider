@@ -12,15 +12,22 @@ import {environment} from '../environments/environment';
 })
 export class AppComponent implements OnInit {
 
-  constructor(public dataservice: DataService) { }
+  constructor(public dataservice: DataService) {
+  }
+
   title = 'providersmartapp';
   events: string[] = [];
   opened: boolean;
   apiURL: string;
+  // currentSubjectId = 'cc-pat-betsy';
+  // currentCarePlanId = 'cc-careplan-betsy-ckd';
+  currentSubjectId = '';
+  currentCarePlanId = '';
 
   ngOnInit(): void {
-    this.dataservice.setCurrentSubject('cc-pat-betsy');
-    this.dataservice.setCurrentCarePlan('cc-careplan-betsy-ckd');
+    // todo:  patient selector
+    this.dataservice.setCurrentSubject(this.currentSubjectId);
+    this.dataservice.setCurrentCarePlan(this.currentCarePlanId);
     this.apiURL = environment.mccapiUrl;
   }
 
