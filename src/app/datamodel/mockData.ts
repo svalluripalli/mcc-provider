@@ -4,6 +4,11 @@ import {MedicationSummary} from './medicationSummary';
 import {Education} from './education';
 import {Referral} from './referral';
 import {Contact} from './contact';
+import {Demographic} from './demographics';
+import {ConditionLists} from './conditionLists';
+import {Concern} from './socialconcerns';
+import {CarePlan} from './carePlan';
+
 
 export const mockContacts: Contact[] = [
   {
@@ -12,7 +17,7 @@ export const mockContacts: Contact[] = [
     name: 'Name goes here',
     phone: '(xxx) xxx-xxxx',
     email: 'xxx@xxxx.org',
-    address: 'xxx streat, city, state zipxxx'
+    address: 'xxx street, city, state zipxxx'
   },
   {
     type: 'person',
@@ -20,7 +25,7 @@ export const mockContacts: Contact[] = [
     name: 'Name goes here',
     phone: '(xxx) xxx-xxxx',
     email: 'xxx@xxxx.org',
-    address: 'xxx streat, city, state zipxxx'
+    address: 'xxx street, city, state zipxxx'
   },
   {
     type: 'person',
@@ -28,7 +33,7 @@ export const mockContacts: Contact[] = [
     name: 'Dr Name goes here',
     phone: '(xxx) xxx-xxxx',
     email: 'xxx@xxxx.org',
-    address: 'xxx streat, city, state zipxxx'
+    address: 'xxx street, city, state zipxxx'
   },
   {
     type: 'organization',
@@ -36,7 +41,7 @@ export const mockContacts: Contact[] = [
     name: 'Name goes here',
     phone: '(xxx) xxx-xxxx',
     email: 'xxx@xxxx.org',
-    address: 'xxx streat, city, state zipxxx'
+    address: 'xxx street, city, state zipxxx'
   },
   {
     type: 'organization',
@@ -44,7 +49,7 @@ export const mockContacts: Contact[] = [
     name: 'Name goes here',
     phone: '(xxx) xxx-xxxx',
     email: 'xxx@xxxx.org',
-    address: 'xxx streat, city, state zipxxx'
+    address: 'xxx street, city, state zipxxx'
   }
 ];
 
@@ -75,7 +80,7 @@ export const mockEducation: Education[] = [
     date: '07/01/2014',
     assessmentOfUnderstanding: 'Adequate'
   }
-  ];
+];
 
 export const mockNutrition: Education[] = [
   {
@@ -255,3 +260,43 @@ export const mockGoalList: GoalLists = {
     ],
     inactivePatientGoals: []
   };
+
+export const dummySubject: Demographic = {
+  name: 'No Patient Selected',
+  id: 'ID-000',
+  fhirid: 'cc-pat-null',
+  dateOfBirth: '01/01/1900',
+  gender: 'Male',
+  race: 'White',
+  ethnicity: 'Not Hispanic or Latino'
+};
+
+export const dummyPatientId = 'cc-pat-null';
+export const dummyCareplanId = 'cc-careplan-null-ckd';
+
+export const dummyConditions: ConditionLists = {
+  activeConditions: [],
+  inactiveConditions: [],
+  activeConcerns: [],
+  inactiveConcerns: []
+};
+
+export const dummyCarePlan: CarePlan = {
+  title: 'None',
+  dateLastRevised: '01/01/1900',
+  addresses: [],
+  addressesSummary: '',
+  categorySummary: '',
+  categories: [],
+  id: 'Unknown',
+  periodStarts: '01/01/1900',
+  periodEnds: '01/01/1900',
+  status: 'InActive',
+  intent: 'plan',
+  description: 'No Care Plan Selected',
+  notes: 'string',
+  dateResourceLastUpdated: '01/01/1900',
+  fhirid: 'cc-careplan-null-ckd'
+};
+
+export const dummySocialConcerns: Concern[] = [];

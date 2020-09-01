@@ -149,8 +149,6 @@ static concerns: Concern[] = [
   static getBaseConcerns(): Concern[]
   {
     /* return cloneDeep(this.concerns); */
-    const str = 'Getting concerns';
-    console.log(str);
     return this.concerns;
   }
 }
