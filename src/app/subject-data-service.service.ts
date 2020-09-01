@@ -47,6 +47,16 @@ export class SubjectDataService{
     );
   }
 
+  /** GET Subjects by searchString. Will 404 if id not found */
+  getSubjects(searchFor: string): Observable<Demographic>{
+    const url = `${environment.mccapiUrl}${this.patientURL}?name=${searchFor}`;
+    return this.http.get<Demographic>(url).pipe(
+      tap(_ => this.log(`fetched subject id=${_.id}`)),
+      catchError(this.handleError<Demographic>(`getSubjects searchFor=${searchFor}`))
+    );
+  }
+
+
   getConditions(id: string): Observable<ConditionLists>
   {
     const url = `${environment.mccapiUrl}${this.conditionSummaryURL}?subject=${id}`;

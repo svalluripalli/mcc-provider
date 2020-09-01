@@ -4,10 +4,24 @@
     <!-- This fills the remaining space of the current row -->
     <span class="center-name">{{dataservice.demographic.name}}, DOB: {{dataservice.demographic.dateOfBirth}}</span>
     <span class="example-fill-remaining-space"></span>
-    <mat-icon matTooltip="Select a new patient" aria-label="Button to select a new patient">person</mat-icon>
+    <!-- todo: put patientSearch style into app.component.css file -->
+    <!-- todo: patSearch template variable useage to set focus when field is visible is not working -->
+    <input type="text"
+           #patSearch
+           *ngIf="showPatientSearch"
+           style="float: right; width:400px; height:60%; font-size: .8em; background: white; color: black"
+           matInput
+           placeholder="Enter at least {{minSearchCharacters}} characters to search patient by name"
+           [formControl]="patientSearch"
+           [matAutocomplete]="auto">
+    <mat-icon matTooltip="Select a new patient" aria-label="Button to select a new patient" (click)="togglePatientSearch()">person</mat-icon>
     <mat-icon matTooltip="Select a careplan" aria-label="Button to select and new careplan">folder</mat-icon>
-    <mat-icon matTooltip="Show current user information" aria-label="Button to show the users information">account_circle</mat-icon>
-    <mat-icon matTooltip="Show control panel" aria-label="Buttn to show or hide the control panel" class="settings-icon" (click)="sidenav.toggle()">settings</mat-icon>
+    <mat-icon matTooltip="Show current user information" aria-label="Button to show the users information">
+      account_circle
+    </mat-icon>
+    <mat-icon matTooltip="Show control panel" aria-label="Buttn to show or hide the control panel" class="settings-icon"
+              (click)="sidenav.toggle()">settings
+    </mat-icon>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -27,18 +41,26 @@
   </mat-sidenav>
   <mat-sidenav-content>
     <app-demographics-panel></app-demographics-panel>
-
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="patientSelected($event.option.value)">
+      <mat-option
+        *ngFor="let patient of filteredPatients | async" [value]="patient.fhirid">
+        {{ patient.name }}
+      </mat-option>
+    </mat-autocomplete>
     <mat-tab-group>
-      <mat-tab label="Health and Social Concerns" matTooltip="View the health and social concerns view" aria-label="Tab to select the health and social concerns group">
+      <mat-tab label="Health and Social Concerns" matTooltip="View the health and social concerns view"
+               aria-label="Tab to select the health and social concerns group">
         <app-health-and-social-concerns></app-health-and-social-concerns>
       </mat-tab>
       <mat-tab label="Goals" matTooltip="View careplan goals" aria-label="Tab to select the goals group">
         <app-goals></app-goals>
       </mat-tab>
-      <mat-tab label="Health Maintenance & Interventions" matTooltip="View health maintenance and interventions" aria-label="Tab to select the health maintance group">
+      <mat-tab label="Health Maintenance & Interventions" matTooltip="View health maintenance and interventions"
+               aria-label="Tab to select the health maintance group">
         <app-maintenance-and-interventions></app-maintenance-and-interventions>
       </mat-tab>
-      <mat-tab label="Health Status Evaluation & Outcomes" aria-label="Tab to select the health status and evaluation group">
+      <mat-tab label="Health Status Evaluation & Outcomes"
+               aria-label="Tab to select the health status and evaluation group">
         <app-health-status></app-health-status>
       </mat-tab>
       <mat-tab label="Care Team" area-label="Tab to select the care team group">

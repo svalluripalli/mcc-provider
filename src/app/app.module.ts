@@ -73,19 +73,19 @@ const routes: Routes = []; // sets up routes constant where you define your rout
     UACRComponent,
     BPGraphComponent
   ],
-  imports: [
-    FlexLayoutModule,
-    ChartsModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppMaterialModuleModule,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    RouterModule.forRoot(routes),
-    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-    GoogleChartsModule
-  ],
+    imports: [
+        FlexLayoutModule,
+        ChartsModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppMaterialModuleModule,
+        FormsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        RouterModule.forRoot(routes),
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+        GoogleChartsModule
+    ],
   exports: [RouterModule],
   providers: [],
   bootstrap: [AppComponent]
