@@ -1,4 +1,3 @@
-
 import {Coding} from './coding';
 
 export interface CodeableConcept {

@@ -2,9 +2,11 @@ import {Injectable} from '@angular/core';
 import {Demographic} from './datamodel/demographics';
 import {SubjectDataService} from './subject-data-service.service';
 import {CareplanService} from './careplan.service';
-import {CarePlan} from './datamodel/carePlan';
+// import {ConditionLists} from './datamodel/conditionLists';
+import {MccCarePlan} from './generated-data-api';
 import {SocialConcerns} from './datamodel/socialconcerns';
-import {ConditionLists} from './datamodel/conditionLists';
+// import {ConditionLists} from './datamodel/conditionLists';
+import {ConditionLists} from './generated-data-api';
 import {TargetValue} from './datamodel/targetvalue';
 import {
   dummyPatientId,
@@ -21,7 +23,7 @@ import {
   mockGoalList,
   mockMedicationSummary
 } from './datamodel/mockData';
-import {GoalLists} from './datamodel/goallists';
+import {GoalLists} from './generated-data-api';
 import {MedicationSummary} from './datamodel/medicationSummary';
 import {Education} from './datamodel/education';
 import {Referral} from './datamodel/referral';
@@ -37,7 +39,7 @@ export class DataService {
   currentPatientId: string;
   currentCareplanId: string;
   demographic: Demographic;
-  careplan: CarePlan;
+  careplan: MccCarePlan;
   socialConcerns: SocialConcerns[];
   conditions: ConditionLists;
   targetValues: TargetValue[];

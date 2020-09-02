@@ -1,14 +1,14 @@
 import {TargetValue} from './targetvalue';
+// import {GoalLists} from '../../../generated-data-api/models/GoalLists';
 import {GoalLists} from './goallists';
 import {MedicationSummary} from './medicationSummary';
 import {Education} from './education';
 import {Referral} from './referral';
 import {Contact} from './contact';
 import {Demographic} from './demographics';
-import {ConditionLists} from './conditionLists';
+import {ConditionLists} from '../generated-data-api';
 import {Concern} from './socialconcerns';
-import {CarePlan} from './carePlan';
-
+import {MccCarePlan} from '../generated-data-api';
 
 export const mockContacts: Contact[] = [
   {
@@ -281,7 +281,7 @@ export const dummyConditions: ConditionLists = {
   inactiveConcerns: []
 };
 
-export const dummyCarePlan: CarePlan = {
+export const dummyCarePlan: MccCarePlan = {
   title: 'None',
   dateLastRevised: '01/01/1900',
   addresses: [],
