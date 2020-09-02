@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Demographic} from './datamodel/demographics';
 import {SubjectDataService} from './subject-data-service.service';
 import {CareplanService} from './careplan.service';
-import {CarePlan} from './datamodel/carePlan';
+import {MccCarePlan} from '../../generated';
 import {SocialConcerns} from './datamodel/socialconcerns';
 import {ConditionLists} from './datamodel/conditionLists';
 import {TargetValue} from './datamodel/targetvalue';
@@ -37,7 +37,7 @@ export class DataService {
   currentPatientId: string;
   currentCareplanId: string;
   demographic: Demographic;
-  careplan: CarePlan;
+  careplan: MccCarePlan;
   socialConcerns: SocialConcerns[];
   conditions: ConditionLists;
   targetValues: TargetValue[];

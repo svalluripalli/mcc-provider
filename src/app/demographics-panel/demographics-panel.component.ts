@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {SubjectDataService} from '../subject-data-service.service';
 import {CareplanService} from '../careplan.service';
 import {Demographic} from '../datamodel/demographics';
-import {CarePlan} from '../datamodel/carePlan';
+
 import {Observable} from 'rxjs';
 import {DataService} from '../data.service';
 import {last} from 'rxjs/operators';

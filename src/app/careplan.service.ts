@@ -4,7 +4,9 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment} from '../environments/environment';
 
-import { CarePlan } from './datamodel/carePlan';
+import { MccCarePlan } from '../../generated/models/MccCarePlan';
+
+
 import { MessageService } from './message.service';
 
 @Injectable({providedIn: 'root'})
@@ -26,25 +28,25 @@ export class CareplanService {
 
 
   /** GET Cqareplan by id. Return `undefined` when id not found */
-  getCarePlanNo404<Data>(id: string): Observable<CarePlan> {
+  getCarePlanNo404<Data>(id: string): Observable<MccCarePlan> {
     const url = `${environment.mccapiUrl}${this.baseURL}/${id}`;
-    return this.http.get<CarePlan[]>(url)
+    return this.http.get<MccCarePlan[]>(url)
       .pipe(
         map(careplans => careplans[0]), // returns a {0|1} element array
         tap(h => {
           const outcome = h ? `fetched` : `did not find`;
           this.log(`${outcome} hero id=${id}`);
         }),
-        catchError(this.handleError<CarePlan>(`Plan id=${id}`))
+        catchError(this.handleError<MccCarePlan>(`Plan id=${id}`))
       );
   }
 
   /** GET careplan by id. Will 404 if id not found */
-  getCarePlan(id: string): Observable<CarePlan> {
+  getCarePlan(id: string): Observable<MccCarePlan> {
     const url = `${environment.mccapiUrl}${this.baseURL}/${id}`;
-    return this.http.get<CarePlan>(url).pipe(
+    return this.http.get<MccCarePlan>(url).pipe(
       tap(_ => this.log(`fetched careplan id=${id}`)),
-      catchError(this.handleError<CarePlan>(`getCarePlan id=${id}`))
+      catchError(this.handleError<MccCarePlan>(`getCarePlan id=${id}`))
     );
   }
 

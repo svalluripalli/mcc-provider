@@ -7,8 +7,7 @@ import {Contact} from './contact';
 import {Demographic} from './demographics';
 import {ConditionLists} from './conditionLists';
 import {Concern} from './socialconcerns';
-import {CarePlan} from './carePlan';
-
+import {MccCarePlan} from '../../../generated';
 
 export const mockContacts: Contact[] = [
   {
@@ -281,7 +280,7 @@ export const dummyConditions: ConditionLists = {
   inactiveConcerns: []
 };
 
-export const dummyCarePlan: CarePlan = {
+export const dummyCarePlan: MccCarePlan = {
   title: 'None',
   dateLastRevised: '01/01/1900',
   addresses: [],
