@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment} from '../environments/environment';
 
-import { MccCarePlan } from '../../generated/models/MccCarePlan';
+import { MccCarePlan } from './generated-data-api';
 
 
 import { MessageService } from './message.service';
@@ -50,7 +50,14 @@ export class CareplanService {
     );
   }
 
-
+  /** GET careplan by subject id. Will 404 if id not found */
+  getCarePlanBySubject(id: string): Observable<MccCarePlan> {
+    const url = `${environment.mccapiUrl}${this.baseURL}/${id}`;
+    return this.http.get<MccCarePlan>(url).pipe(
+      tap(_ => this.log(`fetched careplan id=${id}`)),
+      catchError(this.handleError<MccCarePlan>(`getCarePlan id=${id}`))
+    );
+  }
 
   /**
    * Handle Http operation that failed.

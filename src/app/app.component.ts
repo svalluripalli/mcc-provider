@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   // todo:  use of patSearch template variable to set focus not working..
   @ViewChild('patSearch', {static: true}) patSearch: any;
 
-  constructor(public dataservice: DataService, public subjectdataservice: SubjectDataService) {
+  constructor(public dataservice: DataService, public subjectdataservice: SubjectDataService, public careplandataservice: CareplanService) {
   }
 
   title = 'providersmartapp';

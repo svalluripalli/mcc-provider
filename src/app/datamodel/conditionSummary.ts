@@ -1,6 +1,6 @@
 import {CodeableConcept} from './codeableConcept';
 // import {ConditionHistory} from './conditionHistory';
-import {ConditionHistory} from '../../../generated';
+import {ConditionHistory} from '../generated-data-api';
 
 export interface ConditionSummary {
   code: CodeableConcept;
