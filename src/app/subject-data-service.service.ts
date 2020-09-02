@@ -7,7 +7,7 @@ import { Demographic } from './datamodel/demographics';
 import { MessageService } from './message.service';
 import {Concern, SocialConcerns} from './datamodel/socialconcerns';
 import {environment} from '../environments/environment';
-import {ConditionLists} from './datamodel/conditionLists';
+import {ConditionLists} from '../../generated';
 
 @Injectable({providedIn: 'root'})
 export class SubjectDataService{

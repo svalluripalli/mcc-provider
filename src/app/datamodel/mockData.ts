@@ -1,13 +1,14 @@
 import {TargetValue} from './targetvalue';
+// import {GoalLists} from '../../../generated/models/GoalLists';
 import {GoalLists} from './goallists';
 import {MedicationSummary} from './medicationSummary';
 import {Education} from './education';
 import {Referral} from './referral';
 import {Contact} from './contact';
 import {Demographic} from './demographics';
-import {ConditionLists} from './conditionLists';
+import {ConditionLists} from '../../../generated/models/ConditionLists';
 import {Concern} from './socialconcerns';
-import {MccCarePlan} from '../../../generated';
+import {MccCarePlan} from '../../../generated/models/MccCarePlan';
 
 export const mockContacts: Contact[] = [
   {
