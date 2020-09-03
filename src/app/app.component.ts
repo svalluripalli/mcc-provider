@@ -6,6 +6,7 @@ import {DataService} from './data.service';
 import {environment} from '../environments/environment';
 import {Observable, of, Subscription} from 'rxjs';
 import {tap, startWith, debounceTime, distinctUntilChanged, switchMap, map} from 'rxjs/operators';
+import {MccCarePlan} from './generated-data-api';
 
 @Component({
   selector: 'app-root',
@@ -18,14 +19,13 @@ export class AppComponent implements OnInit {
   // todo:  use of patSearch template variable to set focus not working..
   @ViewChild('patSearch', {static: true}) patSearch: any;
 
-  constructor(public dataservice: DataService, public subjectdataservice: SubjectDataService, public careplandataservice: CareplanService) {
+  constructor(public dataservice: DataService, public subjectdataservice: SubjectDataService) {
   }
 
   title = 'providersmartapp';
   events: string[] = [];
   opened: boolean;
   apiURL: string;
-  // lstPatients: string[] = ['Betsy Johnson', 'Betty N. Davis'];
   // currentSubjectId = 'cc-pat-betsy';
   // currentCarePlanId = 'cc-careplan-betsy-ckd';
   currentSubjectId = '';
@@ -36,6 +36,7 @@ export class AppComponent implements OnInit {
   selectedPatientId = '';
   showPatientSearch = false;
   minSearchCharacters = 3;
+  patientCarePlans: Observable<MccCarePlan[]>;
 
   ngOnInit(): void {
 
@@ -58,14 +59,11 @@ export class AppComponent implements OnInit {
 
   patientSelected(data) {
     this.currentSubjectId = data;
-    this.dataservice.setCurrentSubject(this.currentSubjectId);
-    this.currentCarePlanId = 'cc-careplan-betsy-ckd';   // todo:   Get care plan from subject
-    this.dataservice.setCurrentCarePlan(this.currentCarePlanId);
+    this.patientCarePlans = new Observable<MccCarePlan[]>();     // Initialize patient care plans to empty object.
+    this.dataservice.setCurrentSubject(this.currentSubjectId);   // Care Plan selection for patient done in dataservice.setCurrentSubject
     this.patientSearch.setValue('');
     this.showPatientSearch = false;
-    // clear filteredPatients object
     this.initFilteredPatients();
-
   }
 
   togglePatientSearch() {

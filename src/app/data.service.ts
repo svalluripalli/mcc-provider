@@ -40,6 +40,7 @@ export class DataService {
   currentCareplanId: string;
   demographic: Demographic;
   careplan: MccCarePlan;
+  careplans: MccCarePlan[];
   socialConcerns: SocialConcerns[];
   conditions: ConditionLists;
   targetValues: TargetValue[];
@@ -69,6 +70,7 @@ export class DataService {
        */
       this.updateDemographics();
       this.updateConditions();
+      this.getCarePlansForSubject();
     }
     this.medications = mockMedicationSummary;
     this.education = mockEducation;
@@ -105,6 +107,19 @@ export class DataService {
       .subscribe(careplan => this.careplan = careplan);
     return true;
   }
+
+ async getCarePlansForSubject(): Promise <boolean> {
+   this.careplanservice.getCarePlansBySubject(this.currentPatientId)
+      .subscribe((cp ) => {
+        this.careplans = cp;
+        if (this.careplans.length > 0) {
+          this.careplan = this.careplans[0];    // Inialize selected careplan to first in MccCarePlan array
+        }  else {
+          this.careplan = dummyCarePlan;        // Initialize selected careplan to dummy careplan if no care plans available for subject
+        }
+      });
+   return true;
+ }
 
   async updateSocialConcerns(): Promise<boolean> {
     this.subjectdataservice.getSocialConcerns(this.currentPatientId, this.currentCareplanId)

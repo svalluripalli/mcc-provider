@@ -8,6 +8,7 @@ import { MccCarePlan } from './generated-data-api';
 
 
 import { MessageService } from './message.service';
+import {Demographic} from './datamodel/demographics';
 
 @Injectable({providedIn: 'root'})
 /* cc-careplan-betsy-ckd */
@@ -50,14 +51,15 @@ export class CareplanService {
     );
   }
 
-  /** GET careplan by subject id. Will 404 if id not found */
-  getCarePlanBySubject(id: string): Observable<MccCarePlan> {
-    const url = `${environment.mccapiUrl}${this.baseURL}/${id}`;
-    return this.http.get<MccCarePlan>(url).pipe(
-      tap(_ => this.log(`fetched careplan id=${id}`)),
-      catchError(this.handleError<MccCarePlan>(`getCarePlan id=${id}`))
+  /** GET careplans by subject id. Will 404 if id not found */
+  getCarePlansBySubject(subjectId: string): Observable<MccCarePlan[]> {
+    const url = `${environment.mccapiUrl}${this.baseURL}?subject=${subjectId}`;
+    return this.http.get<MccCarePlan[]>(url).pipe(
+      tap(_ => this.log(`fetched careplan id=${subjectId}`)),
+      catchError(this.handleError<MccCarePlan[]>(`getCarePlan id=${subjectId}`))
     );
   }
+
 
   /**
    * Handle Http operation that failed.
