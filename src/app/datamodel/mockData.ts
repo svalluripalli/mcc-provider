@@ -68,7 +68,6 @@ export const mockReferrals: Referral[] = [
   },
 ];
 
-
 export const mockEducation: Education[] = [
   {
     topic: 'CKD - Etiology and Progressive Nature of CKD',
@@ -197,50 +196,82 @@ export const mockGoalList: GoalLists = {
       {
         description: 'Slow CKD Progression',
         rank: 1,
+        priority: 'high',
         active: true,
-        type: 'clinical'
+        type: 'clinical',
+        created: '2010-01-01',
+        targetdate: '2020-06-01',
+        status: 'unknown'
       },
       {
         description: 'Manage Cardiovascular Risk',
         rank: 2,
+        priority: 'med',
         active: true,
-        type: 'clinical'
+        type: 'clinical',
+        created: '2010-01-01',
+        targetdate: '2020-06-01',
+        status: 'unknown'
       },
       {
         description: 'Prevent CKD Complications',
         rank: 3,
+        priority: 'low',
         active: true,
-        type: 'clinical'
+        type: 'clinical',
+        created: '2010-01-01',
+        targetdate: '2020-06-01',
+        status: 'unknown'
       },
       {
         description: 'Maintain Target Thyroid Level',
         rank: 4,
+        priority: 'low',
         active: true,
-        type: 'clinical'
+        type: 'clinical',
+        created: '2010-01-01',
+        targetdate: '2020-06-01',
+        status: 'unknown'
       },
       {
         description: 'Manage Depression',
         rank: 5,
+        priority: 'high',
         active: true,
-        type: 'clinical'
+        type: 'clinical',
+        created: '2010-01-01',
+        targetdate: '2020-06-01',
+        status: 'unknown'
       },
       {
         description: 'Manage Congestive Heart Failure',
         rank: 6,
+        priority: 'high',
         active: true,
-        type: 'clinical'
+        type: 'clinical',
+        created: '2010-01-01',
+        targetdate: '2020-06-01',
+        status: 'unknown'
       },
       {
         description: 'Rehabilitate Angle Injury',
         rank: 7,
+        priority: 'med',
         active: true,
-        type: 'clinical'
+        type: 'clinical',
+        created: '2010-01-01',
+        targetdate: '2020-06-01',
+        status: 'unknown'
       },
       {
         description: 'Maintain Immunization Status',
         rank: 8,
+        priority: 'low',
         active: true,
-        type: 'clinical'
+        type: 'clinical',
+        created: '2010-01-01',
+        targetdate: '2020-06-01',
+        status: 'unknown'
       }
     ],
     inactiveClinicalGoals: [],
@@ -248,14 +279,22 @@ export const mockGoalList: GoalLists = {
       {
         description: 'Maximize Quality of Life',
         rank: 1,
+        priority: 'high',
         active: true,
-        type: 'patient'
+        type: 'patient',
+        created: '2010-01-01',
+        targetdate: '2020-06-01',
+        status: 'unknown'
       },
       {
         description: 'Major Health Events: Kidney Failure, Hospitalizations',
         rank: 2,
+        priority: 'med',
         active: true,
-        type: 'patient'
+        type: 'patient',
+        created: '2010-01-01',
+        targetdate: '2020-06-01',
+        status: 'unknown'
       }
     ],
     inactivePatientGoals: []
