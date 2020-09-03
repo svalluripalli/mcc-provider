@@ -9,13 +9,21 @@
     <input type="text"
            #patSearch
            *ngIf="showPatientSearch"
-           style="float: right; width:400px; height:60%; font-size: .8em; background: white; color: black"
+           style="float: right; width:400px; height:60%; font-size: .8em; background: white; color: black; padding-left: .5em;"
            matInput
            placeholder="Enter at least {{minSearchCharacters}} characters to search patient by name"
            [formControl]="patientSearch"
            [matAutocomplete]="auto">
     <mat-icon matTooltip="Select a new patient" aria-label="Button to select a new patient" (click)="togglePatientSearch()">person</mat-icon>
-    <mat-icon matTooltip="Select a careplan" aria-label="Button to select and new careplan">folder</mat-icon>
+    <mat-icon matTooltip="Select a careplan" aria-label="Button to select and new careplan" [matMenuTriggerFor]="menuCareplan" >folder</mat-icon>
+    <mat-menu #menuCareplan="matMenu">
+      <button mat-menu-item
+              *ngFor="let plan of this.dataservice.careplans"
+              (click)="this.dataservice.setCurrentCarePlan(plan.fhirid)"
+      >
+        {{plan.title}}
+      </button>
+    </mat-menu>
     <mat-icon matTooltip="Show current user information" aria-label="Button to show the users information">
       account_circle
     </mat-icon>

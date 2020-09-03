@@ -40,8 +40,9 @@
   </mat-expansion-panel-header>
   <table width="100%">
     <tr>
-      <td><b>Date Last Revised:</b> {{getDateLastRevised()}}</td>
-      <td><b>Careplan Id:</b> {{dataservice.careplan.id}}</td>
+      <!--<td><b>Date Last Revised:</b> {{getDateLastRevised()}}</td>-->
+      <td><b>Date Last Revised:</b> {{dataservice.careplan.dateResourceLastUpdated}}</td>
+      <td><b>Careplan Id:</b> {{dataservice.careplan.fhirid}}</td>
     </tr>
     <tr>
       <td><b>Careplan Category</b> {{dataservice.careplan.categorySummary}}</td>
