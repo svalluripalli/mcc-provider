@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Demographic} from './datamodel/demographics';
 import {SubjectDataService} from './subject-data-service.service';
 import {CareplanService} from './careplan.service';
-// import {ConditionLists} from './datamodel/conditionLists';
 import {MccCarePlan} from './generated-data-api';
 import {SocialConcerns} from './datamodel/socialconcerns';
 // import {ConditionLists} from './datamodel/conditionLists';

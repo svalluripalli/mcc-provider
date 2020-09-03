@@ -9,7 +9,7 @@ import {DataService} from '../data.service';
 export class ClinicalGoalsComponent implements OnInit {
 
   constructor(public dataservice: DataService) { }
-  displayedColumns = ['rank', 'description'];
+  displayedColumns = ['rank', 'description', 'created', 'targetdate', 'status'];
   ngOnInit(): void {
   }
 
