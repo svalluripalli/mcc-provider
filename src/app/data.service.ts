@@ -82,8 +82,6 @@ export class DataService {
     this.referrals = mockReferrals;
     this.contacts = mockContacts;
     this.targetValues = mockTargetData;
-    // this.goals = mockGoalList;  // todo:  replace mockGoalList with actual population of goals from api
-
     return true;
 
   }

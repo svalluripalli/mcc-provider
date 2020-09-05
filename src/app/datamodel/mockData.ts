@@ -10,7 +10,6 @@ import {ConditionLists} from '../generated-data-api';
 import {Concern} from './socialconcerns';
 import {MccCarePlan} from '../generated-data-api';
 
-
 export const mockContacts: Contact[] = [
   {
     type: 'person',
@@ -463,7 +462,6 @@ export const dummySubject: Demographic = {
   race: 'White',
   ethnicity: 'Not Hispanic or Latino'
 };
-
 export const dummyPatientId = 'cc-pat-null';
 export const dummyCareplanId = 'cc-careplan-null-ckd';
 
