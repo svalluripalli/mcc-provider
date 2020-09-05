@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Demographic} from './datamodel/demographics';
 import {SubjectDataService} from './subject-data-service.service';
 import {CareplanService} from './careplan.service';
+import {GoalsDataService} from './goals-data-service.service';
 import {MccCarePlan} from './generated-data-api';
 import {SocialConcerns} from './datamodel/socialconcerns';
 // import {ConditionLists} from './datamodel/conditionLists';
@@ -14,20 +15,20 @@ import {
   dummyConditions,
   dummyCarePlan,
   dummySocialConcerns,
+  dummyGoals,
   mockContacts,
   mockEducation,
   mockNutrition,
   mockReferrals,
   mockTargetData,
   mockGoalList,
-  mockMedicationSummary
+  mockMedicationSummary,
 } from './datamodel/mockData';
 import {GoalLists} from './generated-data-api';
 import {MedicationSummary} from './datamodel/medicationSummary';
 import {Education} from './datamodel/education';
 import {Referral} from './datamodel/referral';
 import {Contact} from './datamodel/contact';
-
 
 @Injectable({
   providedIn: 'root'
@@ -50,7 +51,9 @@ export class DataService {
   referrals: Referral[];
   contacts: Contact[];
 
-  constructor(private subjectdataservice: SubjectDataService, private careplanservice: CareplanService) {
+  constructor(private subjectdataservice: SubjectDataService,
+              private careplanservice: CareplanService,
+              private goalsdataservice: GoalsDataService) {
   }
 
   async setCurrentSubject(patientId: string): Promise<boolean> {
@@ -60,6 +63,7 @@ export class DataService {
       this.currentCareplanId = dummyCareplanId;
       this.demographic = dummySubject;
       this.conditions = dummyConditions;
+      this.goals  = dummyGoals;
     } else {
       /*
       this.subjectdataservice.getSubject(this.currentPatientId)
@@ -70,13 +74,14 @@ export class DataService {
       this.updateDemographics();
       this.updateConditions();
       this.getCarePlansForSubject();
+      this.getPatientGoals();
     }
     this.medications = mockMedicationSummary;
     this.education = mockEducation;
     this.nutrition = mockNutrition;
     this.referrals = mockReferrals;
     this.contacts = mockContacts;
-
+    this.targetValues = mockTargetData;
     return true;
 
   }
@@ -96,8 +101,6 @@ export class DataService {
     this.subjectdataservice.getSocialConcerns(this.currentPatientId, this.currentCareplaId)
       .subscribe(concerns => this.socialConcerns = concerns);
     */
-    this.targetValues = mockTargetData;
-    this.goals = mockGoalList;
     return true;
   }
 
@@ -139,4 +142,12 @@ export class DataService {
       .subscribe(condition => this.conditions = condition);
     return true;
   }
+
+  async getPatientGoals(): Promise<boolean> {
+    this.goalsdataservice.getGoals(this.currentPatientId)
+      .subscribe(goals => this.goals = goals);
+    return true;
+  }
+
+
 }
