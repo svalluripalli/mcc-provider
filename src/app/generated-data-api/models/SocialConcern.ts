@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 
-// export interface d {
 export interface SocialConcern {
     name?: string;
     data?: string;

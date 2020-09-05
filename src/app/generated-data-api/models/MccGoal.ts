@@ -4,6 +4,7 @@
 
 import { GoalTarget } from './GoalTarget';
 import { MccCodeableConcept } from './MccCodeableConcept';
+import { MccDate } from './MccDate';
 import { MccReference } from './MccReference';
 
 export interface MccGoal {
@@ -16,9 +17,10 @@ export interface MccGoal {
     categories?: Array<MccCodeableConcept>;
     priority?: MccCodeableConcept;
     description?: MccCodeableConcept;
-    startText?: string;
     useStartConcept?: boolean;
+    startDateText?: string;
     startConcept?: MccCodeableConcept;
+    startDate?: MccDate;
     targets?: Array<GoalTarget>;
     addresses?: Array<MccReference>;
     notes?: Array<string>;

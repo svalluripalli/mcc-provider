@@ -5,10 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { environment} from '../environments/environment';
 
 import { MccCarePlan } from './generated-data-api';
-
-
 import { MessageService } from './message.service';
-import {Demographic} from './datamodel/demographics';
 
 @Injectable({providedIn: 'root'})
 /* cc-careplan-betsy-ckd */
@@ -19,7 +16,6 @@ import {Demographic} from './datamodel/demographics';
 export class CareplanService {
 
   private baseURL = '/careplan';
-
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

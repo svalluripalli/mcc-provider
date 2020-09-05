@@ -11,6 +11,8 @@ export interface GoalSummary {
     description?: string;
     achievementStatus?: MccCodeableConcept;
     lifecycleStatus?: string;
+    startDateText?: string;
+    targetDateText?: string;
     targets?: Array<GoalTarget>;
     fhirid?: string;
 }
