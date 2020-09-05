@@ -1,6 +1,6 @@
 import {TargetValue} from './targetvalue';
-// import {GoalLists} from '../../../generated-data-api/models/GoalLists';
-import {GoalLists} from './goallists';
+import {GoalLists, GoalSummary, GoalTarget} from '../generated-data-api';
+// import {GoalLists} from './goallists';
 import {MedicationSummary} from './medicationSummary';
 import {Education} from './education';
 import {Referral} from './referral';
@@ -9,6 +9,7 @@ import {Demographic} from './demographics';
 import {ConditionLists} from '../generated-data-api';
 import {Concern} from './socialconcerns';
 import {MccCarePlan} from '../generated-data-api';
+
 
 export const mockContacts: Contact[] = [
   {
@@ -194,110 +195,263 @@ export const mockTargetData: TargetValue[] = [
 export const mockGoalList: GoalLists = {
     activeClinicalGoals: [
       {
-        description: 'Slow CKD Progression',
-        rank: 1,
-        priority: 'high',
-        active: true,
-        type: 'clinical',
-        created: '2010-01-01',
-        targetdate: '2020-06-01',
-        status: 'unknown'
+        priority: 'high-priority',
+        expressedByType: 'Practitioner',
+        description: 'Stabilize Hemoglobin A1c',
+        achievementStatus: {
+          coding: [
+            {
+              system: 'http://terminology.hl7.org/CodeSystem/goal-achievement',
+              code: 'in-progress',
+              display: 'in-progress'
+            }
+          ],
+          text: 'In Progress'
+        },
+        lifecycleStatus: 'active',
+        startDateText: '11/30/2016',
+        targets: [
+          {
+            measure: {
+              coding: [
+                {
+                  system: 'http://loinc.org',
+                  code: '4548-4',
+                  display: '4548-4'
+                }
+              ],
+              text: 'Hemoglobin A1c total in Blood'
+            },
+            value: {
+              valueType: 'Quantity',
+              integerValue: 0,
+              booleanValue: false,
+              quantityValue: {
+                unit: '%',
+                comparator: '<',
+                value: '7',
+                system: 'http://unitsofmeasure.org/',
+                code: '%'
+              }
+            }
+          }
+        ],
+        fhirid: 'cc-goal-betsy-a1c'
       },
       {
-        description: 'Manage Cardiovascular Risk',
-        rank: 2,
-        priority: 'med',
-        active: true,
-        type: 'clinical',
-        created: '2010-01-01',
-        targetdate: '2020-06-01',
-        status: 'unknown'
+        priority: 'high-priority',
+        expressedByType: 'Practitioner',
+        description: 'Phosphorus in blood',
+        achievementStatus: {
+          coding: [
+            {
+              system: 'http://terminology.hl7.org/CodeSystem/goal-achievement',
+              code: 'in-progress',
+              display: 'in-progress'
+            }
+          ],
+          text: 'In Progress'
+        },
+        lifecycleStatus: 'active',
+        startDateText: '02/20/2018',
+        targets: [
+          {
+            measure: {
+              coding: [
+                {
+                  system: 'http://loinc.org',
+                  code: '2777-1',
+                  display: '2777-1'
+                }
+              ],
+              text: 'Serum phosphorus'
+            },
+            value: {
+              valueType: 'Range',
+              integerValue: 0,
+              booleanValue: false,
+              rangeValue: {
+                high: {
+                  unit: 'mg/dL',
+                  value: '4.5',
+                  system: 'http://unitsofmeasure.org',
+                  code: 'mg/dL'
+                },
+                low: {
+                  unit: 'mg/dL',
+                  value: '2.5',
+                  system: 'http://unitsofmeasure.org',
+                  code: 'mg/dL'
+                }
+              }
+            }
+          }
+        ],
+        fhirid: 'cc-goal-betsy-lab-phos'
       },
       {
-        description: 'Prevent CKD Complications',
-        rank: 3,
-        priority: 'low',
-        active: true,
-        type: 'clinical',
-        created: '2010-01-01',
-        targetdate: '2020-06-01',
-        status: 'unknown'
+        priority: 'medium-priority',
+        expressedByType: 'Practitioner',
+        description: 'Systolic blood pressure',
+        achievementStatus: {
+          coding: [
+            {
+              system: 'http://terminology.hl7.org/CodeSystem/goal-achievement',
+              code: 'in-progress',
+              display: 'in-progress'
+            }
+          ],
+          text: 'In Progress'
+        },
+        lifecycleStatus: 'active',
+        startDateText: '06/30/2017',
+        targets: [
+          {
+            measure: {
+              coding: [
+                {
+                  system: 'http://loinc.org',
+                  code: '8480-6',
+                  display: '8480-6'
+                }
+              ],
+              text: 'Systolic blood pressure'
+            },
+            value: {
+              valueType: 'Quantity',
+              integerValue: 0,
+              booleanValue: false,
+              quantityValue: {
+                unit: 'mmHg',
+                comparator: '<',
+                value: '140',
+                system: 'http://unitsofmeasure.org',
+                code: 'mm[Hg]'
+              }
+            }
+          }
+        ],
+        fhirid: 'cc-goal-betsy-bp-systolic'
       },
       {
-        description: 'Maintain Target Thyroid Level',
-        rank: 4,
-        priority: 'low',
-        active: true,
-        type: 'clinical',
-        created: '2010-01-01',
-        targetdate: '2020-06-01',
-        status: 'unknown'
+        priority: 'Undefined',
+        expressedByType: 'Practitioner',
+        description: 'Diastolic blood pressure',
+        achievementStatus: {
+          coding: [
+            {
+              system: 'http://terminology.hl7.org/CodeSystem/goal-achievement',
+              code: 'in-progress',
+              display: 'in-progress'
+            }
+          ],
+          text: 'In Progress'
+        },
+        lifecycleStatus: 'active',
+        startDateText: '01/12/2019',
+        targets: [
+          {
+            measure: {
+              coding: [
+                {
+                  system: 'http://loinc.org',
+                  code: '8462-4',
+                  display: '8462-4'
+                }
+              ],
+              text: 'Diastolic blood pressure'
+            },
+            value: {
+              valueType: 'Quantity',
+              integerValue: 0,
+              booleanValue: false,
+              quantityValue: {
+                unit: 'mmHg',
+                comparator: '<',
+                value: '80',
+                system: 'http://unitsofmeasure.org',
+                code: 'mm[Hg]'
+              }
+            }
+          }
+        ],
+        fhirid: 'cc-goal-betsy-bp-diastolic'
       },
       {
-        description: 'Manage Depression',
-        rank: 5,
-        priority: 'high',
-        active: true,
-        type: 'clinical',
-        created: '2010-01-01',
-        targetdate: '2020-06-01',
-        status: 'unknown'
-      },
-      {
-        description: 'Manage Congestive Heart Failure',
-        rank: 6,
-        priority: 'high',
-        active: true,
-        type: 'clinical',
-        created: '2010-01-01',
-        targetdate: '2020-06-01',
-        status: 'unknown'
-      },
-      {
-        description: 'Rehabilitate Angle Injury',
-        rank: 7,
-        priority: 'med',
-        active: true,
-        type: 'clinical',
-        created: '2010-01-01',
-        targetdate: '2020-06-01',
-        status: 'unknown'
-      },
-      {
-        description: 'Maintain Immunization Status',
-        rank: 8,
-        priority: 'low',
-        active: true,
-        type: 'clinical',
-        created: '2010-01-01',
-        targetdate: '2020-06-01',
-        status: 'unknown'
+        priority: 'Undefined',
+        expressedByType: 'Practitioner',
+        description: 'Exercise at least 30 minutes per day',
+        achievementStatus: {
+          coding: [
+            {
+              system: 'http://terminology.hl7.org/CodeSystem/goal-achievement',
+              code: 'in-progress',
+              display: 'in-progress'
+            }
+          ],
+          text: 'In Progress'
+        },
+        lifecycleStatus: 'active',
+        startDateText: '12/07/2017',
+        targets: [
+          {
+            measure: {
+              coding: [
+                {
+                  system: 'http://snomed.info/sct',
+                  code: '226029000',
+                  display: '226029000'
+                }
+              ],
+              text: 'Exercises'
+            }
+          }
+        ],
+        fhirid: 'cc-goal-betsy-exercise'
       }
     ],
-    inactiveClinicalGoals: [],
+    inactiveClinicalGoals: [
+    ],
     activePatientGoals: [
       {
+        priority: 'high-priority',
+        expressedByType: 'Patient',
         description: 'Maximize Quality of Life',
-        rank: 1,
-        priority: 'high',
-        active: true,
-        type: 'patient',
-        created: '2010-01-01',
-        targetdate: '2020-06-01',
-        status: 'unknown'
-      },
-      {
-        description: 'Major Health Events: Kidney Failure, Hospitalizations',
-        rank: 2,
-        priority: 'med',
-        active: true,
-        type: 'patient',
-        created: '2010-01-01',
-        targetdate: '2020-06-01',
-        status: 'unknown'
+        achievementStatus: {
+          coding: [
+            {
+              system: 'http://terminology.hl7.org/CodeSystem/goal-achievement',
+              code: 'in-progress',
+              display: 'in-progress'
+            }
+          ],
+          text: 'In Progress'
+        },
+        lifecycleStatus: 'active',
+        startDateText: '11/30/2016',
+        fhirid: 'cc-goal-betsy-maxql'
       }
     ],
-    inactivePatientGoals: []
+    inactivePatientGoals: [
+      {
+        priority: 'high-priority',
+        expressedByType: 'Patient',
+        description: 'Be able to dance again',
+        achievementStatus: {
+          coding: [
+            {
+              system: 'http://terminology.hl7.org/CodeSystem/goal-achievement',
+              code: 'achieved',
+              display: 'achieved'
+            }
+          ],
+          text: 'Achieved'
+        },
+        lifecycleStatus: 'completed',
+        startDateText: '10/30/2015',
+        fhirid: 'cc-goal-betsy-dance'
+      }
+    ]
   };
 
 export const dummySubject: Demographic = {
@@ -339,3 +493,20 @@ export const dummyCarePlan: MccCarePlan = {
 };
 
 export const dummySocialConcerns: Concern[] = [];
+
+/*
+export const dummyGoals: GoalLists =  new class implements GoalLists {
+  activeClinicalGoals: Goal[];
+  activePatientGoals: Goal[];
+  inactiveClinicalGoals: Goal[];
+  inactivePatientGoals: Goal[];
+} ();
+*/
+
+export const dummyGoals: GoalLists = new class implements GoalLists {
+  activeClinicalGoals: Array<GoalSummary>;
+  activePatientGoals: Array<GoalSummary>;
+  activeTargets: Array<GoalTarget>;
+  inactiveClinicalGoals: Array<GoalSummary>;
+  inactivePatientGoals: Array<GoalSummary>;
+}();
