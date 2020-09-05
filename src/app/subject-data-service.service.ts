@@ -121,7 +121,7 @@ export class SubjectDataService{
 
   /** Log a message with the MessageService */
   private log(message: string) {
-    this.messageService.add(`subject-data-service: ${message}`);
+    this.messageService.add(`HeroService: ${message}`);
   }
 
 
