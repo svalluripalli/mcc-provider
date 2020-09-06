@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+// import { Http } from '@angular/http';
+import {Observable, of} from 'rxjs';
+import {catchError, map, tap} from 'rxjs/operators';
 import {MessageService} from './message.service';
 
 import {environment} from '../environments/environment';
-import {GoalLists, MccGoal} from './generated-data-api';
+import {GoalLists, MccGoal, MccObservation} from './generated-data-api';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +14,18 @@ import {GoalLists, MccGoal} from './generated-data-api';
 
 export class GoalsDataService {
   private goalURL = '/goal';
+  private observationURL = '/find/latest/observation';
   private goalSummaryURL = '/goalsummary';
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  constructor(private http: HttpClient,  private messageService: MessageService) { }
+  constructor(private http: HttpClient, private messageService: MessageService) {
+  }
 
   // Get Goals by Subject Id
-  getGoals(id: string): Observable<GoalLists>
-  {
+  getGoals(id: string): Observable<GoalLists> {
     const url = `${environment.mccapiUrl}${this.goalSummaryURL}?subject=${id}`;
 
     return this.http.get<GoalLists>(url).pipe(
@@ -41,6 +43,26 @@ export class GoalsDataService {
       catchError(this.handleError<MccGoal>(`getGoal id=${id}`))
     );
   }
+
+  /*
+  getLatestObservation(patientId: string, code: string): Observable<MccObservation> {
+    const url = `${environment.mccapiUrl}${this.observationURL}?subject=${patientId}&code=${code}`;
+    return this.http.get<MccObservation>(url).pipe(
+      tap(_ => this.log(`fetched observation patientId=${patientId} code=${code}`)),
+      catchError(this.handleError<MccObservation>(`getLatestObservation patientId=${patientId} code=${code}`))
+    );
+  }
+*/
+  async getMostRecentObservationResult(patientId: string, code: string): Promise<string> {
+    if (patientId && code) {
+      const url = `${environment.mccapiUrl}${this.observationURL}?subject=${patientId}&code=${code}`;
+      const observation = await this.http.get<MccObservation>(url).toPromise();
+      return observation.value.quantityValue.value;
+    } else {
+      return '';
+    }
+  }
+
 
   /**
    * Handle Http operation that failed.
