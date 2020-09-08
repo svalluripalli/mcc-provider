@@ -39,7 +39,7 @@ import { EGFRComponent } from './e-gfr/e-gfr.component';
 import { WeightOverTimeComponent } from './weight-over-time/weight-over-time.component';
 import { UACRComponent } from './uacr/uacr.component';
 import { BPGraphComponent } from './bpgraph/bpgraph.component';
-import { GoogleChartsModule} from 'angular-google-charts';
+
 
 
 const routes: Routes = []; // sets up routes constant where you define your routes
@@ -84,7 +84,6 @@ const routes: Routes = []; // sets up routes constant where you define your rout
         ReactiveFormsModule,
         RouterModule.forRoot(routes),
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-        GoogleChartsModule
     ],
   exports: [RouterModule],
   providers: [],

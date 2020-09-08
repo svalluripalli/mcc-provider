@@ -17,8 +17,8 @@ import {Observable, of, Subscription} from 'rxjs';
 import {tap, startWith, debounceTime, distinctUntilChanged, switchMap, map} from 'rxjs/operators';
 import {MccCarePlan} from './generated-data-api';
 import {ActivatedRoute} from '@angular/router';
-import {patientParams} from 'fhirclient/lib/settings';
-import {fhirclient} from 'fhirclient/lib/types';
+
+declare var FHIR: any;
 
 @Component({
   selector: 'app-root',
@@ -77,29 +77,29 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void
   {
-    const  skey  = sessionStorage.SMART_KEY;
-    const key = skey.replace(/['"]+/g, '');
-    console.log('Ang: Smart Key is ' + key);
-    if (key != null)
-    {
-      const info = JSON.parse(sessionStorage.getItem(key));
-      if (info != null)
-      {
-        console.log('server: ' + info.serverUrl);
-        this.dataservice.mainfhirserver = info.serverUrl;
-        this.dataservice
-        const tokenResp = info.tokenResponse;
-        this.dataservice.authorizationToken = tokenResp.access_token;
-        console.log('access_token: ' + tokenResp.access_token);
-        console.log('patient: ' + tokenResp.patient);
-        this.patientSelected(tokenResp.patient);
-        this.smartLaunch = true;
-        this.changeDetector.detectChanges();
+    FHIR.oauth2.ready()
+      .then(client => {
+        client.request('Patient');
+        const skey = sessionStorage.SMART_KEY;
+        const key = skey.replace(/['"]+/g, '');
+        console.log('Ang: Smart Key is ' + key);
+        if (key != null) {
+          const info = JSON.parse(sessionStorage.getItem(key));
+          if (info != null) {
+            console.log('server: ' + info.serverUrl);
+            const tokenResp = info.tokenResponse;
+            console.log('access_token: ' + tokenResp.access_token);
+            console.log('patient: ' + tokenResp.patient);
+            this.dataservice.updateFHIRConnection(info.serverUrl, tokenResp.access_token);
+            this.patientSelected(tokenResp.patient);
+            this.smartLaunch = true;
+            this.changeDetector.detectChanges();
+          } else {
+            console.log('No in for key ' + key + ' found');
+          }
+        }
       }
-      else {
-        console.log('No in for key ' + key + ' found');
-      }
-    }
+      );
   }
   private _dataFilter(val: string): Observable<any> {
     // call the http data to find matching patients
