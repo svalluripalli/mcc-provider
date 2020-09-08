@@ -44,7 +44,6 @@ export class AppComponent implements OnInit {
     this.initFilteredPatients();
     this.dataservice.setCurrentSubject(this.currentSubjectId);
     this.dataservice.setCurrentCarePlan(this.currentCarePlanId);
-
   }
 
   private _dataFilter(val: string): Observable<any> {

@@ -6,7 +6,8 @@ import {catchError, map, tap} from 'rxjs/operators';
 import {MessageService} from './message.service';
 
 import {environment} from '../environments/environment';
-import {GoalLists, MccGoal, MccObservation} from './generated-data-api';
+import {GoalLists, GoalTarget, MccGoal, MccObservation} from './generated-data-api';
+import {TargetValue} from './datamodel/targetvalue';
 
 @Injectable({
   providedIn: 'root'
@@ -27,13 +28,13 @@ export class GoalsDataService {
   // Get Goals by Subject Id
   getGoals(id: string): Observable<GoalLists> {
     const url = `${environment.mccapiUrl}${this.goalSummaryURL}?subject=${id}`;
-
     return this.http.get<GoalLists>(url).pipe(
       tap(_ => this.log('fetched Conditions')),
       catchError(this.handleError<GoalLists>('getGoals'))
     );
 
   }
+
 
   /** GET Goal by Goal Fhrid. Will 404 if id not found */
   getGoal(id: string): Observable<MccGoal> {
@@ -44,25 +45,116 @@ export class GoalsDataService {
     );
   }
 
-  /*
-  getLatestObservation(patientId: string, code: string): Observable<MccObservation> {
+
+  getMostRecentObservationResult(patientId: string, code: string): Observable<MccObservation> {
     const url = `${environment.mccapiUrl}${this.observationURL}?subject=${patientId}&code=${code}`;
     return this.http.get<MccObservation>(url).pipe(
-      tap(_ => this.log(`fetched observation patientId=${patientId} code=${code}`)),
-      catchError(this.handleError<MccObservation>(`getLatestObservation patientId=${patientId} code=${code}`))
+      tap(_ => this.log(`fetched MccObservation patientId=${patientId} code=${code}`)),
+      catchError(this.handleError<MccObservation>(`getMostRecentObservationResult patientId=${patientId} code=${code}`))
     );
   }
-*/
-  async getMostRecentObservationResult(patientId: string, code: string): Promise<string> {
-    if (patientId && code) {
-      const url = `${environment.mccapiUrl}${this.observationURL}?subject=${patientId}&code=${code}`;
-      const observation = await this.http.get<MccObservation>(url).toPromise();
-      return observation.value.quantityValue.value;
-    } else {
-      return '';
-    }
+
+  getPatientGoalTargets(patientId: string, goals: GoalLists): Observable<TargetValue[]> {
+    const tvs: TargetValue[] = [];
+    goals.activeTargets.map(gt => {
+      this.getMostRecentObservationResult(patientId, gt.measure.coding[0].code)
+        .subscribe(obs => {
+          if (obs !== undefined) {
+            const tv: TargetValue = {
+              measure: gt.measure.text,
+              date: '06/01/2020', // todo: Get observation date when API is updated
+              mostRecentResult: obs.value !== undefined ? obs.value.quantityValue.value : '',
+              target: this.formatTargetValue(gt),
+              status: obs.status               // todo: get from call to get latest observation.
+            };
+            tvs.push(tv);
+          }
+        });
+    });
+
+    return of(tvs);
   }
 
+  formatTargetValue(target: GoalTarget) {
+    let formatted = 'Unknown Type: ';
+    if (target.value !== undefined) {
+      formatted += ' ' + target.value.valueType;
+      switch (target.value.valueType) {
+        case 'String': {
+          formatted = target.value.stringValue;
+          return formatted;
+        }
+        case 'Integer': {
+          formatted = target.value.integerValue.toString();
+          break;
+        }
+        case 'Boolean': {
+          formatted = String(target.value.booleanValue);
+          break;
+        }
+        case 'CodeableConcept': {
+          // todo:  formatTargetValue CodeableConcept
+          break;
+        }
+        case 'Quantity': {
+          formatted = target.value.quantityValue.comparator
+            + target.value.quantityValue.value.toString()
+            + ' ' + target.value.quantityValue.unit;
+          break;
+        }
+        case 'Range': {
+          formatted = target.value.rangeValue.low.value
+            + ' - ' + target.value.rangeValue.high.value
+            + ' ' + target.value.rangeValue.high.unit;
+          break;
+        }
+        case 'Ratio': {
+          // todo:  formatTargetValue Ratio
+          break;
+        }
+        case 'Period': {
+          // todo:  formatTargetValue Period
+          break;
+        }
+        case 'Date': {
+          // todo:  formatTargetValue Date
+          break;
+        }
+        case 'Time': {
+          // todo:  formatTargetValue Time
+          break;
+        }
+        case 'DateTime': {
+          // todo:  formatTargetValue DateTime
+          break;
+        }
+        case 'SampledData': {
+          // todo:  formatTargetValue SampledData
+          break;
+        }
+        case 'DurationValue': {
+          // todo:  formatTargetValue DurationValue
+          break;
+        }
+        case 'TimingValue': {
+          // todo:  formatTargetValue TimingValue
+          break;
+        }
+        case 'InstantValue': {
+          // todo:  formatTargetValue InstantValue
+          break;
+        }
+        case 'IdentifierValue': {
+          // todo:  formatTargetValue IdentifierValue
+          break;
+        }
+
+      }
+    }
+
+    return formatted;
+
+  }
 
   /**
    * Handle Http operation that failed.

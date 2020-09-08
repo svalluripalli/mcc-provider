@@ -29,6 +29,7 @@ import {MedicationSummary} from './datamodel/medicationSummary';
 import {Education} from './datamodel/education';
 import {Referral} from './datamodel/referral';
 import {Contact} from './datamodel/contact';
+import {concatMap, flatMap, mergeMap, switchMap, switchMapTo, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -64,13 +65,14 @@ export class DataService {
       this.demographic = dummySubject;
       this.conditions = dummyConditions;
       this.goals = dummyGoals;
+      this.targetValues = [];
     } else {
       /*
-      this.subjectdataservice.getSubject(this.currentPatientId)
-        .subscribe(demograhic => this.demographic = demograhic);
-      this.subjectdataservice.getConditions(this.currentPatientId)
-        .subscribe(condition => this.conditions = condition);
-       */
+       this.subjectdataservice.getSubject(this.currentPatientId)
+         .subscribe(demograhic => this.demographic = demograhic);
+       this.subjectdataservice.getConditions(this.currentPatientId)
+         .subscribe(condition => this.conditions = condition);
+        */
       this.updateDemographics();
       this.updateConditions();
       this.getCarePlansForSubject();
@@ -144,120 +146,32 @@ export class DataService {
   }
 
   async getPatientGoals(): Promise<boolean> {
-    console.log('In getPatientGoals');
+    /*
     this.goalsdataservice.getGoals(this.currentPatientId)
       .subscribe(goals => {
-        this.targetValues = [];
+        // this.targetValues = [];
         this.goals = goals;
-        // todo:  figure out how to call getMostRecentObservationResult in goals-data-service.service.ts here for each activetarget
-        goals.activeTargets.map(gt => {
-          console.log('gt.measure.coding[0].code= ', gt.measure.coding[0].code);
-          // todo : remove generation of test most recent result value
-          let recent = 11;
-          if (gt.value  !==  undefined  && gt.value.valueType === 'Quantity' ) {
-            const qv = parseInt(gt.value.quantityValue.value);
-            recent = this.genRand(qv - .5, qv + 1.5, 1);
-          }
-          // ++++++
-          const tv: TargetValue = {
-            measure: gt.measure.text,
-            date: '2010-01-01',      // todo: get from call to get latest observation.
-            mostRecentResult: recent.toString(),
-            target: this.formatTargetValue(gt),
-            status: ''                // todo: get from call to get latest observation.
-          };
-          this.targetValues.push(tv);
-        });
+        console.log('In DataService.getPatientGoals: this.goals: ', this.goals);
+        this.goalsdataservice.getPatientGoalTargets(this.currentPatientId, goals)
+          .subscribe(tv => {
+            console.log('in getPatientGoals, in getPatientGoalTargets subscribe.  tv= ', tv);
+            this.targetValues = tv;
+            console.log('in getPatientGoals, in getPatientGoalTargets subscribe.  this.targetValues= ', this.targetValues);
+          });
       });
-    console.log(this.targetValues);
+      */
+
+    this.goalsdataservice.getGoals(this.currentPatientId)
+      .pipe(
+        tap(g => this.goals = g),
+        concatMap(g => this.goalsdataservice.getPatientGoalTargets(this.currentPatientId, g))
+      ).subscribe(tv => {
+      console.log('in getPatientGoals, in getPatientGoalTargets subscribe.  tv= ', tv);
+      this.targetValues = tv;
+      console.log('in getPatientGoals, in getPatientGoalTargets subscribe.  this.targetValues= ', this.targetValues);
+    });
+
     return true;
-  }
-
-  genRand(min: number, max: number, decimalPlaces?: number) {
-    const rand = Math.random() * (max - min) + min;
-    const power = Math.pow(10, decimalPlaces);
-    return Math.floor(rand * power) / power;
-  }
-
-  formatTargetValue(target: GoalTarget) {
-    let formatted = 'Unknown Type: ' ;
-    if (target.value !== undefined) {
-      formatted += ' ' + target.value.valueType;
-      switch (target.value.valueType) {
-        case 'String': {
-          formatted = target.value.stringValue;
-          return formatted;
-        }
-        case 'Integer': {
-          formatted = target.value.integerValue.toString();
-          break;
-        }
-        case 'Boolean': {
-          formatted = String(target.value.booleanValue);
-          break;
-        }
-        case 'CodeableConcept': {
-          // todo:  formatTargetValue CodeableConcept
-          break;
-        }
-        case 'Quantity': {
-          formatted = target.value.quantityValue.comparator
-            + target.value.quantityValue.value.toString()
-            + ' ' + target.value.quantityValue.unit;
-          break;
-        }
-        case 'Range': {
-          formatted = target.value.rangeValue.low.value
-            + ' - ' + target.value.rangeValue.high.value
-            + ' ' + target.value.rangeValue.high.unit;
-          break;
-        }
-        case 'Ratio': {
-          // todo:  formatTargetValue Ratio
-          break;
-        }
-        case 'Period': {
-          // todo:  formatTargetValue Period
-          break;
-        }
-        case 'Date': {
-          // todo:  formatTargetValue Date
-          break;
-        }
-        case 'Time': {
-          // todo:  formatTargetValue Time
-          break;
-        }
-        case 'DateTime': {
-          // todo:  formatTargetValue DateTime
-          break;
-        }
-        case 'SampledData': {
-          // todo:  formatTargetValue SampledData
-          break;
-        }
-        case 'DurationValue': {
-          // todo:  formatTargetValue DurationValue
-          break;
-        }
-        case 'TimingValue': {
-          // todo:  formatTargetValue TimingValue
-          break;
-        }
-        case 'InstantValue': {
-          // todo:  formatTargetValue InstantValue
-          break;
-        }
-        case 'IdentifierValue': {
-          // todo:  formatTargetValue IdentifierValue
-          break;
-        }
-
-      }
-    }
-
-    return formatted;
-
   }
 
 }
