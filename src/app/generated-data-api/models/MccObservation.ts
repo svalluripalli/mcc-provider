@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { Effective } from './Effective';
 import { GenericType } from './GenericType';
 import { MccCodeableConcept } from './MccCodeableConcept';
 import { MccReference } from './MccReference';
@@ -12,6 +13,7 @@ export interface MccObservation {
     code?: MccCodeableConcept;
     status?: string;
     basedOn?: Array<MccReference>;
+    effective?: Effective;
     value?: GenericType;
     note?: string;
     referenceRanges?: Array<ReferenceRange>;

@@ -8,22 +8,6 @@ import { request as __request } from '../core/request';
 export class FhirServerControllerService {
 
     /**
-     * @result any OK
-     * @throws ApiError
-     */
-    public static async getServers(): Promise<any> {
-
-        const result = await __request({
-            method: 'get',
-            path: `/fhirserver`,
-        });
-
-        catchGenericError(result);
-
-        return result.body;
-    }
-
-    /**
      * @param id
      * @result any OK
      * @throws ApiError
@@ -35,6 +19,22 @@ export class FhirServerControllerService {
         const result = await __request({
             method: 'get',
             path: `/fhirserver/${id}`,
+        });
+
+        catchGenericError(result);
+
+        return result.body;
+    }
+
+    /**
+     * @result any OK
+     * @throws ApiError
+     */
+    public static async getServers(): Promise<any> {
+
+        const result = await __request({
+            method: 'get',
+            path: `/fhirserver`,
         });
 
         catchGenericError(result);

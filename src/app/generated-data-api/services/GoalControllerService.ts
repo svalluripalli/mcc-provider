@@ -36,6 +36,30 @@ export class GoalControllerService {
     }
 
     /**
+     * @param id
+     * @param serverId
+     * @result any OK
+     * @throws ApiError
+     */
+    public static async getGoal(
+        id: string,
+        serverId?: string,
+    ): Promise<any> {
+
+        const result = await __request({
+            method: 'get',
+            path: `/goal/${id}`,
+            query: {
+                'serverId': serverId,
+            },
+        });
+
+        catchGenericError(result);
+
+        return result.body;
+    }
+
+    /**
      * @param subject
      * @param server
      * @result any OK
@@ -52,30 +76,6 @@ export class GoalControllerService {
             query: {
                 'subject': subject,
                 'server': server,
-            },
-        });
-
-        catchGenericError(result);
-
-        return result.body;
-    }
-
-    /**
-     * @param id
-     * @param serverId
-     * @result any OK
-     * @throws ApiError
-     */
-    public static async getGoal(
-        id: string,
-        serverId?: string,
-    ): Promise<any> {
-
-        const result = await __request({
-            method: 'get',
-            path: `/goal/${id}`,
-            query: {
-                'serverId': serverId,
             },
         });
 

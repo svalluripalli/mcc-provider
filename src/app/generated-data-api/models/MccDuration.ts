@@ -6,7 +6,7 @@
 export interface MccDuration {
     unit?: string;
     comparator?: string;
-    value?: string;
+    value?: number;
     system?: string;
     code?: string;
     display?: string;
