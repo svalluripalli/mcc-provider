@@ -29,6 +29,8 @@ import {MedicationSummary} from './datamodel/medicationSummary';
 import {Education} from './datamodel/education';
 import {Referral} from './datamodel/referral';
 import {Contact} from './datamodel/contact';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +38,8 @@ import {Contact} from './datamodel/contact';
 
 export class DataService {
 
+  authorizationToken: string;
+  mainfhirserver: string;
   currentPatientId: string;
   currentCareplanId: string;
   demographic: Demographic;
@@ -56,6 +60,19 @@ export class DataService {
               private goalsdataservice: GoalsDataService) {
   }
 
+  updateFHIRConnection(server: string, token: string)
+  {
+    this.authorizationToken = token;
+    this.mainfhirserver = server;
+    this.subjectdataservice.httpOptions.headers.append('mcc-fhir-server', server).append('mcc-tokem', token);
+    this.careplanservice.httpOptions.headers.append('mcc-fhir-server', server).append('mcc-tokem', token);
+    this.goalsdataservice.httpOptions.headers.append('mcc-fhir-server', server).append('mcc-tokem', token);
+  }
+  getCurrentPatient(): Observable<Demographic> {
+    return this.subjectdataservice.getSubject(this.currentPatientId).pipe(
+      map(data => data)
+    );
+  }
   async setCurrentSubject(patientId: string): Promise<boolean> {
     this.currentPatientId = patientId;
     if ((!patientId || patientId.trim().length === 0)) {

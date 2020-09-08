@@ -27,7 +27,7 @@ export class GoalsDataService {
     const url = `${environment.mccapiUrl}${this.goalSummaryURL}?subject=${id}`;
 
     return this.http.get<GoalLists>(url).pipe(
-      tap(_ => this.log('fetched Conditions')),
+      tap(_ => this.log('fetched Goal Summary')),
       catchError(this.handleError<GoalLists>('getGoals'))
     );
 

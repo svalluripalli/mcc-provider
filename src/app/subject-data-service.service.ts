@@ -12,6 +12,7 @@ import {ConditionLists} from './generated-data-api';
 @Injectable({providedIn: 'root'})
 export class SubjectDataService{
 
+  baseServer = environment.mccapiUrl;
 
   private patientURL = '/patient';
   private conditionSummaryURL = '/conditionsummary';

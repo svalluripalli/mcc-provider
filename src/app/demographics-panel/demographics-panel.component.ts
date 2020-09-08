@@ -15,7 +15,6 @@ import {last} from 'rxjs/operators';
 export class DemographicsPanelComponent implements OnInit {
 
   constructor(public dataservice: DataService) { }
-
   ngOnInit(): void {
   }
 
