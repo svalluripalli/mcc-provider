@@ -77,38 +77,42 @@ export class AppComponent implements OnInit, AfterViewInit {
     const key = skey.replace(/['"]+/g, '');
     console.log('Ang: Smart Key is ' + key);
     if (key != null) {
-      this.updateDateContext(key);
-        /*
-        const info = JSON.parse(sessionStorage.getItem(key));
-      if (info != null) {
-        console.log('server: ' + info.serverUrl);
-        const tokenResp = info.tokenResponse;
-        console.log('access_token: ' + tokenResp.access_token);
-        console.log('patient: ' + tokenResp.patient);
-        // this.dataservice.updateFHIRConnection(info.serverUrl, tokenResp.access_token);
-        // this.patientSelected(tokenResp.patient);
-        this.smartLaunch = true;
-        // this.changeDetector.detectChanges();
-      } else {
-        console.log('No info for key ' + key + ' found');
-      }
-         */
+      this.updateDateContext(key, 4);
     }
   }
 
-  async updateDateContext(key: string ): Promise<void>
+  waitFor(time: number) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve('I promise to return after ' + time + 'milliseconds!');
+      }, time);
+    });
+  }
+  async updateDateContext(key: string , count: number): Promise<void>
   {
     console.log('Updating Contect');
     const info = JSON.parse(sessionStorage.getItem(key));
     if (info != null) {
       console.log('server: ' + info.serverUrl);
       const tokenResp = info.tokenResponse;
-      console.log('access_token: ' + tokenResp.access_token);
-      console.log('patient: ' + tokenResp.patient);
-      this.dataservice.updateFHIRConnection(info.serverUrl, tokenResp.access_token);
-      this.patientSelected(tokenResp.patient);
-      this.smartLaunch = true;
-      this.changeDetector.detectChanges();
+      if (tokenResp.access_token != null) {
+        console.log('access_token: ' + tokenResp.access_token);
+        console.log('patient: ' + tokenResp.patient);
+        this.dataservice.updateFHIRConnection(info.serverUrl, tokenResp.access_token);
+        this.patientSelected(tokenResp.patient);
+        this.smartLaunch = true;
+        this.changeDetector.detectChanges();
+      }
+      else
+      {
+        // Smart on FHIR still not ready (grrr....)
+        if (count > 0)
+        {
+          const t = await this.waitFor(1000);
+          console.log(t);
+          this.updateDateContext(key, count - 1 );
+        }
+      }
     } else {
       console.log('No info for key ' + key + ' found');
     }
