@@ -5,11 +5,21 @@
   <title>Providersmartapp</title>
   <script src="https://cdn.jsdelivr.net/npm/fhirclient/build/fhir-client.js"></script>
   <script>
-    console.log("Get FHIR Ready")
-    /* FHIR.oauth2.ready()
+    const queryString = window.location.search;
+    console.log(queryString);
+    const urlParams = new URLSearchParams(queryString);
+    const nosmart = urlParams.get('nosmart') == true;
+    const code = urlParams.get('code')
+
+    if ((nosmart == false) && (code != null))
+    {
+
+    FHIR.oauth2.ready()
     .then(client => {
       client.request("Patient")
-
+      console.log("Requested patient")
+      })
+      /*
       var skey  = sessionStorage["SMART_KEY"]
       key = skey.replace(/['"]+/g, '')
       console.log("Smart Key is "+key)
@@ -29,12 +39,14 @@
         }
       }
       */
-      })
       .then(
         console.log("Connected")
       )
       .catch(console.error)
-
+    }
+    else {
+      console.log("Not launching as SMART")
+    }
   </script>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
