@@ -27,7 +27,7 @@ export class CareplanService {
   /** GET Cqareplan by id. Return `undefined` when id not found */
   getCarePlanNo404<Data>(id: string): Observable<MccCarePlan> {
     const url = `${environment.mccapiUrl}${this.baseURL}/${id}`;
-    return this.http.get<MccCarePlan[]>(url)
+    return this.http.get<MccCarePlan[]>(url, this.httpOptions)
       .pipe(
         map(careplans => careplans[0]), // returns a {0|1} element array
         tap(h => {
@@ -41,7 +41,7 @@ export class CareplanService {
   /** GET careplan by id. Will 404 if id not found */
   getCarePlan(id: string): Observable<MccCarePlan> {
     const url = `${environment.mccapiUrl}${this.baseURL}/${id}`;
-    return this.http.get<MccCarePlan>(url).pipe(
+    return this.http.get<MccCarePlan>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched careplan id=${id}`)),
       catchError(this.handleError<MccCarePlan>(`getCarePlan id=${id}`))
     );
@@ -50,7 +50,7 @@ export class CareplanService {
   /** GET careplans by subject id. Will 404 if id not found */
   getCarePlansBySubject(subjectId: string): Observable<MccCarePlan[]> {
     const url = `${environment.mccapiUrl}${this.baseURL}?subject=${subjectId}`;
-    return this.http.get<MccCarePlan[]>(url).pipe(
+    return this.http.get<MccCarePlan[]>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched careplan id=${subjectId}`)),
       catchError(this.handleError<MccCarePlan[]>(`getCarePlan id=${subjectId}`))
     );
@@ -79,7 +79,7 @@ export class CareplanService {
 
   /** Log a message with the MessageService */
   private log(message: string) {
-    this.messageService.add(`careplan-servie: ${message}`);
+    this.messageService.add(`careplan-service: ${message}`);
   }
 
 

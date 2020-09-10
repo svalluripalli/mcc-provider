@@ -28,7 +28,7 @@ export class SubjectDataService{
   /** GET Demographic by id. Return `undefined` when id not found */
   getSubjectNo404<Data>(id: string): Observable<Demographic> {
     const url = `${environment.mccapiUrl}${this.patientURL}/${id}`;
-    return this.http.get<Demographic[]>(url)
+    return this.http.get<Demographic[]>(url, this.httpOptions)
       .pipe(
         map(demographics => demographics[0]), // returns a {0|1} element array
         tap(h => {
@@ -41,8 +41,9 @@ export class SubjectDataService{
 
   /** GET Subject by id. Will 404 if id not found */
   getSubject(id: string): Observable<Demographic> {
+    console.log(this.httpOptions);
     const url = `${environment.mccapiUrl}${this.patientURL}/${id}`;
-    return this.http.get<Demographic>(url).pipe(
+    return this.http.get<Demographic>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched subject id=${id}`)),
       catchError(this.handleError<Demographic>(`getSubject id=${id}`))
     );
@@ -51,7 +52,7 @@ export class SubjectDataService{
   /** GET Subjects by searchString. Will 404 if id not found */
   getSubjects(searchFor: string): Observable<Demographic>{
     const url = `${environment.mccapiUrl}${this.patientURL}?name=${searchFor}`;
-    return this.http.get<Demographic>(url).pipe(
+    return this.http.get<Demographic>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched subject id=${_.id}`)),
       catchError(this.handleError<Demographic>(`getSubjects searchFor=${searchFor}`))
     );
@@ -62,7 +63,7 @@ export class SubjectDataService{
   {
     const url = `${environment.mccapiUrl}${this.conditionSummaryURL}?subject=${id}`;
 
-    return this.http.get<ConditionLists>(url).pipe(
+    return this.http.get<ConditionLists>(url, this.httpOptions).pipe(
       tap(_ => this.log('fetched Conditions')),
       catchError(this.handleError<ConditionLists>('getConditions'))
     );
@@ -72,7 +73,7 @@ export class SubjectDataService{
   {
     const url = `${environment.mccapiUrl}${this.concernURL}?subject=${id}&careplan=${careplan}`;
 
-    return this.http.get<Concern[]>(url).pipe(
+    return this.http.get<Concern[]>(url, this.httpOptions).pipe(
       tap(_ => this.log('fetched Concern')),
       catchError(this.handleError<Concern[]>('getConcerns', []))
     );
