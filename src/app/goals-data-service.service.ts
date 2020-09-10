@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-// import { Http } from '@angular/http';
 import {Observable, of} from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 import {MessageService} from './message.service';
-
 import {environment} from '../environments/environment';
 import {GoalLists, GoalTarget, MccGoal, MccObservation} from './generated-data-api';
 import {TargetValue} from './datamodel/targetvalue';
@@ -32,9 +30,58 @@ export class GoalsDataService {
       tap(_ => this.log('fetched Conditions')),
       catchError(this.handleError<GoalLists>('getGoals'))
     );
-
   }
 
+  // Get Patient Goal Targets by Subject Id and coding
+  // Create and return an observable object which emits from the multiple http requests
+  // each http request returns a Recent Observation Data
+  // associated with a Goal in the GoalTarget[] array passed in
+  // The Goal Target and Observation data is merged into a TargetValue object which is emitted
+  getPatientGoalTargets(patientId: string, targets: GoalTarget[]): Observable<TargetValue> {
+    return new Observable(observer => {
+      targets.map(gt => {
+        this.getMostRecentObservationResult(patientId, gt.measure.coding[0].code)
+          .subscribe(obs => {
+            let mostRecentResultValue = '';
+            const observationDate = '';
+            let rowHighlighted = false;
+            let formattedTargetValue = '';
+            if (obs !== undefined) {
+              if (obs.value !== undefined) {
+                mostRecentResultValue = obs.value.quantityValue.value;
+              }
+              if (obs.components !== undefined) {
+                obs.components.map(c => {
+                  if (c.code.coding[0].code === gt.measure.coding[0].code) {
+                    if (c.value !== undefined) {
+                      mostRecentResultValue = c.value.quantityValue.value;
+                    }
+                  }
+                });
+              }
+              /*  todo:  uncomment after obs.effective is added to MccObservation object
+              if (obs.effective !== undefined) {
+                if (obs.effective.type === 'DateTime') {
+                  observationDate = obs.effective.date;
+                }
+              }
+              */
+
+              [formattedTargetValue, rowHighlighted] = this.formatTargetValue(gt, mostRecentResultValue);
+              const tv: TargetValue = {
+                measure: gt.measure.text,
+                date: observationDate, // todo: Get observation date when API is updated
+                mostRecentResult: mostRecentResultValue,
+                target: formattedTargetValue,
+                highlighted: rowHighlighted,
+                status: obs.status
+              };
+              observer.next(tv);
+            }
+          });
+      });
+    });
+  }
 
   /** GET Goal by Goal Fhrid. Will 404 if id not found */
   getGoal(id: string): Observable<MccGoal> {
@@ -45,7 +92,6 @@ export class GoalsDataService {
     );
   }
 
-
   getMostRecentObservationResult(patientId: string, code: string): Observable<MccObservation> {
     const url = `${environment.mccapiUrl}${this.observationURL}?subject=${patientId}&code=${code}`;
     return this.http.get<MccObservation>(url).pipe(
@@ -54,35 +100,24 @@ export class GoalsDataService {
     );
   }
 
-  getPatientGoalTargets(patientId: string, goals: GoalLists): Observable<TargetValue[]> {
-    const tvs: TargetValue[] = [];
-    goals.activeTargets.map(gt => {
-      this.getMostRecentObservationResult(patientId, gt.measure.coding[0].code)
-        .subscribe(obs => {
-          if (obs !== undefined) {
-            const tv: TargetValue = {
-              measure: gt.measure.text,
-              date: '06/01/2020', // todo: Get observation date when API is updated
-              mostRecentResult: obs.value !== undefined ? obs.value.quantityValue.value : '',
-              target: this.formatTargetValue(gt),
-              status: obs.status               // todo: get from call to get latest observation.
-            };
-            tvs.push(tv);
-          }
-        });
-    });
 
-    return of(tvs);
-  }
-
-  formatTargetValue(target: GoalTarget) {
+  formatTargetValue(target: GoalTarget, mostRecentResultValue: string): any[] {
     let formatted = 'Unknown Type: ';
+    let highlighted = false;
+    let rval = 0;
+    let qval = 0;
+    let highval = 0;
+    let lowval = 0;
+
+    rval = Number(mostRecentResultValue);
+    if (isNaN(rval)) { rval = 0; }
+
     if (target.value !== undefined) {
       formatted += ' ' + target.value.valueType;
       switch (target.value.valueType) {
         case 'String': {
           formatted = target.value.stringValue;
-          return formatted;
+          break;
         }
         case 'Integer': {
           formatted = target.value.integerValue.toString();
@@ -100,12 +135,33 @@ export class GoalsDataService {
           formatted = target.value.quantityValue.comparator
             + target.value.quantityValue.value.toString()
             + ' ' + target.value.quantityValue.unit;
+          qval = Number(target.value.quantityValue.value);
+          if (!isNaN(qval))  {
+            if (target.value.quantityValue.comparator === '<')
+            {
+              if (rval >=  qval) {  highlighted = true; }
+            }
+            if (target.value.quantityValue.comparator === '>')
+            {
+              if (rval <=  qval) {  highlighted = true; }
+            }
+            if (target.value.quantityValue.comparator === '=')
+            {
+              if (rval !== qval) {  highlighted = true; }
+            }
+          }
           break;
         }
         case 'Range': {
           formatted = target.value.rangeValue.low.value
             + ' - ' + target.value.rangeValue.high.value
             + ' ' + target.value.rangeValue.high.unit;
+
+          highval = Number(target.value.rangeValue.high.value);
+          lowval = Number(target.value.rangeValue.low.value);
+          if (!isNaN(lowval) && !isNaN(highval) ) {
+            if (rval < lowval || rval > highval) { highlighted = true; }
+          }
           break;
         }
         case 'Ratio': {
@@ -152,7 +208,7 @@ export class GoalsDataService {
       }
     }
 
-    return formatted;
+    return [formatted, highlighted];
 
   }
 

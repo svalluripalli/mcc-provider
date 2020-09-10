@@ -3,9 +3,8 @@ import {Demographic} from './datamodel/demographics';
 import {SubjectDataService} from './subject-data-service.service';
 import {CareplanService} from './careplan.service';
 import {GoalsDataService} from './goals-data-service.service';
-import {GoalTarget, MccCarePlan} from './generated-data-api';
+import {MccCarePlan} from './generated-data-api';
 import {SocialConcerns} from './datamodel/socialconcerns';
-// import {ConditionLists} from './datamodel/conditionLists';
 import {ConditionLists} from './generated-data-api';
 import {TargetValue} from './datamodel/targetvalue';
 import {
@@ -29,7 +28,8 @@ import {MedicationSummary} from './datamodel/medicationSummary';
 import {Education} from './datamodel/education';
 import {Referral} from './datamodel/referral';
 import {Contact} from './datamodel/contact';
-import {concatMap, flatMap, mergeMap, switchMap, switchMapTo, tap} from 'rxjs/operators';
+import {concatMap, tap} from 'rxjs/operators';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +45,7 @@ export class DataService {
   socialConcerns: SocialConcerns[];
   conditions: ConditionLists;
   targetValues: TargetValue[];
+  targetValuesDataSource = new MatTableDataSource(this.targetValues);
   goals: GoalLists;
   medications: MedicationSummary[];
   education: Education[];
@@ -59,13 +60,14 @@ export class DataService {
 
   async setCurrentSubject(patientId: string): Promise<boolean> {
     this.currentPatientId = patientId;
+    this.targetValues = [];
+    this.targetValuesDataSource.data = this.targetValues;
     if ((!patientId || patientId.trim().length === 0)) {
       this.currentPatientId = dummyPatientId;
       this.currentCareplanId = dummyCareplanId;
       this.demographic = dummySubject;
       this.conditions = dummyConditions;
       this.goals = dummyGoals;
-      this.targetValues = [];
     } else {
       /*
        this.subjectdataservice.getSubject(this.currentPatientId)
@@ -77,6 +79,7 @@ export class DataService {
       this.updateConditions();
       this.getCarePlansForSubject();
       this.getPatientGoals();
+      this.getPatientGoalTargets(this.currentPatientId);
     }
     this.medications = mockMedicationSummary;
     this.education = mockEducation;
@@ -146,31 +149,21 @@ export class DataService {
   }
 
   async getPatientGoals(): Promise<boolean> {
-    /*
     this.goalsdataservice.getGoals(this.currentPatientId)
-      .subscribe(goals => {
-        // this.targetValues = [];
-        this.goals = goals;
-        console.log('In DataService.getPatientGoals: this.goals: ', this.goals);
-        this.goalsdataservice.getPatientGoalTargets(this.currentPatientId, goals)
-          .subscribe(tv => {
-            console.log('in getPatientGoals, in getPatientGoalTargets subscribe.  tv= ', tv);
-            this.targetValues = tv;
-            console.log('in getPatientGoals, in getPatientGoalTargets subscribe.  this.targetValues= ', this.targetValues);
-          });
-      });
-      */
+      .subscribe(goals => this.goals = goals);
+    return true;
+  }
 
-    this.goalsdataservice.getGoals(this.currentPatientId)
+  // async getPatientGoalTargets(): Promise<boolean> {
+   async getPatientGoalTargets(patientId): Promise<boolean> {
+    this.targetValues = [];
+    this.goalsdataservice.getGoals(patientId)
       .pipe(
-        tap(g => this.goals = g),
-        concatMap(g => this.goalsdataservice.getPatientGoalTargets(this.currentPatientId, g))
-      ).subscribe(tv => {
-      console.log('in getPatientGoals, in getPatientGoalTargets subscribe.  tv= ', tv);
-      this.targetValues = tv;
-      console.log('in getPatientGoals, in getPatientGoalTargets subscribe.  this.targetValues= ', this.targetValues);
+        concatMap(goals => this.goalsdataservice.getPatientGoalTargets(patientId, goals.activeTargets)),
+      ).subscribe(res => {
+      this.targetValues.push(res);
+      this.targetValuesDataSource.data = this.targetValues;
     });
-
     return true;
   }
 

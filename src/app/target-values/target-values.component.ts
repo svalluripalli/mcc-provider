@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DataService} from '../data.service';
 import {GoalsDataService} from '../goals-data-service.service';
-import {GoalTarget} from '../generated-data-api';
 
 @Component({
   selector: 'app-target-values',
@@ -10,11 +9,19 @@ import {GoalTarget} from '../generated-data-api';
 })
 export class TargetValuesComponent implements OnInit {
 
-  constructor(public dataservice: DataService) { }
+  targetValuesDataSource = this.dataservice.targetValuesDataSource;
+  constructor(public dataservice: DataService, public goalsdataservice: GoalsDataService) {
+
+ }
+
   displayedColumns = ['measure', 'mostRecentResult', 'date', 'target'];
+
   ngOnInit(): void {
+
   }
 
-
+  refreshTargets = () => {
+    this.targetValuesDataSource = this.dataservice.targetValuesDataSource;
+  }
 
 }
