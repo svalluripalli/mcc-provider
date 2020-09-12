@@ -40,6 +40,7 @@ import { WeightOverTimeComponent } from './weight-over-time/weight-over-time.com
 import { UACRComponent } from './uacr/uacr.component';
 import { BPGraphComponent } from './bpgraph/bpgraph.component';
 import { GoogleChartsModule} from 'angular-google-charts';
+import { DiagnosisDialogComponent } from './diagnosis-dialog/diagnosis-dialog.component';
 
 
 const routes: Routes = []; // sets up routes constant where you define your routes
@@ -71,7 +72,8 @@ const routes: Routes = []; // sets up routes constant where you define your rout
     EGFRComponent,
     WeightOverTimeComponent,
     UACRComponent,
-    BPGraphComponent
+    BPGraphComponent,
+    DiagnosisDialogComponent,
   ],
     imports: [
         FlexLayoutModule,

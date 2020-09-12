@@ -12,8 +12,9 @@ import {MccCarePlan} from './generated-data-api';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
+
 export class AppComponent implements OnInit {
 
   // todo:  use of patSearch template variable to set focus not working..
@@ -60,9 +61,11 @@ export class AppComponent implements OnInit {
     this.currentSubjectId = data;
     this.patientCarePlans = new Observable<MccCarePlan[]>();     // Initialize patient care plans to empty object.
     this.dataservice.setCurrentSubject(this.currentSubjectId);   // Care Plan selection for patient done in dataservice.setCurrentSubject
+
     this.patientSearch.setValue('');
     this.showPatientSearch = false;
     this.initFilteredPatients();
+    // this.goalscmp.refreshTargets();
   }
 
   togglePatientSearch() {

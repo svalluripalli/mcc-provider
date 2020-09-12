@@ -3,9 +3,8 @@
     <!-- Position Column -->
     <ng-container matColumnDef="checked">
       <mat-header-cell *matHeaderCellDef>
-
         <mat-icon>check</mat-icon></mat-header-cell>
-      <mat-cell *matCellDef="let condition">
+      <mat-cell *matCellDef="let condition" (click)="$event.stopPropagation()">
         <mat-checkbox [(ngModel)]="condition.checked"></mat-checkbox>
       </mat-cell>
     </ng-container>
@@ -13,18 +12,24 @@
     <!-- Position Column -->
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef>Condition </mat-header-cell>
-      <mat-cell *matCellDef="let condition"> {{condition.code.text}} </mat-cell>
+      <mat-cell *matCellDef="let condition" > {{condition.code.text}} </mat-cell>
     </ng-container>
 
     <!-- Rx Filter Column -->
     <ng-container matColumnDef="rxfilter">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let condition"><mat-icon matTooltip="Switch to Health Maintance using this codition as a focus" aria-label="Selection to change to the Health Maintance and Intervention tab using this condition as a focus">local_pharmacy</mat-icon></mat-cell>
+      <mat-cell *matCellDef="let condition" (click)="$event.stopPropagation()">
+        <mat-icon (click)="switchToHM(condition.code)"  matTooltip="Switch to Health Maintenance using this codition as a focus"
+                  aria-label="Selection to change to the Health Maintance and Intervention tab using this condition as a focus">local_pharmacy</mat-icon>
+      </mat-cell>
     </ng-container>
     <!-- Tredn Filter Column -->
     <ng-container matColumnDef="trend">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let condition"><mat-icon matTooltip="Switch to Heath Status using this condition as a focus" aria-label="Selection to change to the the Health Status Evaluation and Outcomes using this condition as a focus">timeline</mat-icon></mat-cell>
+      <mat-cell *matCellDef="let condition" (click)="$event.stopPropagation()">
+        <mat-icon (click)="switchToHS(condition.code)" matTooltip="Switch to Heath Status using this condition as a focus"
+                  aria-label="Selection to change to the the Health Status Evaluation and Outcomes using this condition as a focus">timeline</mat-icon>
+      </mat-cell>
     </ng-container>
     <!-- Name Column -->
     <ng-container matColumnDef="date">
@@ -32,10 +37,8 @@
       <mat-cell *matCellDef="let condition">{{condition.firstOnset}}</mat-cell>
     </ng-container>
 
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-
-    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (click)="row.highlighted = !row.highlighted" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></mat-row>
+   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (click)="onRowClicked(row)" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></mat-row>
   </mat-table>
 
  <button>Mark selected as inactive</button>

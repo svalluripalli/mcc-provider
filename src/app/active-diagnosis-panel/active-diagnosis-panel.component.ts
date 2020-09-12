@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from '../data.service';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {DiagnosisDialogComponent} from '../diagnosis-dialog/diagnosis-dialog.component';
 
 @Component({
   selector: 'app-active-diagnosis-panel',
@@ -8,11 +10,30 @@ import {DataService} from '../data.service';
 })
 export class ActiveDiagnosisPanelComponent implements OnInit {
 
-  constructor(public dataservice: DataService) { }
+  constructor(public dataservice: DataService, private dialog: MatDialog) { }
   displayedColumns = ['checked', 'name', 'rxfilter', 'trend', 'date'];
   /* dataSource = DIAGNOISIS_DATA; */
       ngOnInit(): void {
   }
+
+  onRowClicked(row) {
+    console.log('Row clicked: ', row);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.hasBackdrop = true;
+    dialogConfig.width = '450px';
+    dialogConfig.data = row.history;
+    this.dialog.open(DiagnosisDialogComponent, dialogConfig);
+  }
+
+  switchToHM(code: string) {
+        console.log('Switch to Health Maintenance icon clicked. code=', code);
+  }
+  switchToHS(code: string) {
+    console.log('Switch to Health Status icon clicked. code=', code);
+  }
+
 
 }
 /*
