@@ -12,18 +12,19 @@ export class DiagnosisDialogComponent implements OnInit {
 
   displayedColumns: string[] = ['description', 'onset', 'abatement', 'status'];
   dataSource;
+  name: string;
+  condition: string;
   history: ConditionHistory[] = [];
 
   constructor(private dialogRef: MatDialogRef<DiagnosisDialogComponent>,
-              @Inject(MAT_DIALOG_DATA)  data: ConditionHistory[]) {
-
-    console.log('in diagnosis-dialog.component.ts: constructor  data=', data);
-    this.history = data;
+              @Inject(MAT_DIALOG_DATA)  data: { name: string, condition: string, history: ConditionHistory[] }) {
+    this.name = data.name;
+    this.condition = data.condition;
+    this.history = data.history;
 
   }
 
   ngOnInit(): void {
-    console.log('in diagnosis-dialog.component.ts: ngOnInit this.history=', this.history);
     this.dataSource = new MatTableDataSource(this.history);
   }
 
