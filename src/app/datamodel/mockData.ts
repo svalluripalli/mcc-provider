@@ -1,14 +1,22 @@
-import {TargetValue} from './targetvalue';
-import {GoalLists, GoalSummary, GoalTarget} from '../generated-data-api';
+import {TargetValue} from './old/targetvalue';
+import {
+  Contact,
+  GoalLists,
+  GoalSummary,
+  GoalTarget,
+  MccCodeableConcept,
+  MccDosage,
+  MccReference,
+  MedicationLists
+} from '../generated-data-api';
 // import {GoalLists} from './goallists';
-import {MedicationSummary} from './medicationSummary';
 import {Education} from './education';
 import {Referral} from './referral';
-import {Contact} from './contact';
-import {Demographic} from './demographics';
+import {Demographic} from './old/demographics';
 import {ConditionLists} from '../generated-data-api';
-import {Concern} from './socialconcerns';
+import {Concern} from './old/socialconcerns';
 import {MccCarePlan} from '../generated-data-api';
+import {MedicationSummary} from './old/medicationSummary';
 
 export const mockContacts: Contact[] = [
   {
@@ -53,6 +61,16 @@ export const mockContacts: Contact[] = [
   }
 ];
 
+export const emptyContacts: Contact[] = [
+  {
+    type: 'person',
+    role: '',
+    name: 'Awating data load...',
+    phone: '',
+    email: '',
+    address: ''
+  }
+];
 export const mockReferrals: Referral[] = [
   {
     purpose: 'Nephrology',
@@ -131,6 +149,9 @@ export const mockMedicationSummary: MedicationSummary[] = [
     adverseReactions: 'None'
   }
 ];
+export const emptyMediciationSummary: MedicationSummary[] = [];
+
+export const  emptyTargetData: TargetValue[] = [];
 
 export const mockTargetData: TargetValue[] = [
     {
@@ -190,6 +211,14 @@ export const mockTargetData: TargetValue[] = [
       status: 'high'
     }
   ];
+
+export const emptyGoalsList: GoalLists = {
+  activeClinicalGoals: [],
+  inactiveClinicalGoals: [],
+  activePatientGoals: [],
+  inactivePatientGoals: [],
+  activeTargets: []
+};
 
 export const mockGoalList: GoalLists = {
     activeClinicalGoals: [
@@ -456,14 +485,14 @@ export const mockGoalList: GoalLists = {
 export const dummySubject: Demographic = {
   name: 'No Patient Selected',
   id: '',
-  fhirid: 'cc-pat-null',
+  fhirid: '',
   dateOfBirth: '',
   gender: '',
   race: '',
   ethnicity: ''
 };
-export const dummyPatientId = 'cc-pat-null';
-export const dummyCareplanId = 'cc-careplan-null-ckd';
+export const dummyPatientId = '';
+export const dummyCareplanId = '';
 
 export const dummyConditions: ConditionLists = {
   activeConditions: [],
