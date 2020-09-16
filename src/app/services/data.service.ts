@@ -3,7 +3,7 @@ import {Demographic} from './datamodel/demographics';
 import {SubjectDataService} from './subject-data-service.service';
 import {CareplanService} from './careplan.service';
 import {GoalsDataService} from './goals-data-service.service';
-import {MccCarePlan} from './generated-data-api';
+import {Contact, MccCarePlan} from './generated-data-api';
 import {SocialConcerns} from './datamodel/socialconcerns';
 // import {ConditionLists} from './datamodel/conditionLists';
 import {ConditionLists} from './generated-data-api';
@@ -16,7 +16,7 @@ import {
   dummyCarePlan,
   dummySocialConcerns,
   dummyGoals,
-  mockContacts,
+  emptyContacts,
   mockEducation,
   mockNutrition,
   mockReferrals,
@@ -28,10 +28,10 @@ import {GoalLists} from './generated-data-api';
 import {MedicationSummary} from './datamodel/medicationSummary';
 import {Education} from './datamodel/education';
 import {Referral} from './datamodel/referral';
-import {Contact} from './datamodel/contact';
 import {map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {HttpHeaders} from '@angular/common/http';
+import {ContactsService} from './contacts.service';
 
 @Injectable({
   providedIn: 'root'
@@ -59,7 +59,12 @@ export class DataService {
   private commonHttpOptions;
   constructor(private subjectdataservice: SubjectDataService,
               private careplanservice: CareplanService,
-              private goalsdataservice: GoalsDataService) {
+              private goalsdataservice: GoalsDataService, private contactdataService: ContactsService) {
+    this.medications = mockMedicationSummary;
+    this.education = mockEducation;
+    this.nutrition = mockNutrition;
+    this.referrals = mockReferrals;
+    this.contacts = emptyContacts;
   }
 
   updateFHIRConnection(server: string, token: string)
@@ -75,6 +80,7 @@ export class DataService {
     this.subjectdataservice.httpOptions = this.commonHttpOptions;
     this.careplanservice.httpOptions = this.commonHttpOptions;
     this.goalsdataservice.httpOptions = this.commonHttpOptions;
+    this.contactdataService.httpOptions = this.commonHttpOptions;
   }
   getCurrentPatient(): Observable<Demographic> {
     return this.subjectdataservice.getSubject(this.currentPatientId).pipe(
@@ -100,12 +106,13 @@ export class DataService {
       this.updateConditions();
       this.getCarePlansForSubject();
       this.getPatientGoals();
+      this.updateContacts();
     }
     this.medications = mockMedicationSummary;
     this.education = mockEducation;
     this.nutrition = mockNutrition;
     this.referrals = mockReferrals;
-    this.contacts = mockContacts;
+    this.contacts = emptyContacts;
     this.targetValues = mockTargetData;
     return true;
 
@@ -119,6 +126,7 @@ export class DataService {
     } else {
       await this.updateCarePlan();
       await this.updateSocialConcerns();
+      await this.updateContacts();
     }
     /*
     this.careplanservice.getCarePlan(this.currentCareplaId)
@@ -140,11 +148,13 @@ export class DataService {
       .subscribe((cp ) => {
         this.careplans = cp;
         if (this.careplans.length > 0) {
-          this.careplan = this.careplans[this.careplans.length - 1];    // Iniatlize selected careplan to last in MccCarePlan array
+          this.careplan = this.careplans[this.careplans.length - 1]; // Iniatlize selected careplan to last in MccCarePlan array
+          this.currentCareplanId = this.careplan.id;
         }  else {
           this.careplan = dummyCarePlan;        // Initialize selected careplan to dummy careplan if no care plans available for subject
         }
         this.updateSocialConcerns();
+        this.updateContacts();
       });
    return true;
  }
@@ -152,6 +162,13 @@ export class DataService {
   async updateSocialConcerns(): Promise<boolean> {
     this.subjectdataservice.getSocialConcerns(this.currentPatientId, this.currentCareplanId)
       .subscribe(concerns => this.socialConcerns = concerns);
+    return true;
+  }
+
+
+  async updateContacts(): Promise<boolean> {
+    this.contactdataService.getContactsBySubjectAndCareplan(this.currentPatientId, this.currentCareplanId)
+      .subscribe(contacts => this.contacts = contacts);
     return true;
   }
 
