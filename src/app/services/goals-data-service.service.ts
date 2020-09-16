@@ -4,8 +4,8 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import {MessageService} from './message.service';
 
-import {environment} from '../environments/environment';
-import {GoalLists, MccGoal} from './generated-data-api';
+import {environment} from '../../environments/environment';
+import {GoalLists, MccGoal} from '../generated-data-api';
 
 @Injectable({
   providedIn: 'root'

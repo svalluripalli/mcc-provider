@@ -3,11 +3,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { Demographic } from './datamodel/demographics';
+import { Demographic } from '../datamodel/old/demographics';
 import { MessageService } from './message.service';
-import {Concern, SocialConcerns} from './datamodel/socialconcerns';
-import {environment} from '../environments/environment';
-import {ConditionLists} from './generated-data-api';
+import {Concern, SocialConcerns} from '../datamodel/old/socialconcerns';
+import {environment} from '../../environments/environment';
+import {ConditionLists} from '../generated-data-api';
 
 @Injectable({providedIn: 'root'})
 export class SubjectDataService{

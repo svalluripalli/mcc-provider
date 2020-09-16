@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MessageService} from './message.service';
 import {Observable, of} from 'rxjs';
-import {Contact} from './generated-data-api';
-import {environment} from '../environments/environment';
+import {Contact} from '../generated-data-api';
+import {environment} from '../../environments/environment';
 import {catchError, map, tap} from 'rxjs/operators';
 
 @Injectable({
