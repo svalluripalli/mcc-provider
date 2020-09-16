@@ -10,14 +10,37 @@ export class MedicationControllerService {
     /**
      * @param subject
      * @param careplan
-     * @param server
      * @result any OK
      * @throws ApiError
      */
-    public static async getConditionSummary2(
+    public static async getMedicationLists(
         subject: string,
         careplan?: string,
-        server?: string,
+    ): Promise<any> {
+
+        const result = await __request({
+            method: 'get',
+            path: `/medicationlists`,
+            query: {
+                'subject': subject,
+                'careplan': careplan,
+            },
+        });
+
+        catchGenericError(result);
+
+        return result.body;
+    }
+
+    /**
+     * @param subject
+     * @param careplan
+     * @result any OK
+     * @throws ApiError
+     */
+    public static async getMedicationSummary(
+        subject: string,
+        careplan?: string,
     ): Promise<any> {
 
         const result = await __request({
@@ -26,7 +49,31 @@ export class MedicationControllerService {
             query: {
                 'subject': subject,
                 'careplan': careplan,
-                'server': server,
+            },
+        });
+
+        catchGenericError(result);
+
+        return result.body;
+    }
+
+    /**
+     * @param type
+     * @param id
+     * @result any OK
+     * @throws ApiError
+     */
+    public static async getMedication(
+        type: string,
+        id: string,
+    ): Promise<any> {
+
+        const result = await __request({
+            method: 'get',
+            path: `/medication`,
+            query: {
+                'type': type,
+                'id': id,
             },
         });
 

@@ -10,14 +10,12 @@ export class ObservationControllerService {
     /**
      * @param subject
      * @param code
-     * @param server
      * @result any OK
      * @throws ApiError
      */
     public static async getLatestObservation(
         subject: string,
         code: string,
-        server?: string,
     ): Promise<any> {
 
         const result = await __request({
@@ -26,7 +24,6 @@ export class ObservationControllerService {
             query: {
                 'subject': subject,
                 'code': code,
-                'server': server,
             },
         });
 

@@ -10,6 +10,7 @@ export interface Contact {
     phone?: string;
     email?: string;
     address?: string;
+    organizationName?: string;
     relFhirId?: string;
     teamId?: string;
     teamName?: string;
