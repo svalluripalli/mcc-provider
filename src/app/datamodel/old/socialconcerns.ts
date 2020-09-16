@@ -1,5 +1,5 @@
 import {cloneDeep} from 'lodash';
-import {SocialConcern} from '../generated-data-api';
+import {SocialConcern} from '../../generated-data-api';
 
 // Concern interface replaced with SocialConcern interface, had to comment fhirpath, default, change name,data,description, date to optional
 export interface Concern {
