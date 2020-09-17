@@ -8,23 +8,17 @@ import { request as __request } from '../core/request';
 export class PatientControllerService {
 
     /**
-     * @param name
-     * @param serverId
+     * @param id
      * @result any OK
      * @throws ApiError
      */
-    public static async getPatients(
-        name: string,
-        serverId?: string,
+    public static async getPatient(
+        id: string,
     ): Promise<any> {
 
         const result = await __request({
             method: 'get',
-            path: `/patient`,
-            query: {
-                'name': name,
-                'serverId': serverId,
-            },
+            path: `/patient/${id}`,
         });
 
         catchGenericError(result);
@@ -33,21 +27,19 @@ export class PatientControllerService {
     }
 
     /**
-     * @param id
-     * @param serverId
+     * @param name
      * @result any OK
      * @throws ApiError
      */
-    public static async getPatient(
-        id: string,
-        serverId?: string,
+    public static async getPatients(
+        name: string,
     ): Promise<any> {
 
         const result = await __request({
             method: 'get',
-            path: `/patient/${id}`,
+            path: `/patient`,
             query: {
-                'serverId': serverId,
+                'name': name,
             },
         });
 

@@ -9,9 +9,9 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
-import {SubjectDataService} from './subject-data-service.service';
-import {CareplanService} from './careplan.service';
-import {DataService} from './data.service';
+import {SubjectDataService} from './services/subject-data-service.service';
+import {CareplanService} from './services/careplan.service';
+import {DataService} from './services/data.service';
 import {environment} from '../environments/environment';
 import {Observable, of, Subscription} from 'rxjs';
 import {tap, startWith, debounceTime, distinctUntilChanged, switchMap, map} from 'rxjs/operators';

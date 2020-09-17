@@ -9,48 +9,18 @@ export class GoalControllerService {
 
     /**
      * @param subject
-     * @param careplan
-     * @param server
      * @result any OK
      * @throws ApiError
      */
-    public static async getGoalSummary(
+    public static async getGoals(
         subject: string,
-        careplan?: string,
-        server?: string,
     ): Promise<any> {
 
         const result = await __request({
             method: 'get',
-            path: `/goalsummary`,
+            path: `/goal`,
             query: {
                 'subject': subject,
-                'careplan': careplan,
-                'server': server,
-            },
-        });
-
-        catchGenericError(result);
-
-        return result.body;
-    }
-
-    /**
-     * @param id
-     * @param serverId
-     * @result any OK
-     * @throws ApiError
-     */
-    public static async getGoal(
-        id: string,
-        serverId?: string,
-    ): Promise<any> {
-
-        const result = await __request({
-            method: 'get',
-            path: `/goal/${id}`,
-            query: {
-                'serverId': serverId,
             },
         });
 
@@ -61,22 +31,41 @@ export class GoalControllerService {
 
     /**
      * @param subject
-     * @param server
+     * @param careplan
      * @result any OK
      * @throws ApiError
      */
-    public static async getGoals(
+    public static async getGoalSummary(
         subject: string,
-        server?: string,
+        careplan?: string,
     ): Promise<any> {
 
         const result = await __request({
             method: 'get',
-            path: `/goal`,
+            path: `/goalsummary`,
             query: {
                 'subject': subject,
-                'server': server,
+                'careplan': careplan,
             },
+        });
+
+        catchGenericError(result);
+
+        return result.body;
+    }
+
+    /**
+     * @param id
+     * @result any OK
+     * @throws ApiError
+     */
+    public static async getGoal(
+        id: string,
+    ): Promise<any> {
+
+        const result = await __request({
+            method: 'get',
+            path: `/goal/${id}`,
         });
 
         catchGenericError(result);

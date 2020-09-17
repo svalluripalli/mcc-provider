@@ -10,9 +10,12 @@ export interface GoalSummary {
     expressedByType?: string;
     description?: string;
     achievementStatus?: MccCodeableConcept;
+    achievementText?: string;
     lifecycleStatus?: string;
     startDateText?: string;
     targetDateText?: string;
+    addresses?: string;
+    expressedBy?: string;
     targets?: Array<GoalTarget>;
     fhirid?: string;
 }

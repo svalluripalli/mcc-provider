@@ -10,4 +10,5 @@ export interface MccTiming {
     event?: Array<MccDateTime>;
     code?: MccCodeableConcept;
     repeat?: Repeat;
+    readable?: string;
 }

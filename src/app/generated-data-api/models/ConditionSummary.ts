@@ -10,7 +10,7 @@ export interface ConditionSummary {
     categories?: string;
     history?: Array<ConditionHistory>;
     profileId?: string;
+    verificationStatus?: string;
     firstOnset?: string;
     clinicalStatus?: string;
-    verificationStatus?: string;
 }

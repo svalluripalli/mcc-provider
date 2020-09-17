@@ -21,4 +21,5 @@ export interface Repeat {
     timeOfDay?: Array<MccTime>;
     when?: Array<string>;
     offset?: number;
+    readable?: string;
 }

@@ -5,25 +5,25 @@
 import { catchGenericError } from '../core/ApiError';
 import { request as __request } from '../core/request';
 
-export class ObservationControllerService {
+export class ContactControllerService {
 
     /**
      * @param subject
-     * @param code
+     * @param careplan
      * @result any OK
      * @throws ApiError
      */
-    public static async getLatestObservation(
+    public static async getContacts(
         subject: string,
-        code: string,
+        careplan?: string,
     ): Promise<any> {
 
         const result = await __request({
             method: 'get',
-            path: `/find/latest/observation`,
+            path: `/contact`,
             query: {
                 'subject': subject,
-                'code': code,
+                'careplan': careplan,
             },
         });
 

@@ -9,13 +9,11 @@ export class ConditionControllerService {
 
     /**
      * @param subject
-     * @param server
      * @result any OK
      * @throws ApiError
      */
     public static async getConditions(
         subject: string,
-        server?: string,
     ): Promise<any> {
 
         const result = await __request({
@@ -23,7 +21,6 @@ export class ConditionControllerService {
             path: `/condition`,
             query: {
                 'subject': subject,
-                'server': server,
             },
         });
 
@@ -34,21 +31,16 @@ export class ConditionControllerService {
 
     /**
      * @param id
-     * @param serverId
      * @result any OK
      * @throws ApiError
      */
     public static async getCodition(
         id: string,
-        serverId?: string,
     ): Promise<any> {
 
         const result = await __request({
             method: 'get',
             path: `/condition/${id}`,
-            query: {
-                'serverId': serverId,
-            },
         });
 
         catchGenericError(result);
@@ -59,14 +51,12 @@ export class ConditionControllerService {
     /**
      * @param subject
      * @param careplan
-     * @param server
      * @result any OK
      * @throws ApiError
      */
     public static async getConditionSummary1(
         subject: string,
         careplan?: string,
-        server?: string,
     ): Promise<any> {
 
         const result = await __request({
@@ -75,7 +65,6 @@ export class ConditionControllerService {
             query: {
                 'subject': subject,
                 'careplan': careplan,
-                'server': server,
             },
         });
 
