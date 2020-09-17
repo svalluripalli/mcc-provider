@@ -5,7 +5,6 @@ import {CareplanService} from './careplan.service';
 import {GoalsDataService} from './goals-data-service.service';
 import {Contact, MccCarePlan} from '../generated-data-api';
 import {SocialConcerns} from '../datamodel/old/socialconcerns';
-// import {ConditionLists} from './datamodel/conditionLists';
 import {ConditionLists} from '../generated-data-api';
 import {TargetValue} from '../datamodel/old/targetvalue';
 import {
@@ -33,6 +32,8 @@ import {Observable} from 'rxjs';
 import {HttpHeaders} from '@angular/common/http';
 import {ContactsService} from './contacts.service';
 import {MedicationService} from './medication.service';
+import {concatMap, tap} from 'rxjs/operators';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +51,7 @@ export class DataService {
   socialConcerns: SocialConcerns[];
   conditions: ConditionLists;
   targetValues: TargetValue[];
+  targetValuesDataSource = new MatTableDataSource(this.targetValues);
   goals: GoalLists;
   medications: MedicationSummary[];
   education: Education[];
@@ -94,24 +96,29 @@ export class DataService {
   }
   async setCurrentSubject(patientId: string): Promise<boolean> {
     this.currentPatientId = patientId;
+    this.targetValues = [];
+    this.targetValuesDataSource.data = this.targetValues;
     if ((!patientId || patientId.trim().length === 0)) {
       this.currentPatientId = dummyPatientId;
       this.currentCareplanId = dummyCareplanId;
       this.demographic = dummySubject;
       this.conditions = dummyConditions;
-      this.goals  = emptyGoalsList;
+      // this.goals  = emptyGoalsList;
+      this.goals = dummyGoals;
+
     } else {
       /*
-      this.subjectdataservice.getSubject(this.currentPatientId)
-        .subscribe(demograhic => this.demographic = demograhic);
-      this.subjectdataservice.getConditions(this.currentPatientId)
-        .subscribe(condition => this.conditions = condition);
-       */
+       this.subjectdataservice.getSubject(this.currentPatientId)
+         .subscribe(demograhic => this.demographic = demograhic);
+       this.subjectdataservice.getConditions(this.currentPatientId)
+         .subscribe(condition => this.conditions = condition);
+        */
       this.updateDemographics();
       this.updateConditions();
       this.getCarePlansForSubject();
       this.getPatientGoals();
       this.updateContacts();
+      this.getPatientGoalTargets(this.currentPatientId);
     }
     this.medications = mockMedicationSummary;
     this.education = mockEducation;
@@ -119,6 +126,7 @@ export class DataService {
     this.referrals = mockReferrals;
     this.contacts = emptyContacts;
     this.targetValues = emptyTargetData;
+
     return true;
 
   }
@@ -148,12 +156,12 @@ export class DataService {
     return true;
   }
 
- async getCarePlansForSubject(): Promise <boolean> {
-   this.careplanservice.getCarePlansBySubject(this.currentPatientId)
-      .subscribe((cp ) => {
+  async getCarePlansForSubject(): Promise<boolean> {
+    this.careplanservice.getCarePlansBySubject(this.currentPatientId)
+      .subscribe((cp) => {
         this.careplans = cp;
         if (this.careplans.length > 0) {
-          this.careplan = this.careplans[this.careplans.length - 1]; // Iniatlize selected careplan to last in MccCarePlan array
+          this.careplan = this.careplans[this.careplans.length - 1]; // Initialize selected careplan to last in MccCarePlan array
           this.currentCareplanId = this.careplan.fhirid;
           this.updateContacts();
         }  else {
@@ -162,8 +170,8 @@ export class DataService {
         }
         this.updateSocialConcerns();
       });
-   return true;
- }
+    return true;
+  }
 
   async updateSocialConcerns(): Promise<boolean> {
     this.subjectdataservice.getSocialConcerns(this.currentPatientId, this.currentCareplanId)
@@ -206,5 +214,17 @@ export class DataService {
     return true;
   }
 
+  // async getPatientGoalTargets(): Promise<boolean> {
+   async getPatientGoalTargets(patientId): Promise<boolean> {
+    this.targetValues = [];
+    this.goalsdataservice.getGoals(patientId)
+      .pipe(
+        concatMap(goals => this.goalsdataservice.getPatientGoalTargets(patientId, goals.activeTargets)),
+      ).subscribe(res => {
+      this.targetValues.push(res);
+      this.targetValuesDataSource.data = this.targetValues;
+    });
+    return true;
+  }
 
 }
