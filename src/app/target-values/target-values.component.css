@@ -16,6 +16,11 @@ tr.mat-header-row {
 tr.mat-row {
   min-height: 24px;
   height: 24px !important;
+}
+
+tr.mat-row.good {
+  min-height: 24px;
+  height: 24px !important;
   background-color: lightgreen;
 }
 

@@ -4,6 +4,50 @@
   <meta charset="utf-8">
   <title>Providersmartapp</title>
   <script src="https://cdn.jsdelivr.net/npm/fhirclient/build/fhir-client.js"></script>
+  <script>
+    const queryString = window.location.search;
+    console.log(queryString);
+    const urlParams = new URLSearchParams(queryString);
+    const nosmart = urlParams.get('nosmart') == true;
+    const code = urlParams.get('code')
+
+    if ((nosmart == false) && (code != null))
+    {
+
+    FHIR.oauth2.ready()
+    .then(client => {
+      client.request("Patient")
+      console.log("Requested patient")
+      })
+      /*
+      var skey  = sessionStorage["SMART_KEY"]
+      key = skey.replace(/['"]+/g, '')
+      console.log("Smart Key is "+key)
+      tkey = JSON.parse(skey)
+      if (key != null)
+      {
+        info = JSON.parse(sessionStorage.getItem(key));
+        if (info != null)
+        {
+          console.log("server: "+info["serverUrl"])
+          tokenResp = info["tokenResponse"]
+          console.log("patient: "+tokenResp["patient"]);
+          console.log("access_token: "+tokenResp["access_token"])
+        }
+        else {
+          console.log("No in for key "+key+" found")
+        }
+      }
+      */
+      .then(
+        console.log("Connected")
+      )
+      .catch(console.error)
+    }
+    else {
+      console.log("Not launching as SMART")
+    }
+  </script>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">

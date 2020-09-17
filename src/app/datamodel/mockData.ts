@@ -228,7 +228,7 @@ export const mockGoalList: GoalLists = {
               quantityValue: {
                 unit: '%',
                 comparator: '<',
-                value: '7',
+                value: 7,
                 system: 'http://unitsofmeasure.org/',
                 code: '%'
               }
@@ -272,13 +272,13 @@ export const mockGoalList: GoalLists = {
               rangeValue: {
                 high: {
                   unit: 'mg/dL',
-                  value: '4.5',
+                  value: 4.5,
                   system: 'http://unitsofmeasure.org',
                   code: 'mg/dL'
                 },
                 low: {
                   unit: 'mg/dL',
-                  value: '2.5',
+                  value: 2.5,
                   system: 'http://unitsofmeasure.org',
                   code: 'mg/dL'
                 }
@@ -323,7 +323,7 @@ export const mockGoalList: GoalLists = {
               quantityValue: {
                 unit: 'mmHg',
                 comparator: '<',
-                value: '140',
+                value: 140,
                 system: 'http://unitsofmeasure.org',
                 code: 'mm[Hg]'
               }
@@ -367,7 +367,7 @@ export const mockGoalList: GoalLists = {
               quantityValue: {
                 unit: 'mmHg',
                 comparator: '<',
-                value: '80',
+                value: 80,
                 system: 'http://unitsofmeasure.org',
                 code: 'mm[Hg]'
               }
@@ -455,12 +455,12 @@ export const mockGoalList: GoalLists = {
 
 export const dummySubject: Demographic = {
   name: 'No Patient Selected',
-  id: 'ID-000',
+  id: '',
   fhirid: 'cc-pat-null',
-  dateOfBirth: '01/01/1900',
-  gender: 'Male',
-  race: 'White',
-  ethnicity: 'Not Hispanic or Latino'
+  dateOfBirth: '',
+  gender: '',
+  race: '',
+  ethnicity: ''
 };
 export const dummyPatientId = 'cc-pat-null';
 export const dummyCareplanId = 'cc-careplan-null-ckd';
@@ -473,21 +473,21 @@ export const dummyConditions: ConditionLists = {
 };
 
 export const dummyCarePlan: MccCarePlan = {
-  title: 'None',
-  dateLastRevised: '01/01/1900',
+  title: '',
+  dateLastRevised: '',
   addresses: [],
   addressesSummary: '',
   categorySummary: '',
   categories: [],
-  id: 'Unknown',
-  periodStarts: '01/01/1900',
-  periodEnds: '01/01/1900',
-  status: 'InActive',
-  intent: 'plan',
+  id: '',
+  periodStarts: '',
+  periodEnds: '',
+  status: '',
+  intent: '',
   description: 'No Care Plan Selected',
-  notes: 'string',
-  dateResourceLastUpdated: '01/01/1900',
-  fhirid: 'cc-careplan-null-ckd'
+  notes: '',
+  dateResourceLastUpdated: '',
+  fhirid: ''
 };
 
 export const dummySocialConcerns: Concern[] = [];

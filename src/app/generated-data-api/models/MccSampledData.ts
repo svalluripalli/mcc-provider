@@ -6,10 +6,10 @@ import { MccSimpleQuantity } from './MccSimpleQuantity';
 
 export interface MccSampledData {
     origin?: MccSimpleQuantity;
-    period?: string;
-    factor?: string;
-    lowerlimit?: string;
-    upperlimit?: string;
+    period?: number;
+    factor?: number;
+    lowerlimit?: number;
+    upperlimit?: number;
     dimensions?: number;
     data?: string;
 }

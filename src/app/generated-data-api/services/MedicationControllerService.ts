@@ -5,49 +5,28 @@
 import { catchGenericError } from '../core/ApiError';
 import { request as __request } from '../core/request';
 
-export class CareplanControllerService {
+export class MedicationControllerService {
 
     /**
      * @param subject
+     * @param careplan
      * @param server
      * @result any OK
      * @throws ApiError
      */
-    public static async getCarePlans1(
+    public static async getConditionSummary2(
         subject: string,
+        careplan?: string,
         server?: string,
     ): Promise<any> {
 
         const result = await __request({
             method: 'get',
-            path: `/careplan`,
+            path: `/medicationsummary`,
             query: {
                 'subject': subject,
+                'careplan': careplan,
                 'server': server,
-            },
-        });
-
-        catchGenericError(result);
-
-        return result.body;
-    }
-
-    /**
-     * @param id
-     * @param serverId
-     * @result any OK
-     * @throws ApiError
-     */
-    public static async getCareplan(
-        id: string,
-        serverId?: string,
-    ): Promise<any> {
-
-        const result = await __request({
-            method: 'get',
-            path: `/careplan/${id}`,
-            query: {
-                'serverId': serverId,
             },
         });
 

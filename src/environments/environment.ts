@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   prodmccapiUrl: 'https://mcc-niddk-backend.wl.r.appspot.com',
-  mccapiUrl: 'http://localhost:8081'
+  mccapiUrl: 'http://localhost:8081',
+  clientId: '1491aa24-3b5b-42e8-b532-63707c359493'
 };
 
 /*

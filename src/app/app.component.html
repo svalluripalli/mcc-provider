@@ -14,8 +14,8 @@
            placeholder="Enter at least {{minSearchCharacters}} characters to search patient by name"
            [formControl]="patientSearch"
            [matAutocomplete]="auto">
-    <mat-icon matTooltip="Select a new patient" aria-label="Button to select a new patient" (click)="togglePatientSearch()">person</mat-icon>
-    <mat-icon matTooltip="Select a careplan" aria-label="Button to select and new careplan" [matMenuTriggerFor]="menuCareplan" >folder</mat-icon>
+    <mat-icon  matTooltip="Select a new patient" aria-label="Button to select a new patient" (click)="togglePatientSearch()" *ngIf="devmode">person</mat-icon>
+    <mat-icon  matTooltip="Select a careplan" aria-label="Button to select and new careplan" [matMenuTriggerFor]="menuCareplan" >folder</mat-icon>
     <mat-menu #menuCareplan="matMenu">
       <button mat-menu-item
               *ngFor="let plan of this.dataservice.careplans"
@@ -39,11 +39,19 @@
     <table>
       <tr>
         <td><p>FHIR Server URL:</p></td>
-        <td><p>https://api.logicahealth.org/MCCeCarePlanTest/open/</p></td>
+        <td><p>{{dataservice.mainfhirserver}}</p></td>
       </tr>
       <tr>
         <td><p>API Server URL</p></td>
         <td><p>{{apiURL}}</p></td>
+      </tr>
+      <tr>
+        <td><p>Development Mode</p></td>
+        <td><p>{{devmode}}</p></td>
+      </tr>
+      <tr>
+        <td><p>Smart Launch</p></td>
+        <td><p>{{smartLaunch}}</p></td>
       </tr>
     </table>
   </mat-sidenav>

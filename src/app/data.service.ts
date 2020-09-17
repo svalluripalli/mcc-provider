@@ -29,6 +29,9 @@ import {MedicationSummary} from './datamodel/medicationSummary';
 import {Education} from './datamodel/education';
 import {Referral} from './datamodel/referral';
 import {Contact} from './datamodel/contact';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +39,8 @@ import {Contact} from './datamodel/contact';
 
 export class DataService {
 
+  authorizationToken: string;
+  mainfhirserver: string;
   currentPatientId: string;
   currentCareplanId: string;
   demographic: Demographic;
@@ -51,11 +56,31 @@ export class DataService {
   referrals: Referral[];
   contacts: Contact[];
 
+  private commonHttpOptions;
   constructor(private subjectdataservice: SubjectDataService,
               private careplanservice: CareplanService,
               private goalsdataservice: GoalsDataService) {
   }
 
+  updateFHIRConnection(server: string, token: string)
+  {
+    this.authorizationToken = token;
+    console.log('Token = ' + token);
+    this.mainfhirserver = server;
+    let headersobj = new HttpHeaders();
+    headersobj = headersobj.set('Content-Type', 'application/json').set('mcc-fhir-server', server).set('mcc-token', token);
+    this.commonHttpOptions = {
+      headers: headersobj
+    };
+    this.subjectdataservice.httpOptions = this.commonHttpOptions;
+    this.careplanservice.httpOptions = this.commonHttpOptions;
+    this.goalsdataservice.httpOptions = this.commonHttpOptions;
+  }
+  getCurrentPatient(): Observable<Demographic> {
+    return this.subjectdataservice.getSubject(this.currentPatientId).pipe(
+      map(data => data)
+    );
+  }
   async setCurrentSubject(patientId: string): Promise<boolean> {
     this.currentPatientId = patientId;
     if ((!patientId || patientId.trim().length === 0)) {
@@ -92,8 +117,8 @@ export class DataService {
       this.socialConcerns = dummySocialConcerns;
       this.careplan = dummyCarePlan;
     } else {
-      this.updateCarePlan();
-      this.updateSocialConcerns();
+      await this.updateCarePlan();
+      await this.updateSocialConcerns();
     }
     /*
     this.careplanservice.getCarePlan(this.currentCareplaId)
@@ -115,10 +140,11 @@ export class DataService {
       .subscribe((cp ) => {
         this.careplans = cp;
         if (this.careplans.length > 0) {
-          this.careplan = this.careplans[0];    // Inialize selected careplan to first in MccCarePlan array
+          this.careplan = this.careplans[this.careplans.length - 1];    // Iniatlize selected careplan to last in MccCarePlan array
         }  else {
           this.careplan = dummyCarePlan;        // Initialize selected careplan to dummy careplan if no care plans available for subject
         }
+        this.updateSocialConcerns();
       });
    return true;
  }

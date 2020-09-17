@@ -26,8 +26,8 @@ export class GoalsDataService {
   {
     const url = `${environment.mccapiUrl}${this.goalSummaryURL}?subject=${id}`;
 
-    return this.http.get<GoalLists>(url).pipe(
-      tap(_ => this.log('fetched Conditions')),
+    return this.http.get<GoalLists>(url, this.httpOptions).pipe(
+      tap(_ => this.log('fetched Goal Summary')),
       catchError(this.handleError<GoalLists>('getGoals'))
     );
 
@@ -36,7 +36,7 @@ export class GoalsDataService {
   /** GET Goal by Goal Fhrid. Will 404 if id not found */
   getGoal(id: string): Observable<MccGoal> {
     const url = `${environment.mccapiUrl}${this.goalURL}/${id}`;
-    return this.http.get<MccGoal>(url).pipe(
+    return this.http.get<MccGoal>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched subject id=${id}`)),
       catchError(this.handleError<MccGoal>(`getGoal id=${id}`))
     );
