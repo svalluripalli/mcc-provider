@@ -46,7 +46,7 @@ export class GoalsDataService {
         this.getMostRecentObservationResult(patientId, gt.measure.coding[0].code)
           .subscribe(obs => {
             let mostRecentResultValue = '';
-            const observationDate = '';
+            let observationDate = '';
             let rowHighlighted = false;
             let formattedTargetValue = '';
             if (obs !== undefined) {
@@ -62,13 +62,12 @@ export class GoalsDataService {
                   }
                 });
               }
-              /*  todo:  uncomment after obs.effective is added to MccObservation object
+
               if (obs.effective !== undefined) {
                 if (obs.effective.type === 'DateTime') {
-                  observationDate = obs.effective.date;
+                  observationDate = obs.effective.dateTime.date;
                 }
               }
-              */
 
               [formattedTargetValue, rowHighlighted] = this.formatTargetValue(gt, mostRecentResultValue);
               const tv: TargetValue = {
@@ -113,7 +112,9 @@ export class GoalsDataService {
     let lowval = 0;
 
     rval = Number(mostRecentResultValue);
-    if (isNaN(rval)) { rval = 0; }
+    if (isNaN(rval)) {
+      rval = 0;
+    }
 
     if (target.value !== undefined) {
       formatted += ' ' + target.value.valueType;
@@ -139,18 +140,21 @@ export class GoalsDataService {
             + target.value.quantityValue.value.toString()
             + ' ' + target.value.quantityValue.unit;
           qval = Number(target.value.quantityValue.value);
-          if (!isNaN(qval))  {
-            if (target.value.quantityValue.comparator === '<')
-            {
-              if (rval >=  qval) {  highlighted = true; }
+          if (!isNaN(qval)) {
+            if (target.value.quantityValue.comparator === '<') {
+              if (rval >= qval) {
+                highlighted = true;
+              }
             }
-            if (target.value.quantityValue.comparator === '>')
-            {
-              if (rval <=  qval) {  highlighted = true; }
+            if (target.value.quantityValue.comparator === '>') {
+              if (rval <= qval) {
+                highlighted = true;
+              }
             }
-            if (target.value.quantityValue.comparator === '=')
-            {
-              if (rval !== qval) {  highlighted = true; }
+            if (target.value.quantityValue.comparator === '=') {
+              if (rval !== qval) {
+                highlighted = true;
+              }
             }
           }
           break;
@@ -162,8 +166,10 @@ export class GoalsDataService {
 
           highval = Number(target.value.rangeValue.high.value);
           lowval = Number(target.value.rangeValue.low.value);
-          if (!isNaN(lowval) && !isNaN(highval) ) {
-            if (rval < lowval || rval > highval) { highlighted = true; }
+          if (!isNaN(lowval) && !isNaN(highval)) {
+            if (rval < lowval || rval > highval) {
+              highlighted = true;
+            }
           }
           break;
         }
