@@ -13,8 +13,8 @@ import {SubjectDataService} from './services/subject-data-service.service';
 import {CareplanService} from './services/careplan.service';
 import {DataService} from './services/data.service';
 import {environment} from '../environments/environment';
-import {Observable, of, Subscription} from 'rxjs';
-import {tap, startWith, debounceTime, distinctUntilChanged, switchMap, map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {startWith, debounceTime, distinctUntilChanged, switchMap, map} from 'rxjs/operators';
 import {MccCarePlan} from './generated-data-api';
 import {ActivatedRoute} from '@angular/router';
 
@@ -23,8 +23,9 @@ import {ActivatedRoute} from '@angular/router';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
+
 export class AppComponent implements OnInit, AfterViewInit {
 
   // todo:  use of patSearch template variable to set focus not working..
@@ -135,9 +136,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.currentSubjectId = data;
     this.patientCarePlans = new Observable<MccCarePlan[]>();     // Initialize patient care plans to empty object.
     this.dataservice.setCurrentSubject(this.currentSubjectId);   // Care Plan selection for patient done in dataservice.setCurrentSubject
+
     this.patientSearch.setValue('');
     this.showPatientSearch = false;
     this.initFilteredPatients();
+    // this.goalscmp.refreshTargets();
   }
 
   togglePatientSearch() {
