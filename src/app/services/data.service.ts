@@ -125,7 +125,7 @@ export class DataService {
     this.nutrition = mockNutrition;
     this.referrals = mockReferrals;
     this.contacts = emptyContacts;
-    this.targetValues = emptyTargetData;
+    // this.targetValues = emptyTargetData;
 
     return true;
 
@@ -215,8 +215,7 @@ export class DataService {
   }
 
   // async getPatientGoalTargets(): Promise<boolean> {
-   async getPatientGoalTargets(patientId): Promise<boolean> {
-    this.targetValues = [];
+  async getPatientGoalTargets(patientId): Promise<boolean> {
     this.goalsdataservice.getGoals(patientId)
       .pipe(
         concatMap(goals => this.goalsdataservice.getPatientGoalTargets(patientId, goals.activeTargets)),

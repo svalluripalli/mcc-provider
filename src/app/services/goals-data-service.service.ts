@@ -41,22 +41,23 @@ export class GoalsDataService {
   // The Goal Target and Observation data is merged into a TargetValue object which is emitted
   getPatientGoalTargets(patientId: string, targets: GoalTarget[]): Observable<TargetValue> {
     return new Observable(observer => {
+      // console.log('in getPatientGoalTargets: patientId: ', patientId, 'targets: ', targets);
       targets.map(gt => {
         this.getMostRecentObservationResult(patientId, gt.measure.coding[0].code)
           .subscribe(obs => {
-            let mostRecentResultValue = 0;
+            let mostRecentResultValue = '';
             const observationDate = '';
             let rowHighlighted = false;
             let formattedTargetValue = '';
             if (obs !== undefined) {
               if (obs.value !== undefined) {
-                mostRecentResultValue = obs.value.quantityValue.value;
+                mostRecentResultValue = obs.value.quantityValue.value.toString();
               }
               if (obs.components !== undefined) {
                 obs.components.map(c => {
                   if (c.code.coding[0].code === gt.measure.coding[0].code) {
                     if (c.value !== undefined) {
-                      mostRecentResultValue = c.value.quantityValue.value;
+                      mostRecentResultValue = c.value.quantityValue.value.toString();
                     }
                   }
                 });
@@ -73,7 +74,7 @@ export class GoalsDataService {
               const tv: TargetValue = {
                 measure: gt.measure.text,
                 date: observationDate, // todo: Get observation date when API is updated
-                mostRecentResult: mostRecentResultValue,
+                mostRecentResult: mostRecentResultValue.toString(),
                 target: formattedTargetValue,
                 highlighted: rowHighlighted,
                 status: obs.status
@@ -96,7 +97,7 @@ export class GoalsDataService {
 
   getMostRecentObservationResult(patientId: string, code: string): Observable<MccObservation> {
     const url = `${environment.mccapiUrl}${this.observationURL}?subject=${patientId}&code=${code}`;
-    return this.http.get<MccObservation>(url).pipe(
+    return this.http.get<MccObservation>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched MccObservation patientId=${patientId} code=${code}`)),
       catchError(this.handleError<MccObservation>(`getMostRecentObservationResult patientId=${patientId} code=${code}`))
     );
