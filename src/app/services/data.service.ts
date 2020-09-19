@@ -21,10 +21,11 @@ import {
   mockReferrals,
   emptyTargetData,
   mockGoalList,
-  mockMedicationSummary, emptyGoalsList,
+  mockMedicationSummary, emptyGoalsList, emptyMediciationSummary,
 } from '../datamodel/mockData';
 import {GoalLists} from '../generated-data-api';
-import {MedicationSummary} from '../datamodel/old/medicationSummary';
+// import {MedicationSummary} from '../datamodel/old/medicationSummary';
+import { MedicationSummary } from '../generated-data-api';
 import {Education} from '../datamodel/education';
 import {Referral} from '../datamodel/referral';
 import {map} from 'rxjs/operators';
@@ -53,7 +54,8 @@ export class DataService {
   targetValues: TargetValue[];
   targetValuesDataSource = new MatTableDataSource(this.targetValues);
   goals: GoalLists;
-  medications: MedicationSummary[];
+  activeMedications: MedicationSummary[];
+  inactiveMedications: MedicationSummary[];
   education: Education[];
   nutrition: Education[];
   referrals: Referral[];
@@ -65,7 +67,7 @@ export class DataService {
               private goalsdataservice: GoalsDataService,
               private contactdataService: ContactsService,
               private medicationdataService: MedicationService) {
-    this.medications = mockMedicationSummary;
+    this.activeMedications = emptyMediciationSummary;
     this.education = mockEducation;
     this.nutrition = mockNutrition;
     this.referrals = mockReferrals;
@@ -105,6 +107,7 @@ export class DataService {
       this.conditions = dummyConditions;
       // this.goals  = emptyGoalsList;
       this.goals = dummyGoals;
+      this.activeMedications = emptyMediciationSummary;
 
     } else {
       /*
@@ -120,7 +123,7 @@ export class DataService {
       this.updateContacts();
       this.getPatientGoalTargets(this.currentPatientId);
     }
-    this.medications = mockMedicationSummary;
+    // this.activeMedications = mockMedicationSummary;
     this.education = mockEducation;
     this.nutrition = mockNutrition;
     this.referrals = mockReferrals;
@@ -140,6 +143,7 @@ export class DataService {
       await this.updateCarePlan();
       await this.updateSocialConcerns();
       await this.updateContacts();
+      await this.updateMedications();
     }
     /*
     this.careplanservice.getCarePlan(this.currentCareplaId)
@@ -164,6 +168,7 @@ export class DataService {
           this.careplan = this.careplans[this.careplans.length - 1]; // Initialize selected careplan to last in MccCarePlan array
           this.currentCareplanId = this.careplan.fhirid;
           this.updateContacts();
+          this.updateMedications();
         }  else {
           this.careplan = dummyCarePlan;        // Initialize selected careplan to dummy careplan if no care plans available for subject
           this.updateContacts();
@@ -187,9 +192,13 @@ export class DataService {
   }
 
 
-  async updateMedicationss(): Promise<boolean> {
-   // this.medicationdataService.getMedicationsBySubjectAndCareplan(this.currentPatientId, this.currentCareplanId)
-   //   .subscribe(contacts => this.contacts = contacts);
+  async updateMedications(): Promise<boolean> {
+    this.medicationdataService.getMedicationSummaryBySubjectAndCareplan(this.currentPatientId, this.currentCareplanId)
+      .subscribe(medications => {
+        console.log('in data.service.ts updateMedications medications: ', medications);
+        this.activeMedications = medications.activeMedications;
+        this.inactiveMedications = medications.inactiveMedications;
+      });
     return true;
   }
 

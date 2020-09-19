@@ -9,7 +9,7 @@ import {DataService} from '../services/data.service';
 export class MedicationPanelComponent implements OnInit {
 
   constructor(public dataService: DataService) { }
-  displayedColumns = ['name', 'classortype', 'dose', 'doseForm', 'prescribedBy', 'startDate', 'adverseReactions'];
+  displayedColumns = ['name', 'reason', 'dose', 'prescribedBy', 'issues', 'priority'];
 
   ngOnInit(): void {
   }
