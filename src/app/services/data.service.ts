@@ -52,10 +52,13 @@ export class DataService {
   socialConcerns: SocialConcerns[];
   conditions: ConditionLists;
   targetValues: TargetValue[];
-  targetValuesDataSource = new MatTableDataSource(this.targetValues);
-  goals: GoalLists;
   activeMedications: MedicationSummary[];
   inactiveMedications: MedicationSummary[];
+
+  targetValuesDataSource = new MatTableDataSource(this.targetValues);
+  activeMedicationsDataSource = new MatTableDataSource(this.activeMedications);
+  goals: GoalLists;
+
   education: Education[];
   nutrition: Education[];
   referrals: Referral[];
@@ -100,6 +103,8 @@ export class DataService {
     this.currentPatientId = patientId;
     this.targetValues = [];
     this.targetValuesDataSource.data = this.targetValues;
+    this.activeMedications = emptyMediciationSummary;
+    this.activeMedicationsDataSource.data = this.activeMedications;
     if ((!patientId || patientId.trim().length === 0)) {
       this.currentPatientId = dummyPatientId;
       this.currentCareplanId = dummyCareplanId;
@@ -107,8 +112,6 @@ export class DataService {
       this.conditions = dummyConditions;
       // this.goals  = emptyGoalsList;
       this.goals = dummyGoals;
-      this.activeMedications = emptyMediciationSummary;
-
     } else {
       /*
        this.subjectdataservice.getSubject(this.currentPatientId)
@@ -197,6 +200,7 @@ export class DataService {
       .subscribe(medications => {
         console.log('in data.service.ts updateMedications medications: ', medications);
         this.activeMedications = medications.activeMedications;
+        this.activeMedicationsDataSource.data = this.activeMedications;
         this.inactiveMedications = medications.inactiveMedications;
       });
     return true;
