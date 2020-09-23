@@ -7,7 +7,8 @@ import {
   MccCodeableConcept,
   MccDosage,
   MccReference,
-  MedicationLists
+  MedicationLists,
+  MedicationSummary
 } from '../generated-data-api';
 // import {GoalLists} from './goallists';
 import {Education} from './education';
@@ -16,7 +17,7 @@ import {Demographic} from './old/demographics';
 import {ConditionLists} from '../generated-data-api';
 import {Concern} from './old/socialconcerns';
 import {MccCarePlan} from '../generated-data-api';
-import {MedicationSummary} from './old/medicationSummary';
+// import {MedicationSummary} from './old/medicationSummary';
 
 export const mockContacts: Contact[] = [
   {
@@ -137,7 +138,7 @@ export const mockNutrition: Education[] = [
   }
 
 ];
-
+/*
 export const mockMedicationSummary: MedicationSummary[] = [
   {
     name: 'lisinopril',
@@ -149,6 +150,65 @@ export const mockMedicationSummary: MedicationSummary[] = [
     adverseReactions: 'None'
   }
 ];
+*/
+
+export const mockMedicationSummary: MedicationSummary[] = [
+  {
+    type: 'MedicationRequest',
+    fhirId: 'cc-med-betsy-aspirin',
+    status: 'active',
+    medication: 'Aspirin 75 MG Oral Tablet',
+    dosages: 'Once daily.',
+    requestedBy: 'Dr. John Carlson, MD',
+    reasons: 'Congestive heart failure'
+  },
+  {
+    type: 'MedicationRequest',
+    fhirId: 'cc-med-betsy-furosemide',
+    status: 'active',
+    medication: 'Furosemide 20 MG Oral Tablet',
+    dosages: 'Take Furosemide 20mg tablet once a day for swelling in arms and legs.',
+    requestedBy: 'Dr. John Carlson, MD',
+    reasons: 'Congestive heart failure'
+  },
+  {
+    type: 'MedicationRequest',
+    fhirId: 'cc-med-betsy-simvastatin',
+    status: 'active',
+    medication: 'Simvastatin 40 MG Oral Tablet',
+    dosages: 'Take Simvastatin 40mg tablet once a day for high cholesterol.',
+    requestedBy: 'Dr. John Carlson, MD',
+    reasons: 'Dyslipidemia'
+  },
+  {
+    type: 'MedicationRequest',
+    fhirId: 'cc-med-betsy-lisinopril',
+    status: 'active',
+    medication: 'Lisinopril 40 MG Oral Tablet',
+    dosages: 'Take Lisinopril 40mg tablet once a day for high blood pressure.',
+    requestedBy: 'Dr. John Carlson, MD',
+    reasons: 'Hypertension'
+  },
+  {
+    type: 'MedicationRequest',
+    fhirId: 'cc-med-betsy-vitamin-d',
+    status: 'active',
+    medication: 'Vitamin D 1000 IU Oral Tablet',
+    dosages: 'By mouth twice daily in the morning and evening.',
+    requestedBy: 'Dr. John Carlson, MD',
+    reasons: 'Chronic kidney disease'
+  },
+  {
+    type: 'MedicationRequest',
+    fhirId: 'cc-med-betsy-insulin',
+    status: 'active',
+    medication: 'Insulin, human Mixed 70/30 100 UNT/ML Injectable Suspension',
+    dosages: 'Twice daily.',
+    requestedBy: 'Dr. John Carlson, MD',
+    reasons: 'Chronic kidney disease'
+  }
+];
+
 export const emptyMediciationSummary: MedicationSummary[] = [];
 
 export const  emptyTargetData: TargetValue[] = [];
