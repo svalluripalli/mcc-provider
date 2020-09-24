@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {DataService} from '../services/data.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {DiagnosisDialogComponent} from '../diagnosis-dialog/diagnosis-dialog.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -10,8 +11,11 @@ import {DiagnosisDialogComponent} from '../diagnosis-dialog/diagnosis-dialog.com
   styleUrls: ['./active-diagnosis-panel.component.css']
 })
 export class ActiveDiagnosisPanelComponent implements OnInit {
-
-  constructor(public dataservice: DataService, private dialog: MatDialog) {
+  private route: ActivatedRoute;
+  private router: Router;
+  constructor(public dataservice: DataService, private dialog: MatDialog, private rt: ActivatedRoute, private rtr: Router) {
+    this.route = rt;
+    this.router = rtr;
   }
 
   displayedColumns = ['checked', 'name', 'rxfilter', 'trend', 'date'];
@@ -36,10 +40,12 @@ export class ActiveDiagnosisPanelComponent implements OnInit {
 
   switchToHM(code: string) {
     // console.log('Switch to Health Maintenance icon clicked. code=', code);
+    this.router.navigate(['/maint'], { queryParamsHandling: 'merge' });
   }
 
   switchToHS(code: string) {
     // console.log('Switch to Health Status icon clicked. code=', code);
+    this.router.navigate(['status'], { queryParamsHandling: 'merge' });
   }
 
 

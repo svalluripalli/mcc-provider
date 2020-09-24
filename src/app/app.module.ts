@@ -40,6 +40,7 @@ import { WeightOverTimeComponent } from './weight-over-time/weight-over-time.com
 import { UACRComponent } from './uacr/uacr.component';
 import { BPGraphComponent } from './bpgraph/bpgraph.component';
 import { DiagnosisDialogComponent } from './diagnosis-dialog/diagnosis-dialog.component';
+import { AppRoutingModule } from './app-routing.module';
 
 const routes: Routes = []; // sets up routes constant where you define your routes
 
@@ -82,8 +83,9 @@ const routes: Routes = []; // sets up routes constant where you define your rout
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
-        RouterModule.forRoot(routes),
+        RouterModule.forRoot(routes,{enableTracing: false}),
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+        AppRoutingModule
     ],
   exports: [RouterModule],
   providers: [],

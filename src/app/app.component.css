@@ -42,13 +42,62 @@ mat-tab-group {
   justify-content: center;
 }
 
+.example-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
 
+mat-tab-nav-bar {
+  margin: 2%;
+  width: 96%;
+  max-width: 96%;
+  height: -webkit-fill-available;
+  height: -moz-available;
+  height: stretch;
+}
+
+.mat-tab-link {
+  min-width: 20rem;
+  padding: 2%;
+  /*
+  background-color: lightblue;
+  color: black;
+
+   */
+  width: 22%;
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+}
+
+.mat-tab-link.mat-tab-label-active {
+  min-width: 20rem;
+  padding: 2%;
+  background-color: white;
+  border-color: black;
+  color: black;
+  width: 22%;
+  border-width: 2px;
+  border-style: solid;
+}
+
+::ng-deep.mat-tab-link .mat-tab-link-content {
+  flex-wrap: wrap;
+}
+
+::ng-deep.mat-tab-link .mat-tab-link-content span {
+  display: flex;
+  flex: 1 0 100%;
+  justify-content: center;
+}
 
 .example-fill-remaining-space {
   /* This fills the remaining space, by using flexbox.
      Every toolbar row uses a flexbox row layout. */
   flex: 1 1 auto;
 }
+
 
 .tile-header
 {

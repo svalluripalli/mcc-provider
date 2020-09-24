@@ -15,8 +15,8 @@ import {DataService} from './services/data.service';
 import {environment} from '../environments/environment';
 import {Observable} from 'rxjs';
 import {startWith, debounceTime, distinctUntilChanged, switchMap, map} from 'rxjs/operators';
-import {MccCarePlan} from './generated-data-api';
-import {ActivatedRoute} from '@angular/router';
+import { MccCarePlan } from './generated-data-api/models/MccCarePlan';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({
@@ -30,10 +30,38 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   // todo:  use of patSearch template variable to set focus not working..
   @ViewChild('patSearch', {static: true}) patSearch: any;
+  navLinks: any[];
+  activeLinkIndex = -1;
 
   constructor(public dataservice: DataService, public subjectdataservice: SubjectDataService,
-              private route: ActivatedRoute, private changeDetector: ChangeDetectorRef) {
+              private route: ActivatedRoute, private changeDetector: ChangeDetectorRef,
+              private router: Router) {
+
+    this.navLinks = [
+      {
+        label: 'Health and Social Concerns',
+        link: './health',
+        index: 0
+      }, {
+        label: 'Goals and Preferences',
+        link: './goals',
+        index: 1
+      }, {
+        label: 'Health Maintenance & Interventions',
+        link: './maint',
+        index: 2
+      }, {
+        label: 'Health Status Evaluation & Outcomes',
+        link: './status',
+        index: 2
+      }, {
+        label: 'Care Team',
+        link: './care',
+        index: 2
+      },
+    ];
   }
+
 
   basefhirserver = 'https://api.logicahealth.org/MCCeCarePlanTest/open/';
   title = 'providersmartapp';
@@ -74,6 +102,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
     );
 
+    this.router.events.subscribe((res) => {
+      this.activeLinkIndex = this.navLinks.indexOf(this.navLinks.find(tab => tab.link === '.' + this.router.url));
+    });
+
     const skey = sessionStorage.SMART_KEY;
     const key = skey.replace(/['"]+/g, '');
     console.log('Ang: Smart Key is ' + key);
@@ -89,8 +121,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       }, time);
     });
   }
-  async updateDateContext(key: string , count: number): Promise<void>
-  {
+
+  async updateDateContext(key: string, count: number): Promise<void> {
     console.log('Updating Contect');
     const info = JSON.parse(sessionStorage.getItem(key));
     if (info != null) {
@@ -103,25 +135,23 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.patientSelected(tokenResp.patient);
         this.smartLaunch = true;
         this.changeDetector.detectChanges();
-      }
-      else
-      {
+      } else {
         // Smart on FHIR still not ready (grrr....)
-        if (count > 0)
-        {
+        if (count > 0) {
           const t = await this.waitFor(1000);
           console.log(t);
-          this.updateDateContext(key, count - 1 );
+          this.updateDateContext(key, count - 1);
         }
       }
     } else {
       console.log('No info for key ' + key + ' found');
     }
   }
-  ngAfterViewInit(): void
-  {
+
+  ngAfterViewInit(): void {
     //
   }
+
   private _dataFilter(val: string): Observable<any> {
     // call the http data to find matching patients
     if (val.length >= this.minSearchCharacters) {

@@ -20,12 +20,12 @@
   <!-- Rx Filter Column -->
   <ng-container matColumnDef="rxfilter">
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
-    <mat-cell *matCellDef="let condition"><mat-icon matTooltip="Switch to Health Maintance using this codition as a focus" aria-label="Selection to change to the Health Maintance and Intervention tab using this condition as a focus">local_pharmacy</mat-icon></mat-cell>
+    <mat-cell *matCellDef="let condition"><mat-icon *ngIf="condition.profileId!=null" (click)="switchToHM(condition.code)" matTooltip="Switch to Health Maintance using this codition as a focus" aria-label="Selection to change to the Health Maintance and Intervention tab using this condition as a focus">local_pharmacy</mat-icon></mat-cell>
   </ng-container>
   <!-- Trend Filter Column -->
   <ng-container matColumnDef="trend">
     <mat-header-cell *matHeaderCellDef></mat-header-cell>
-    <mat-cell *matCellDef="let condition"><mat-icon matTooltip="Switch to Heath Status using this condition as a focus" aria-label="Selection to change to the the Health Status Evaluation and Outcomes using this condition as a focus">timeline</mat-icon></mat-cell>
+    <mat-cell *matCellDef="let condition"><mat-icon *ngIf="condition.profileId!=null"  (click)="switchToHS(condition.code)" matTooltip="Switch to Heath Status using this condition as a focus" aria-label="Selection to change to the the Health Status Evaluation and Outcomes using this condition as a focus">timeline</mat-icon></mat-cell>
   </ng-container>
 
   <!-- Name Column -->
@@ -37,7 +37,7 @@
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 
-  <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (click)="row.highlighted = !row.highlighted" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></mat-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (click)="onRowClicked(row)" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></mat-row>
 </mat-table>
 <button>Mark selected as active</button>
 
