@@ -117,3 +117,14 @@ export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue:
   return [formatted, highlighted];
 
 }
+
+export function reformatYYYYMMDD(dt): string {
+  if (dt) {
+    const date = new Date(dt);
+    return new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+      .toISOString()
+      .split('T')[0];
+  } else {
+    return '';
+  }
+}
