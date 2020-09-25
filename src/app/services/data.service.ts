@@ -3,7 +3,7 @@ import {Demographic} from '../datamodel/old/demographics';
 import {SubjectDataService} from './subject-data-service.service';
 import {CareplanService} from './careplan.service';
 import {GoalsDataService} from './goals-data-service.service';
-import {Contact, MccCarePlan} from '../generated-data-api';
+import {Contact, GoalSummary, MccCarePlan} from '../generated-data-api';
 import {SocialConcerns} from '../datamodel/old/socialconcerns';
 import {ConditionLists} from '../generated-data-api';
 import {TargetValue} from '../datamodel/old/targetvalue';
@@ -54,10 +54,13 @@ export class DataService {
   targetValues: TargetValue[];
   activeMedications: MedicationSummary[];
   inactiveMedications: MedicationSummary[];
+  allGoals: GoalSummary[];
+
+  goals: GoalLists;
 
   targetValuesDataSource = new MatTableDataSource(this.targetValues);
   activeMedicationsDataSource = new MatTableDataSource(this.activeMedications);
-  goals: GoalLists;
+  consolidatedGoalsDataSource = new MatTableDataSource(this.allGoals);
 
   education: Education[];
   nutrition: Education[];
@@ -223,7 +226,10 @@ export class DataService {
 
   async getPatientGoals(): Promise<boolean> {
     this.goalsdataservice.getGoals(this.currentPatientId)
-      .subscribe(goals => this.goals = goals);
+      .subscribe(goals => {
+        this.goals = goals;
+        this.consolidatedGoalsDataSource.data = this.goals.allGoals;
+      });
     return true;
   }
 
