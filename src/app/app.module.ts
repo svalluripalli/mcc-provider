@@ -41,6 +41,7 @@ import { UACRComponent } from './uacr/uacr.component';
 import { BPGraphComponent } from './bpgraph/bpgraph.component';
 import { DiagnosisDialogComponent } from './diagnosis-dialog/diagnosis-dialog.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ConsolidatedGoalsComponent } from './consolidated-goals/consolidated-goals.component';
 
 const routes: Routes = []; // sets up routes constant where you define your routes
 
@@ -73,6 +74,7 @@ const routes: Routes = []; // sets up routes constant where you define your rout
     UACRComponent,
     BPGraphComponent,
     DiagnosisDialogComponent,
+    ConsolidatedGoalsComponent,
   ],
     imports: [
         FlexLayoutModule,

@@ -2,7 +2,6 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import {DataService} from '../services/data.service';
 import {MatPaginator} from '@angular/material/paginator';
 
-
 @Component({
   selector: 'app-medication-panel',
   templateUrl: './medication-panel.component.html',
