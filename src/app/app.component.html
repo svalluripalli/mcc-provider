@@ -14,8 +14,12 @@
            placeholder="Enter at least {{minSearchCharacters}} characters to search patient by name"
            [formControl]="patientSearch"
            [matAutocomplete]="auto">
-    <mat-icon  matTooltip="Select a new patient" aria-label="Button to select a new patient" (click)="togglePatientSearch()" *ngIf="devmode">person</mat-icon>
-    <mat-icon  matTooltip="Select a careplan" aria-label="Button to select and new careplan" [matMenuTriggerFor]="menuCareplan" >folder</mat-icon>
+    <mat-icon matTooltip="Select a new patient" aria-label="Button to select a new patient"
+              (click)="togglePatientSearch()" *ngIf="devmode">person
+    </mat-icon>
+    <mat-icon matTooltip="Select a careplan" aria-label="Button to select and new careplan"
+              [matMenuTriggerFor]="menuCareplan">folder
+    </mat-icon>
     <mat-menu #menuCareplan="matMenu">
       <button mat-menu-item
               *ngFor="let plan of this.dataservice.careplans"
@@ -63,25 +67,16 @@
         {{ patient.name }}
       </mat-option>
     </mat-autocomplete>
-    <mat-tab-group>
-      <mat-tab label="Health and Social Concerns" matTooltip="View the health and social concerns view"
-               aria-label="Tab to select the health and social concerns group">
-        <app-health-and-social-concerns></app-health-and-social-concerns>
-      </mat-tab>
-      <mat-tab label="Goals and Preferences" matTooltip="View careplan goals" aria-label="Tab to select the goals group">
-        <app-goals></app-goals>
-      </mat-tab>
-      <mat-tab label="Health Maintenance & Interventions" matTooltip="View health maintenance and interventions"
-               aria-label="Tab to select the health maintance group">
-        <app-maintenance-and-interventions></app-maintenance-and-interventions>
-      </mat-tab>
-      <mat-tab label="Health Status Evaluation & Outcomes"
-               aria-label="Tab to select the health status and evaluation group">
-        <app-health-status></app-health-status>
-      </mat-tab>
-      <mat-tab label="Care Team" area-label="Tab to select the care team group">
-        <app-care-team></app-care-team>
-      </mat-tab>
-    </mat-tab-group>
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link
+         *ngFor="let link of navLinks"
+         [routerLink]="link.link"
+         queryParamsHandling="preserve"
+         routerLinkActive #rla="routerLinkActive"
+         [active]="rla.isActive">
+        {{link.label}}&nbsp;
+      </a>
+    </nav>
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
