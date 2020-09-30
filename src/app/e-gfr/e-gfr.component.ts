@@ -13,28 +13,28 @@ export class EGFRComponent implements OnInit {
   public lineChartData: ChartDataSets[] = [
     { data: [
         {
-          x: '2016-12-12T00:00:00Z',
-          y: 14
+          x: new Date('2016-12-12T00:00:00Z'),
+          y: 64
         },
         {
-          x: '2017-01-10T00:00:00Z',
-          y: 53
-        },
-        {
-          x: '2017-02-11T00:00:00Z',
-          y: 57
-        },
-        {
-          x: '2017-03-11T00:00:00Z',
-          y: 58
-        },
-        {
-          x: '2017-04-23T00:00:00Z',
+          x: new Date('2017-01-10T00:00:00Z'),
           y: 59
         },
         {
-          x: '2017-05-21T00:00:00Z',
-          y: 64
+          x: new Date('2017-02-11T00:00:00Z'),
+          y: 58
+        },
+        {
+          x: new Date('2017-03-11T00:00:00Z'),
+          y: 57
+        },
+        {
+          x: new Date('2017-04-23T00:00:00Z'),
+          y: 53
+        },
+        {
+          x: new Date('2017-05-21T00:00:00Z'),
+          y: 14
         }],
       label: 'eGFR', fill: false},
 
@@ -42,11 +42,11 @@ export class EGFRComponent implements OnInit {
 
   /* public lineChartLabels: Label[] = ['12/12/16', '1/10/17', '02/11/17', '03/11/17', '04/23/17', '05/21/17'];
   */
-  public lineChartLabels: Label[] = [];
+  /* public lineChartLabels: Label[] = [];
+  */
 
+  public lineChartLabels: Label[] = ['Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May'];
 
-  /* public lineChartLabels: Label[] = ['Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May'];
-*/
   public lineChartOptions = {
     responsive: false,
     maintainAspectRatio: true,
@@ -63,17 +63,13 @@ export class EGFRComponent implements OnInit {
         id: 'x-axis-0',
         type: 'time',
         ticks: {
-          source: 'auto',
-          suggestedMin: '2016-11-30T00:00:00Z',
-          suggestedMax: '2017-06-01T00:00:00Z'
+          suggestedMin:  new Date('2016-11-30'),
+          suggestedMax: new Date( '2017-06-01')
         },
         time: {
           unit: 'day',
-          round: 'false',
-          distribution: 'linear',
           displayFormats: {
-            day: 'MMM D',
-            month: 'MMM YY'
+            day: 'MMM D'
           },
           tooltipFormat: 'll D MMM'
         }

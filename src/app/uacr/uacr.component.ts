@@ -13,27 +13,27 @@ export class UACRComponent implements OnInit {
     { data: [
         {
           x: new Date('2016-12-12T00:00:00Z'),
-          y: 301
+          y: 28
         },
         {
           x: new Date('2017-01-10T00:00:00Z'),
-          y: 37
-        },
-        {
-          x: new Date('2017-02-11T00:00:00Z'),
-          y: 35
-        },
-        {
-          x: new Date('2017-03-11T00:00:00Z'),
-          y: 32
-        },
-        {
-          x: new Date('2017-04-23T00:00:00Z'),
           y: 31
         },
         {
+          x: new Date('2017-02-11T00:00:00Z'),
+          y: 32
+        },
+        {
+          x: new Date('2017-03-11T00:00:00Z'),
+          y: 35
+        },
+        {
+          x: new Date('2017-04-23T00:00:00Z'),
+          y: 37
+        },
+        {
           x: new Date('2017-05-21T00:00:00Z'),
-          y: 28
+          y: 301
         }],
       label: 'eGFR', fill: false},
 
