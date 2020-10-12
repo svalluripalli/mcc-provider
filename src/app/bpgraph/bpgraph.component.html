@@ -1,4 +1,5 @@
 <div class="chart-wrapper">
+<!--
   <canvas baseChart
           [datasets]="lineChartData"
           [labels]="lineChartLabels"
@@ -6,6 +7,18 @@
           [colors]="lineChartColors"
           [legend]="lineChartLegend"
           [chartType]="lineChartType"
+          [plugins]="lineChartPlugins" height="200">
+  </canvas>
+
+
+  -->
+  <canvas baseChart
+          [datasets]="this.dataservice.vitalSigns.chartData"
+          [options]="this.dataservice.vitalSigns.lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          [labels]="this.dataservice.vitalSigns.xAxisLabels"
           [plugins]="lineChartPlugins" height="200">
   </canvas>
 </div>

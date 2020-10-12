@@ -1,4 +1,5 @@
 import {GoalTarget} from './app/generated-data-api';
+import {Label} from 'ng2-charts';
 
 export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue: string): any[] {
   let formatted = 'Unknown Type: ';
@@ -127,4 +128,51 @@ export function reformatYYYYMMDD(dt): string {
   } else {
     return '';
   }
+}
+
+export function getLineChartOptionsObject(suggestedMinDate: Date, suggestedMaxDate: Date): { }   {
+  const opts =
+   {
+    responsive: false,
+    maintainAspectRatio: true,
+    scales: {
+      yAxes: {
+        ticks: {
+          suggestedMax: 180,
+          suggestedMin: 50
+        }
+      },
+      xAxes: {
+        type: 'time',
+        ticks: {
+          suggestedMin: suggestedMinDate,
+          suggestedMax: suggestedMaxDate
+        },
+        time: {
+          unit: 'day',
+          format: 'dateFormat',
+          displayFormats: {
+            day: 'MMM'
+          },
+          tooltipFormat: 'MM-DD-YYYY',
+        }
+      }
+    }
+  };
+
+  /*
+
+            millisecond: 'MMM DD',
+            second: 'MMM DD',
+            minute: 'MMM DD',
+            hour: 'MMM DD',
+            day: 'MMM DD',
+            week: 'MMM DD',
+            month: 'MMM DD',
+            quarter: 'MMM DD',
+            year: 'MMM DD',
+   */
+
+  // console.log('Line Chart Options: ', opts);
+  return opts;
 }
