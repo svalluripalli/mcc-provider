@@ -65,6 +65,7 @@ export class BPGraphComponent implements OnInit {
         }],      label: 'Diastolic', fill: false},
   ];
 
+
   lineChartLabels: Label[] = ['Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May'];
 
   lineChartOptions = {
@@ -78,15 +79,23 @@ export class BPGraphComponent implements OnInit {
       },
       xAxes: {
         type: 'time',
-        ticks: {
-          suggestedMin: new Date('2016-11-30'),
-        },
+        // ticks: {
+        //   suggestedMin: new Date('2016-11-30'),
+        // },
         time: {
-          unit: 'day',
-          displayFormats: {
-            day: 'MMM D'
-          },
-          tooltipFormat: 'll MMM D'
+          unit: 'month',
+          // displayFormats: {
+          //   millisecond: 'D MMM, h:mm a',
+          //   second: 'D MMM, h:mm a',
+          //   minute: 'D MMM, h:mm a',
+          //   hour: 'D MMM, h:mm a',
+          //   day: 'D MMM, h:mm a',
+          //   week: 'll',
+          //   month: 'll',
+          //   quarter: 'll',
+          //   year: 'll'
+          // },
+          //tooltipFormat: 'll MMM D'
         }
       }
     }

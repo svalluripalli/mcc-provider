@@ -292,7 +292,7 @@ export class DataService {
           this.vitalSigns.suggestedMin = new Date(vsLowDateRow.date);
           this.vitalSigns.suggestedMax = new Date(vsHighDateRow.date);
           this.vitalSigns.lineChartOptions = getLineChartOptionsObject(this.vitalSigns.suggestedMin, this.vitalSigns.suggestedMax);
-          this.vitalSigns.xAxisLabels = xAxisLabels;
+          this.vitalSigns.xAxisLabels = [];
           let yr = '';
           let prevYr = '';
           this.vitalSigns.tableData.map( vs => {

@@ -12,8 +12,8 @@ import {SocialConcerns} from './datamodel/socialconcerns';
 export class SocialConcernService {
 
 
-  private baseURL = 'http://localhost:8081/socialconcern';
-  private queryURL = 'http://localhost:8081/socialconcern';
+  private baseURL = 'http://localhost:8080/socialconcern';
+  private queryURL = 'http://localhost:8080/socialconcern';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

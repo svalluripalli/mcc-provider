@@ -9,16 +9,17 @@
           [chartType]="lineChartType"
           [plugins]="lineChartPlugins" height="200">
   </canvas>
-
-
   -->
+  <!--          [datasets]="this.dataservice.vitalSigns.chartData"-->
+  <!--          [labels]="this.dataservice.vitalSigns.xAxisLabels"-->
+
+
   <canvas baseChart
           [datasets]="this.dataservice.vitalSigns.chartData"
           [options]="this.dataservice.vitalSigns.lineChartOptions"
           [colors]="lineChartColors"
           [legend]="lineChartLegend"
           [chartType]="lineChartType"
-          [labels]="this.dataservice.vitalSigns.xAxisLabels"
           [plugins]="lineChartPlugins" height="200">
   </canvas>
 </div>

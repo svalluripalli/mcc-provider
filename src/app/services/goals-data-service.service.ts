@@ -49,7 +49,6 @@ export class GoalsDataService {
   // The Goal Target and Observation data is merged into a TargetValue object which is emitted
   getPatientGoalTargets(patientId: string, targets: GoalTarget[]): Observable<TargetValue> {
     return new Observable(observer => {
-      // console.log('in getPatientGoalTargets: patientId: ', patientId, 'targets: ', targets);
       targets.map(gt => {
         this.getMostRecentObservationResult(patientId, gt.measure.coding[0].code)
           .subscribe(obs => {
@@ -121,9 +120,7 @@ export class GoalsDataService {
           });
         });
     });
-
   }
-
 
   /** GET Goal by Goal Fhrid. Will 404 if id not found */
   getGoal(id: string): Observable<MccGoal> {

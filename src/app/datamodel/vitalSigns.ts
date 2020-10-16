@@ -1,4 +1,4 @@
-import {ChartData, ChartDataSets, ChartPoint} from 'chart.js';
+import {ChartData, ChartDataSets, ChartOptions, ChartPoint} from 'chart.js';
 import {Label} from 'ng2-charts';
 import {getLineChartOptionsObject} from '../../utility-functions';
 
@@ -32,7 +32,7 @@ interface VitalSigns {
   xAxisLabels?: Array<Label>;
   suggestedMin?: Date;
   suggestedMax?: Date;
-  lineChartOptions?: { };
+  lineChartOptions?: ChartOptions;
 }
 
 const emptyVitalSignsData: ChartPoint = {};

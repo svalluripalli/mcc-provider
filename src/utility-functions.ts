@@ -130,35 +130,45 @@ export function reformatYYYYMMDD(dt): string {
   }
 }
 
-export function getLineChartOptionsObject(suggestedMinDate: Date, suggestedMaxDate: Date): { }   {
+export function getLineChartOptionsObject(suggestedMinDate: Date, suggestedMaxDate: Date): {} {
   const opts =
-   {
-    responsive: false,
-    maintainAspectRatio: true,
-    scales: {
-      yAxes: {
-        ticks: {
-          suggestedMax: 180,
-          suggestedMin: 50
-        }
-      },
-      xAxes: {
-        type: 'time',
-        ticks: {
-          suggestedMin: suggestedMinDate,
-          suggestedMax: suggestedMaxDate
-        },
-        time: {
-          unit: 'day',
-          format: 'dateFormat',
-          displayFormats: {
-            day: 'MMM'
+    {
+      responsive: false,
+      maintainAspectRatio: true,
+      scales: {
+        yAxes: [{
+          ticks: {
+            suggestedMax: 180,
+            suggestedMin: 50
+          }
+        }],
+        xAxes: [{
+          type: 'time',
+          distribution: 'linear',
+          ticks: {
+            suggestedMin: suggestedMinDate,
+            suggestedMax: suggestedMaxDate,
+            maxTicksLimit: 7
           },
-          tooltipFormat: 'MM-DD-YYYY',
-        }
+          time: {
+            // unit: 'month',
+            // format: 'dateFormat',
+            displayFormats: {
+              millisecond: 'D MMM, h:mm a',
+              second: 'D MMM, h:mm a',
+              minute: 'D MMM, h:mm a',
+              hour: 'D MMM, h:mm a',
+              day: 'D MMM, h:mm a',
+              week: 'll',
+              month: 'MMM',
+              quarter: 'll',
+              year: 'll'
+            },
+            tooltipFormat: 'MM-DD-YYYY',
+          }
+        }]
       }
-    }
-  };
+    };
 
   /*
 
@@ -173,6 +183,5 @@ export function getLineChartOptionsObject(suggestedMinDate: Date, suggestedMaxDa
             year: 'MMM DD',
    */
 
-  // console.log('Line Chart Options: ', opts);
   return opts;
 }
