@@ -30,7 +30,7 @@ export class DemographicsPanelComponent implements OnInit {
     return out.concat(start, ' to ', end);
   }
 
-  getDateLastRevised() : string
+  getDateLastRevised(): string
   {
      const lastRevised: string = this.dataservice.careplan.dateLastRevised;
      if (lastRevised === null || lastRevised === '')

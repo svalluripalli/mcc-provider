@@ -60,7 +60,7 @@ export class ConfigService {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
-  };
+  }
 
   makeIntentionalError() {
     return this.http.get('not/a/real/url')

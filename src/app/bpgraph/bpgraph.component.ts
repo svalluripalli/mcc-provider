@@ -79,23 +79,8 @@ export class BPGraphComponent implements OnInit {
       },
       xAxes: {
         type: 'time',
-        // ticks: {
-        //   suggestedMin: new Date('2016-11-30'),
-        // },
         time: {
           unit: 'month',
-          // displayFormats: {
-          //   millisecond: 'D MMM, h:mm a',
-          //   second: 'D MMM, h:mm a',
-          //   minute: 'D MMM, h:mm a',
-          //   hour: 'D MMM, h:mm a',
-          //   day: 'D MMM, h:mm a',
-          //   week: 'll',
-          //   month: 'll',
-          //   quarter: 'll',
-          //   year: 'll'
-          // },
-          //tooltipFormat: 'll MMM D'
         }
       }
     }

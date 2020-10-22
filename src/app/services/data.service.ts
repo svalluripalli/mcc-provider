@@ -289,8 +289,10 @@ export class DataService {
           this.vitalSigns.mostRecentSystolic.value = vsHighDateRow.systolic;
           this.vitalSigns.mostRecentDiastolic.date = vsHighDateRow.date;
           this.vitalSigns.mostRecentDiastolic.value = vsHighDateRow.diastolic;
-          this.vitalSigns.suggestedMin = new Date(vsLowDateRow.date);
-          this.vitalSigns.suggestedMax = new Date(vsHighDateRow.date);
+          const minDate = new Date(moment(vsLowDateRow.date.toString()).startOf('month').format('MMMM DD YYYY H:mm A'));
+          this.vitalSigns.suggestedMin = minDate;
+          const maxDate = new Date(moment(vsHighDateRow.date.toString()).add(1, 'M').startOf('month').format('YYYY-MM-DD hh:mm:ss'));
+          this.vitalSigns.suggestedMax = maxDate;
           this.vitalSigns.lineChartOptions = getLineChartOptionsObject(this.vitalSigns.suggestedMin, this.vitalSigns.suggestedMax);
           this.vitalSigns.xAxisLabels = [];
           let yr = '';

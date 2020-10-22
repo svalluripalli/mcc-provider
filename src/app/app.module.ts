@@ -87,7 +87,7 @@ const routes: Routes = []; // sets up routes constant where you define your rout
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
-        RouterModule.forRoot(routes,{enableTracing: false}),
+        RouterModule.forRoot(routes, {enableTracing: false}),
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
         AppRoutingModule
     ],
