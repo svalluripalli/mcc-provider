@@ -10,10 +10,16 @@ import {GoalLists, GoalTarget, MccGoal, MccObservation} from '../generated-data-
 import {TargetValue} from '../datamodel/old/targetvalue';
 import {formatGoalTargetValue} from '../../utility-functions';
 import {VitalSigns, VitalSignsChartData, VitalSignsData, VitalSignsTableData} from '../datamodel/vitalSigns';
+import {Egfr, EgfrChartData, EgfrData, EgfrTableData} from '../datamodel/egfr';
 
-enum vitalSignCodes {
+enum observationCodes {
   Systolic = '8480-6',
-  Diastolic = '8462-4'
+  Diastolic = '8462-4',
+  Egfr = '69405-9'
+}
+
+enum observationValuesets {
+  Egfr = '2.16.840.1.113883.3.6929.3.1000'
 }
 
 @Injectable({
@@ -24,6 +30,7 @@ export class GoalsDataService {
   private goalURL = '/goal';
   private observationURL = '/find/latest/observation';
   private observationsURL = '/observations';
+  private observationsbyvaluesetURL = '/observationsbyvalueset';
   private goalSummaryURL = '/goalsummary';
 
   httpOptions = {
@@ -94,18 +101,20 @@ export class GoalsDataService {
 
   getPatientVitalSigns(patientId: string): Observable<VitalSignsTableData> {
     return new Observable(observer => {
-      this.getObservations(patientId, vitalSignCodes.Systolic)
-        .pipe(  finalize(() => {observer.complete(); }))
+      this.getObservations(patientId, observationCodes.Systolic)
+        .pipe(finalize(() => {
+          observer.complete();
+        }))
         .subscribe(observations => {
           observations.map(obs => {
             let systolic = 0;
             let diastolic = 0;
             obs.components.map(c => {
               switch (c.code.coding[0].code) {
-                case vitalSignCodes.Diastolic:
+                case observationCodes.Diastolic:
                   diastolic = c.value.quantityValue.value;
                   break;
-                case vitalSignCodes.Systolic:
+                case observationCodes.Systolic:
                   systolic = c.value.quantityValue.value;
                   break;
                 default:
@@ -117,6 +126,31 @@ export class GoalsDataService {
               systolic
             };
             observer.next(vs);
+          });
+        });
+    });
+  }
+
+  getPatientEgfr(patientId: string): Observable<EgfrTableData> {
+    return new Observable(observer => {
+      this.getObservationsByValueset(patientId, observationValuesets.Egfr)
+        .pipe(finalize(() => {
+          observer.complete();
+        }))
+        .subscribe(observations => {
+          observations.map(obs => {
+            switch (obs.code.coding[0].code) {
+              case observationCodes.Egfr:
+                const egfr: EgfrTableData = {
+                  date: obs.effective.dateTime.date,
+                  egfr: obs.value.quantityValue.value,
+                  unit: obs.value.quantityValue.unit,
+                  test: obs.code.text
+                };
+                observer.next(egfr);
+                break;
+              default:
+            }
           });
         });
     });
@@ -144,6 +178,14 @@ export class GoalsDataService {
     return this.http.get<MccObservation[]>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched MccObservation patientId=${patientId} code=${code}`)),
       catchError(this.handleError<MccObservation[]>(`getObservations patientId=${patientId} code=${code}`))
+    );
+  }
+
+  getObservationsByValueset(patientId: string, valueSet: string): Observable<MccObservation[]> {
+    const url = `${environment.mccapiUrl}${this.observationsbyvaluesetURL}?subject=${patientId}&valueset=${valueSet}`;
+    return this.http.get<MccObservation[]>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`fetched MccObservation patientId=${patientId} valueSet=${valueSet}`)),
+      catchError(this.handleError<MccObservation[]>(`getObservationsByValueset patientId=${patientId} valueSet=${valueSet}`))
     );
   }
 

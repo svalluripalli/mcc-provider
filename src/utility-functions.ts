@@ -1,6 +1,7 @@
 import {GoalTarget} from './app/generated-data-api';
 import {Label} from 'ng2-charts';
 
+
 export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue: string): any[] {
   let formatted = 'Unknown Type: ';
   let highlighted = false;
@@ -130,7 +131,7 @@ export function reformatYYYYMMDD(dt): string {
   }
 }
 
-export function getLineChartOptionsObject(suggestedMinDate: Date, suggestedMaxDate: Date): {} {
+export function getLineChartOptionsObject(min: number, max: number, suggestedMinDate: Date, suggestedMaxDate: Date): {} {
   const opts =
     {
       responsive: false,
@@ -138,16 +139,16 @@ export function getLineChartOptionsObject(suggestedMinDate: Date, suggestedMaxDa
       scales: {
         yAxes: [{
           ticks: {
-            suggestedMax: 180,
-            suggestedMin: 50
+            suggestedMax: max,
+            suggestedMin: min
           }
         }],
         xAxes: [{
           type: 'time',
           distribution: 'linear',
           ticks: {
-            suggestedMin: suggestedMinDate,
-            suggestedMax: suggestedMaxDate,
+            min: suggestedMinDate,
+            max: suggestedMaxDate,
             maxTicksLimit: 7
           },
           time: {
@@ -171,7 +172,6 @@ export function getLineChartOptionsObject(suggestedMinDate: Date, suggestedMaxDa
     };
 
   /*
-
             millisecond: 'MMM DD',
             second: 'MMM DD',
             minute: 'MMM DD',
@@ -184,4 +184,55 @@ export function getLineChartOptionsObject(suggestedMinDate: Date, suggestedMaxDa
    */
 
   return opts;
+}
+
+export function getEgrLineChartAnnotationsObject() {
+  const annotations = {
+    annotations: [
+      {
+        drawTime: 'beforeDatasetsDraw',
+        type: 'box',
+        id: 'egfr-critical',
+        xScaleID: 'x-axis-0',
+        yScaleID: 'y-axis-0',
+        borderWidth: 0,
+        yMin: 0,
+        yMax: 15,
+        backgroundColor: 'rgba(227, 127, 104,0.3)'
+      },
+      {
+        drawTime: 'beforeDatasetsDraw',
+        type: 'box',
+        id: 'egfr-warning',
+        xScaleID: 'x-axis-0',
+        yScaleID: 'y-axis-0',
+        borderWidth: 0,
+        yMin: 15,
+        yMax: 60,
+        backgroundColor: 'rgba(247, 245, 116,0.3)'
+      },
+      {
+        drawTime: 'beforeDatasetsDraw',
+        type: 'box',
+        id: 'egfr-ok',
+        xScaleID: 'x-axis-0',
+        yScaleID: 'y-axis-0',
+        borderWidth: 0,
+        yMin: 60,
+        yMax: 100,
+        backgroundColor: 'rgba(128, 204, 113,0.3)'
+      }
+    ]
+  };
+  return annotations;
+}
+
+export function formatEgfrResult(egfr: number, unit: string): string {
+  let ret = '';
+  if (egfr && unit) {
+    ret = egfr.toString() + ' '
+      + unit.substring(0, unit.length - 1)
+      + '<sup>' + unit.substring(unit.length - 1) + '</sup>';
+  }
+  return ret;
 }

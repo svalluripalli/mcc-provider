@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {DataService} from '../services/data.service';
+import {EgfrTableData} from '../datamodel/egfr';
+import {formatEgfrResult} from '../../utility-functions';
 
 @Component({
   selector: 'app-lab-test-result',
@@ -7,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LabTestResultComponent implements OnInit {
 
-  constructor() { }
+  constructor(public dataservice: DataService) { }
 
   ngOnInit(): void {
+    console.log(`in LabTestResultComponent ngOnInit(): this.dataservices.egfr : `, this.dataservice.egfr);
   }
 
 }

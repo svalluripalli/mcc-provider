@@ -1,6 +1,5 @@
 import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import {DataService} from '../services/data.service';
-import {GoalsDataService} from '../services/goals-data-service.service';
 import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
@@ -11,9 +10,9 @@ import {MatPaginator} from '@angular/material/paginator';
 export class BloodPressureComponent implements OnInit, AfterViewInit {
 
   vitalSignsDataSource = this.dataservice.vitalSignsDataSource;
-  vitalSignsPageMax = 7;
+  vitalSignsRowMax = 7;
 
-  constructor(public dataservice: DataService, public goalsdataservice: GoalsDataService) {
+  constructor(public dataservice: DataService) {
   }
   displayedColumns = ['date', 'systolic', 'diastolic'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -22,7 +21,8 @@ export class BloodPressureComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    if (this.vitalSignsDataSource.data.length > this.vitalSignsPageMax) {
+    // todo: fix below, paginator doesn't work when assigned, shows all rows, doesn't limit to max, paging doesn't work
+    if (this.vitalSignsDataSource.data.length > this.vitalSignsRowMax) {
       this.vitalSignsDataSource.paginator = this.paginator;
     }
   }

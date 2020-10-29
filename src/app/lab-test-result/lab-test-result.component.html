@@ -6,9 +6,9 @@
     <td><b>Date</b></td>
   </tr>
   <tr>
-    <td>eGFR</td>
-    <td>28mL/min/1.73m<sup>2</sup></td>
-    <td>05/21/2017</td>
+    <td>{{this.dataservice.egfr.mostRecentEgfr.test}}</td>
+    <td [innerHTML]="this.dataservice.egfr.mostRecentEgfr.result"></td>
+    <td>{{this.dataservice.egfr.mostRecentEgfr.date | date: 'MM/dd/yyyy'}}</td>
   </tr>
   <tr>
     <td colspan="3">

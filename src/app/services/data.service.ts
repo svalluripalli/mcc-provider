@@ -40,7 +40,17 @@ import {
   VitalSigns,
   VitalSignsTableData
 } from '../datamodel/vitalSigns';
-import {getLineChartOptionsObject, reformatYYYYMMDD} from '../../utility-functions';
+import {
+  EgfrTableData,
+  EgfrData,
+  EgfrChartData,
+  Egfr,
+  emptyEgfr,
+  emptyEgfrChartData,
+  emptyEgfrTableData,
+  emptyEgfrData
+} from '../datamodel/egfr';
+import {formatEgfrResult, getEgrLineChartAnnotationsObject, getLineChartOptionsObject, reformatYYYYMMDD} from '../../utility-functions';
 import {patchTsGetExpandoInitializer} from '@angular/compiler-cli/ngcc/src/packages/patch_ts_expando_initializer';
 import {ChartDataSets, ChartPoint} from 'chart.js';
 import * as moment from 'moment';
@@ -63,6 +73,7 @@ export class DataService {
     this.contacts = emptyContacts;
     this.goals = emptyGoalsList;
     this.vitalSigns = emptyVitalSigns;
+    this.egfr = emptyEgfr;
   }
 
   authorizationToken: string;
@@ -79,11 +90,13 @@ export class DataService {
   inactiveMedications: MedicationSummary[];
   allGoals: GoalSummary[];
   vitalSigns: VitalSigns = emptyVitalSigns;
+  egfr: Egfr = emptyEgfr;
 
   goals: GoalLists;
 
   targetValuesDataSource = new MatTableDataSource(this.targetValues);
   vitalSignsDataSource = new MatTableDataSource(this.vitalSigns.tableData);
+  egfrDataSource = new MatTableDataSource(this.egfr.tableData);
   activeMedicationsDataSource = new MatTableDataSource(this.activeMedications);
   consolidatedGoalsDataSource = new MatTableDataSource(this.allGoals);
 
@@ -146,6 +159,7 @@ export class DataService {
       this.updateContacts();
       this.getPatientGoalTargets(this.currentPatientId);
       this.getPatientBPInfo(this.currentPatientId);
+      this.getPatientEgfrInfo(this.currentPatientId);
     }
     // this.activeMedications = mockMedicationSummary;
     this.education = mockEducation;
@@ -225,7 +239,6 @@ export class DataService {
     return true;
   }
 
-
   async updateDemographics(): Promise<boolean> {
     this.subjectdataservice.getSubject(this.currentPatientId)
       .subscribe(demograhic => this.demographic = demograhic);
@@ -262,10 +275,6 @@ export class DataService {
   }
 
   async getPatientBPInfo(patientId): Promise<boolean> {
-
-    console.log(`in getPatientBPInfo: PatientId: ${patientId} this.vitalSigns: `, this.vitalSigns);
-
-
     const systolicChartData: ChartDataSets = {data: [], label: 'Systolic', fill: false};
     const diastolicChartData: ChartDataSets = {data: [], label: 'Diastolic', fill: false};
     // const xAxisLabels: string[] = [];
@@ -277,7 +286,6 @@ export class DataService {
     this.goalsdataservice.getPatientVitalSigns(patientId)
       .pipe(
         finalize(() => {
-          console.log('in getPatientBPInfo: (finalize) PatientId: ${patientId}: this.vitalSigns: ', this.vitalSigns);
           this.vitalSigns.chartData.push(systolicChartData);
           this.vitalSigns.chartData.push(diastolicChartData);
           this.vitalSignsDataSource.data = this.vitalSigns.tableData;
@@ -293,7 +301,7 @@ export class DataService {
           this.vitalSigns.suggestedMin = minDate;
           const maxDate = new Date(moment(vsHighDateRow.date.toString()).add(1, 'M').startOf('month').format('YYYY-MM-DD hh:mm:ss'));
           this.vitalSigns.suggestedMax = maxDate;
-          this.vitalSigns.lineChartOptions = getLineChartOptionsObject(this.vitalSigns.suggestedMin, this.vitalSigns.suggestedMax);
+          this.vitalSigns.lineChartOptions = getLineChartOptionsObject(50, 180, this.vitalSigns.suggestedMin, this.vitalSigns.suggestedMax);
           this.vitalSigns.xAxisLabels = [];
           let yr = '';
           let prevYr = '';
@@ -332,6 +340,64 @@ export class DataService {
     return true;
   }
 
+  async getPatientEgfrInfo(patientId): Promise<boolean> {
+    const egfrChartData: ChartDataSets = {data: [], label: 'eGfr', fill: false};
+    const xAxisLabels: string[] = [];
+    this.egfr = emptyEgfr;
+    this.egfr.tableData = [];
+    this.egfr.chartData = [];
+    this.goalsdataservice.getPatientEgfr(patientId)
+      .pipe(
+        finalize(() => {
+          this.egfr.chartData.push(egfrChartData);
+          this.egfrDataSource.data = this.egfr.tableData;
+          const vsLowDateRow: EgfrTableData = (this.egfr.tableData.reduce((low, e) =>
+            reformatYYYYMMDD(low.date) < reformatYYYYMMDD(e.date) ? low : e));
+          const vsHighDateRow: EgfrTableData = (this.egfr.tableData.reduce((high, e) =>
+            reformatYYYYMMDD(high.date) >= reformatYYYYMMDD(e.date) ? high : e));
+          this.egfr.mostRecentEgfr.date = vsHighDateRow.date;
+          this.egfr.mostRecentEgfr.value = vsHighDateRow.egfr;
+          this.egfr.mostRecentEgfr.unit = vsHighDateRow.unit;
+          this.egfr.mostRecentEgfr.test = vsHighDateRow.test;
+          this.egfr.mostRecentEgfr.result = formatEgfrResult(vsHighDateRow.egfr, vsHighDateRow.unit);
+          const minDate = new Date(moment(vsLowDateRow.date.toString()).startOf('month').format('MMMM DD YYYY H:mm A'));
+          this.egfr.suggestedMin = minDate;
+          const maxDate = new Date(moment(vsHighDateRow.date.toString()).add(1, 'M').startOf('month').format('YYYY-MM-DD hh:mm:ss'));
+          this.egfr.suggestedMax = maxDate;
+          const lineChartOptions = getLineChartOptionsObject(10, 70, this.egfr.suggestedMin, this.egfr.suggestedMax);
+          const lineChartAnnotations = getEgrLineChartAnnotationsObject();
+          this.egfr.lineChartOptions =  {...lineChartOptions, annotation: lineChartAnnotations};
+          this.egfr.xAxisLabels = [];
+          let yr = '';
+          let prevYr = '';
+          this.egfr.tableData.map( vs => {
+            if (moment(vs.date.toString()).format('YYYY') !== prevYr ) {
+              yr = moment(vs.date.toString()).format('YYYY');
+              prevYr = yr;
+            } else {
+              yr = '';
+            }
+            // @ts-ignore
+            xAxisLabels.push([moment(vs.date.toString()).format('MMM'),
+              moment(vs.date.toString()).format('DD'),
+              yr]
+            );
+          });
+          this.egfr.xAxisLabels = xAxisLabels;
+        })
+      )
+      .subscribe(res => {
+        this.egfr.tableData.push(res);
+        const egfr = {
+          x: new Date(res.date),
+          y: res.egfr
+        };
+        // @ts-ignore
+        egfrChartData.data.push(egfr);
+      });
+
+    return true;
+  }
 
 }
 

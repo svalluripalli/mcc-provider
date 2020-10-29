@@ -24,8 +24,8 @@
             (mouseout)="row.hovered = false">
         </tr>
       </table>
-      <mat-paginator [pageSizeOptions]="[7, 15, 30]" showFirstLastButtons
-                     [ngStyle]="{display: this.vitalSignsDataSource.data.length > this.vitalSignsPageMax ? 'block' : 'none'}">
+      <mat-paginator [pageSizeOptions]="[5, 15, 30]" showFirstLastButtons
+                     [ngStyle]="{display: this.vitalSignsDataSource.data.length > this.vitalSignsRowMax ? 'block' : 'none'}">
       </mat-paginator>
     </td>
   </tr>
