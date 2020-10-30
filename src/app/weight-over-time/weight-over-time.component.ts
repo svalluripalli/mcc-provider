@@ -74,10 +74,10 @@ export class WeightOverTimeComponent implements OnInit, AfterViewInit {
     const val = wot.value;
     if (val) {
       switch (true) {
-        case (val >= 180):
+        case (val >= 200):
           cssClass = 'resultBorderline';
           break;
-        case (val < 180 && val >= 105):
+        case (val < 200 && val >= 105):
           cssClass = 'resultGood';
           break;
         case (val < 105):

@@ -101,16 +101,17 @@ export class DataService {
   careplans: MccCarePlan[];
   socialConcerns: SocialConcerns[];
   conditions: ConditionLists;
-  targetValues: TargetValue[];
-  activeMedications: MedicationSummary[];
+  targetValues: TargetValue[] = [];
+  activeMedications: MedicationSummary[] = [];
   inactiveMedications: MedicationSummary[];
-  allGoals: GoalSummary[];
+  allGoals: GoalSummary[] = [];
   vitalSigns: VitalSigns = emptyVitalSigns;
   egfr: Egfr = emptyEgfr;
   uacr: Uacr = emptyUacr;
   wot: Wot = emptyWot;
 
   goals: GoalLists;
+
 
   targetValuesDataSource = new MatTableDataSource(this.targetValues);
   vitalSignsDataSource = new MatTableDataSource(this.vitalSigns.tableData);
@@ -503,7 +504,7 @@ export class DataService {
           this.wot.suggestedMin = minDate;
           const maxDate = new Date(moment(vsHighDateRow.date.toString()).add(1, 'M').startOf('month').format('YYYY-MM-DD hh:mm:ss'));
           this.wot.suggestedMax = maxDate;
-          const lineChartOptions = getLineChartOptionsObject(0, 280, this.wot.suggestedMin, this.wot.suggestedMax);
+          const lineChartOptions = getLineChartOptionsObject(50, 280, this.wot.suggestedMin, this.wot.suggestedMax);
           const lineChartAnnotations = getWotLineChartAnnotationsObject();
           this.wot.lineChartOptions = {...lineChartOptions, annotation: lineChartAnnotations};
           this.wot.xAxisLabels = [];
