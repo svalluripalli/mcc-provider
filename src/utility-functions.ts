@@ -159,7 +159,7 @@ export function getLineChartOptionsObject(min: number, max: number, suggestedMin
               second: 'D MMM, h:mm a',
               minute: 'D MMM, h:mm a',
               hour: 'D MMM, h:mm a',
-              day: 'D MMM, h:mm a',
+              day: 'D MMM',
               week: 'll',
               month: 'MMM',
               quarter: 'll',
@@ -227,12 +227,60 @@ export function getEgrLineChartAnnotationsObject() {
   return annotations;
 }
 
+export function getUacrLineChartAnnotationsObject() {
+  const annotations = {
+    annotations: [{
+      drawTime: 'beforeDatasetsDraw',
+      type: 'box',
+      id: 'uacr-ok',
+      xScaleID: 'x-axis-0',
+      yScaleID: 'y-axis-0',
+      borderWidth: 0,
+      yMin: 0,
+      yMax: 30,
+      backgroundColor: 'rgba(128, 204, 113,0.3)'
+    },
+      {
+        drawTime: 'beforeDatasetsDraw',
+        type: 'box',
+        id: 'uacr-warning',
+        xScaleID: 'x-axis-0',
+        yScaleID: 'y-axis-0',
+        borderWidth: 0,
+        yMin: 30,
+        yMax: 300,
+        backgroundColor: 'rgba(247, 245, 116,0.3)'
+      },
+      {
+        drawTime: 'beforeDatasetsDraw',
+        type: 'box',
+        id: 'uacr-critical',
+        xScaleID: 'x-axis-0',
+        yScaleID: 'y-axis-0',
+        borderWidth: 0,
+        yMin: 300,
+        yMax: 400,
+        backgroundColor: 'rgba(227, 127, 104,0.3)'
+      }
+    ]
+  };
+  return annotations;
+}
+
 export function formatEgfrResult(egfr: number, unit: string): string {
   let ret = '';
   if (egfr && unit) {
     ret = egfr.toString() + ' '
       + unit.substring(0, unit.length - 1)
       + '<sup>' + unit.substring(unit.length - 1) + '</sup>';
+  }
+  return ret;
+}
+
+export function formatUacrResult(uacr: number, unit: string): string {
+  let ret = '';
+  if (uacr && unit) {
+    ret = uacr.toString() + ' ' + unit;
   }
   return ret;
 }
