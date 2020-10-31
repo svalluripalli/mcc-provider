@@ -1,111 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { ChartDataSets, ChartOptions } from 'chart.js';
-import { Color, BaseChartDirective, Label } from 'ng2-charts';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Color} from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
+import {DataService} from '../services/data.service';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort, Sort} from '@angular/material/sort';
+import {UacrTableData} from '../datamodel/uacr';
+import {formatUacrResult, reformatYYYYMMDD} from '../../utility-functions';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-uacr',
   templateUrl: './uacr.component.html',
   styleUrls: ['./uacr.component.css']
 })
-export class UACRComponent implements OnInit {
-  public lineChartData: ChartDataSets[] = [
-    { data: [
-        {
-          x: new Date('2016-12-12T00:00:00Z'),
-          y: 28
-        },
-        {
-          x: new Date('2017-01-10T00:00:00Z'),
-          y: 31
-        },
-        {
-          x: new Date('2017-02-11T00:00:00Z'),
-          y: 32
-        },
-        {
-          x: new Date('2017-03-11T00:00:00Z'),
-          y: 35
-        },
-        {
-          x: new Date('2017-04-23T00:00:00Z'),
-          y: 37
-        },
-        {
-          x: new Date('2017-05-21T00:00:00Z'),
-          y: 301
-        }],
-      label: 'eGFR', fill: false},
+export class UACRComponent implements OnInit, AfterViewInit {
 
-  ];
-
-  public lineChartLabels: Label[] = ['Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May'];
-
-  public lineChartOptions = {
-    responsive: false,
-    maintainAspectRatio: true,
-    scales: {
-      yAxes: {
-        id: 'y-axis-0',
-        type: 'linear',
-        ticks: {
-          suggestedMax: 400,
-          suggestedMin: 0
-        }
-      },
-      xAxes: {
-        id: 'x-axis-0',
-        type: 'time',
-        ticks: {
-          suggestedMin: new Date('2016-11-30'),
-          suggestedMax: new Date( '2017-06-01')
-        },
-        time: {
-          unit: 'day',
-          displayFormats: {
-            day: 'MMM D'
-          },
-          tooltipFormat: 'll MMM D'
-        }
-      }
-    },
-    annotation: {
-      annotations: [{
-        drawTime: 'beforeDatasetsDraw',
-        type: 'box',
-        id: 'uacr-ok',
-        xScaleID: 'x-axis-0',
-        yScaleID: 'y-axis-0',
-        borderWidth: 0,
-        yMin: 0,
-        yMax: 30,
-        backgroundColor: 'rgba(128, 204, 113,0.3)'
-      },
-        {
-          drawTime: 'beforeDatasetsDraw',
-          type: 'box',
-          id: 'uacr-warning',
-          xScaleID: 'x-axis-0',
-          yScaleID: 'y-axis-0',
-          borderWidth: 0,
-          yMin: 30,
-          yMax: 300,
-          backgroundColor: 'rgba(247, 245, 116,0.3)'
-        },
-        {
-          drawTime: 'beforeDatasetsDraw',
-          type: 'box',
-          id: 'uacr-critical',
-          xScaleID: 'x-axis-0',
-          yScaleID: 'y-axis-0',
-          borderWidth: 0,
-          yMin: 300,
-          yMax: 400,
-          backgroundColor: 'rgba(227, 127, 104,0.3)'
-        }
-      ]
-    }
-  };
+  uacrDataSource: MatTableDataSource<UacrTableData> = this.dataservice.uacrDataSource;
+  uacrRowMax = 7;
 
   public lineChartColors: Color[] = [
     {
@@ -118,10 +29,68 @@ export class UACRComponent implements OnInit {
   public lineChartPlugins =  [pluginAnnotations];
   public lineChartType = 'line';
 
+  constructor(public dataservice: DataService) { }
 
-  constructor() { }
+  displayedColumns = ['date', 'result'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit(): void {
+
   }
+
+  ngAfterViewInit(): void {
+    // todo: fix below, paginator doesn't work when assigned, shows all rows, doesn't limit to max, paging doesn't work
+    if (this.uacrDataSource.data.length > this.uacrRowMax) {
+      this.uacrDataSource.paginator = this.paginator;
+    }
+    this.uacrDataSource.sort = this.sort;
+    this.uacrDataSource.sortingDataAccessor = (data: UacrTableData, header: string) => {
+      switch (header) {
+        case ('result'): {
+          return data.uacr;
+        }
+
+        case ('date' ): {
+          return reformatYYYYMMDD(data.date);
+        }
+
+        default: {
+          return data[header];
+        }
+      }
+    };
+    const sortState: Sort = {active: 'date', direction: 'desc'};
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
+  }
+
+  UacrResult(uacr: UacrTableData): string {
+    return formatUacrResult(uacr.uacr, uacr.unit);
+  }
+
+  getUacrRowCssClass(uacr: UacrTableData): string {
+    let cssClass = '';
+    const val = uacr.uacr;
+    if (val) {
+      switch (true) {
+        case (val >= 300):
+          cssClass = 'resultBorderline';
+          break;
+        case (val < 300 && val >= 25):
+          cssClass = 'resultGood';
+          break;
+        case (val < 25):
+          cssClass = 'resultCritical';
+          break;
+        default:
+          break;
+      }
+    }
+    return cssClass;
+  }
+
+
 
 }

@@ -2,19 +2,19 @@ import {ChartDataSets, ChartOptions, ChartPoint} from 'chart.js';
 import {Label} from 'ng2-charts';
 import {getLineChartOptionsObject} from '../../utility-functions';
 
-interface EgfrTableData {
+interface WotTableData {
   date?: string;
-  egfr?: number;
+  value?: number;
   unit?: string;
   test?: string;
 }
 
-interface EgfrData {
+interface WotData {
   date?: Date;
   value?: number;
 }
 
-interface EgfrDataForDisplay {
+interface WotDataForDisplay {
   test?: string;
   value?: number;
   unit?: string;
@@ -22,15 +22,15 @@ interface EgfrDataForDisplay {
   result?: string;
 }
 
-interface EgfrChartData {
-  data?: Array<EgfrData>;
+interface WotChartData {
+  data?: Array<WotData>;
   label?: string;  /* Systolic, Diastolic */
   fill?: boolean;  /* false */
 }
 
-interface Egfr {
-  mostRecentEgfr?: EgfrDataForDisplay;
-  tableData?: Array<EgfrTableData>;
+interface Wot {
+  mostRecentWot?: WotDataForDisplay;
+  tableData?: Array<WotTableData>;
   chartData?: Array<ChartDataSets>;
   xAxisLabels?: Array<Label>;
   suggestedMin?: Date;
@@ -38,32 +38,32 @@ interface Egfr {
   lineChartOptions?: ChartOptions & { annotation: any };
 }
 
-const emptyEgfrData: ChartPoint = {};
-const emptyEgfrTableData: EgfrTableData[] = [];
-const emptyEgfrChartData: ChartDataSets[] = [
+const emptyWotData: ChartPoint = {};
+const emptyWotTableData: WotTableData[] = [];
+const emptyWotChartData: ChartDataSets[] = [
   {
-    data: [emptyEgfrData],
+    data: [emptyWotData],
     fill: false,
     label: 'eGFR'
   }];
 
-const emptyEgfr: Egfr = {
-  mostRecentEgfr: {},
-  tableData: emptyEgfrTableData,
-  chartData: emptyEgfrChartData,
+const emptyWot: Wot = {
+  mostRecentWot: {},
+  tableData: emptyWotTableData,
+  chartData: emptyWotChartData,
   xAxisLabels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   suggestedMin: new Date('2020-01-01'),
   suggestedMax: new Date('2020-06-30'),
-  lineChartOptions: {...getLineChartOptionsObject(10, 70, new Date('2020-01-01'),  new Date('2020-06-30')), annotation: []}
+  lineChartOptions: {...getLineChartOptionsObject(105, 220, new Date('2020-01-01'),  new Date('2020-06-30')), annotation: []}
 };
 
 export {
-  EgfrTableData,
-  EgfrData,
-  EgfrChartData,
-  Egfr,
-  emptyEgfr,
-  emptyEgfrChartData,
-  emptyEgfrTableData,
-  emptyEgfrData
+  WotTableData,
+  WotData,
+  WotChartData,
+  Wot,
+  emptyWot,
+  emptyWotChartData,
+  emptyWotTableData,
+  emptyWotData
 };

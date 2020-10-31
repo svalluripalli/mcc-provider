@@ -9,17 +9,22 @@ import {GoalLists, GoalTarget, MccGoal, MccObservation} from '../generated-data-
 
 import {TargetValue} from '../datamodel/old/targetvalue';
 import {formatGoalTargetValue} from '../../utility-functions';
-import {VitalSigns, VitalSignsChartData, VitalSignsData, VitalSignsTableData} from '../datamodel/vitalSigns';
-import {Egfr, EgfrChartData, EgfrData, EgfrTableData} from '../datamodel/egfr';
+import {VitalSignsTableData} from '../datamodel/vitalSigns';
+import {EgfrTableData} from '../datamodel/egfr';
+import {UacrTableData} from '../datamodel/uacr';
+import {WotTableData} from "../datamodel/weight-over-time";
 
 enum observationCodes {
   Systolic = '8480-6',
   Diastolic = '8462-4',
-  Egfr = '69405-9'
+  Egfr = '69405-9',
+  Uacr = '9318-7',
+  Wot = '29463-7'
 }
 
 enum observationValuesets {
-  Egfr = '2.16.840.1.113883.3.6929.3.1000'
+  Egfr = '2.16.840.1.113883.3.6929.3.1000',
+  Uacr = '2.16.840.1.113883.3.6929.2.1002'
 }
 
 @Injectable({
@@ -148,6 +153,56 @@ export class GoalsDataService {
                   test: obs.code.text
                 };
                 observer.next(egfr);
+                break;
+              default:
+            }
+          });
+        });
+    });
+  }
+
+  getPatientUacr(patientId: string): Observable<UacrTableData> {
+    return new Observable(observer => {
+      this.getObservationsByValueset(patientId, observationValuesets.Uacr)
+        .pipe(finalize(() => {
+          observer.complete();
+        }))
+        .subscribe(observations => {
+          observations.map(obs => {
+            switch (obs.code.coding[0].code) {
+              case observationCodes.Uacr:
+                const uacr: UacrTableData = {
+                  date: obs.effective.dateTime.date,
+                  uacr: obs.value.quantityValue.value,
+                  unit: obs.value.quantityValue.unit,
+                  test: obs.code.text
+                };
+                observer.next(uacr);
+                break;
+              default:
+            }
+          });
+        });
+    });
+  }
+
+  getPatientWot(patientId: string): Observable<WotTableData> {
+    return new Observable(observer => {
+      this.getObservations(patientId, observationCodes.Wot)
+        .pipe(finalize(() => {
+          observer.complete();
+        }))
+        .subscribe(observations => {
+          observations.map(obs => {
+            switch (obs.code.coding[0].code) {
+              case observationCodes.Wot:
+                const wot: WotTableData = {
+                  date: obs.effective.dateTime.date,
+                  value: obs.value.quantityValue.value,
+                  unit: obs.value.quantityValue.unit,
+                  test: obs.code.text
+                };
+                observer.next(wot);
                 break;
               default:
             }
