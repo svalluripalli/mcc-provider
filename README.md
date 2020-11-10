@@ -45,7 +45,7 @@ $  docker build -f Dockerfile-prod -t mcccareplan/mccproviderapp
 
 ### Running the image
 
-$ docker run -it -p 80:80 --rm mcccareplan/mccproviderapp
+$ docker run -it -p 80:80 --rm mcccareplan/mccproviderapp --env CLIENT_ID="xxxyyzzz123123" --env API_SERVER="http://localhost:8080" 
 
 ### Public build 
 

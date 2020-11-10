@@ -6,6 +6,7 @@
   <script src="https://cdn.jsdelivr.net/npm/fhirclient/build/fhir-client.js"></script>
 </head>
 <body>
+<script src="assets/env.js"></script>
 <script>
    // console.log(environment .clientId)
   FHIR.oauth2.authorize({
@@ -14,7 +15,8 @@
     // the EHR. -
     // TODO: Get in a secure manner
     // clientId: "0950cf46-841c-466f-8bfb-19aa7d351b77",  //Public Server
-    clientId: "1491aa24-3b5b-42e8-b532-63707c359493", //Local Host Test
+    //clientId: "1491aa24-3b5b-42e8-b532-63707c359493", //Local Host Test
+    clientId:  window["env"]["clientId"],
     //clientId: environment.clientId,
     // The scopes that you request from the EHR. In this case we want to:
     // launch            - Get the launch context
