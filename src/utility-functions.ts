@@ -1,6 +1,4 @@
 import {GoalTarget} from './app/generated-data-api';
-import {Label} from 'ng2-charts';
-
 
 export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue: string): any[] {
   let formatted = 'Unknown Type: ';
@@ -203,7 +201,7 @@ export function getEgrLineChartAnnotationsObject() {
       {
         drawTime: 'beforeDatasetsDraw',
         type: 'box',
-        id: 'egfr-warning',
+        id: 'egfr-ok',
         xScaleID: 'x-axis-0',
         yScaleID: 'y-axis-0',
         borderWidth: 0,
@@ -214,7 +212,7 @@ export function getEgrLineChartAnnotationsObject() {
       {
         drawTime: 'beforeDatasetsDraw',
         type: 'box',
-        id: 'egfr-ok',
+        id: 'egfr-warning',
         xScaleID: 'x-axis-0',
         yScaleID: 'y-axis-0',
         borderWidth: 0,
@@ -232,7 +230,7 @@ export function getUacrLineChartAnnotationsObject() {
     annotations: [{
       drawTime: 'beforeDatasetsDraw',
       type: 'box',
-      id: 'uacr-ok',
+      id: 'uacr-warning',
       xScaleID: 'x-axis-0',
       yScaleID: 'y-axis-0',
       borderWidth: 0,
@@ -243,7 +241,7 @@ export function getUacrLineChartAnnotationsObject() {
       {
         drawTime: 'beforeDatasetsDraw',
         type: 'box',
-        id: 'uacr-warning',
+        id: 'uacr-ok',
         xScaleID: 'x-axis-0',
         yScaleID: 'y-axis-0',
         borderWidth: 0,
@@ -272,7 +270,7 @@ export function getWotLineChartAnnotationsObject() {
     annotations: [{
       drawTime: 'beforeDatasetsDraw',
       type: 'box',
-      id: 'wot-ok',
+      id: 'wot-warning',
       xScaleID: 'x-axis-0',
       yScaleID: 'y-axis-0',
       borderWidth: 0,
@@ -283,7 +281,7 @@ export function getWotLineChartAnnotationsObject() {
       {
         drawTime: 'beforeDatasetsDraw',
         type: 'box',
-        id: 'wot-warning',
+        id: 'wot-ok',
         xScaleID: 'x-axis-0',
         yScaleID: 'y-axis-0',
         borderWidth: 0,
