@@ -1,6 +1,4 @@
 import {GoalTarget} from './app/generated-data-api';
-import {Label} from 'ng2-charts';
-
 
 export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue: string): any[] {
   let formatted = 'Unknown Type: ';
