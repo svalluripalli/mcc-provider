@@ -25,6 +25,20 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
+## Running locally without docker
+### Updating client id and API
+
+#### Set environment variable
+     export API_SERVER="https://new-api.myapp.com";
+     export CLIENT_ID="123456789abcdef"
+     
+#### Replace variables in env.js
+envsubst < assets/env.template.js > assets/env.js
+
+#### Server the instance
+
+ng serve
+
 ## Open Public FHIR Instance
 https://api.logicahealth.org/MCCeCarePlanTest/open
 
@@ -33,19 +47,25 @@ The included file 'Dockerfle-prod' is a basic production build docker file. It w
 
 ## Building a production docker image
 
-### Updating client id
-- At the moment the clientId for smart-on-fhir launch is embedded in the launch.html file and must be updated manually there. Current plans are to update the launch framework and have environment variable that can prodive this. 
-- /environment/environment.prod.ts will also be used in the future to provide a default when environment variable is not present.
-  
-### Updating the API Backend Endpoint
-- At the moment the /environment/environment.prod.ts needs to be editted to point to MCC-API server, update the entry for mccapiUrl. In the future support for an environment variable override wi// be implemented. 
+### Updating client id and API
+
+### Via Docker 
+$ docker run -it -p 80:80 --rm mcccareplan/mccproviderapp --env CLIENT_ID="xxxyyzzz123123" --env API_SERVER="http://localhost:8080" 
+
 
 ### Building the image
-$  docker build -f Dockerfile-prod -t mcccareplan/mccproviderapp
+$  docker build -t mcccareplan/mccproviderapp -f Dockerfile-prod .
+
+### Runtime Environment variabls
+| Variable name | Sample Value |
+| ------------- | ------------- | 
+| API_SERVER | http://localhost:8080 |
+| CLIENT_ID | 123456789abcdef |
 
 ### Running the image
 
-$ docker run -it -p 80:80 --rm mcccareplan/mccproviderapp
+
+$ docker run -it -p 80:80 --rm mcccareplan/mccproviderapp --env CLIENT_ID="xxxyyzzz123123" --env API_SERVER="http://localhost:8080" 
 
 ### Public build 
 
@@ -55,11 +75,12 @@ The latest images are available at docker hub under mcccareplan/*.
 
 1) Testing on containers
 1) Assemble a production docker-compose that links the api and the client.
-1) Update the applicaton to use environment variables
-    1) Fix internal routing
-    1) Get smart-on-fhir launch working in an angular/ts component
-    1) Integrate environment variables
 1) Development containerization
 
 
+ ## Development URL Parameters 
  
+ | Parameter | Description | Sample |
+|--------- | ------------- | --------|
+| devmode | enable development mode | true |
+| subject | FHIR Id of the launch subject | cc-pat-pnoelle |
