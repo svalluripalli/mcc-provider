@@ -50,11 +50,18 @@ The included file 'Dockerfle-prod' is a basic production build docker file. It w
 ### Updating client id and API
 
 ### Via Docker 
-$ docker run -it -p 80:80 --rm mcccareplan/mccproviderapp --env CLIENT_ID="xxxyyzzz123123" --env API_SERVER="http://localhost:8080" 
+$ docker run -it -e CLIENT_ID='xxxyyzzz123123" -e API_SERVER='http://localhost:8080' -p 80:80 --rm mcccareplan/mccproviderapp 
+
+### Example of connecting to a local development docker instance and exposing the app on port 4200
+$ docker run -it -e CLIENT_ID='xxxyyzzz123123' -e API_SERVER='http://localhost:8080' -p 4200:80 --rm mcccareplan/mccproviderapp  
 
 
 ### Building the image
 $  docker build -t mcccareplan/mccproviderapp -f Dockerfile-prod .
+
+### Pushing the image
+$ docker push mcccareplan/mccproviderapp
+
 
 ### Runtime Environment variabls
 | Variable name | Sample Value |
@@ -65,7 +72,7 @@ $  docker build -t mcccareplan/mccproviderapp -f Dockerfile-prod .
 ### Running the image
 
 
-$ docker run -it -p 80:80 --rm mcccareplan/mccproviderapp --env CLIENT_ID="xxxyyzzz123123" --env API_SERVER="http://localhost:8080" 
+$ docker run -it -e CLIENT_ID='xxxyyzzz123123' -e API_SERVER='http://localhost:8080' -p 80:80 --rm mcccareplan/mccproviderapp 
 
 ### Public build 
 
