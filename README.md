@@ -41,7 +41,7 @@ The included file 'Dockerfle-prod' is a basic production build docker file. It w
 - At the moment the /environment/environment.prod.ts needs to be editted to point to MCC-API server, update the entry for mccapiUrl. In the future support for an environment variable override wi// be implemented. 
 
 ### Building the image
-$  docker build -f Dockerfile-prod -t mcccareplan/mccproviderapp
+$  docker build -f Dockerfile-prod -t mcccareplan/mccproviderapp .
 
 ### Running the image
 
