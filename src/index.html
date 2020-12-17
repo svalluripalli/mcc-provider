@@ -15,10 +15,9 @@
     {
 
     FHIR.oauth2.ready()
-    .then(client => {
-      client.request("Patient")
+    .then(
       console.log("Requested patient")
-      })
+      )
       /*
       var skey  = sessionStorage["SMART_KEY"]
       key = skey.replace(/['"]+/g, '')
