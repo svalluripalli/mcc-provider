@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <title>Providersmartapp</title>
-  <script src="https://cdn.jsdelivr.net/npm/fhirclient/build/fhir-client.js"></script>
+  <script src="assets/env.js"></script>
+  <script src="assets/fhir-client.js"></script>
   <script>
     const queryString = window.location.search;
     console.log(queryString);
@@ -15,10 +16,9 @@
     {
 
     FHIR.oauth2.ready()
-    .then(client => {
-      client.request("Patient")
-      console.log("Requested patient")
-      })
+    .then(
+      console.log("Launched in Smart Mode")
+      )
       /*
       var skey  = sessionStorage["SMART_KEY"]
       key = skey.replace(/['"]+/g, '')

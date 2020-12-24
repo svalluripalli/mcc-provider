@@ -23,7 +23,7 @@ export class MedicationService {
   /** GET medicationsummary by subject id and careplan Id.  Will 404 if id not found */
   getMedicationSummaryBySubjectAndCareplan(subjectId: string, careplanId: string): Observable<MedicationSummaryList> {
     // const url = `${environment.mccapiUrl}${this.listURL}?subject=${subjectId}&careplan=${careplanId}`;
-    const url = `${environment.mccapiUrl}${this.summaryURL}?subject=${subjectId}&careplam=${careplanId}`;
+    const url = `${environment.mccapiUrl}${this.summaryURL}?subject=${subjectId}&careplan=${careplanId}`;
     return this.http.get<MedicationSummaryList>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched Medication Lists id=${subjectId}, careplan=${careplanId}`)),
       catchError(this.handleError<MedicationSummaryList>(`getContacts id=${subjectId}, careplan=${careplanId}`))
@@ -35,7 +35,7 @@ export class MedicationService {
 /*
   getMedicationsSummary(subjectId: string, careplanId: string): Observable<MedicationSummary[]> {
     // const url = `${environment.mccapiUrl}${this.listURL}?subject=${subjectId}&careplan=${careplanId}`;
-    const url = `${environment.mccapiUrl}${this.listURL}?subject=${subjectId}&careplam=${careplanId}`;
+    const url = `${environment.mccapiUrl}${this.listURL}?subject=${subjectId}&careplan=${careplanId}`;
     return this.http.get<MedicationSummary[]>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched MedicationSummary id=${subjectId}, careplan=${careplanId}`)),
       catchError(this.handleError<MedicationSummary[]>(`getContacts id=${subjectId}, careplan=${careplanId}`))
