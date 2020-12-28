@@ -19,7 +19,8 @@ enum observationCodes {
   Diastolic = '8462-4',
   Egfr = '69405-9',
   Uacr = '9318-7',
-  Wot = '29463-7'
+  Wot = '29463-7',
+  Blood_pressure = '85354-9'
 }
 
 enum observationValuesets {
@@ -107,7 +108,7 @@ export class GoalsDataService {
 
   getPatientVitalSigns(patientId: string): Observable<VitalSignsTableData> {
     return new Observable(observer => {
-      this.getObservations(patientId, observationCodes.Systolic)
+      this.getObservationsByPanel(patientId, observationCodes.Blood_pressure)
         .pipe(finalize(() => {
           observer.complete();
         }))
@@ -231,6 +232,14 @@ export class GoalsDataService {
 
   getObservations(patientId: string, code: string): Observable<MccObservation[]> {
     const url = `${environment.mccapiUrl}${this.observationsURL}?subject=${patientId}&code=${code}`;
+    return this.http.get<MccObservation[]>(url, this.httpOptions).pipe(
+      tap(_ => this.log(`fetched MccObservation patientId=${patientId} code=${code}`)),
+      catchError(this.handleError<MccObservation[]>(`getObservations patientId=${patientId} code=${code}`))
+    );
+  }
+
+  getObservationsByPanel(patientId: string, code: string): Observable<MccObservation[]> {
+    const url = `${environment.mccapiUrl}${this.observationsURL}?subject=${patientId}&code=${code}&mode=panel`;
     return this.http.get<MccObservation[]>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched MccObservation patientId=${patientId} code=${code}`)),
       catchError(this.handleError<MccObservation[]>(`getObservations patientId=${patientId} code=${code}`))
