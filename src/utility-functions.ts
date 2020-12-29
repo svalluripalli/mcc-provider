@@ -72,45 +72,59 @@ export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue:
       }
       case 'Ratio': {
         // todo:  formatTargetValue Ratio
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'Period': {
         // todo:  formatTargetValue Period
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'Date': {
         // todo:  formatTargetValue Date
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'Time': {
         // todo:  formatTargetValue Time
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'DateTime': {
         // todo:  formatTargetValue DateTime
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'SampledData': {
         // todo:  formatTargetValue SampledData
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'DurationValue': {
         // todo:  formatTargetValue DurationValue
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'TimingValue': {
         // todo:  formatTargetValue TimingValue
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'InstantValue': {
         // todo:  formatTargetValue InstantValue
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'IdentifierValue': {
         // todo:  formatTargetValue IdentifierValue
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
-
+      default:
+      {
+        console.log('Unknown Target Value Type: '.concat(target.value.valueType));
+        break;
+      }
     }
   }
 
