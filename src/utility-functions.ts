@@ -20,11 +20,11 @@ export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue:
         formatted = target.value.stringValue;
         break;
       }
-      case 'Integer': {
+      case 'integer': {
         formatted = target.value.integerValue.toString();
         break;
       }
-      case 'Boolean': {
+      case 'boolean': {
         formatted = String(target.value.booleanValue);
         break;
       }
@@ -80,17 +80,17 @@ export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue:
         console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
-      case 'Date': {
+      case 'date': {
         // todo:  formatTargetValue Date
         console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
-      case 'Time': {
+      case 'time': {
         // todo:  formatTargetValue Time
         console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
-      case 'DateTime': {
+      case 'dateTime': {
         // todo:  formatTargetValue DateTime
         console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
