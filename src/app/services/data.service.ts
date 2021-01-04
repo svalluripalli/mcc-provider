@@ -21,7 +21,7 @@ import {
   mockReferrals,
   emptyTargetData,
   mockGoalList,
-  mockMedicationSummary, emptyGoalsList, emptyMediciationSummary, emptyEducation,
+  mockMedicationSummary, emptyGoalsList, emptyMediciationSummary, emptyEducation, emptyReferrals,
 } from '../datamodel/mockData';
 import {GoalLists} from '../generated-data-api';
 // import {MedicationSummary} from '../datamodel/old/medicationSummary';
@@ -72,6 +72,8 @@ import { CounselingSummary } from '../generated-data-api/models/CounselingSummar
 import { CounselingService } from './counseling.service';
 import { EducationService } from './education.service';
 import { EducationSummary } from '../generated-data-api/models/EducationSummary';
+import { ReferralSummary } from '../generated-data-api/models/ReferralSummary';
+import { ReferralService } from './referrals.service';
 
 @Injectable({
   providedIn: 'root'
@@ -85,12 +87,13 @@ export class DataService {
               private contactdataService: ContactsService,
               private medicationdataService: MedicationService,
               private counselingService: CounselingService,
-              private educationService: EducationService
+              private educationService: EducationService,
+              private referralService: ReferralService
               ) {
     this.activeMedications = emptyMediciationSummary;
     this.education = emptyEducation;
     this.counseling = emptyCounseling;
-    this.referrals = mockReferrals;
+    this.referrals = emptyReferrals;
     this.contacts = emptyContacts;
     this.goals = emptyGoalsList;
     this.vitalSigns = emptyVitalSigns;
@@ -130,7 +133,7 @@ export class DataService {
 
   education: EducationSummary[];
   counseling: CounselingSummary[];
-  referrals: Referral[];
+  referrals: ReferralSummary[];
   contacts: Contact[];
 
   private commonHttpOptions;
@@ -188,6 +191,7 @@ export class DataService {
       this.updateContacts();
       this.updateCounseling();
       this.updateEducation();
+      this.updateReferrals();
       this.getPatientGoalTargets(this.currentPatientId);
       this.getPatientBPInfo(this.currentPatientId);
       this.getPatientEgfrInfo(this.currentPatientId);
@@ -197,7 +201,7 @@ export class DataService {
     // this.activeMedications = mockMedicationSummary;
     this.education = emptyEducation;
     this.counseling = emptyCounseling;
-    this.referrals = mockReferrals;
+    this.referrals = emptyReferrals;
     this.contacts = emptyContacts;
     // this.targetValue
     return true;
@@ -215,6 +219,7 @@ export class DataService {
       await this.updateContacts();
       await this.updateCounseling();
       await this.updateEducation();
+      await this.updateReferrals();
       await this.updateMedications();
     }
     /*
@@ -243,6 +248,7 @@ export class DataService {
           this.updateCounseling();
           this.updateEducation();
           this.updateMedications();
+          this.updateReferrals();
         } else {
           this.careplan = dummyCarePlan;        // Initialize selected careplan to dummy careplan if no care plans available for subject
           this.updateContacts();
@@ -267,6 +273,12 @@ export class DataService {
   async updateCounseling(): Promise<boolean> {
     this.counselingService.getCounselingSummaries(this.currentPatientId, this.currentCareplanId)
     .subscribe(counseling => this.counseling = counseling);
+    return true;
+  }
+  
+  async updateReferrals(): Promise<boolean> {
+    this.referralService.getReferralSummaries(this.currentPatientId, this.currentCareplanId)
+    .subscribe(referrals => this.referrals = referrals);
     return true;
   }
   

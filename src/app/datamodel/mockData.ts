@@ -7,6 +7,7 @@ import {Demographic} from './old/demographics';
 import {Concern} from './old/socialconcerns';
 import { CounselingSummary } from '../generated-data-api/models/CounselingSummary';
 import { EducationSummary } from '../generated-data-api/models/EducationSummary';
+import { ReferralSummary } from '../generated-data-api/models/ReferralSummary';
 // import {MedicationSummary} from './old/medicationSummary';
 
 export const mockContacts: Contact[] = [
@@ -62,6 +63,7 @@ export const emptyContacts: Contact[] = [
     address: ''
   }
 ];
+export const emptyReferrals: ReferralSummary[] = [];
 export const mockReferrals: Referral[] = [
   {
     purpose: 'Nephrology',
