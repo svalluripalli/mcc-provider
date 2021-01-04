@@ -154,6 +154,8 @@ export class DataService {
     this.contactdataService.httpOptions = this.commonHttpOptions;
     this.medicationdataService.httpOptions = this.commonHttpOptions;
     this.counselingService.httpOptions = this.commonHttpOptions;
+    this.educationService.httpOptions = this.commonHttpOptions;
+    this.referralService.httpOptions = this.commonHttpOptions;
   }
 
   getCurrentPatient(): Observable<Demographic> {
@@ -275,13 +277,13 @@ export class DataService {
     .subscribe(counseling => this.counseling = counseling);
     return true;
   }
-  
+
   async updateReferrals(): Promise<boolean> {
     this.referralService.getReferralSummaries(this.currentPatientId, this.currentCareplanId)
     .subscribe(referrals => this.referrals = referrals);
     return true;
   }
-  
+
   async updateEducation(): Promise<boolean> {
     this.educationService.getEducationSummaries(this.currentPatientId, this.currentCareplanId)
     .subscribe(education => this.education = education);
