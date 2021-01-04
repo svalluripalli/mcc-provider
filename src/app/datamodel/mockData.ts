@@ -6,6 +6,7 @@ import {Referral} from './referral';
 import {Demographic} from './old/demographics';
 import {Concern} from './old/socialconcerns';
 import { CounselingSummary } from '../generated-data-api/models/CounselingSummary';
+import { EducationSummary } from '../generated-data-api/models/EducationSummary';
 // import {MedicationSummary} from './old/medicationSummary';
 
 export const mockContacts: Contact[] = [
@@ -270,6 +271,7 @@ export const emptyGoalsList: GoalLists = {
 };
 
 export const emptyCounseling: CounselingSummary[] = [];
+export const emptyEducation: EducationSummary[] = [];
 /*
 export const emptyVitalSignsData: VitalSignsData = {
   date: '2020-01-01',
