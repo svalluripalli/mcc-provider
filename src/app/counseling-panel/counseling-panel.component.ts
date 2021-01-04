@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {DataService} from '../services/data.service';
 
 @Component({
-  selector: 'app-nutrition-panel',
-  templateUrl: './nutrition-panel.component.html',
-  styleUrls: ['./nutrition-panel.component.css']
+  selector: 'app-counseling-panel',
+  templateUrl: './counseling-panel.component.html',
+  styleUrls: ['./counseling-panel.component.css']
 })
-export class NutritionPanelComponent implements OnInit {
+export class CounselingPanelComponent implements OnInit {
 
   constructor(public dataService: DataService) { }
   displayedColumns = ['topic', 'date', 'assessment'];
