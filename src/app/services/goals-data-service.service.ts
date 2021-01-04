@@ -85,7 +85,7 @@ export class GoalsDataService {
               }
 
               if (obs.effective !== undefined) {
-                if (obs.effective.type === 'DateTime') {
+                if (obs.effective.type === 'dateTime') {
                   observationDate = obs.effective.dateTime.date;
                 }
               }
