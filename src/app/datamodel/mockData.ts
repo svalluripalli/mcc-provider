@@ -5,6 +5,7 @@ import {Education} from './education';
 import {Referral} from './referral';
 import {Demographic} from './old/demographics';
 import {Concern} from './old/socialconcerns';
+import { CounselingSummary } from '../generated-data-api/models/CounselingSummary';
 // import {MedicationSummary} from './old/medicationSummary';
 
 export const mockContacts: Contact[] = [
@@ -268,6 +269,7 @@ export const emptyGoalsList: GoalLists = {
   activeTargets: []
 };
 
+export const emptyCounseling: CounselingSummary[] = [];
 /*
 export const emptyVitalSignsData: VitalSignsData = {
   date: '2020-01-01',
