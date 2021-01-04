@@ -91,3 +91,12 @@ The latest images are available at docker hub under mcccareplan/*.
 |--------- | ------------- | --------|
 | devmode | enable development mode | true |
 | subject | FHIR Id of the launch subject | cc-pat-pnoelle |
+
+
+#Changelog
+
+2021-01-04
+- Updated to fix issues with education, counseling, referrals passing the right header info.
+
+2021-12-30
+- Wired in education, counseling, and referrals.
