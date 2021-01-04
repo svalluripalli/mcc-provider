@@ -5,6 +5,9 @@ import {Education} from './education';
 import {Referral} from './referral';
 import {Demographic} from './old/demographics';
 import {Concern} from './old/socialconcerns';
+import { CounselingSummary } from '../generated-data-api/models/CounselingSummary';
+import { EducationSummary } from '../generated-data-api/models/EducationSummary';
+import { ReferralSummary } from '../generated-data-api/models/ReferralSummary';
 // import {MedicationSummary} from './old/medicationSummary';
 
 export const mockContacts: Contact[] = [
@@ -60,6 +63,7 @@ export const emptyContacts: Contact[] = [
     address: ''
   }
 ];
+export const emptyReferrals: ReferralSummary[] = [];
 export const mockReferrals: Referral[] = [
   {
     purpose: 'Nephrology',
@@ -268,6 +272,8 @@ export const emptyGoalsList: GoalLists = {
   activeTargets: []
 };
 
+export const emptyCounseling: CounselingSummary[] = [];
+export const emptyEducation: EducationSummary[] = [];
 /*
 export const emptyVitalSignsData: VitalSignsData = {
   date: '2020-01-01',

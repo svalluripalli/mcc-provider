@@ -17,11 +17,11 @@ import {
   dummyGoals,
   emptyContacts,
   mockEducation,
-  mockNutrition,
+  emptyCounseling,
   mockReferrals,
   emptyTargetData,
   mockGoalList,
-  mockMedicationSummary, emptyGoalsList, emptyMediciationSummary,
+  mockMedicationSummary, emptyGoalsList, emptyMediciationSummary, emptyEducation, emptyReferrals,
 } from '../datamodel/mockData';
 import {GoalLists} from '../generated-data-api';
 // import {MedicationSummary} from '../datamodel/old/medicationSummary';
@@ -68,6 +68,12 @@ import {
 import {patchTsGetExpandoInitializer} from '@angular/compiler-cli/ngcc/src/packages/patch_ts_expando_initializer';
 import {ChartDataSets, ChartPoint} from 'chart.js';
 import * as moment from 'moment';
+import { CounselingSummary } from '../generated-data-api/models/CounselingSummary';
+import { CounselingService } from './counseling.service';
+import { EducationService } from './education.service';
+import { EducationSummary } from '../generated-data-api/models/EducationSummary';
+import { ReferralSummary } from '../generated-data-api/models/ReferralSummary';
+import { ReferralService } from './referrals.service';
 
 @Injectable({
   providedIn: 'root'
@@ -79,11 +85,15 @@ export class DataService {
               private careplanservice: CareplanService,
               private goalsdataservice: GoalsDataService,
               private contactdataService: ContactsService,
-              private medicationdataService: MedicationService) {
+              private medicationdataService: MedicationService,
+              private counselingService: CounselingService,
+              private educationService: EducationService,
+              private referralService: ReferralService
+              ) {
     this.activeMedications = emptyMediciationSummary;
-    this.education = mockEducation;
-    this.nutrition = mockNutrition;
-    this.referrals = mockReferrals;
+    this.education = emptyEducation;
+    this.counseling = emptyCounseling;
+    this.referrals = emptyReferrals;
     this.contacts = emptyContacts;
     this.goals = emptyGoalsList;
     this.vitalSigns = emptyVitalSigns;
@@ -121,9 +131,9 @@ export class DataService {
   activeMedicationsDataSource = new MatTableDataSource(this.activeMedications);
   consolidatedGoalsDataSource = new MatTableDataSource(this.allGoals);
 
-  education: Education[];
-  nutrition: Education[];
-  referrals: Referral[];
+  education: EducationSummary[];
+  counseling: CounselingSummary[];
+  referrals: ReferralSummary[];
   contacts: Contact[];
 
   private commonHttpOptions;
@@ -143,6 +153,7 @@ export class DataService {
     this.goalsdataservice.httpOptions = this.commonHttpOptions;
     this.contactdataService.httpOptions = this.commonHttpOptions;
     this.medicationdataService.httpOptions = this.commonHttpOptions;
+    this.counselingService.httpOptions = this.commonHttpOptions;
   }
 
   getCurrentPatient(): Observable<Demographic> {
@@ -178,6 +189,9 @@ export class DataService {
       this.getCarePlansForSubject();
       this.getPatientGoals();
       this.updateContacts();
+      this.updateCounseling();
+      this.updateEducation();
+      this.updateReferrals();
       this.getPatientGoalTargets(this.currentPatientId);
       this.getPatientBPInfo(this.currentPatientId);
       this.getPatientEgfrInfo(this.currentPatientId);
@@ -185,9 +199,9 @@ export class DataService {
       this.getPatientWotInfo(this.currentPatientId);
     }
     // this.activeMedications = mockMedicationSummary;
-    this.education = mockEducation;
-    this.nutrition = mockNutrition;
-    this.referrals = mockReferrals;
+    this.education = emptyEducation;
+    this.counseling = emptyCounseling;
+    this.referrals = emptyReferrals;
     this.contacts = emptyContacts;
     // this.targetValue
     return true;
@@ -203,6 +217,9 @@ export class DataService {
       await this.updateCarePlan();
       await this.updateSocialConcerns();
       await this.updateContacts();
+      await this.updateCounseling();
+      await this.updateEducation();
+      await this.updateReferrals();
       await this.updateMedications();
     }
     /*
@@ -228,7 +245,10 @@ export class DataService {
           this.careplan = this.careplans[this.careplans.length - 1]; // Initialize selected careplan to last in MccCarePlan array
           this.currentCareplanId = this.careplan.fhirid;
           this.updateContacts();
+          this.updateCounseling();
+          this.updateEducation();
           this.updateMedications();
+          this.updateReferrals();
         } else {
           this.careplan = dummyCarePlan;        // Initialize selected careplan to dummy careplan if no care plans available for subject
           this.updateContacts();
@@ -247,6 +267,24 @@ export class DataService {
   async updateContacts(): Promise<boolean> {
     this.contactdataService.getContactsBySubjectAndCareplan(this.currentPatientId, this.currentCareplanId)
       .subscribe(contacts => this.contacts = contacts);
+    return true;
+  }
+
+  async updateCounseling(): Promise<boolean> {
+    this.counselingService.getCounselingSummaries(this.currentPatientId, this.currentCareplanId)
+    .subscribe(counseling => this.counseling = counseling);
+    return true;
+  }
+  
+  async updateReferrals(): Promise<boolean> {
+    this.referralService.getReferralSummaries(this.currentPatientId, this.currentCareplanId)
+    .subscribe(referrals => this.referrals = referrals);
+    return true;
+  }
+  
+  async updateEducation(): Promise<boolean> {
+    this.educationService.getEducationSummaries(this.currentPatientId, this.currentCareplanId)
+    .subscribe(education => this.education = education);
     return true;
   }
 

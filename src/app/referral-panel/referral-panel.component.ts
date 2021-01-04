@@ -8,7 +8,7 @@ import {DataService} from '../services/data.service';
 })
 export class ReferralPanelComponent implements OnInit {
   constructor(public dataService: DataService) { }
-  displayedColumns = ['purpose', 'date', 'referrer', 'who'];
+  displayedColumns = ['purpose', 'date', 'referrer', 'receiver'];
 
 
 
