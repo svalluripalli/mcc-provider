@@ -71,17 +71,20 @@ export class GoalsDataService {
             let rowHighlighted = false;
             let formattedTargetValue = '';
             if (obs !== undefined) {
-              if (obs.value !== undefined) {
-                mostRecentResultValue = obs.value.quantityValue.value.toString();
-              }
-              if (obs.components !== undefined) {
-                obs.components.map(c => {
-                  if (c.code.coding[0].code === gt.measure.coding[0].code) {
-                    if (c.value !== undefined) {
-                      mostRecentResultValue = c.value.quantityValue.value.toString();
+              if (obs.status !== 'notfound') {
+                if (obs.value !== undefined) {
+                  //TODO:  Fix to handle as any value type
+                  mostRecentResultValue = obs.value.quantityValue.value.toString();
+                }
+                if (obs.components !== undefined) {
+                  obs.components.map(c => {
+                    if (c.code.coding[0].code === gt.measure.coding[0].code) {
+                      if (c.value !== undefined) {
+                        mostRecentResultValue = c.value.quantityValue.value.toString();
+                      }
                     }
-                  }
-                });
+                  });
+                }
               }
 
               if (obs.effective !== undefined) {
