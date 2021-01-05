@@ -56,6 +56,9 @@ $ docker run -it -e CLIENT_ID='xxxyyzzz123123" -e API_SERVER='http://localhost:8
 $ docker run -it -e CLIENT_ID='xxxyyzzz123123' -e API_SERVER='http://localhost:8080' -p 4200:80 --rm mcccareplan/mccproviderapp  
 
 
+### Eaxmple of running locally against a local production MCC API from Logical 
+$ docker run -it -e CLIENT_ID='1491aa24-3b5b-42e8-b532-63707c359493' -e API_SERVER='http://localhost:8080' -p 4200:80 --rm mcccareplan/mccproviderapp
+
 ### Building the image
 $  docker build -t mcccareplan/mccproviderapp -f Dockerfile-prod .
 
@@ -94,6 +97,9 @@ The latest images are available at docker hub under mcccareplan/*.
 
 
 #Changelog
+
+2021-01-05
+- Update to deal with observations of status 'notfound'
 
 2021-01-04
 - Updated to fix issues with education, counseling, referrals passing the right header info.
