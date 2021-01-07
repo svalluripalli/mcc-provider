@@ -2,14 +2,17 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { MccCodeableConcept } from "src/app/generated-data-api";
+import { GenericType } from './GenericType';
+import { MccCodeableConcept } from './MccCodeableConcept';
 
 export interface CounselingSummary {
-    topic?: MccCodeableConcept;
-    type?: string
+    topic: MccCodeableConcept;
+    type: string;
     displayDate?: string;
-    date?: Date;
+    date?: GenericType;
     outcome?: MccCodeableConcept;
-    status?: string;
+    status: string;
+    performer?: string;
+    reasons?: string;
     fhirid?: string;
 }

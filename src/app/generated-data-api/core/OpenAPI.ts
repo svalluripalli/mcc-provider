@@ -11,7 +11,7 @@ interface Config {
 }
 
 export const OpenAPI: Config = {
-    BASE: 'http://mcc-niddk-backend.wl.r.appspot.com',
+    BASE: 'http://localhost:8081',
     VERSION: '0',
     CLIENT: 'fetch',
     WITH_CREDENTIALS: false,
