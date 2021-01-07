@@ -7,7 +7,7 @@ import {MessageService} from './message.service';
 import {environment} from '../../environments/environment';
 import {GoalLists, GoalTarget, MccGoal, MccObservation} from '../generated-data-api';
 
-import {TargetValue} from '../datamodel/old/targetvalue';
+import {TargetValue} from '../datamodel/targetvalue';
 import {formatGoalTargetValue} from '../../utility-functions';
 import {VitalSignsTableData} from '../datamodel/vitalSigns';
 import {EgfrTableData} from '../datamodel/egfr';
