@@ -2,14 +2,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { GenericType } from './GenericType';
+import { FuzzyDate } from './FuzzyDate';
 import { MccCodeableConcept } from './MccCodeableConcept';
 
 export interface CounselingSummary {
     topic: MccCodeableConcept;
     type: string;
     displayDate?: string;
-    date?: GenericType;
+    date?: FuzzyDate;
     outcome?: MccCodeableConcept;
     status: string;
     performer?: string;
