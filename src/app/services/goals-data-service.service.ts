@@ -85,6 +85,8 @@ export class GoalsDataService {
                     }
                   });
                 }
+
+
                 if (obs.effective !== undefined) {
                   if (obs.effective.type === 'dateTime') {
                     observationDate = obs.effective.dateTime.date;
@@ -100,8 +102,8 @@ export class GoalsDataService {
                   highlighted: rowHighlighted,
                   status: obs.status
                 };
-              };
-              observer.next(tv);
+                observer.next(tv);
+              }
             }
           });
       });
