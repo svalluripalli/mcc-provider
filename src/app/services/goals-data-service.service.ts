@@ -73,7 +73,7 @@ export class GoalsDataService {
             if (obs !== undefined) {
               if (obs.status !== 'notfound') {
                 if (obs.value !== undefined) {
-                  //TODO:  Fix to handle as any value type
+                  //  TODO:  Fix to handle as any value type
                   mostRecentResultValue = obs.value.quantityValue.value.toString();
                 }
                 if (obs.components !== undefined) {
@@ -85,22 +85,21 @@ export class GoalsDataService {
                     }
                   });
                 }
-              }
-
-              if (obs.effective !== undefined) {
-                if (obs.effective.type === 'dateTime') {
-                  observationDate = obs.effective.dateTime.date;
+                if (obs.effective !== undefined) {
+                  if (obs.effective.type === 'dateTime') {
+                    observationDate = obs.effective.dateTime.date;
+                  }
                 }
-              }
 
-              [formattedTargetValue, rowHighlighted] = formatGoalTargetValue(gt, mostRecentResultValue);
-              const tv: TargetValue = {
-                measure: gt.measure.text,
-                date: observationDate, // todo: Get observation date when API is updated
-                mostRecentResult: mostRecentResultValue.toString(),
-                target: formattedTargetValue,
-                highlighted: rowHighlighted,
-                status: obs.status
+                [formattedTargetValue, rowHighlighted] = formatGoalTargetValue(gt, mostRecentResultValue);
+                const tv: TargetValue = {
+                  measure: gt.measure.text,
+                  date: observationDate, // todo: Get observation date when API is updated
+                  mostRecentResult: mostRecentResultValue.toString(),
+                  target: formattedTargetValue,
+                  highlighted: rowHighlighted,
+                  status: obs.status
+                };
               };
               observer.next(tv);
             }
