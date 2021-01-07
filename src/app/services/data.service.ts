@@ -1,33 +1,25 @@
 import {Injectable} from '@angular/core';
-import {Demographic} from '../datamodel/old/demographics';
+import {MccPatient} from '../generated-data-api';
 import {SubjectDataService} from './subject-data-service.service';
 import {CareplanService} from './careplan.service';
 import {GoalsDataService} from './goals-data-service.service';
 import {Contact, GoalSummary, MccCarePlan} from '../generated-data-api';
-import {SocialConcerns} from '../datamodel/old/socialconcerns';
+import {SocialConcern} from '../generated-data-api';
 import {ConditionLists} from '../generated-data-api';
-import {TargetValue} from '../datamodel/old/targetvalue';
+import {TargetValue} from '../datamodel/targetvalue';
 import {
   dummyPatientId,
   dummyCareplanId,
   dummySubject,
   dummyConditions,
   dummyCarePlan,
-  dummySocialConcerns,
-  dummyGoals,
+  emptySocialConcerns,
   emptyContacts,
-  mockEducation,
   emptyCounseling,
-  mockReferrals,
-  emptyTargetData,
-  mockGoalList,
-  mockMedicationSummary, emptyGoalsList, emptyMediciationSummary, emptyEducation, emptyReferrals,
+  emptyGoalsList, emptyMediciationSummary, emptyEducation, emptyReferrals,
 } from '../datamodel/mockData';
 import {GoalLists} from '../generated-data-api';
-// import {MedicationSummary} from '../datamodel/old/medicationSummary';
 import {MedicationSummary} from '../generated-data-api';
-import {Education} from '../datamodel/education';
-import {Referral} from '../datamodel/referral';
 import {finalize, map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {HttpHeaders} from '@angular/common/http';
@@ -106,10 +98,10 @@ export class DataService {
   mainfhirserver: string;
   currentPatientId: string;
   currentCareplanId: string;
-  demographic: Demographic;
+  demographic: MccPatient;
   careplan: MccCarePlan;
   careplans: MccCarePlan[];
-  socialConcerns: SocialConcerns[];
+  socialConcerns: SocialConcern[];
   conditions: ConditionLists;
   targetValues: TargetValue[] = [];
   activeMedications: MedicationSummary[] = [];
@@ -158,7 +150,7 @@ export class DataService {
     this.referralService.httpOptions = this.commonHttpOptions;
   }
 
-  getCurrentPatient(): Observable<Demographic> {
+  getCurrentPatient(): Observable<MccPatient> {
     return this.subjectdataservice.getSubject(this.currentPatientId).pipe(
       map(data => data)
     );
@@ -213,7 +205,7 @@ export class DataService {
   async setCurrentCarePlan(planId: string): Promise<boolean> {
     this.currentCareplanId = planId;
     if ((!planId || planId.trim().length === 0)) {
-      this.socialConcerns = dummySocialConcerns;
+      this.socialConcerns = emptySocialConcerns;
       this.careplan = dummyCarePlan;
     } else {
       await this.updateCarePlan();

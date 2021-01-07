@@ -9,18 +9,21 @@ export class GoalControllerService {
 
     /**
      * @param subject
+     * @param careplan
      * @result any OK
      * @throws ApiError
      */
-    public static async getGoals(
+    public static async getGoalSummary(
         subject: string,
+        careplan?: string,
     ): Promise<any> {
 
         const result = await __request({
             method: 'get',
-            path: `/goal`,
+            path: `/summary/goals`,
             query: {
                 'subject': subject,
+                'careplan': careplan,
             },
         });
 
@@ -35,7 +38,7 @@ export class GoalControllerService {
      * @result any OK
      * @throws ApiError
      */
-    public static async getGoalSummary(
+    public static async getGoalSummaryOld(
         subject: string,
         careplan?: string,
     ): Promise<any> {
@@ -46,6 +49,28 @@ export class GoalControllerService {
             query: {
                 'subject': subject,
                 'careplan': careplan,
+            },
+        });
+
+        catchGenericError(result);
+
+        return result.body;
+    }
+
+    /**
+     * @param subject
+     * @result any OK
+     * @throws ApiError
+     */
+    public static async getGoals(
+        subject: string,
+    ): Promise<any> {
+
+        const result = await __request({
+            method: 'get',
+            path: `/goal`,
+            query: {
+                'subject': subject,
             },
         });
 

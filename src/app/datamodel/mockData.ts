@@ -1,14 +1,20 @@
-import {TargetValue} from './old/targetvalue';
-import {ConditionLists, Contact, GoalLists, GoalSummary, GoalTarget, MccCarePlan, MedicationSummary} from '../generated-data-api';
-// import {GoalLists} from './goallists';
-import {Education} from './education';
-import {Referral} from './referral';
-import {Demographic} from './old/demographics';
-import {Concern} from './old/socialconcerns';
+import {TargetValue} from './targetvalue';
+import {
+  ConditionLists,
+  Contact,
+  GoalLists,
+  GoalSummary,
+  GoalTarget,
+  MccCarePlan,
+  MedicationSummary,
+  SocialConcern
+} from '../generated-data-api';
+
+import {MccPatient} from '../generated-data-api/models/MccPatient';
 import { CounselingSummary } from '../generated-data-api/models/CounselingSummary';
 import { EducationSummary } from '../generated-data-api/models/EducationSummary';
 import { ReferralSummary } from '../generated-data-api/models/ReferralSummary';
-// import {MedicationSummary} from './old/medicationSummary';
+
 
 export const mockContacts: Contact[] = [
   {
@@ -64,85 +70,9 @@ export const emptyContacts: Contact[] = [
   }
 ];
 export const emptyReferrals: ReferralSummary[] = [];
-export const mockReferrals: Referral[] = [
-  {
-    purpose: 'Nephrology',
-    date: '10/28/2012',
-    referrer: 'John Primary Care, MD',
-    receivingClincian: 'Natalie Nephrologist'
-  },
-  {
-    purpose: 'Dietitian',
-    date: '09/17/2015',
-    referrer: 'John Primary Care, MD',
-    receivingClincian: 'Debbie Dietitian'
-  },
-];
 
-export const mockEducation: Education[] = [
-  {
-    topic: 'CKD - Etiology and Progressive Nature of CKD',
-    date: '06/15/2013',
-    assessmentOfUnderstanding: 'Adequate'
-  },
-  {
-    topic: 'CKD - Complications/Symptoms from Untreated or Progressive Kidney Disease, Including Behavioral Health Issues',
-    date: '07/01/2014',
-    assessmentOfUnderstanding: 'Adequate'
-  }
-];
 
-export const mockNutrition: Education[] = [
-  {
-    topic: 'General Diet Counselling',
-    date: '06/15/2013',
-    assessmentOfUnderstanding: 'Adequate'
-  },
-  {
-    topic: 'Potassium Limitation',
-    date: '06/15/2013',
-    assessmentOfUnderstanding: 'Adequate - Patient Declined to Discuss'
-  },
-  {
-    topic: 'Sodium Restriction',
-    date: '06/15/2013',
-    assessmentOfUnderstanding: 'Adequate - Patient Declined to Discuss'
-  },
-  {
-    topic: 'Phosphorous Limitation',
-    date: '06/15/2013',
-    assessmentOfUnderstanding: 'Adequate - Patient Declined to Discuss'
-  },
-  {
-    topic: 'Heart Healthy Diet',
-    date: '06/15/2013',
-    assessmentOfUnderstanding: 'Adequate'
-  },
-  {
-    topic: 'Protein Moderation',
-    date: '06/15/2013',
-    assessmentOfUnderstanding: 'Adequate - Patient Declined to Discuss'
-  },
-  {
-    topic: 'Fluid Intake/Management',
-    date: '06/15/2013',
-    assessmentOfUnderstanding: 'Adequate'
-  }
 
-];
-/*
-export const mockMedicationSummary: MedicationSummary[] = [
-  {
-    name: 'lisinopril',
-    classOrType: 'Ace Inhibitor',
-    dose: '40mg daily',
-    doseForm: 'pill',
-    prescribedBy: 'Dr Jones',
-    startDate: '12/07/2008',
-    adverseReactions: 'None'
-  }
-];
-*/
 
 export const mockMedicationSummary: MedicationSummary[] = [
   {
@@ -550,7 +480,7 @@ export const mockGoalList: GoalLists = {
   ]
 };
 
-export const dummySubject: Demographic = {
+export const dummySubject: MccPatient = {
   name: 'No Patient Selected',
   id: '',
   fhirid: '',
@@ -587,7 +517,7 @@ export const dummyCarePlan: MccCarePlan = {
   fhirid: ''
 };
 
-export const dummySocialConcerns: Concern[] = [];
+export const emptySocialConcerns: SocialConcern[] = [];
 
 /*
 export const dummyGoals: GoalLists =  new class implements GoalLists {

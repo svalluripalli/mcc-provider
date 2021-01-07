@@ -110,7 +110,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     const key = skey.replace(/['"]+/g, '');
     console.log('Ang: Smart Key is ' + key);
     if (key != null) {
-      this.updateDateContext(key, 4);
+      this.updateDataContext(key, 4);
     }
   }
 
@@ -122,8 +122,8 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
   }
 
-  async updateDateContext(key: string, count: number): Promise<void> {
-    console.log('Updating Contect');
+  async updateDataContext(key: string, count: number): Promise<void> {
+    console.log('Updating Context');
     const info = JSON.parse(sessionStorage.getItem(key));
     if (info != null) {
       console.log('server: ' + info.serverUrl);
@@ -140,7 +140,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         if (count > 0) {
           const t = await this.waitFor(1000);
           console.log(t);
-          this.updateDateContext(key, count - 1);
+          this.updateDataContext(key, count - 1);
         }
       }
     } else {

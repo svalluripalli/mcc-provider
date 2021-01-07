@@ -6,12 +6,12 @@ import { GoalTarget } from './GoalTarget';
 import { MccCodeableConcept } from './MccCodeableConcept';
 
 export interface GoalSummary {
-    priority?: string;
+    priority: string;
     expressedByType?: string;
-    description?: string;
+    description: string;
     achievementStatus?: MccCodeableConcept;
     achievementText?: string;
-    lifecycleStatus?: string;
+    lifecycleStatus: string;
     startDateText?: string;
     targetDateText?: string;
     addresses?: string;

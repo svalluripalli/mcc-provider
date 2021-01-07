@@ -1,4 +1,8 @@
-
+mat-grid-tile .mat-figure {
+  justify-content: center;
+  vertical-align: top;
+  background: blue;
+}
 
 .group-header {
   justify-content: center;

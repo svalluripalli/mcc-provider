@@ -3,11 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { Demographic } from '../datamodel/old/demographics';
+import { MccPatient } from '../generated-data-api';
 import { MessageService } from './message.service';
-import {Concern, SocialConcerns} from '../datamodel/old/socialconcerns';
+import { SocialConcern} from '../generated-data-api';
 import {environment} from '../../environments/environment';
 import {ConditionLists} from '../generated-data-api';
+
 
 @Injectable({providedIn: 'root'})
 export class SubjectDataService{
@@ -26,35 +27,35 @@ export class SubjectDataService{
 
 
   /** GET Demographic by id. Return `undefined` when id not found */
-  getSubjectNo404<Data>(id: string): Observable<Demographic> {
+  getSubjectNo404<Data>(id: string): Observable<MccPatient> {
     const url = `${environment.mccapiUrl}${this.patientURL}/${id}`;
-    return this.http.get<Demographic[]>(url, this.httpOptions)
+    return this.http.get<MccPatient[]>(url, this.httpOptions)
       .pipe(
         map(demographics => demographics[0]), // returns a {0|1} element array
         tap(h => {
           const outcome = h ? `fetched` : `did not find`;
           this.log(`${outcome} hero id=${id}`);
         }),
-        catchError(this.handleError<Demographic>(`Subject id=${id}`))
+        catchError(this.handleError<MccPatient>(`Subject id=${id}`))
       );
   }
 
   /** GET Subject by id. Will 404 if id not found */
-  getSubject(id: string): Observable<Demographic> {
+  getSubject(id: string): Observable<MccPatient> {
     console.log(this.httpOptions);
     const url = `${environment.mccapiUrl}${this.patientURL}/${id}`;
-    return this.http.get<Demographic>(url, this.httpOptions).pipe(
+    return this.http.get<MccPatient>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched subject id=${id}`)),
-      catchError(this.handleError<Demographic>(`getSubject id=${id}`))
+      catchError(this.handleError<MccPatient>(`getSubject id=${id}`))
     );
   }
 
   /** GET Subjects by searchString. Will 404 if id not found */
-  getSubjects(searchFor: string): Observable<Demographic>{
+  getSubjects(searchFor: string): Observable<MccPatient>{
     const url = `${environment.mccapiUrl}${this.patientURL}?name=${searchFor}`;
-    return this.http.get<Demographic>(url, this.httpOptions).pipe(
+    return this.http.get<MccPatient>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched subject id=${_.id}`)),
-      catchError(this.handleError<Demographic>(`getSubjects searchFor=${searchFor}`))
+      catchError(this.handleError<MccPatient>(`getSubjects searchFor=${searchFor}`))
     );
   }
 
@@ -69,13 +70,13 @@ export class SubjectDataService{
     );
 
   }
-  getSocialConcerns(id: string, careplan: string): Observable<Concern[]>
+  getSocialConcerns(id: string, careplan: string): Observable<SocialConcern[]>
   {
     const url = `${environment.mccapiUrl}${this.concernURL}?subject=${id}&careplan=${careplan}`;
 
-    return this.http.get<Concern[]>(url, this.httpOptions).pipe(
+    return this.http.get<SocialConcern[]>(url, this.httpOptions).pipe(
       tap(_ => this.log('fetched Concern')),
-      catchError(this.handleError<Concern[]>('getConcerns', []))
+      catchError(this.handleError<SocialConcern[]>('getSocialConcerns', []))
     );
 
   }
@@ -96,11 +97,6 @@ export class SubjectDataService{
       */
    }
 
-  getConcerns()
-  {
-    return SocialConcerns.getBaseConcerns();
-     /* return this.socialConcerns; */
-  }
   /**
    * Handle Http operation that failed.
    * Let the app continue.
