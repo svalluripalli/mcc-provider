@@ -9,7 +9,7 @@ import {DataService} from '../services/data.service';
 export class CounselingPanelComponent implements OnInit {
 
   constructor(public dataService: DataService) { }
-  displayedColumns = ['topic', 'type', 'outcome', 'status'];
+  displayedColumns = ['topic', 'date', 'performer', 'reason', 'outcome', 'status'];
 
 
   ngOnInit(): void {
