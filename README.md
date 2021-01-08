@@ -12,7 +12,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Generating updated models
 
-$ openapi -i https://mcc-niddk-backend.wl.r.appspot.com/api-docs
+ $ openapi -i https://mcc-niddk-backend.wl.r.appspot.com/api-docs
 
 ## Browse API
     https://mcc-niddk-backend.wl.r.appspot.com/swagger-ui/index.html?configUrl=/api-docs/swagger-config
@@ -20,6 +20,8 @@ $ openapi -i https://mcc-niddk-backend.wl.r.appspot.com/api-docs
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+For example ng build --prod
 
 ## Further help
 
@@ -71,11 +73,11 @@ $ docker push mcccareplan/mccproviderapp
 | ------------- | ------------- | 
 | API_SERVER | http://localhost:8080 |
 | CLIENT_ID | 123456789abcdef |
+| LAUNCH_SERVER | https://api.logicahealth.org/MCCeCarePlanTest/data |
 
 ### Running the image
 
-
-$ docker run -it -e CLIENT_ID='xxxyyzzz123123' -e API_SERVER='http://localhost:8080' -p 80:80 --rm mcccareplan/mccproviderapp 
+ docker run -it -e CLIENT_ID='xxxyyzzz123123' -e API_SERVER='http://localhost:8080' -p 80:80 --rm mcccareplan/mccproviderapp 
 
 ### Public build 
 
@@ -97,6 +99,9 @@ The latest images are available at docker hub under mcccareplan/*.
 
 
 #Changelog
+
+2021-01-08 
+- Added support for standalone launch
 
 2021-01-05
 - Update to deal with observations of status 'notfound'

@@ -6,4 +6,5 @@
   // clientId: "1491aa24-3b5b-42e8-b532-63707c359493", //Local Host Test
     window["env"]["clientId"] = "1491aa24-3b5b-42e8-b532-63707c359493";
     window["env"]["apiServer"] = "";
+    window['env']['standaloneServer']  = "${LAUNCH_SERVER}" || "https://api.logicahealth.org/MCCeCarePlanTest/data";
 })(this);

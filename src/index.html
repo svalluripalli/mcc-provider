@@ -7,7 +7,7 @@
   <script src="assets/fhir-client.js"></script>
   <script>
     const queryString = window.location.search;
-    console.log(queryString);
+    console.log("Query: ".concat(queryString));
     const urlParams = new URLSearchParams(queryString);
     const nosmart = urlParams.get('nosmart') == true;
     const code = urlParams.get('code')
@@ -15,7 +15,19 @@
     if ((nosmart == false) && (code != null))
     {
 
-    FHIR.oauth2.ready()
+    FHIR.oauth2.ready((client) => {
+        function gotScope(scope) {
+          let scopes = client.tokenResponse.scope.split(' ');
+          return scopes.find((a) => a === scope);
+        }
+
+        if (gotScope('launch/patient')) {
+          console.log("Launched in Smart Mode - Standalone")
+        } else if (gotScope('launch')) {
+          console.log("Launched in Smart Mode - Embedded")
+        }
+      }
+    )
     .then(
       console.log("Launched in Smart Mode")
       )
