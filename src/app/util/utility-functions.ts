@@ -1,4 +1,4 @@
-import {GoalTarget} from './app/generated-data-api';
+import {GoalTarget} from '../generated-data-api';
 
 export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue: string): any[] {
   let formatted = 'Unknown Type: ';

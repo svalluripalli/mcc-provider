@@ -5,7 +5,7 @@ import {DataService} from '../services/data.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
 import {EgfrTableData} from '../datamodel/egfr';
-import {formatEgfrResult, reformatYYYYMMDD} from '../../utility-functions';
+import {formatEgfrResult, reformatYYYYMMDD} from '../util/utility-functions';
 import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
