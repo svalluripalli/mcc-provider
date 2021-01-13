@@ -76,13 +76,13 @@ export class UACRComponent implements OnInit, AfterViewInit {
     if (val) {
       switch (true) {
         case (val >= 300):
-          cssClass = 'resultBorderline';
+          cssClass = 'resultCritical';
           break;
         case (val < 300 && val >= 25):
-          cssClass = 'resultGood';
+          cssClass = 'resultBorderline';
           break;
         case (val < 25):
-          cssClass = 'resultCritical';
+          cssClass = 'resultGood';
           break;
         default:
           break;
