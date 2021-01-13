@@ -1,6 +1,10 @@
 import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import {DataService} from '../services/data.service';
+import {MatSort, Sort} from '@angular/material/sort';
 import {MatPaginator} from '@angular/material/paginator';
+import {UacrTableData} from '../datamodel/uacr';
+import {reformatYYYYMMDD} from '../util/utility-functions';
+import {VitalSignsTableData} from '../datamodel/vitalSigns';
 
 @Component({
   selector: 'app-blood-pressure',
@@ -14,8 +18,10 @@ export class BloodPressureComponent implements OnInit, AfterViewInit {
 
   constructor(public dataservice: DataService) {
   }
+
   displayedColumns = ['date', 'systolic', 'diastolic'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit(): void {
   }
@@ -25,6 +31,30 @@ export class BloodPressureComponent implements OnInit, AfterViewInit {
     if (this.vitalSignsDataSource.data.length > this.vitalSignsRowMax) {
       this.vitalSignsDataSource.paginator = this.paginator;
     }
+    this.vitalSignsDataSource.sort = this.sort;
+    this.vitalSignsDataSource.sortingDataAccessor = (data: VitalSignsTableData, header: string) => {
+      switch (header) {
+        case ('systolic'): {
+          return data.systolic;
+        }
+        case ('diastolic'): {
+          return data.diastolic;
+        }
+
+        case ('date' ): {
+          return reformatYYYYMMDD(data.date);
+        }
+
+        default: {
+          return data[header];
+        }
+      }
+    };
+    const sortState: Sort = {active: 'date', direction: 'desc'};
+    this.sort.active = sortState.active;
+    this.sort.direction = sortState.direction;
+    this.sort.sortChange.emit(sortState);
+
   }
 
 
