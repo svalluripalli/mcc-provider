@@ -231,7 +231,6 @@ export function getEgrLineChartAnnotationsObject() {
         yScaleID: 'y-axis-0',
         borderWidth: 0,
         yMin: 60,
-        yMax: 100,
         backgroundColor: 'rgba(128, 204, 113,0.3)'
       }
     ]
@@ -271,7 +270,6 @@ export function getUacrLineChartAnnotationsObject() {
         yScaleID: 'y-axis-0',
         borderWidth: 0,
         yMin: 300,
-        yMax: 400,
         backgroundColor: 'rgba(227, 127, 104,0.3)'
       }
     ]
@@ -311,7 +309,6 @@ export function getWotLineChartAnnotationsObject() {
         yScaleID: 'y-axis-0',
         borderWidth: 0,
         yMin: 260,
-        yMax: 300,
         backgroundColor: 'rgba(227, 127, 104,0.3)'
       }
     ]
