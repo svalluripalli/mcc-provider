@@ -40,6 +40,15 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "assets": [
+                "src/favicon.ico",
+                "src/assets",
+                {
+                  "input": "src/deployment/production",
+                  "output":  "/assets",
+                  "glob": "*.js"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
