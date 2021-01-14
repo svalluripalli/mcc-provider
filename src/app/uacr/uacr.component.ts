@@ -5,7 +5,7 @@ import {DataService} from '../services/data.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
 import {UacrTableData} from '../datamodel/uacr';
-import {formatUacrResult, reformatYYYYMMDD} from '../../utility-functions';
+import {formatUacrResult, reformatYYYYMMDD} from '../util/utility-functions';
 import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
@@ -76,13 +76,13 @@ export class UACRComponent implements OnInit, AfterViewInit {
     if (val) {
       switch (true) {
         case (val >= 300):
-          cssClass = 'resultBorderline';
+          cssClass = 'resultCritical';
           break;
         case (val < 300 && val >= 25):
-          cssClass = 'resultGood';
+          cssClass = 'resultBorderline';
           break;
         case (val < 25):
-          cssClass = 'resultCritical';
+          cssClass = 'resultGood';
           break;
         default:
           break;

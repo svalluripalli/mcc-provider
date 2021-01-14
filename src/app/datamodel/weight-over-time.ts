@@ -1,6 +1,6 @@
 import {ChartDataSets, ChartOptions, ChartPoint} from 'chart.js';
 import {Label} from 'ng2-charts';
-import {getLineChartOptionsObject} from '../../utility-functions';
+import {getLineChartOptionsObject} from '../util/utility-functions';
 
 interface WotTableData {
   date?: string;

@@ -1,4 +1,4 @@
-import {GoalTarget} from './app/generated-data-api';
+import {GoalTarget} from '../generated-data-api';
 
 export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue: string): any[] {
   let formatted = 'Unknown Type: ';
@@ -231,7 +231,6 @@ export function getEgrLineChartAnnotationsObject() {
         yScaleID: 'y-axis-0',
         borderWidth: 0,
         yMin: 60,
-        yMax: 100,
         backgroundColor: 'rgba(128, 204, 113,0.3)'
       }
     ]
@@ -271,7 +270,6 @@ export function getUacrLineChartAnnotationsObject() {
         yScaleID: 'y-axis-0',
         borderWidth: 0,
         yMin: 300,
-        yMax: 400,
         backgroundColor: 'rgba(227, 127, 104,0.3)'
       }
     ]
@@ -311,7 +309,6 @@ export function getWotLineChartAnnotationsObject() {
         yScaleID: 'y-axis-0',
         borderWidth: 0,
         yMin: 260,
-        yMax: 300,
         backgroundColor: 'rgba(227, 127, 104,0.3)'
       }
     ]
