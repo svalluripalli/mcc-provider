@@ -7,8 +7,8 @@ import {MessageService} from './message.service';
 import {environment} from '../../environments/environment';
 import {GoalLists, GoalTarget, MccGoal, MccObservation} from '../generated-data-api';
 
-import {TargetValue} from '../datamodel/old/targetvalue';
-import {formatGoalTargetValue} from '../../utility-functions';
+import {TargetValue} from '../datamodel/targetvalue';
+import {formatGoalTargetValue} from '../util/utility-functions';
 import {VitalSignsTableData} from '../datamodel/vitalSigns';
 import {EgfrTableData} from '../datamodel/egfr';
 import {UacrTableData} from '../datamodel/uacr';
@@ -71,35 +71,39 @@ export class GoalsDataService {
             let rowHighlighted = false;
             let formattedTargetValue = '';
             if (obs !== undefined) {
-              if (obs.value !== undefined) {
-                mostRecentResultValue = obs.value.quantityValue.value.toString();
-              }
-              if (obs.components !== undefined) {
-                obs.components.map(c => {
-                  if (c.code.coding[0].code === gt.measure.coding[0].code) {
-                    if (c.value !== undefined) {
-                      mostRecentResultValue = c.value.quantityValue.value.toString();
-                    }
-                  }
-                });
-              }
-
-              if (obs.effective !== undefined) {
-                if (obs.effective.type === 'DateTime') {
-                  observationDate = obs.effective.dateTime.date;
+              if (obs.status !== 'notfound') {
+                if (obs.value !== undefined) {
+                  //  TODO:  Fix to handle as any value type
+                  mostRecentResultValue = obs.value.quantityValue.value.toString();
                 }
-              }
+                if (obs.components !== undefined) {
+                  obs.components.map(c => {
+                    if (c.code.coding[0].code === gt.measure.coding[0].code) {
+                      if (c.value !== undefined) {
+                        mostRecentResultValue = c.value.quantityValue.value.toString();
+                      }
+                    }
+                  });
+                }
 
-              [formattedTargetValue, rowHighlighted] = formatGoalTargetValue(gt, mostRecentResultValue);
-              const tv: TargetValue = {
-                measure: gt.measure.text,
-                date: observationDate, // todo: Get observation date when API is updated
-                mostRecentResult: mostRecentResultValue.toString(),
-                target: formattedTargetValue,
-                highlighted: rowHighlighted,
-                status: obs.status
-              };
-              observer.next(tv);
+
+                if (obs.effective !== undefined) {
+                  if (obs.effective.type === 'dateTime') {
+                    observationDate = obs.effective.dateTime.date;
+                  }
+                }
+
+                [formattedTargetValue, rowHighlighted] = formatGoalTargetValue(gt, mostRecentResultValue);
+                const tv: TargetValue = {
+                  measure: gt.measure.text,
+                  date: observationDate, // todo: Get observation date when API is updated
+                  mostRecentResult: mostRecentResultValue.toString(),
+                  target: formattedTargetValue,
+                  highlighted: rowHighlighted,
+                  status: obs.status
+                };
+                observer.next(tv);
+              }
             }
           });
       });

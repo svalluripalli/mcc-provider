@@ -1,19 +1,34 @@
 <div class="group-header" >Education</div>
+
 <table mat-table [dataSource]="dataService.education" width="100%">
-
   <ng-container matColumnDef="topic">
-    <th mat-header-cell *matHeaderCellDef width="60%">Topic</th>
-    <td mat-cell *matCellDef="let item"> {{item.topic}} </td>
+    <th mat-header-cell *matHeaderCellDef width="35%">Topic</th>
+    <td mat-cell *matCellDef="let item"> {{item.topic.text}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="date">
+  <ng-container matColumnDef="date" width="10%">
     <th mat-header-cell *matHeaderCellDef>Date</th>
-    <td mat-cell *matCellDef="let item"> {{item.date}} </td>
+    <td mat-cell *matCellDef="let item"> {{item.displayDate}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="assessment">
-    <th mat-header-cell *matHeaderCellDef>Provider Assessment of Understanding</th>
-    <td mat-cell *matCellDef="let item"> {{item.assessmentOfUnderstanding}} </td>
+  <ng-container matColumnDef="performer" width="15%">
+    <th mat-header-cell *matHeaderCellDef>Performer</th>
+    <td mat-cell *matCellDef="let item"> {{item.performer}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="reason" width="20%">
+    <th mat-header-cell *matHeaderCellDef>Reason</th>
+    <td mat-cell *matCellDef="let item"> {{item.reasons}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="outcome"width="10%">
+    <th mat-header-cell *matHeaderCellDef>Outcome</th>
+    <td mat-cell *matCellDef="let item"> {{item.outcome.text}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="status" width="10%">
+    <th mat-header-cell *matHeaderCellDef>Status</th>
+    <td mat-cell *matCellDef="let item"> {{item.status | titlecase}}</td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

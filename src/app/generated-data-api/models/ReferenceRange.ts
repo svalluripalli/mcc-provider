@@ -3,12 +3,12 @@
 /* eslint-disable */
 
 import { MccCodeableConcept } from './MccCodeableConcept';
+import { MccQuantity } from './MccQuantity';
 import { MccRange } from './MccRange';
-import { MccSimpleQuantity } from './MccSimpleQuantity';
 
 export interface ReferenceRange {
-    low?: MccSimpleQuantity;
-    high?: MccSimpleQuantity;
+    low?: MccQuantity;
+    high?: MccQuantity;
     type?: MccCodeableConcept;
     appliesTo?: Array<MccCodeableConcept>;
     age?: MccRange;

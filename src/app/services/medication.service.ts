@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {MessageService} from './message.service';
 import {Observable, of} from 'rxjs';
-import {Contact, MedicationLists, MedicationSummaryList} from '../generated-data-api';
+import {MedicationSummaryList} from '../generated-data-api';
 import {environment} from '../../environments/environment';
-import {catchError, map, tap} from 'rxjs/operators';
-import {MedicationSummary} from '../datamodel/old/medicationSummary';
+import {catchError, tap} from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'

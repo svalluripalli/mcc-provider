@@ -9,21 +9,18 @@ export class SocialConcernControllerService {
 
     /**
      * @param subject
-     * @param careplan
      * @result any OK
      * @throws ApiError
      */
-    public static async getConditionSummary(
+    public static async getCarePlans1(
         subject: string,
-        careplan?: string,
     ): Promise<any> {
 
         const result = await __request({
             method: 'get',
-            path: `/socialconcernsummary`,
+            path: `/socialconcerns`,
             query: {
                 'subject': subject,
-                'careplan': careplan,
             },
         });
 
@@ -34,18 +31,21 @@ export class SocialConcernControllerService {
 
     /**
      * @param subject
+     * @param careplan
      * @result any OK
      * @throws ApiError
      */
-    public static async getCarePlans(
+    public static async getConditionSummary1(
         subject: string,
+        careplan?: string,
     ): Promise<any> {
 
         const result = await __request({
             method: 'get',
-            path: `/socialconcerns`,
+            path: `/socialconcernsummary`,
             query: {
                 'subject': subject,
+                'careplan': careplan,
             },
         });
 

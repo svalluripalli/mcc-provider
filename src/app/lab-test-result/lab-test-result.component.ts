@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {DataService} from '../services/data.service';
 import {EgfrTableData} from '../datamodel/egfr';
-import {formatEgfrResult} from '../../utility-functions';
+import {formatEgfrResult} from '../util/utility-functions';
 
 @Component({
   selector: 'app-lab-test-result',

@@ -5,7 +5,7 @@ import {DataService} from '../services/data.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
 import {WotTableData} from '../datamodel/weight-over-time';
-import {formatWotResult, reformatYYYYMMDD} from '../../utility-functions';
+import {formatWotResult, reformatYYYYMMDD} from '../util/utility-functions';
 import {MatTableDataSource} from '@angular/material/table';
 
 @Component({

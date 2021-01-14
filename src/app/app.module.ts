@@ -28,7 +28,7 @@ import { PatientGoalsComponent } from './patient-goals/patient-goals.component';
 import { MaintenanceAndInterventionsComponent } from './maintenance-and-interventions/maintenance-and-interventions.component';
 import { MedicationPanelComponent } from './medication-panel/medication-panel.component';
 import { EducationPanelComponent } from './education-panel/education-panel.component';
-import { NutritionPanelComponent } from './nutrition-panel/nutrition-panel.component';
+import { CounselingPanelComponent } from './counseling-panel/counseling-panel.component';
 import { ReferralPanelComponent } from './referral-panel/referral-panel.component';
 import { HealthStatusComponent } from './health-status/health-status.component';
 import { CareTeamComponent } from './care-team/care-team.component';
@@ -63,7 +63,7 @@ const routes: Routes = []; // sets up routes constant where you define your rout
     MaintenanceAndInterventionsComponent,
     MedicationPanelComponent,
     EducationPanelComponent,
-    NutritionPanelComponent,
+    CounselingPanelComponent,
     ReferralPanelComponent,
     HealthStatusComponent,
     CareTeamComponent,

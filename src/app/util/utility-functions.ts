@@ -1,4 +1,4 @@
-import {GoalTarget} from './app/generated-data-api';
+import {GoalTarget} from '../generated-data-api';
 
 export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue: string): any[] {
   let formatted = 'Unknown Type: ';
@@ -20,11 +20,11 @@ export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue:
         formatted = target.value.stringValue;
         break;
       }
-      case 'Integer': {
+      case 'integer': {
         formatted = target.value.integerValue.toString();
         break;
       }
-      case 'Boolean': {
+      case 'boolean': {
         formatted = String(target.value.booleanValue);
         break;
       }
@@ -72,45 +72,59 @@ export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue:
       }
       case 'Ratio': {
         // todo:  formatTargetValue Ratio
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'Period': {
         // todo:  formatTargetValue Period
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
-      case 'Date': {
+      case 'date': {
         // todo:  formatTargetValue Date
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
-      case 'Time': {
+      case 'time': {
         // todo:  formatTargetValue Time
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
-      case 'DateTime': {
+      case 'dateTime': {
         // todo:  formatTargetValue DateTime
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'SampledData': {
         // todo:  formatTargetValue SampledData
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'DurationValue': {
         // todo:  formatTargetValue DurationValue
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'TimingValue': {
         // todo:  formatTargetValue TimingValue
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'InstantValue': {
         // todo:  formatTargetValue InstantValue
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'IdentifierValue': {
         // todo:  formatTargetValue IdentifierValue
+        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
-
+      default:
+      {
+        console.log('Unknown Target Value Type: '.concat(target.value.valueType));
+        break;
+      }
     }
   }
 
@@ -217,7 +231,6 @@ export function getEgrLineChartAnnotationsObject() {
         yScaleID: 'y-axis-0',
         borderWidth: 0,
         yMin: 60,
-        yMax: 100,
         backgroundColor: 'rgba(128, 204, 113,0.3)'
       }
     ]
@@ -257,7 +270,6 @@ export function getUacrLineChartAnnotationsObject() {
         yScaleID: 'y-axis-0',
         borderWidth: 0,
         yMin: 300,
-        yMax: 400,
         backgroundColor: 'rgba(227, 127, 104,0.3)'
       }
     ]
@@ -297,7 +309,6 @@ export function getWotLineChartAnnotationsObject() {
         yScaleID: 'y-axis-0',
         borderWidth: 0,
         yMin: 260,
-        yMax: 300,
         backgroundColor: 'rgba(227, 127, 104,0.3)'
       }
     ]

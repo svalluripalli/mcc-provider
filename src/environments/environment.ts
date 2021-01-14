@@ -2,11 +2,14 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+/* tslint:disable */
 export const environment = {
   production: false,
   prodmccapiUrl: 'https://mcc-niddk-backend.wl.r.appspot.com',
-  mccapiUrl:  window["env"]["apiServer"] || 'http://localhost:8081',
-  clientId:  window["env"]["clientId"] || '1491aa24-3b5b-42e8-b532-63707c359493'};
+  mccapiUrl:  window['env']['apiServer'] || 'http://localhost:8081',
+  clientId:  window['env']['clientId'] || '1491aa24-3b5b-42e8-b532-63707c359493',
+  standaloneServer:  window['env']['standaloneServer'] || 'https://api.logicahealth.org/MCCeCarePlanTest/data'
+};
 
 /*
  * For easier debugging in development mode, you can import the following file
