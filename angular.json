@@ -43,6 +43,9 @@
               "assets": [
                 "src/favicon.ico",
                 "src/assets",
+                "src/manifest.webmanifest",
+                "src/launch.html",
+                "src/slaunch.html",
                 {
                   "input": "src/deployment/production",
                   "output":  "/assets",
