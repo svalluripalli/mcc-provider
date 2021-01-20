@@ -17,14 +17,21 @@
 
     FHIR.oauth2.ready((client) => {
         function gotScope(scope) {
-          let scopes = client.tokenResponse.scope.split(' ');
-          return scopes.find((a) => a === scope);
+          if (client.tokenResponse != null && client.tokenResponse.scope != null) {
+            let scopes = client.tokenResponse.scope.split(' ');
+            return scopes.find((a) => a === scope);
+          }
+          else
+            return false;
         }
 
         if (gotScope('launch/patient')) {
           console.log("Launched in Smart Mode - Standalone")
         } else if (gotScope('launch')) {
           console.log("Launched in Smart Mode - Embedded")
+        } else
+        {
+          console.log("Launched in Smart Mode - Unknown")
         }
       }
     )

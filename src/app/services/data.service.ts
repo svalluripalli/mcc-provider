@@ -27,6 +27,7 @@ import {ContactsService} from './contacts.service';
 import {MedicationService} from './medication.service';
 import {concatMap, tap} from 'rxjs/operators';
 import {MatTableDataSource} from '@angular/material/table';
+import { MessageService } from './message.service';
 import {
   emptyVitalSigns,
   VitalSigns,
@@ -80,7 +81,8 @@ export class DataService {
               private medicationdataService: MedicationService,
               private counselingService: CounselingService,
               private educationService: EducationService,
-              private referralService: ReferralService
+              private referralService: ReferralService,
+              private messageService: MessageService
               ) {
     this.activeMedications = emptyMediciationSummary;
     this.education = emptyEducation;
@@ -157,6 +159,7 @@ export class DataService {
   }
 
   async setCurrentSubject(patientId: string): Promise<boolean> {
+    this.log('Setting patient to Id = '.concat(patientId));
     this.currentPatientId = patientId;
     this.targetValues = [];
     this.targetValuesDataSource.data = this.targetValues;
@@ -570,7 +573,10 @@ export class DataService {
 
     return true;
   }
-
+  /** Log a message with the MessageService */
+  private log(message: string) {
+    this.messageService.add(`subject-data-service: ${message}`);
+  }
 
 }
 
