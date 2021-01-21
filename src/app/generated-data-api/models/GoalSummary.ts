@@ -16,6 +16,7 @@ export interface GoalSummary {
     targetDateText?: string;
     addresses?: string;
     expressedBy?: string;
+    acceptance?: string;
     targets?: Array<GoalTarget>;
     fhirid?: string;
 }

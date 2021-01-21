@@ -8,25 +8,6 @@ import { request as __request } from '../core/request';
 export class ConditionControllerService {
 
     /**
-     * @param id
-     * @result any OK
-     * @throws ApiError
-     */
-    public static async getCondition(
-        id: string,
-    ): Promise<any> {
-
-        const result = await __request({
-            method: 'get',
-            path: `/condition/${id}`,
-        });
-
-        catchGenericError(result);
-
-        return result.body;
-    }
-
-    /**
      * @param subject
      * @param careplan
      * @result any OK
@@ -53,11 +34,33 @@ export class ConditionControllerService {
 
     /**
      * @param subject
+     * @result any OK
+     * @throws ApiError
+     */
+    public static async getConditions(
+        subject: string,
+    ): Promise<any> {
+
+        const result = await __request({
+            method: 'get',
+            path: `/condition`,
+            query: {
+                'subject': subject,
+            },
+        });
+
+        catchGenericError(result);
+
+        return result.body;
+    }
+
+    /**
+     * @param subject
      * @param careplan
      * @result any OK
      * @throws ApiError
      */
-    public static async getConditionSummary(
+    public static async getConditionSummary1(
         subject: string,
         careplan?: string,
     ): Promise<any> {
@@ -77,20 +80,17 @@ export class ConditionControllerService {
     }
 
     /**
-     * @param subject
+     * @param id
      * @result any OK
      * @throws ApiError
      */
-    public static async getConditions(
-        subject: string,
+    public static async getCondition(
+        id: string,
     ): Promise<any> {
 
         const result = await __request({
             method: 'get',
-            path: `/condition`,
-            query: {
-                'subject': subject,
-            },
+            path: `/condition/${id}`,
         });
 
         catchGenericError(result);
