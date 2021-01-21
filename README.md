@@ -13,6 +13,8 @@ Run `ng generate component component-name` to generate a new component. You can 
 ## Generating updated models
 
  $ openapi -i https://mcc-niddk-backend.wl.r.appspot.com/api-docs
+ $ openapi -i https://mcc-niddk-backend.wl.r.appspot.com/api-docs -o src/app/generated-data-api
+
 
 ## Browse API
     https://mcc-niddk-backend.wl.r.appspot.com/swagger-ui/index.html?configUrl=/api-docs/swagger-config

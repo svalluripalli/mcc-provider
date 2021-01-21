@@ -2,6 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { Acceptance } from './Acceptance';
 import { GoalTarget } from './GoalTarget';
 import { MccCodeableConcept } from './MccCodeableConcept';
 import { MccDate } from './MccDate';
@@ -26,5 +27,6 @@ export interface MccGoal {
     notes?: Array<string>;
     outcomeCodes?: Array<MccCodeableConcept>;
     outcomeReference?: string;
+    acceptance?: Array<Acceptance>;
     fhirid?: string;
 }

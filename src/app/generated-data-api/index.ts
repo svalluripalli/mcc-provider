@@ -6,6 +6,7 @@ export { ApiError } from './core/ApiError';
 export { isSuccess } from './core/isSuccess';
 export { OpenAPI } from './core/OpenAPI';
 
+export type { Acceptance } from './models/Acceptance';
 export type { Bounds } from './models/Bounds';
 export type { ConditionHistory } from './models/ConditionHistory';
 export type { ConditionLists } from './models/ConditionLists';

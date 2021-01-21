@@ -13,7 +13,7 @@ export class CounselingControllerService {
      * @result any OK
      * @throws ApiError
      */
-    public static async getCounselingSummary(
+    public static async getCounselingSummary1(
         subject: string,
         careplan?: string,
     ): Promise<any> {
