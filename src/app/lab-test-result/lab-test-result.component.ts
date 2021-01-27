@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {DataService} from '../services/data.service';
-import {EgfrTableData} from '../datamodel/egfr';
-import {formatEgfrResult} from '../util/utility-functions';
+import { Constants } from '../common/constants';
+import { MccObservation } from '../generated-data-api';
+import { DataService } from '../services/data.service';
+import { ObservationsService } from '../services/observations.service';
+
+interface PatientLabResultsMap {
+  name: string;
+  value: string;
+  type: string;
+}
 
 @Component({
   selector: 'app-lab-test-result',
@@ -9,11 +16,16 @@ import {formatEgfrResult} from '../util/utility-functions';
   styleUrls: ['./lab-test-result.component.css']
 })
 export class LabTestResultComponent implements OnInit {
+  results: MccObservation[] = [];
+  patientId: string;
+  longTermCondition: string;
 
-  constructor(public dataservice: DataService) { }
+  constructor(
+    public dataservice: DataService,
+    private obsService: ObservationsService
+  ) { }
 
   ngOnInit(): void {
     console.log(`in LabTestResultComponent ngOnInit(): this.dataservices.egfr : `, this.dataservice.egfr);
   }
-
 }
