@@ -66,7 +66,6 @@ export class GoalsDataService {
       targets.map(gt => {
         this.getMostRecentObservationResult(patientId, gt.measure.coding[0].code, true)
           .subscribe(obs => {
-            debugger;
             let mostRecentResultValue = '';
             let observationDate = '';
             let rowHighlighted = false;
