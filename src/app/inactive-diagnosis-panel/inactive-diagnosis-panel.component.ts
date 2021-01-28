@@ -18,7 +18,7 @@ export class InactiveDiagnosisPanelComponent implements OnInit {
     this.route = rt;
     this.router = rtr;
   }
-  displayedColumns = ['checked', 'name', 'rxfilter', 'trend', 'date'];
+  displayedColumns = ['name', 'rxfilter', 'trend', 'date'];
 
   ngOnInit(): void {
   }

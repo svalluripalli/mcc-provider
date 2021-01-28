@@ -1,18 +1,18 @@
-import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
-import {catchError, finalize, tap} from 'rxjs/operators';
-import {MessageService} from './message.service';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError, finalize, tap } from 'rxjs/operators';
+import { MessageService } from './message.service';
 
-import {environment} from '../../environments/environment';
-import {GoalLists, GoalTarget, MccGoal, MccObservation} from '../generated-data-api';
+import { environment } from '../../environments/environment';
+import { GoalLists, GoalTarget, MccGoal, MccObservation } from '../generated-data-api';
 
-import {TargetValue} from '../datamodel/targetvalue';
-import {formatGoalTargetValue} from '../util/utility-functions';
-import {VitalSignsTableData} from '../datamodel/vitalSigns';
-import {EgfrTableData} from '../datamodel/egfr';
-import {UacrTableData} from '../datamodel/uacr';
-import {WotTableData} from '../datamodel/weight-over-time';
+import { TargetValue } from '../datamodel/targetvalue';
+import { formatGoalTargetValue } from '../util/utility-functions';
+import { VitalSignsTableData } from '../datamodel/vitalSigns';
+import { EgfrTableData } from '../datamodel/egfr';
+import { UacrTableData } from '../datamodel/uacr';
+import { WotTableData } from '../datamodel/weight-over-time';
 
 enum observationCodes {
   Systolic = '8480-6',
@@ -41,7 +41,7 @@ export class GoalsDataService {
   private goalSummaryURL = '/goalsummary';
 
   httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   constructor(private http: HttpClient, private messageService: MessageService) {
@@ -64,7 +64,7 @@ export class GoalsDataService {
   getPatientGoalTargets(patientId: string, targets: GoalTarget[]): Observable<TargetValue> {
     return new Observable(observer => {
       targets.map(gt => {
-        this.getMostRecentObservationResult(patientId, gt.measure.coding[0].code)
+        this.getMostRecentObservationResult(patientId, gt.measure.coding[0].code, true)
           .subscribe(obs => {
             let mostRecentResultValue = '';
             let observationDate = '';
@@ -226,8 +226,8 @@ export class GoalsDataService {
     );
   }
 
-  getMostRecentObservationResult(patientId: string, code: string): Observable<MccObservation> {
-    const url = `${environment.mccapiUrl}${this.observationURL}?subject=${patientId}&code=${code}`;
+  getMostRecentObservationResult(patientId: string, code: string, translate?: boolean): Observable<MccObservation> {
+    const url = `${environment.mccapiUrl}${this.observationURL}?subject=${patientId}&code=${code}&translate=${translate ? "true" : "false"}`;
     return this.http.get<MccObservation>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched MccObservation patientId=${patientId} code=${code}`)),
       catchError(this.handleError<MccObservation>(`getMostRecentObservationResult patientId=${patientId} code=${code}`))

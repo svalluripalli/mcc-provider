@@ -18,7 +18,7 @@ export class ActiveDiagnosisPanelComponent implements OnInit {
     this.router = rtr;
   }
 
-  displayedColumns = ['checked', 'name', 'rxfilter', 'trend', 'date'];
+  displayedColumns = ['name', 'rxfilter', 'trend', 'date'];
 
   /* dataSource = DIAGNOISIS_DATA; */
   ngOnInit(): void {

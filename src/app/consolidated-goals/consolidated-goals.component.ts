@@ -17,7 +17,7 @@ export class ConsolidatedGoalsComponent implements OnInit, AfterViewInit {
   constructor(public dataService: DataService) {
   }
 
-  displayedColumns = ['rank', 'lfcstatus', 'description', 'created', 'targetdate', 'status', 'expressedby', 'expressedbytype'];
+  displayedColumns = ['rank', 'lfcstatus', 'description', 'created', 'targetdate', 'status', 'acceptance', 'expressedby', 'expressedbytype'];
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

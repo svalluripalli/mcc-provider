@@ -1,14 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule} from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { FlexLayoutModule} from '@angular/flex-layout';
-import { FormsModule} from '@angular/forms';
-import { ServiceWorkerModule} from '@angular/service-worker';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { ChartsModule } from 'ng2-charts';
 
-import { AppMaterialModuleModule} from './app-material-module/app-material-module.module';
+import { AppMaterialModuleModule } from './app-material-module/app-material-module.module';
 
 import { environment } from '../environments/environment';
 
@@ -43,6 +43,7 @@ import { DiagnosisDialogComponent } from './diagnosis-dialog/diagnosis-dialog.co
 import { AppRoutingModule } from './app-routing.module';
 import { ConsolidatedGoalsComponent } from './consolidated-goals/consolidated-goals.component';
 import { Testgraph1Component } from './testgraph1/testgraph1.component';
+import { ObservationsService } from './services/observations.service';
 
 const routes: Routes = []; // sets up routes constant where you define your routes
 
@@ -78,21 +79,21 @@ const routes: Routes = []; // sets up routes constant where you define your rout
     ConsolidatedGoalsComponent,
     Testgraph1Component,
   ],
-    imports: [
-        FlexLayoutModule,
-        ChartsModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppMaterialModuleModule,
-        FormsModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        RouterModule.forRoot(routes, {enableTracing: false}),
-        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-        AppRoutingModule
-    ],
+  imports: [
+    FlexLayoutModule,
+    ChartsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppMaterialModuleModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    RouterModule.forRoot(routes, { enableTracing: false }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    AppRoutingModule
+  ],
   exports: [RouterModule],
-  providers: [],
+  providers: [ObservationsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
