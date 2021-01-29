@@ -16,10 +16,9 @@
     </td>
   </tr>
   <tr *ngFor="let res of dataservice.labResults">
-    <td>{{res.key}}</td>
-    <td>{{res.value.quantityValue.value + " " +
-      (res.value.quantityValue.unit ? res.value.quantityValue.unit : "")}}</td>
-    <td>{{res.effective.dateTime.date | date}}</td>
+    <td>{{res.name}}</td>
+    <td>{{res.value}}</td>
+    <td>{{res.date}}</td>
   </tr>
 
 </table>

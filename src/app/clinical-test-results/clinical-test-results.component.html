@@ -21,25 +21,14 @@
     </td>
   </tr>
   <tr *ngFor="let res of dataservice.vitalSignResults">
-    <td>{{res.key}}</td>
-    <td *ngIf="res.value">
-      {{res.value.quantityValue.value + " " + (res.value.quantityValue.unit ? res.value.quantityValue.unit : "")}}
+    <td>
+      {{res.name}}
     </td>
-    <td *ngIf="!res.value && res.components && res.components.length > 1">
-      <table class="inner-table">
-        <tr *ngFor="let innerRes of res.components">
-          <td>
-            {{innerRes.code.text}}
-          </td>
-          <td>
-            {{
-            innerRes.value.quantityValue.value + " " +
-            (innerRes.value.quantityValue.unit ? innerRes.value.quantityValue.unit : "")
-            }}
-          </td>
-        </tr>
-      </table>
+    <td>
+      {{res.value}}
     </td>
-    <td>{{res.effective.dateTime.date | date}}</td>
+    <td>
+      {{res.date}}
+    </td>
   </tr>
 </table>

@@ -1,8 +1,16 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Form } from "@angular/forms";
 import { environment } from "src/environments/environment";
 import { Constants } from "../common/constants";
-import { MccObservation } from "../generated-data-api";
+import { MccObservation, SimpleQuestionnaireItem } from "../generated-data-api";
+import { getDisplayValue, formatEffectiveDate } from "../util/utility-functions";
+
+interface FormattedResult {
+    name: string;
+    value: string;
+    date: any;
+}
 
 interface PatientLabResultsMap {
     name: string;
@@ -14,6 +22,7 @@ interface PatientLabResultsMap {
 export class ObservationsService {
     public HTTP_OPTIONS = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     public OBSERVATIONS: Map<string, any> = new Map<string, any>();
+    public QUESTIONNAIRES: Map<string, any> = new Map<string, any>();
 
     _defaultUrl = environment.mccapiUrl;
     constructor(
@@ -112,8 +121,24 @@ export class ObservationsService {
         }
     }
 
-    getLabResults(patientId: string, longTermCondition: string): Promise<void | MccObservation[]> {
-        let results = [];
+    _questionnaireLatestItemUrl = "find/latest/questionnaireresponseitem";
+    getQuestionnaireItem(patientId: string, code: string): Promise<any> {
+        const key = patientId + "-" + code;
+
+        if (this.QUESTIONNAIRES.has(key)) {
+            let returnVal = this.QUESTIONNAIRES.get(key);
+            return Promise.resolve(returnVal);
+        } else {
+            return this.http.get(`${environment.mccapiUrl}/${this._questionnaireLatestItemUrl}?subject=${patientId}&code=${code}`, this.HTTP_OPTIONS).toPromise()
+                .then((res: SimpleQuestionnaireItem) => {
+                    this.QUESTIONNAIRES.set(key, res);
+                    return res;
+                });
+        }
+    }
+
+    getLabResults(patientId: string, longTermCondition: string): any {
+        let results: FormattedResult[] = [];
         let callsToMake: PatientLabResultsMap[] = Constants.labResultsMap.get(longTermCondition);
         let promiseArray = [];
         callsToMake.forEach((v, i) => {
@@ -127,38 +152,39 @@ export class ObservationsService {
                 case "panel":
                     promiseArray.push(this.getObservationsByPanel(patientId, v.value, "descending", "1", v.name));
                     break;
+                case "question":
+                    promiseArray.push(this.getQuestionnaireItem(patientId, v.value));
+                    break;
             }
         })
         return Promise.all(promiseArray).then((resArr: any[]) => {
-            resArr.filter(x => this.filterOutBadValues(x)).forEach((res: any, index: number) => {
-                switch (true) {
-                    case (res && !res.length): // code
-                        results.push(res);
-                        break;
-                    case (res && res.length > 0): // valueset
-                        results.push(res[0]);
-                        break;
-                    case (res && res.length > 1): // panel
-                        results.push(res[0]);
-                        break;
+            resArr.forEach((res: any, index: number) => {
+                let correspondingCall = callsToMake[index];
+                if (!res || res.length < 1 || res.status === "notfound" || res.fhirid === "notfound") {
+                    results.push({ name: correspondingCall.name, value: "No Data Available", date: "" })
+                }
+                else {
+                    switch (correspondingCall.type) {
+                        case "code":
+                            results.push({ name: correspondingCall.name, value: getDisplayValue((<MccObservation>res).value), date: formatEffectiveDate((<MccObservation>res).effective) });
+                            break;
+                        case "valueset":
+                            results.push({ name: correspondingCall.name, value: getDisplayValue((<MccObservation>res[0]).value), date: formatEffectiveDate((<MccObservation>res[0]).effective) });
+                            break;
+                        case "panel":
+                            results.push({ name: correspondingCall.name, value: getDisplayValue((<MccObservation>res[0]).value), date: formatEffectiveDate((<MccObservation>res[0]).effective) });
+                            break;
+                        case "question":
+                            break;
+                    }
                 }
             });
             return results;
         });
     }
 
-    filterOutBadValues = (res: any): boolean => {
-        if (res.status === "notfound")
-            return false;
-        if (!res)
-            return false;
-        if (res.length < 1)
-            return false;
-        return true;
-    }
-
     getVitalSignResults(patientId: string, longTermCondition: string): any {
-        let results = [];
+        let results: FormattedResult[] = [];
         let callsToMake: PatientLabResultsMap[] = Constants.vitalSignsMap.get(longTermCondition);
         let promiseArray = [];
         callsToMake.forEach((v, i) => {
@@ -172,20 +198,31 @@ export class ObservationsService {
                 case "panel":
                     promiseArray.push(this.getObservationsByPanel(patientId, v.value, "descending", "1", v.name));
                     break;
+                case "question":
+                    promiseArray.push(this.getQuestionnaireItem(patientId, v.value));
+                    break;
             }
         })
         return Promise.all(promiseArray).then((resArr: any[]) => {
-            resArr.filter(x => this.filterOutBadValues(x)).forEach((res: any, index: number) => {
-                switch (true) {
-                    case (res && !res.length): // code
-                        results.push(res);
-                        break;
-                    case (res && res.length > 0): // valueset
-                        results.push(res[0]);
-                        break;
-                    case (res && res.length > 1): // panel
-                        results.push(res[0]);
-                        break;
+            resArr.forEach((res: any, index: number) => {
+                let correspondingCall = callsToMake[index];
+                if (!res || res.length < 1 || res.status === "notfound" || res.fhirid === "notfound") {
+                    results.push({ name: correspondingCall.name, value: "No Data Available", date: "" })
+                }
+                else {
+                    switch (correspondingCall.type) {
+                        case "code":
+                            results.push({ name: correspondingCall.name, value: getDisplayValue((<MccObservation>res).value), date: formatEffectiveDate((<MccObservation>res).effective) });
+                            break;
+                        case "valueset":
+                            results.push({ name: correspondingCall.name, value: getDisplayValue((<MccObservation>res[0]).value), date: formatEffectiveDate((<MccObservation>res[0]).effective) });
+                            break;
+                        case "panel":
+                            results.push({ name: correspondingCall.name, value: getDisplayValue((<MccObservation>res[0]).value), date: formatEffectiveDate((<MccObservation>res[0]).effective) });
+                            break;
+                        case "question":
+                            break;
+                    }
                 }
             });
             return results;
