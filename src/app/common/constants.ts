@@ -2,13 +2,13 @@ export class Constants {
     public static readonly labResultsMap: Map<string, PatientLabResultsMap[]> = new Map<string, PatientLabResultsMap[]>([
         ["ckd", [
             {
-                name: "Serum Creatinine",
-                value: "2.16.840.1.113762.1.4.1222.111",
+                name: "UACR",
+                value: "2.16.840.1.113883.3.6929.2.1002",
                 type: "valueset"
             },
             {
-                name: "UACR",
-                value: "2.16.840.1.113883.3.6929.2.1002",
+                name: "Serum Creatinine",
+                value: "2.16.840.1.113762.1.4.1222.111",
                 type: "valueset"
             },
             {
