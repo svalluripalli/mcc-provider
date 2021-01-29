@@ -71,6 +71,10 @@ export function getDisplayValue(value: GenericType): any {
           + ' ' + value.rangeValue.high.unit;
         break;
       }
+      case "decimal": {
+        formatted = "0." + value.decimalValue;
+        break;
+      }
     }
     return formatted;
   }
