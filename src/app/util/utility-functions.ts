@@ -72,7 +72,7 @@ export function getDisplayValue(value: GenericType): any {
         break;
       }
       case "decimal": {
-        formatted = "0." + value.decimalValue;
+        formatted = value.decimalValue.toString();
         break;
       }
     }
