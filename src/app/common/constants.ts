@@ -2,11 +2,6 @@ export class Constants {
     public static readonly labResultsMap: Map<string, PatientLabResultsMap[]> = new Map<string, PatientLabResultsMap[]>([
         ["ckd", [
             {
-                name: "eGFR",
-                value: "2.16.840.1.113762.1.4.1222.179",
-                type: "valueset"
-            },
-            {
                 name: "Serum Creatinine",
                 value: "2.16.840.1.113762.1.4.1222.111",
                 type: "valueset"
