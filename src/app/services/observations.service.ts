@@ -4,7 +4,7 @@ import { Form } from "@angular/forms";
 import { environment } from "src/environments/environment";
 import { Constants } from "../common/constants";
 import { MccObservation, SimpleQuestionnaireItem } from "../generated-data-api";
-import { getDisplayValue, formatEffectiveDate } from "../util/utility-functions";
+import { getDisplayValue, formatEffectiveDate, formatMccDate } from "../util/utility-functions";
 
 interface FormattedResult {
     name: string;
@@ -175,6 +175,7 @@ export class ObservationsService {
                             results.push({ name: correspondingCall.name, value: getDisplayValue((<MccObservation>res[0]).value), date: formatEffectiveDate((<MccObservation>res[0]).effective) });
                             break;
                         case "question":
+                            results.push({ name: correspondingCall.name, value: getDisplayValue((<SimpleQuestionnaireItem>res).item.answers[0].value), date: formatMccDate((<SimpleQuestionnaireItem>res).authored) })
                             break;
                     }
                 }
@@ -221,6 +222,7 @@ export class ObservationsService {
                             results.push({ name: correspondingCall.name, value: getDisplayValue((<MccObservation>res[0]).value), date: formatEffectiveDate((<MccObservation>res[0]).effective) });
                             break;
                         case "question":
+                            results.push({ name: correspondingCall.name, value: getDisplayValue((<SimpleQuestionnaireItem>res).item.answers[0].value), date: formatMccDate((<SimpleQuestionnaireItem>res).authored) })
                             break;
                     }
                 }
