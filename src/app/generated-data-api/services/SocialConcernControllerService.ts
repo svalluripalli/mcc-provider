@@ -12,7 +12,7 @@ export class SocialConcernControllerService {
      * @result any OK
      * @throws ApiError
      */
-    public static async getCarePlans1(
+    public static async getCarePlans(
         subject: string,
     ): Promise<any> {
 
@@ -35,7 +35,7 @@ export class SocialConcernControllerService {
      * @result any OK
      * @throws ApiError
      */
-    public static async getConditionSummary1(
+    public static async getConditionSummary(
         subject: string,
         careplan?: string,
     ): Promise<any> {

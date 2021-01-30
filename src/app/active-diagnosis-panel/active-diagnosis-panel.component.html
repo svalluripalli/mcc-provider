@@ -1,13 +1,13 @@
  <mat-panel-title class="group-header" >Active Diagnoses</mat-panel-title>
   <mat-table [dataSource]="dataservice.conditions.activeConditions">
     <!-- Position Column -->
-    <ng-container matColumnDef="checked">
+    <!-- <ng-container matColumnDef="checked">
       <mat-header-cell *matHeaderCellDef>
         <mat-icon >check</mat-icon></mat-header-cell>
       <mat-cell *matCellDef="let condition" (click)="$event.stopPropagation()">
         <mat-checkbox [(ngModel)]="condition.checked"></mat-checkbox>
       </mat-cell>
-    </ng-container>
+    </ng-container> -->
 
     <!-- Position Column -->
     <ng-container matColumnDef="name">
@@ -41,5 +41,5 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (click)="onRowClicked(row)" (mouseover)="row.hovered = true" (mouseout)="row.hovered = false"></mat-row>
   </mat-table>
 
- <button>Mark selected as inactive</button>
+ <!-- <button>Mark selected as inactive</button> -->
 

@@ -29,6 +29,10 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Achievement Status</th>
     <td mat-cell *matCellDef="let goal"> {{goal.achievementStatus.text}} </td>
   </ng-container>
+  <ng-container matColumnDef="acceptance">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header="acceptance">Accepted By</th>
+    <td mat-cell *matCellDef="let goal"> {{goal.acceptance}} </td>
+  </ng-container>
   <ng-container matColumnDef="expressedby">
     <th mat-header-cell *matHeaderCellDef mat-sort-header="expressedBy">Expressed by</th>
     <td mat-cell *matCellDef="let goal"> {{goal.expressedBy}} </td>
@@ -46,5 +50,5 @@
 
 </table>
 <mat-paginator [pageSizeOptions]="[15, 20, 25]" showFirstLastButtons></mat-paginator>
-<button>Add Goal</button>
+<!-- <button>Add Goal</button> -->
 

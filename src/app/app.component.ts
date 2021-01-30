@@ -8,15 +8,15 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
-import {SubjectDataService} from './services/subject-data-service.service';
-import {CareplanService} from './services/careplan.service';
-import {DataService} from './services/data.service';
-import {environment} from '../environments/environment';
-import {Observable} from 'rxjs';
-import {startWith, debounceTime, distinctUntilChanged, switchMap, map} from 'rxjs/operators';
+import { FormControl, Validators } from '@angular/forms';
+import { SubjectDataService } from './services/subject-data-service.service';
+import { CareplanService } from './services/careplan.service';
+import { DataService } from './services/data.service';
+import { environment } from '../environments/environment';
+import { Observable } from 'rxjs';
+import { startWith, debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
 import { MccCarePlan } from './generated-data-api/models/MccCarePlan';
-import {ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -29,13 +29,13 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class AppComponent implements OnInit, AfterViewInit {
 
   // todo:  use of patSearch template variable to set focus not working..
-  @ViewChild('patSearch', {static: true}) patSearch: any;
+  @ViewChild('patSearch', { static: true }) patSearch: any;
   navLinks: any[];
   activeLinkIndex = -1;
 
   constructor(public dataservice: DataService, public subjectdataservice: SubjectDataService,
-              private route: ActivatedRoute, private changeDetector: ChangeDetectorRef,
-              private router: Router) {
+    private route: ActivatedRoute, private changeDetector: ChangeDetectorRef,
+    private router: Router) {
 
     this.navLinks = [
       {
@@ -90,16 +90,16 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.dataservice.setCurrentSubject(this.currentSubjectId);
     this.dataservice.setCurrentCarePlan(this.currentCarePlanId);
     this.route.queryParams.subscribe(params => {
-        console.log(params); // { order: "popular" }
+      console.log(params); // { order: "popular" }
 
-        const dev = params.devmode;
-        this.devmode = (dev === 'true');
-        console.log('Development Mode: ' + this.devmode);
-        if (params.subject != null) {
-          this.currentSubjectId = params.subject;
-          this.dataservice.setCurrentSubject(this.currentSubjectId);
-        }
+      const dev = params.devmode;
+      this.devmode = (dev === 'true');
+      console.log('Development Mode: ' + this.devmode);
+      if (params.subject != null) {
+        this.currentSubjectId = params.subject;
+        this.dataservice.setCurrentSubject(this.currentSubjectId);
       }
+    }
     );
 
     this.router.events.subscribe((res) => {
@@ -107,7 +107,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
 
     const skey = sessionStorage.SMART_KEY;
-    const key = skey.replace(/['"]+/g, '');
+    const key = skey ? skey.replace(/['"]+/g, '') : "";
     console.log('Ang: Smart Key is ' + key);
     if (key != null) {
       this.updateDataContext(key, 4);

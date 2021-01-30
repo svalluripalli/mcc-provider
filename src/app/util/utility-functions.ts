@@ -1,4 +1,111 @@
-import {GoalTarget} from '../generated-data-api';
+import { Effective, GenericType, GoalTarget, MccDate } from '../generated-data-api';
+
+export function getInnerValue(value: GenericType): any {
+  let rval: any = 0;
+
+  if (isNaN(rval)) {
+    rval = 0;
+  }
+
+  if (value !== undefined) {
+    switch (value.valueType) {
+      case 'String': {
+        rval = value.stringValue;
+        break;
+      }
+      case 'Integer': {
+        rval = value.integerValue;
+        break;
+      }
+      case 'Boolean': {
+        rval = value.booleanValue;
+        break;
+      }
+      case 'Quantity': {
+        rval = value.quantityValue.value;
+        break;
+      }
+      case 'Range': {
+        rval = value.quantityValue.value;
+        break;
+      }
+    }
+  }
+  return rval;
+}
+
+export function getDisplayValue(value: GenericType): any {
+  let formatted = 'Unknown Type: ';
+  let rval = 0;
+
+  if (isNaN(rval)) {
+    rval = 0;
+  }
+
+  if (value !== undefined) {
+    formatted += ' ' + value.valueType;
+    switch (value.valueType) {
+      case 'String': {
+        formatted = value.stringValue;
+        break;
+      }
+      case 'Integer': {
+        formatted = value.integerValue.toString();
+        break;
+      }
+      case 'Boolean': {
+        formatted = String(value.booleanValue);
+        break;
+      }
+      case 'CodeableConcept': {
+        // todo:  formatTargetValue CodeableConcept
+        break;
+      }
+      case 'Quantity': {
+        formatted = value.quantityValue.value + ' ' + (value.quantityValue.unit ? value.quantityValue.unit : "");
+        break;
+      }
+      case 'Range': {
+        formatted = value.rangeValue.low.value
+          + ' - ' + value.rangeValue.high.value
+          + ' ' + value.rangeValue.high.unit;
+        break;
+      }
+      case "decimal": {
+        formatted = value.decimalValue.toString();
+        break;
+      }
+      case "string":
+        formatted = value.stringValue;
+        break;
+    }
+    return formatted;
+  }
+}
+
+export function formatEffectiveDate(ef: Effective): string {
+  if (!ef) {
+    return "";
+  }
+  if (ef.dateTime && ef.dateTime.date) {
+    const date = new Date(ef.dateTime.date);
+    return new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+      .toISOString()
+      .split('T')[0];
+  }
+}
+
+export function formatMccDate(mccDate: MccDate): string {
+  if (!mccDate) {
+    return "";
+  }
+  if (mccDate.date) {
+    const date = new Date(mccDate.date);
+    return new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
+      .toISOString()
+      .split('T')[0];
+  }
+}
 
 export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue: string): any[] {
   let formatted = 'Unknown Type: ';
@@ -121,10 +228,10 @@ export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue:
         break;
       }
       default:
-      {
-        console.log('Unknown Target Value Type: '.concat(target.value.valueType));
-        break;
-      }
+        {
+          console.log('Unknown Target Value Type: '.concat(target.value.valueType));
+          break;
+        }
     }
   }
 
@@ -145,43 +252,43 @@ export function reformatYYYYMMDD(dt): string {
 
 export function getLineChartOptionsObject(min: number, max: number, suggestedMinDate: Date, suggestedMaxDate: Date): {} {
   const opts =
-    {
-      responsive: false,
-      maintainAspectRatio: true,
-      scales: {
-        yAxes: [{
-          ticks: {
-            suggestedMax: max,
-            suggestedMin: min
-          }
-        }],
-        xAxes: [{
-          type: 'time',
-          distribution: 'linear',
-          ticks: {
-            min: suggestedMinDate,
-            max: suggestedMaxDate,
-            maxTicksLimit: 7
+  {
+    responsive: false,
+    maintainAspectRatio: true,
+    scales: {
+      yAxes: [{
+        ticks: {
+          suggestedMax: max,
+          suggestedMin: min
+        }
+      }],
+      xAxes: [{
+        type: 'time',
+        distribution: 'linear',
+        ticks: {
+          min: suggestedMinDate,
+          max: suggestedMaxDate,
+          maxTicksLimit: 7
+        },
+        time: {
+          // unit: 'month',
+          // format: 'dateFormat',
+          displayFormats: {
+            millisecond: 'D MMM, h:mm a',
+            second: 'D MMM, h:mm a',
+            minute: 'D MMM, h:mm a',
+            hour: 'D MMM, h:mm a',
+            day: 'D MMM',
+            week: 'll',
+            month: 'MMM',
+            quarter: 'll',
+            year: 'll'
           },
-          time: {
-            // unit: 'month',
-            // format: 'dateFormat',
-            displayFormats: {
-              millisecond: 'D MMM, h:mm a',
-              second: 'D MMM, h:mm a',
-              minute: 'D MMM, h:mm a',
-              hour: 'D MMM, h:mm a',
-              day: 'D MMM',
-              week: 'll',
-              month: 'MMM',
-              quarter: 'll',
-              year: 'll'
-            },
-            tooltipFormat: 'MM-DD-YYYY',
-          }
-        }]
-      }
-    };
+          tooltipFormat: 'MM-DD-YYYY',
+        }
+      }]
+    }
+  };
 
   /*
             millisecond: 'MMM DD',
@@ -251,27 +358,27 @@ export function getUacrLineChartAnnotationsObject() {
       yMax: 30,
       backgroundColor: 'rgba(128, 204, 113,0.3)'
     },
-      {
-        drawTime: 'beforeDatasetsDraw',
-        type: 'box',
-        id: 'uacr-ok',
-        xScaleID: 'x-axis-0',
-        yScaleID: 'y-axis-0',
-        borderWidth: 0,
-        yMin: 30,
-        yMax: 300,
-        backgroundColor: 'rgba(247, 245, 116,0.3)'
-      },
-      {
-        drawTime: 'beforeDatasetsDraw',
-        type: 'box',
-        id: 'uacr-critical',
-        xScaleID: 'x-axis-0',
-        yScaleID: 'y-axis-0',
-        borderWidth: 0,
-        yMin: 300,
-        backgroundColor: 'rgba(227, 127, 104,0.3)'
-      }
+    {
+      drawTime: 'beforeDatasetsDraw',
+      type: 'box',
+      id: 'uacr-ok',
+      xScaleID: 'x-axis-0',
+      yScaleID: 'y-axis-0',
+      borderWidth: 0,
+      yMin: 30,
+      yMax: 300,
+      backgroundColor: 'rgba(247, 245, 116,0.3)'
+    },
+    {
+      drawTime: 'beforeDatasetsDraw',
+      type: 'box',
+      id: 'uacr-critical',
+      xScaleID: 'x-axis-0',
+      yScaleID: 'y-axis-0',
+      borderWidth: 0,
+      yMin: 300,
+      backgroundColor: 'rgba(227, 127, 104,0.3)'
+    }
     ]
   };
   return annotations;
@@ -290,27 +397,27 @@ export function getWotLineChartAnnotationsObject() {
       yMax: 105,
       backgroundColor: 'rgba(128, 204, 113,0.3)'
     },
-      {
-        drawTime: 'beforeDatasetsDraw',
-        type: 'box',
-        id: 'wot-ok',
-        xScaleID: 'x-axis-0',
-        yScaleID: 'y-axis-0',
-        borderWidth: 0,
-        yMin: 105,
-        yMax: 260,
-        backgroundColor: 'rgba(247, 245, 116,0.3)'
-      },
-      {
-        drawTime: 'beforeDatasetsDraw',
-        type: 'box',
-        id: 'wot-critical',
-        xScaleID: 'x-axis-0',
-        yScaleID: 'y-axis-0',
-        borderWidth: 0,
-        yMin: 260,
-        backgroundColor: 'rgba(227, 127, 104,0.3)'
-      }
+    {
+      drawTime: 'beforeDatasetsDraw',
+      type: 'box',
+      id: 'wot-ok',
+      xScaleID: 'x-axis-0',
+      yScaleID: 'y-axis-0',
+      borderWidth: 0,
+      yMin: 105,
+      yMax: 260,
+      backgroundColor: 'rgba(247, 245, 116,0.3)'
+    },
+    {
+      drawTime: 'beforeDatasetsDraw',
+      type: 'box',
+      id: 'wot-critical',
+      xScaleID: 'x-axis-0',
+      yScaleID: 'y-axis-0',
+      borderWidth: 0,
+      yMin: 260,
+      backgroundColor: 'rgba(227, 127, 104,0.3)'
+    }
     ]
   };
   return annotations;

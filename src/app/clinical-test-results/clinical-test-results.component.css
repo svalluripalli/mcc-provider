@@ -12,3 +12,12 @@ table,td, th {
   margin-inside: 0;
   margin-outside: 0;
 }
+
+table.inner-table {
+  width: 100%;
+  border:none;
+}
+
+table.inner-table tr td {
+  border:none;
+}
