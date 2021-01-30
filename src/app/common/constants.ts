@@ -2,13 +2,13 @@ export class Constants {
     public static readonly labResultsMap: Map<string, PatientLabResultsMap[]> = new Map<string, PatientLabResultsMap[]>([
         ["ckd", [
             {
-                name: "Serum Creatinine",
-                value: "2.16.840.1.113762.1.4.1222.111",
+                name: "UACR",
+                value: "2.16.840.1.113883.3.6929.2.1002",
                 type: "valueset"
             },
             {
-                name: "UACR",
-                value: "2.16.840.1.113883.3.6929.2.1002",
+                name: "Serum Creatinine",
+                value: "2.16.840.1.113762.1.4.1222.111",
                 type: "valueset"
             },
             {
@@ -37,11 +37,6 @@ export class Constants {
                 type: "code"
             },
             {
-                name: "Corrected Calcium",
-                value: "2.16.840.1.113762.1.4.1222.122",
-                type: "valueset"
-            },
-            {
                 name: "Serum Albumin",
                 value: "2.16.840.1.113762.1.4.1222.151",
                 type: "valueset"
@@ -63,13 +58,13 @@ export class Constants {
             },
             {
                 name: "LDL",
-                value: "13457-7",
-                type: "code"
+                value: "2.16.840.1.113883.3.117.1.7.1.215",
+                type: "valueset"
             },
             {
                 name: "HDL",
-                value: "2085-9",
-                type: "code"
+                value: "2.16.840.1.113762.1.4.1222.135",
+                type: "valueset"
             },
             {
                 name: "Triglycerides",
@@ -128,7 +123,7 @@ export class Constants {
             },
             {
                 name: "Fatigue",
-                value: "77834-0",
+                value: "77864-7",
                 type: "question"
             },
             {
