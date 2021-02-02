@@ -7,4 +7,5 @@
     window["env"]["clientId"] = "${CLIENT_ID}" || "0950cf46-841c-466f-8bfb-19aa7d351b77";
     window["env"]["apiServer"] = "${API_SERVER}";
     window['env']['standaloneServer']  = "${LAUNCH_SERVER}" || "https://api.logicahealth.org/MCCeCarePlanTest/data";
+    window["env"]["authdebug"] = "${AUTH_DEBUG}" || "false";
 })(this);
