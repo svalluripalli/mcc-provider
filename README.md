@@ -25,6 +25,11 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 For example ng build --prod
 
+## Deployment to firebase
+A demonstration instance of the application is deployed to firebase for public viewing - This instance is accessed using the Logica Sandbox MCCeCarePlanTest
+
+     firebase deploy
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
@@ -76,6 +81,7 @@ $ docker push mcccareplan/mccproviderapp
 | API_SERVER | http://localhost:8080 |
 | CLIENT_ID | 123456789abcdef |
 | LAUNCH_SERVER | https://api.logicahealth.org/MCCeCarePlanTest/data |
+| AUTH_DEBUG | false |
 
 ### Running the image
 
@@ -101,6 +107,10 @@ The latest images are available at docker hub under mcccareplan/*.
 
 
 #Changelog
+
+2021-02-02
+- First full release ("1.0.1")
+- Support for the AUTH_DEBUG environment variable
 
 2021-01-08 
 - Added support for standalone launch
