@@ -10,7 +10,15 @@
 <script>
 
 
-// console.log(environment .clientId)
+  if ( window["env"]["authdebug"]==="true") {
+    localStorage.debug = "FHIR.*";
+    console.log('Authentication debug on');
+  }
+  else {
+    console.log('Authentication debug off');
+  }
+
+    // console.log(environment .clientId)
   FHIR.oauth2.authorize({
       // The client_id that you should have obtained after registering a client at
       // the EHR. -
