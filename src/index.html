@@ -23,7 +23,8 @@
     if ((nosmart == false) && (code != null))
     {
 
-    FHIR.oauth2.ready((client) => {
+    FHIR.oauth2.ready(
+      /*(client) => {
         function gotScope(scope) {
           if (client.tokenResponse != null && client.tokenResponse.scope != null) {
             let scopes = client.tokenResponse.scope.split(' ');
@@ -42,6 +43,7 @@
           console.log("Launched in Smart Mode - Unknown")
         }
       }
+      */
     )
     .then(
       console.log("Launched in Smart Mode")
