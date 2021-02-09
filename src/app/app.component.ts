@@ -110,7 +110,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     const key = skey ? skey.replace(/['"]+/g, '') : "";
     console.log('Ang: Smart Key is ' + key);
     if (key != null) {
-      this.updateDataContext(key, 4);
+      this.updateDataContext(key, 14);
     }
   }
 
@@ -139,7 +139,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         // Smart on FHIR still not ready (grrr....)
         if (count > 0) {
           const t = await this.waitFor(1000);
-          console.log(t);
+          console.log(t + '('  + count + ')' );
           this.updateDataContext(key, count - 1);
         }
       }

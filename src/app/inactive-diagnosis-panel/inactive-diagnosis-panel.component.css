@@ -3,7 +3,6 @@
 mat-table {
   vertical-align: top;
   min-width: 380px;
-  width: 600px;
 }
 
 mat-header-row {
@@ -100,4 +99,8 @@ th.mat-header-cell, td.mat-cell {
   text-align: left;
   border: 1px solid #CCC;
   padding: 0 !important;
+}
+
+.mat-expansion-panel-header-title {
+  margin-right: 0;
 }
