@@ -1,22 +1,3 @@
-mat-grid-tile
-{
- /* background: lightskyblue; */
-}
-
-app-diagnosis-panel {
-  width: inherit;
+table, td {
   vertical-align: top;
-  height: -webkit-fill-available;
-  height: -moz-available;
-  height: stretch;
 }
-
-app-social-concern-panel{
-  width: inherit;
-  vertical-align: top;
-  height: -webkit-fill-available;
-  height: -moz-available;
-  height: stretch;
-  overflow: scroll;
-}
-

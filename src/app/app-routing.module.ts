@@ -9,12 +9,12 @@ import { CareTeamComponent } from './care-team/care-team.component';
 import {HealthGuard} from './health.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'health', pathMatch: 'full',  canActivate: [HealthGuard] },
   { path: 'health', component:  HealthAndSocialConcernsComponent},
   { path: 'goals', component:  GoalsComponent},
   { path: 'maint', component: MaintenanceAndInterventionsComponent},
   { path: 'status', component: HealthStatusComponent},
   { path: 'care', component: CareTeamComponent},
+  { path: '', redirectTo: 'health', pathMatch: 'full',  canActivate: [HealthGuard] }
 ];
 export const appRouting = RouterModule.forRoot(routes, {enableTracing: false});
 @NgModule({

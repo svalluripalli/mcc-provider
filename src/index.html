@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>Providersmartapp</title>
@@ -12,7 +13,7 @@
     const nosmart = urlParams.get('nosmart') == true;
     const code = urlParams.get('code')
 
-    if ( window["env"]["authdebug"]==="true") {
+    if (window["env"]["authdebug"] === "true") {
       localStorage.debug = "FHIR.*";
       console.log('Authentication debug on');
     }
@@ -20,60 +21,33 @@
       console.log('Authentication debug off');
     }
 
-    if ((nosmart == false) && (code != null))
-    {
-
-    FHIR.oauth2.ready((client) => {
-        function gotScope(scope) {
-          if (client.tokenResponse != null && client.tokenResponse.scope != null) {
-            let scopes = client.tokenResponse.scope.split(' ');
-            return scopes.find((a) => a === scope);
-          }
-          else
-            return false;
-        }
-
-        if (gotScope('launch/patient')) {
+    if ((nosmart == false) && (code != null)) {
+      FHIR.oauth2.ready(function (client) {
+        if (gotScope('launch/patient', client)) {
           console.log("Launched in Smart Mode - Standalone")
-        } else if (gotScope('launch')) {
+        } else if (gotScope('launch', client)) {
           console.log("Launched in Smart Mode - Embedded")
-        } else
-        {
+        } else {
           console.log("Launched in Smart Mode - Unknown")
         }
-      }
-    )
-    .then(
-      console.log("Launched in Smart Mode")
-      )
-      /*
-      var skey  = sessionStorage["SMART_KEY"]
-      key = skey.replace(/['"]+/g, '')
-      console.log("Smart Key is "+key)
-      tkey = JSON.parse(skey)
-      if (key != null)
-      {
-        info = JSON.parse(sessionStorage.getItem(key));
-        if (info != null)
-        {
-          console.log("server: "+info["serverUrl"])
-          tokenResp = info["tokenResponse"]
-          console.log("patient: "+tokenResp["patient"]);
-          console.log("access_token: "+tokenResp["access_token"])
-        }
-        else {
-          console.log("No in for key "+key+" found")
-        }
-      }
-      */
-      .then(
+      }).then(function () {
+        console.log("Launched in Smart Mode")
         console.log("Connected")
-      )
-      .catch(console.error)
+      }).catch(console.error)
     }
     else {
       console.log("Not launching as SMART")
     }
+
+    function gotScope(scope, client) {
+      if (client.tokenResponse != null && client.tokenResponse.scope != null) {
+        let scopes = client.tokenResponse.scope.split(' ');
+        return scopes.indexOf(scope) > -1;
+      }
+      else
+        return false;
+    }
+
   </script>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -83,8 +57,10 @@
   <link rel="manifest" href="manifest.webmanifest">
   <meta name="theme-color" content="#1976d2">
 </head>
+
 <body class="mat-typography">
   <app-root></app-root>
   <noscript>Please enable JavaScript to continue using this application.</noscript>
 </body>
+
 </html>
