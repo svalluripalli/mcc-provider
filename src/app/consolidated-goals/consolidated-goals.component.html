@@ -11,7 +11,7 @@
   </ng-container>
   <ng-container matColumnDef="lfcstatus">
     <th mat-header-cell *matHeaderCellDef mat-sort-header="lifecycleStatus">Status</th>
-    <td mat-cell *matCellDef="let goal"> {{goal.lifecycleStatus}} </td>
+    <td mat-cell *matCellDef="let goal"> {{goal.lifecycleStatus | titlecase }} </td>
   </ng-container>
   <ng-container matColumnDef="description">
     <th mat-header-cell *matHeaderCellDef mat-sort-header="description">Goal</th>
