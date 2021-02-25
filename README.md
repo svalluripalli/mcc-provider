@@ -12,8 +12,11 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Generating updated models
 
- $ openapi -i https://mcc-niddk-backend.wl.r.appspot.com/api-docs
- $ openapi -i https://mcc-niddk-backend.wl.r.appspot.com/api-docs -o src/app/generated-data-api
+ $ openapi -i https://mcc-niddk-backend.wl.r.appspot.com/api
+ 
+
+
+-docs -o src/app/generated-data-api
 
 
 ## Browse API
@@ -107,6 +110,11 @@ The latest images are available at docker hub under mcccareplan/*.
 
 
 #Changelog
+
+2021-02-25
+- release ("1.0.5")
+- Updated lab pull log
+- Updated Various Display issues
 
 2021-02-02
 - First full release ("1.0.1")
