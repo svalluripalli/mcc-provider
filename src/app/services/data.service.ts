@@ -287,7 +287,6 @@ export class DataService {
   }
 
   async updateLabResults(patientId: string, longTermCondition: string): Promise<boolean> {
-    longTermCondition = longTermCondition.split("-")[3];
     this.obsService.getLabResults(patientId, longTermCondition).then((res: MccObservation[]) => {
       this.labResults = res;
     })
@@ -295,7 +294,6 @@ export class DataService {
   }
 
   async updateVitalSignResults(patientId: string, longTermCondition: string): Promise<boolean> {
-    longTermCondition = longTermCondition.split("-")[3];
     this.obsService.getVitalSignResults(patientId, longTermCondition).then((res: MccObservation[]) => {
       this.vitalSignResults = res;
     })
