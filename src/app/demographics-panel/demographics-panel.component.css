@@ -37,3 +37,8 @@ td:first-child {
 td:last-child {
   padding-right: 0;
 }
+
+.mat-expansion-panel-header {
+  height: auto;
+  min-height: 48px;
+}

@@ -153,9 +153,11 @@ export class ObservationsService {
     }
 
     getLabResults(patientId: string, longTermCondition: string): any {
+        longTermCondition = "ckd";
         let results: FormattedResult[] = [];
         let callsToMake: PatientLabResultsMap[] = Constants.labResultsMap.get(longTermCondition);
         let promiseArray = [];
+        if (!callsToMake) return Promise.resolve([]);
         callsToMake.forEach((v, i) => {
             switch (v.type) {
                 case "code":
@@ -200,9 +202,11 @@ export class ObservationsService {
     }
 
     getVitalSignResults(patientId: string, longTermCondition: string): any {
+        longTermCondition = "ckd";
         let results: FormattedResult[] = [];
         let callsToMake: PatientLabResultsMap[] = Constants.vitalSignsMap.get(longTermCondition);
         let promiseArray = [];
+        if (!callsToMake) return Promise.resolve([]);
         callsToMake.forEach((v, i) => {
             switch (v.type) {
                 case "code":
