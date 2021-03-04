@@ -20,6 +20,11 @@
       <app-weight-over-time></app-weight-over-time>
     </td>
   </tr>
+  <tr *ngIf="!dataservice.vitalSignResults || dataservice.vitalSignResults.length === 0">
+    <td colspan="3">
+      Loading...
+    </td>
+  </tr>
   <tr *ngFor="let res of dataservice.vitalSignResults">
     <td>
       {{res.name}}

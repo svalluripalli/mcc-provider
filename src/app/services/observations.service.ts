@@ -70,6 +70,8 @@ export class ObservationsService {
                         res[0].key = keyToStore;
                     }
                     return res;
+                }).catch((reason) => {
+                    console.log("Error querying: " + `${environment.mccapiUrl}/${this._observationsUrl}?subject=${patientId}&code=${code}&sort=descending`);
                 });
         }
     };
@@ -94,6 +96,8 @@ export class ObservationsService {
                         res[0].key = keyToStore;
                     }
                     return res;
+                }).catch((reason) => {
+                    console.log("Error querying: " + url);
                 });
         }
     }
@@ -117,6 +121,8 @@ export class ObservationsService {
                         res[0].key = keyToStore;
                     }
                     return res;
+                }).catch((reason) => {
+                    console.log("Error querying: " + code);
                 });
         }
     }
@@ -133,10 +139,12 @@ export class ObservationsService {
                 .then((res: SimpleQuestionnaireItem) => {
                     this.QUESTIONNAIRES.set(key, res);
                     return res;
+                }).catch((reason) => {
+                    console.log("Error querying: " + code);
                 });
         }
     }
-    
+
     _questionnaireAllItemsUrl = "find/all/questionnaireresponseitems";
     getQuestionnaireItems(patientId: string, code: string): Promise<any> {
         const key = patientId + "-" + code + "-all";
@@ -148,6 +156,8 @@ export class ObservationsService {
                 .then((res: SimpleQuestionnaireItem[]) => {
                     this.QUESTIONNAIRES.set(key, res);
                     return res;
+                }).catch((reason) => {
+                    console.log("Error querying: " + code);
                 });
         }
     }
