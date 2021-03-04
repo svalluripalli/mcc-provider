@@ -20,6 +20,11 @@
       <app-uacr></app-uacr>
     </td>
   </tr>
+  <tr *ngIf="!dataservice.labResults || dataservice.labResults.length === 0">
+    <td colspan="3">
+      Loading...
+    </td>
+  </tr>
   <tr *ngFor="let res of dataservice.labResults">
     <td>{{res.name}}</td>
     <td>{{res.value}}</td>
@@ -27,5 +32,3 @@
   </tr>
 
 </table>
-
-
