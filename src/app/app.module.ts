@@ -44,6 +44,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ConsolidatedGoalsComponent } from './consolidated-goals/consolidated-goals.component';
 import { Testgraph1Component } from './testgraph1/testgraph1.component';
 import { ObservationsService } from './services/observations.service';
+import { NullCheckPipe } from './pipes/null-check.pipe';
 
 const routes: Routes = []; // sets up routes constant where you define your routes
 
@@ -78,6 +79,7 @@ const routes: Routes = []; // sets up routes constant where you define your rout
     DiagnosisDialogComponent,
     ConsolidatedGoalsComponent,
     Testgraph1Component,
+    NullCheckPipe
   ],
   imports: [
     FlexLayoutModule,

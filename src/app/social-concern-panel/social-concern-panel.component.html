@@ -19,7 +19,7 @@
   <!-- Position Column -->
   <ng-container matColumnDef="data">
     <mat-header-cell *matHeaderCellDef>Value</mat-header-cell>
-    <mat-cell *matCellDef="let concern"> {{concern.data}} </mat-cell>
+    <mat-cell *matCellDef="let concern"> {{concern.data | titlecase }} </mat-cell>
   </ng-container>
 
   <!-- Name Column -->
