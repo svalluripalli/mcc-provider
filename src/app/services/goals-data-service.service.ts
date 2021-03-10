@@ -13,6 +13,7 @@ import { VitalSignsTableData } from '../datamodel/vitalSigns';
 import { EgfrTableData } from '../datamodel/egfr';
 import { UacrTableData } from '../datamodel/uacr';
 import { WotTableData } from '../datamodel/weight-over-time';
+import { ObservationCollection } from '../generated-data-api/models/ObservationCollection';
 
 enum observationCodes {
   Systolic = '8480-6',
@@ -38,6 +39,7 @@ export class GoalsDataService {
   private observationURL = '/find/latest/observation';
   private observationsURL = '/observations';
   private observationsbyvaluesetURL = '/observationsbyvalueset';
+  private segmentedObservationsByValueSetUrl = "/observationssegmented";
   private goalSummaryURL = '/goalsummary';
 
   httpOptions = {
@@ -144,25 +146,27 @@ export class GoalsDataService {
 
   getPatientEgfr(patientId: string): Observable<EgfrTableData> {
     return new Observable(observer => {
-      this.getObservationsByValueset(patientId, observationValuesets.Egfr)
+      this.getSegementedObservationsByValueSet(patientId, observationValuesets.Egfr)
         .pipe(finalize(() => {
           observer.complete();
         }))
-        .subscribe(observations => {
-          observations.map(obs => {
-            switch (obs.code.coding[0].code) {
-              case observationCodes.Egfr:
-                const egfr: EgfrTableData = {
-                  date: obs.effective.dateTime.date,
-                  egfr: obs.value.quantityValue.value,
-                  unit: obs.value.quantityValue.unit,
-                  test: obs.code.text
-                };
-                observer.next(egfr);
-                break;
-              default:
-            }
-          });
+        .subscribe(obsCollection => {
+          obsCollection.observations.map(observations => {
+            observations.observations.forEach(obs => {
+              switch (obs.code.coding[0].code) {
+                case observationCodes.Egfr:
+                  const egfr: EgfrTableData = {
+                    date: obs.effective.dateTime.date,
+                    egfr: obs.value.quantityValue.value,
+                    unit: obs.value.quantityValue.unit,
+                    test: obs.code.text
+                  };
+                  observer.next(egfr);
+                  break;
+                default:
+              }
+            });
+          })
         });
     });
   }
@@ -256,6 +260,12 @@ export class GoalsDataService {
       tap(_ => this.log(`fetched MccObservation patientId=${patientId} valueSet=${valueSet}`)),
       catchError(this.handleError<MccObservation[]>(`getObservationsByValueset patientId=${patientId} valueSet=${valueSet}`))
     );
+  }
+
+  getSegementedObservationsByValueSet(patientId: string, valueSet: string): Observable<ObservationCollection> {
+    const url = `${environment.mccapiUrl}${this.segmentedObservationsByValueSetUrl}?subject=${patientId}&valueset=${valueSet}`;
+    return this.http.get<ObservationCollection>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   /**
