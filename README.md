@@ -11,12 +11,15 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Generating updated models
+- using: https://github.com/ferdikoomen/openapi-typescript-codegen
+- Installed via: npm install openapi-typescript-codegen -g
 
- $ openapi -i https://mcc-niddk-backend.wl.r.appspot.com/api
- 
+ $ openapi -i https://mcc-niddk-backend.wl.r.appspot.com/api -o src/app/generated-data-api
 
+or
 
--docs -o src/app/generated-data-api
+  $ openapi -i http://localhost:8081/api-docs -o src/app/generated-data-api/
+
 
 
 ## Browse API
