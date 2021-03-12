@@ -114,6 +114,12 @@ The latest images are available at docker hub under mcccareplan/*.
 
 #Changelog
 
+2021-03-04
+- Release ("1.0.6")
+- Null handling for goals' Achievement Status
+- Individual Error handling for Labs/Vitals
+- Loading text for Labs/Vitals due to long load times
+
 2021-02-25
 - release ("1.0.5")
 - Updated lab pull log
