@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ObservationList } from "./ObservationList";
+import type { ObservationList } from './ObservationList';
 
-export interface ObservationCollection {
+export type ObservationCollection = {
     observations?: Array<ObservationList>;
 }
