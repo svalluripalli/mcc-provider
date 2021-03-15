@@ -14,6 +14,7 @@ import { EgfrTableData } from '../datamodel/egfr';
 import { UacrTableData } from '../datamodel/uacr';
 import { WotTableData } from '../datamodel/weight-over-time';
 import { ObservationCollection } from '../generated-data-api/models/ObservationCollection';
+import { MccCoding } from "../generated-data-api/models/MccCoding";
 
 enum observationCodes {
   Systolic = '8480-6',
@@ -152,23 +153,32 @@ export class GoalsDataService {
         }))
         .subscribe(obsCollection => {
           obsCollection.observations.map(observations => {
+            observations.primaryCode.display = this.formatEGFRCode(observations.primaryCode);
             observations.observations.forEach(obs => {
-              switch (obs.code.coding[0].code) {
-                case observationCodes.Egfr:
-                  const egfr: EgfrTableData = {
-                    date: obs.effective.dateTime.date,
-                    egfr: obs.value.quantityValue.value,
-                    unit: obs.value.quantityValue.unit,
-                    test: obs.code.text
-                  };
-                  observer.next(egfr);
-                  break;
-                default:
-              }
+              const egfr: EgfrTableData = {
+                date: obs.effective.dateTime.date,
+                egfr: obs.value.quantityValue.value,
+                unit: obs.value.quantityValue.unit,
+                test: observations.primaryCode.display
+              };
+              observer.next(egfr);
             });
           })
         });
     });
+  }
+
+  formatEGFRCode(primaryCode: MccCoding): string {
+    //"Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum, Plasma or Blood"
+    if (primaryCode.display && primaryCode.display.indexOf("1.73 sq M.") > -1) {
+      let formattedString = "";
+      formattedString = primaryCode.display.substr(primaryCode.display.indexOf("sq M.") + 5);
+      formattedString = formattedString.substr(0, formattedString.indexOf("["));
+      formattedString = formattedString + "[" + primaryCode.code + "]";
+      formattedString = formattedString.charAt(0).toUpperCase() + formattedString.slice(1);
+      return formattedString;
+    }
+    else return primaryCode.display;
   }
 
   getPatientUacr(patientId: string): Observable<UacrTableData> {
