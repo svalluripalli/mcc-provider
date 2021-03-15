@@ -114,6 +114,13 @@ The latest images are available at docker hub under mcccareplan/*.
 
 #Changelog
 
+2021-03-15    
+- Release ("1.0.7")
+- Changed eGFR to use "segmented" endpoint
+- Changed eGFR to group multiple data sets
+- Changed eGFR to force user to choose which dataset to render
+- Removed invalid "key" field usage (no ui changes)
+
 2021-03-04
 - Release ("1.0.6")
 - Null handling for goals' Achievement Status
