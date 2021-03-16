@@ -1,12 +1,12 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Color} from 'ng2-charts';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Color } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
-import {DataService} from '../services/data.service';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort, Sort} from '@angular/material/sort';
-import {EgfrTableData} from '../datamodel/egfr';
-import {formatEgfrResult, reformatYYYYMMDD} from '../util/utility-functions';
-import {MatTableDataSource} from '@angular/material/table';
+import { DataService } from '../services/data.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { EgfrTableData } from '../datamodel/egfr';
+import { formatEgfrResult, reformatYYYYMMDD } from '../util/utility-functions';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-e-gfr',
@@ -24,7 +24,7 @@ export class EGFRComponent implements OnInit, AfterViewInit {
     },
   ];
   lineChartLegend = false;
-  lineChartPlugins =  [pluginAnnotations];
+  lineChartPlugins = [pluginAnnotations];
   lineChartType = 'line';
 
   constructor(public dataservice: DataService) {
@@ -50,7 +50,7 @@ export class EGFRComponent implements OnInit, AfterViewInit {
           return data.egfr;
         }
 
-        case ('date' ): {
+        case ('date'): {
           return reformatYYYYMMDD(data.date);
         }
 
@@ -59,7 +59,7 @@ export class EGFRComponent implements OnInit, AfterViewInit {
         }
       }
     };
-    const sortState: Sort = {active: 'date', direction: 'desc'};
+    const sortState: Sort = { active: 'date', direction: 'desc' };
     this.sort.active = sortState.active;
     this.sort.direction = sortState.direction;
     this.sort.sortChange.emit(sortState);
@@ -90,6 +90,14 @@ export class EGFRComponent implements OnInit, AfterViewInit {
     return cssClass;
   }
 
-
-
+  ddlChange(indexStr: string): void {
+    if (!indexStr) {
+      this.dataservice.emptyChart();
+      return;
+    }
+    else {
+      const index: number = parseInt(indexStr);
+      this.dataservice.filterDataSet(index);
+    }
+  }
 }
