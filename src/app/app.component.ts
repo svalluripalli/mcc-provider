@@ -182,13 +182,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   initFilteredPatients() {
-    this.filteredPatients = new Observable<any[]>();
-    this.filteredPatients = this.patientSearch.valueChanges
-      .pipe(
-        startWith(''),
-        // debounceTime(300),
-        distinctUntilChanged(),
-        switchMap(value => this._dataFilter(value || ''))
-      );
+    // this.filteredPatients = new Observable<any[]>();
+    // this.filteredPatients = this.patientSearch.valueChanges
+    //   .pipe(
+    //     startWith(''),
+    //     // debounceTime(300),
+    //     distinctUntilChanged(),
+    //     switchMap(value => this._dataFilter(value || ''))
+    //   );
   }
 }

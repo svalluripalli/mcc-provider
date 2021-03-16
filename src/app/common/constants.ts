@@ -148,8 +148,10 @@ export class Constants {
             }
         ]]
     ]);
-  static WotIsLoaded: string = "WotIsLoaded-patient-app-1";
-  static BPisLoaded: string = "BPisLoaded-patient-app-1";
+  static WotIsLoaded: string = "WOT-Is-Loaded-patient-app-1";
+  static BPisLoaded: string = "BP-is-Loaded-patient-app-1";
+  static EGFRisLoaded: string="EGFR-is-Loaded-patient-app-1";
+  static UACRisLoaded: string = "UACR-is-Loaded-patient-app-1";
 }
 
 interface PatientLabResultsMap {
