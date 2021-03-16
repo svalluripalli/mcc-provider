@@ -12,12 +12,12 @@
   </tr>
   <tr>
     <td colspan="3">
-      <app-e-gfr *ngIf="!getEGFRisLoaded()"></app-e-gfr>
+      <app-e-gfr *ngIf="getEGFRisLoaded()"></app-e-gfr>
     </td>
   </tr>
   <tr>
     <td colspan="3">
-      <app-uacr></app-uacr>
+      <app-uacr *ngIf="getUACRisLoaded()"></app-uacr>
     </td>
   </tr>
   <tr *ngIf="!dataservice.labResults || dataservice.labResults.length === 0">

@@ -58,8 +58,7 @@ import {
   formatWotResult,
   getWotLineChartAnnotationsObject
 } from '../util/utility-functions';
-import { patchTsGetExpandoInitializer } from '@angular/compiler-cli/ngcc/src/packages/patch_ts_expando_initializer';
-import { ChartDataSets, ChartPoint } from 'chart.js';
+import { ChartDataSets } from 'chart.js';
 import * as moment from 'moment';
 import { CounselingSummary } from '../generated-data-api/models/CounselingSummary';
 import { CounselingService } from './counseling.service';
@@ -279,13 +278,13 @@ export class DataService {
 
   async updateCounseling(): Promise<boolean> {
     this.counselingService.getCounselingSummaries(this.currentPatientId, this.currentCareplanId)
-      .subscribe(counseling => this.counseling = counseling);
+      .subscribe(counseling => { this.counseling = counseling; window[Constants.CounselingIsLoaded] = true; });
     return true;
   }
 
   async updateReferrals(): Promise<boolean> {
     this.referralService.getReferralSummaries(this.currentPatientId, this.currentCareplanId)
-      .subscribe(referrals => this.referrals = referrals);
+      .subscribe(referrals => { this.referrals = referrals; window[Constants.ReferralsIsLoaded] = true; });
     return true;
   }
 
@@ -367,7 +366,7 @@ export class DataService {
         finalize(() => {
           this.vitalSigns.chartData.push(systolicChartData);
           this.vitalSigns.chartData.push(diastolicChartData);
-          this.vitalSignsDataSource.data = this.vitalSigns.tableData;
+          this.vitalSignsDataSource.data = this.vitalSigns.tableData.sort((a, b) => { return moment(a.date).unix() > moment(b.date).unix() ? -1 : 1; });
           const vsLowDateRow: VitalSignsTableData = (this.vitalSigns.tableData.reduce((low, vs) =>
             reformatYYYYMMDD(low.date) < reformatYYYYMMDD(vs.date) ? low : vs));
           const vsHighDateRow: VitalSignsTableData = (this.vitalSigns.tableData.reduce((high, vs) =>
@@ -398,6 +397,7 @@ export class DataService {
             );
           });
           this.vitalSigns.xAxisLabels = xAxisLabels;
+          window[Constants.BPisLoaded] = true;
         })
       )
       .subscribe(res => {
@@ -519,7 +519,7 @@ export class DataService {
       .pipe(
         finalize(() => {
           this.uacr.chartData.push(uacrChartData);
-          this.uacrDataSource.data = this.uacr.tableData;
+          this.uacrDataSource.data = this.uacr.tableData.sort((a, b) => { return moment(a.date).unix() > moment(b.date).unix() ? -1 : 1; });
           const vsLowDateRow: UacrTableData = (this.uacr.tableData.reduce((low, e) =>
             reformatYYYYMMDD(low.date) < reformatYYYYMMDD(e.date) ? low : e));
           const vsHighDateRow: UacrTableData = (this.uacr.tableData.reduce((high, e) =>
@@ -553,6 +553,7 @@ export class DataService {
             );
           });
           this.uacr.xAxisLabels = xAxisLabels;
+          window[Constants.UACRisLoaded] = true;
         })
       )
       .subscribe(res => {
@@ -578,7 +579,7 @@ export class DataService {
       .pipe(
         finalize(() => {
           this.wot.chartData.push(wotChartData);
-          this.wotDataSource.data = this.wot.tableData;
+          this.wotDataSource.data = this.wot.tableData.sort((a, b) => { return moment(a.date).unix() > moment(b.date).unix() ? -1 : 1; });
           window[Constants.WotIsLoaded] = true;
           const vsLowDateRow: WotTableData = (this.wot.tableData.reduce((low, e) =>
             reformatYYYYMMDD(low.date) < reformatYYYYMMDD(e.date) ? low : e));

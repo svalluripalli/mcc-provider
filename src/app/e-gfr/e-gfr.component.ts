@@ -15,7 +15,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class EGFRComponent implements OnInit, AfterViewInit {
 
-  egfrDataSource: MatTableDataSource<EgfrTableData> = this.dataservice.egfrDataSource;
+  egfrDataSource: MatTableDataSource<EgfrTableData>;
   egfrRowMax = 7;
 
   lineChartColors: Color[] = [
@@ -35,7 +35,7 @@ export class EGFRComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit(): void {
-
+    this.egfrDataSource = this.dataservice.egfrDataSource;
   }
 
   ngAfterViewInit(): void {
@@ -59,11 +59,6 @@ export class EGFRComponent implements OnInit, AfterViewInit {
         }
       }
     };
-    const sortState: Sort = { active: 'date', direction: 'desc' };
-    debugger;
-    this.sort.active = sortState.active;
-    this.sort.direction = sortState.direction;
-    this.sort.sortChange.emit(sortState);
   }
 
   EgfrResult(egfr: EgfrTableData): string {

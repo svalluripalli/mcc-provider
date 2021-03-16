@@ -11,12 +11,12 @@
   </tr>
   <tr>
     <td>
-      <app-counseling-panel></app-counseling-panel>
+      <app-counseling-panel *ngIf="getCounselingIsReady()"></app-counseling-panel>
     </td>
   </tr>
   <tr>
     <td>
-      <app-referral-panel></app-referral-panel>
+      <app-referral-panel *ngIf="getReferralsIsReady()"></app-referral-panel>
     </td>
   </tr>
 </table>

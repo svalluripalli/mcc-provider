@@ -1,12 +1,13 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Color} from 'ng2-charts';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Color } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
-import {DataService} from '../services/data.service';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort, Sort} from '@angular/material/sort';
-import {WotTableData} from '../datamodel/weight-over-time';
-import {formatWotResult, reformatYYYYMMDD} from '../util/utility-functions';
-import {MatTableDataSource} from '@angular/material/table';
+import { DataService } from '../services/data.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { WotTableData } from '../datamodel/weight-over-time';
+import { formatWotResult, reformatYYYYMMDD } from '../util/utility-functions';
+import { MatTableDataSource } from '@angular/material/table';
+import * as moment from 'moment';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-weight-over-time',
@@ -16,7 +17,7 @@ import {MatTableDataSource} from '@angular/material/table';
 
 
 export class WeightOverTimeComponent implements OnInit, AfterViewInit {
-  wotDataSource: MatTableDataSource<WotTableData> = this.dataservice.wotDataSource;
+  wotDataSource: MatTableDataSource<WotTableData>;
   wotRowMax = 7;
 
   lineChartColors: Color[] = [
@@ -25,7 +26,7 @@ export class WeightOverTimeComponent implements OnInit, AfterViewInit {
     },
   ];
   lineChartLegend = false;
-  lineChartPlugins =  [pluginAnnotations];
+  lineChartPlugins = [pluginAnnotations];
   lineChartType = 'line';
 
   constructor(public dataservice: DataService) {
@@ -34,12 +35,12 @@ export class WeightOverTimeComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['date', 'result'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  sort: any;
+  @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit(): void {
+    this.wotDataSource = this.dataservice.wotDataSource;
   }
   ngAfterViewInit(): void {
-    // todo: fix below, paginator doesn't work when assigned, shows all rows, doesn't limit to max, paging doesn't work
     if (this.wotDataSource.data.length > this.wotRowMax) {
       this.wotDataSource.paginator = this.paginator;
     }
@@ -49,20 +50,14 @@ export class WeightOverTimeComponent implements OnInit, AfterViewInit {
         case ('result'): {
           return data.value;
         }
-
-        case ('date' ): {
-          return reformatYYYYMMDD(data.date);
+        case ('date'): {
+          return moment(data.date).unix();
         }
-
         default: {
           return data[header];
         }
       }
     };
-    const sortState: Sort = {active: 'date', direction: 'desc'};
-    this.sort.active = sortState.active;
-    this.sort.direction = sortState.direction;
-    this.sort.sortChange.emit(sortState);
   }
 
   WotResult(wot: WotTableData): string {
@@ -89,6 +84,4 @@ export class WeightOverTimeComponent implements OnInit, AfterViewInit {
     }
     return cssClass;
   }
-
-
 }

@@ -1,10 +1,11 @@
-import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
-import {DataService} from '../services/data.service';
-import {MatSort, Sort} from '@angular/material/sort';
-import {MatPaginator} from '@angular/material/paginator';
-import {UacrTableData} from '../datamodel/uacr';
-import {reformatYYYYMMDD} from '../util/utility-functions';
-import {VitalSignsTableData} from '../datamodel/vitalSigns';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { reformatYYYYMMDD } from '../util/utility-functions';
+import { VitalSignsTableData } from '../datamodel/vitalSigns';
+import { MatTableDataSource } from '@angular/material/table';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-blood-pressure',
@@ -13,7 +14,7 @@ import {VitalSignsTableData} from '../datamodel/vitalSigns';
 })
 export class BloodPressureComponent implements OnInit, AfterViewInit {
 
-  vitalSignsDataSource = this.dataservice.vitalSignsDataSource;
+  vitalSignsDataSource: MatTableDataSource<VitalSignsTableData>;
   vitalSignsRowMax = 7;
 
   constructor(public dataservice: DataService) {
@@ -24,6 +25,7 @@ export class BloodPressureComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit(): void {
+    this.vitalSignsDataSource = this.dataservice.vitalSignsDataSource;
   }
 
   ngAfterViewInit(): void {
@@ -40,21 +42,14 @@ export class BloodPressureComponent implements OnInit, AfterViewInit {
         case ('diastolic'): {
           return data.diastolic;
         }
-
-        case ('date' ): {
-          return reformatYYYYMMDD(data.date);
+        case ('date'): {
+          return moment(data[header]).unix();
         }
-
         default: {
           return data[header];
         }
       }
     };
-    const sortState: Sort = {active: 'date', direction: 'desc'};
-    this.sort.active = sortState.active;
-    this.sort.direction = sortState.direction;
-    this.sort.sortChange.emit(sortState);
-
   }
 
 

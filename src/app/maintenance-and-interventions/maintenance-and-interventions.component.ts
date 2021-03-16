@@ -18,4 +18,13 @@ export class MaintenanceAndInterventionsComponent implements OnInit {
   getEducationIsReady(): boolean {
     return window[Constants.EducationIsLoaded];
   }
+
+  
+  getCounselingIsReady(): boolean {
+    return window[Constants.CounselingIsLoaded];
+  }
+
+  getReferralsIsReady(): boolean { 
+    return window[Constants.ReferralsIsLoaded];
+  }
 }

@@ -17,10 +17,10 @@ export class ClinicalTestResultsComponent implements OnInit {
 
 
   getWotIsLoaded(): boolean {
-    return window[Constants.WotIsLoaded] ? true : false;
+    return window[Constants.WotIsLoaded];
   }
 
   getBPisLoaded(): boolean {
-    return window[Constants.BPisLoaded] ? true : false;
+    return window[Constants.BPisLoaded];
   }
 }
