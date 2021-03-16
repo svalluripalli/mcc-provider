@@ -11,12 +11,15 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Generating updated models
+- using: https://github.com/ferdikoomen/openapi-typescript-codegen
+- Installed via: npm install openapi-typescript-codegen -g
 
- $ openapi -i https://mcc-niddk-backend.wl.r.appspot.com/api
- 
+ $ openapi -i https://mcc-niddk-backend.wl.r.appspot.com/api -o src/app/generated-data-api
 
+or
 
--docs -o src/app/generated-data-api
+  $ openapi -i http://localhost:8081/api-docs -o src/app/generated-data-api/
+
 
 
 ## Browse API
@@ -110,6 +113,13 @@ The latest images are available at docker hub under mcccareplan/*.
 
 
 #Changelog
+
+2021-03-15    
+- Release ("1.0.7")
+- Changed eGFR to use "segmented" endpoint
+- Changed eGFR to group multiple data sets
+- Changed eGFR to force user to choose which dataset to render
+- Removed invalid "key" field usage (no ui changes)
 
 2021-03-04
 - Release ("1.0.6")
