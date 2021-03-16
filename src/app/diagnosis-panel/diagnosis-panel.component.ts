@@ -19,4 +19,7 @@ export class DiagnosisPanelComponent implements OnInit {
     return window[Constants.ActiveDiagnosisIsLoaded];
   }
 
+  getInActiveIsReady(): boolean {
+    return window[Constants.InActiveDiagnosisIsLoaded];
+  }
 }

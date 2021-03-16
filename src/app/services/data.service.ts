@@ -267,7 +267,7 @@ export class DataService {
 
   async updateSocialConcerns(): Promise<boolean> {
     this.subjectdataservice.getSocialConcerns(this.currentPatientId, this.currentCareplanId)
-      .subscribe(concerns => {this.socialConcerns = concerns; window[Constants.SocialConcernsIsLoaded] = true; });
+      .subscribe(concerns => { this.socialConcerns = concerns; window[Constants.SocialConcernsIsLoaded] = true; });
     return true;
   }
 
@@ -306,7 +306,7 @@ export class DataService {
 
   async updateEducation(): Promise<boolean> {
     this.educationService.getEducationSummaries(this.currentPatientId, this.currentCareplanId)
-      .subscribe(education => this.education = education);
+      .subscribe(education => { this.education = education; window[Constants.EducationIsLoaded] = true; });
     return true;
   }
 
@@ -328,7 +328,7 @@ export class DataService {
 
   async updateConditions(): Promise<boolean> {
     this.subjectdataservice.getConditions(this.currentPatientId)
-      .subscribe(condition => { this.conditions = condition; window[Constants.ActiveDiagnosisIsLoaded] = true;  });
+      .subscribe(condition => { this.conditions = condition; window[Constants.ActiveDiagnosisIsLoaded] = true; window[Constants.InActiveDiagnosisIsLoaded] = true; });
     return true;
   }
 
