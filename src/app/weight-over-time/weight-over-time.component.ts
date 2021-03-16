@@ -34,7 +34,7 @@ export class WeightOverTimeComponent implements OnInit, AfterViewInit {
 
   displayedColumns = ['date', 'result'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  sort: any;
 
   ngOnInit(): void {
   }

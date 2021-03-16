@@ -148,10 +148,12 @@ export class Constants {
             }
         ]]
     ]);
-  static WotIsLoaded: string = "WOT-Is-Loaded-patient-app-1";
-  static BPisLoaded: string = "BP-is-Loaded-patient-app-1";
-  static EGFRisLoaded: string="EGFR-is-Loaded-patient-app-1";
-  static UACRisLoaded: string = "UACR-is-Loaded-patient-app-1";
+    static WotIsLoaded: string = "WOT-Is-Loaded-patient-app-1";
+    static BPisLoaded: string = "BP-is-Loaded-patient-app-1";
+    static EGFRisLoaded: string = "EGFR-is-Loaded-patient-app-1";
+    static UACRisLoaded: string = "UACR-is-Loaded-patient-app-1";
+    static ActiveDiagnosisIsLoaded: string = "ActiveDiagnosis-is-ready-patient-app-1";
+    static SocialConcernsIsLoaded: string = "SocialConcerns-is-ready-patient-app-1";
 }
 
 interface PatientLabResultsMap {

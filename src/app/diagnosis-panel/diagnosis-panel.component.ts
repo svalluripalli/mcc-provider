@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Constants } from '../common/constants';
+
+declare var window: any;
 
 @Component({
   selector: 'app-diagnosis-panel',
@@ -10,6 +13,10 @@ export class DiagnosisPanelComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  getActiveIsReady(): boolean {
+    return window[Constants.ActiveDiagnosisIsLoaded];
   }
 
 }

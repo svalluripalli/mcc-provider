@@ -42,7 +42,7 @@ export class SubjectDataService{
 
   /** GET Subject by id. Will 404 if id not found */
   getSubject(id: string): Observable<MccPatient> {
-    console.log(this.httpOptions);
+    console.log2(this.httpOptions);
     const url = `${environment.mccapiUrl}${this.patientURL}/${id}`;
     return this.http.get<MccPatient>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched subject id=${id}`)),
@@ -65,7 +65,7 @@ export class SubjectDataService{
     const url = `${environment.mccapiUrl}${this.conditionSummaryURL}?subject=${id}`;
 
     return this.http.get<ConditionLists>(url, this.httpOptions).pipe(
-      tap(_ => this.log('fetched Conditions')),
+      tap(_ => { this.log;}),
       catchError(this.handleError<ConditionLists>('getConditions'))
     );
 

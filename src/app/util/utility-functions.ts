@@ -179,57 +179,57 @@ export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue:
       }
       case 'Ratio': {
         // todo:  formatTargetValue Ratio
-        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
+        console.log2('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'Period': {
         // todo:  formatTargetValue Period
-        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
+        console.log2('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'date': {
         // todo:  formatTargetValue Date
-        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
+        console.log2('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'time': {
         // todo:  formatTargetValue Time
-        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
+        console.log2('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'dateTime': {
         // todo:  formatTargetValue DateTime
-        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
+        console.log2('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'SampledData': {
         // todo:  formatTargetValue SampledData
-        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
+        console.log2('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'DurationValue': {
         // todo:  formatTargetValue DurationValue
-        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
+        console.log2('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'TimingValue': {
         // todo:  formatTargetValue TimingValue
-        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
+        console.log2('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'InstantValue': {
         // todo:  formatTargetValue InstantValue
-        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
+        console.log2('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       case 'IdentifierValue': {
         // todo:  formatTargetValue IdentifierValue
-        console.log('Not yet supported Target Value Type: '.concat(target.value.valueType));
+        console.log2('Not yet supported Target Value Type: '.concat(target.value.valueType));
         break;
       }
       default:
         {
-          console.log('Unknown Target Value Type: '.concat(target.value.valueType));
+          console.log2('Unknown Target Value Type: '.concat(target.value.valueType));
           break;
         }
     }
@@ -240,6 +240,7 @@ export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue:
 }
 
 export function reformatYYYYMMDD(dt): string {
+  return dt;
   if (dt) {
     const date = new Date(dt);
     return new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
@@ -250,7 +251,7 @@ export function reformatYYYYMMDD(dt): string {
   }
 }
 
-export function getLineChartOptionsObject(min: number, max: number, suggestedMinDate: Date, suggestedMaxDate: Date): {} {
+export function getLineChartOptionsObject(min: number, max: number, suggestedMinDate: moment.Moment, suggestedMaxDate: moment.Moment): {} {
   const opts =
   {
     responsive: false,

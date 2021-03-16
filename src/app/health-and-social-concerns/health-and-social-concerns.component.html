@@ -3,7 +3,7 @@
     <td width="49%" valig="top">
       <app-diagnosis-panel></app-diagnosis-panel>
     <td width="49%" valig="top">
-      <app-social-concern-panel></app-social-concern-panel>
+      <app-social-concern-panel *ngIf="getSocialConcernIsReady()"></app-social-concern-panel>
     </td>
   </tr>
 </table>

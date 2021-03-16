@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Constants } from '../common/constants';
 import { DataService } from '../services/data.service';
-import { GoalsDataService } from '../services/goals-data-service.service';
-
+declare var window: any;
 @Component({
   selector: 'app-clinical-test-results',
   templateUrl: './clinical-test-results.component.html',
@@ -18,7 +17,7 @@ export class ClinicalTestResultsComponent implements OnInit {
   // recentDiastolicReading: string;
 
   constructor(public dataservice: DataService) {
-    // console.log('in ClinicalTestResultsComponent onInit. this.dataservice.vitalSigns = ', this.dataservice.vitalSigns);
+    // console.log2('in ClinicalTestResultsComponent onInit. this.dataservice.vitalSigns = ', this.dataservice.vitalSigns);
     // if (this.dataservice.vitalSigns.mostRecentDiastolic.value) {
     //   this.recentSystolicDate = this.dataservice.vitalSigns.mostRecentSystolic.date;
     //   this.recentSystolicReading = this.dataservice.vitalSigns.mostRecentSystolic.value.toString();

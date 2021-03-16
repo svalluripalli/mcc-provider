@@ -3,6 +3,8 @@ import { Constants } from '../common/constants';
 import { MccObservation } from '../generated-data-api';
 import { DataService } from '../services/data.service';
 
+declare var window: any;
+
 @Component({
   selector: 'app-lab-test-result',
   templateUrl: './lab-test-result.component.html',

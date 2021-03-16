@@ -35,6 +35,7 @@ export class UACRComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+
   ngOnInit(): void {
 
   }

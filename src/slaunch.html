@@ -12,13 +12,13 @@
 
   if ( window["env"]["authdebug"]==="true") {
     localStorage.debug = "FHIR.*";
-    console.log('Authentication debug on');
+    console.log2('Authentication debug on');
   }
   else {
-    console.log('Authentication debug off');
+    console.log2('Authentication debug off');
   }
 
-    // console.log(environment .clientId)
+    // console.log2(environment .clientId)
   FHIR.oauth2.authorize({
       // The client_id that you should have obtained after registering a client at
       // the EHR. -

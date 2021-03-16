@@ -60,6 +60,7 @@ export class EGFRComponent implements OnInit, AfterViewInit {
       }
     };
     const sortState: Sort = { active: 'date', direction: 'desc' };
+    debugger;
     this.sort.active = sortState.active;
     this.sort.direction = sortState.direction;
     this.sort.sortChange.emit(sortState);

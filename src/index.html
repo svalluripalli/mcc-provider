@@ -7,36 +7,46 @@
   <script src="assets/env.js"></script>
   <script src="assets/fhir-client.js"></script>
   <script>
+    /*
+      Overwrites native logging Function.  
+      Allows logging to turn on/off based on build type
+    */
+    window["loggingEnabled"] = true;
+    window.console.log2 = function(message){
+      if (window["loggingEnabled"]) console.log(message);
+    }
+    
     const queryString = window.location.search;
-    console.log("Query: ".concat(queryString));
+    console.log2("Query: ".concat(queryString));
     const urlParams = new URLSearchParams(queryString);
     const nosmart = urlParams.get('nosmart') == true;
     const code = urlParams.get('code')
 
     if (window["env"]["authdebug"] === "true") {
       localStorage.debug = "FHIR.*";
-      console.log('Authentication debug on');
+      console.log2('Authentication debug on');
     }
     else {
-      console.log('Authentication debug off');
+      console.log2('Authentication debug off');
     }
 
     if ((nosmart == false) && (code != null)) {
       FHIR.oauth2.ready(function (client) {
         if (gotScope('launch/patient', client)) {
-          console.log("Launched in Smart Mode - Standalone")
+          console.log2("Launched in Smart Mode - Standalone")
         } else if (gotScope('launch', client)) {
-          console.log("Launched in Smart Mode - Embedded")
+          console.log2("Launched in Smart Mode - Embedded")
         } else {
-          console.log("Launched in Smart Mode - Unknown")
+          console.log2("Launched in Smart Mode - Unknown")
         }
       }).then(function () {
-        console.log("Launched in Smart Mode")
-        console.log("Connected")
+        console.log2("Launched in Smart Mode")
+        console.log2("Connected")
+        window["loggingEnabled"] = false;
       }).catch(console.error)
     }
     else {
-      console.log("Not launching as SMART")
+      console.log2("Not launching as SMART")
     }
 
     function gotScope(scope, client) {
