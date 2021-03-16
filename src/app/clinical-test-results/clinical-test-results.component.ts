@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {DataService} from '../services/data.service';
-import {GoalsDataService} from '../services/goals-data-service.service';
+import { Constants } from '../common/constants';
+import { DataService } from '../services/data.service';
+import { GoalsDataService } from '../services/goals-data-service.service';
 
 @Component({
   selector: 'app-clinical-test-results',
@@ -31,4 +32,12 @@ export class ClinicalTestResultsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  getWotIsLoaded(): boolean {
+    return window[Constants.WotIsLoaded] ? true : false;
+  }
+
+  getBPisLoaded(): boolean {
+    return window[Constants.BPisLoaded] ? true : false;
+  }
 }

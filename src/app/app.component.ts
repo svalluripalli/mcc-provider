@@ -186,7 +186,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.filteredPatients = this.patientSearch.valueChanges
       .pipe(
         startWith(''),
-        debounceTime(300),
+        // debounceTime(300),
         distinctUntilChanged(),
         switchMap(value => this._dataFilter(value || ''))
       );

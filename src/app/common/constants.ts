@@ -148,6 +148,8 @@ export class Constants {
             }
         ]]
     ]);
+  static WotIsLoaded: string = "WotIsLoaded-patient-app-1";
+  static BPisLoaded: string = "BPisLoaded-patient-app-1";
 }
 
 interface PatientLabResultsMap {
