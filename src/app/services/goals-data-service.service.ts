@@ -13,6 +13,8 @@ import { VitalSignsTableData } from '../datamodel/vitalSigns';
 import { EgfrTableData } from '../datamodel/egfr';
 import { UacrTableData } from '../datamodel/uacr';
 import { WotTableData } from '../datamodel/weight-over-time';
+import { ObservationCollection } from '../generated-data-api/models/ObservationCollection';
+import { MccCoding } from "../generated-data-api/models/MccCoding";
 
 enum observationCodes {
   Systolic = '8480-6',
@@ -38,6 +40,7 @@ export class GoalsDataService {
   private observationURL = '/find/latest/observation';
   private observationsURL = '/observations';
   private observationsbyvaluesetURL = '/observationsbyvalueset';
+  private segmentedObservationsByValueSetUrl = "/observationssegmented";
   private goalSummaryURL = '/goalsummary';
 
   httpOptions = {
@@ -144,27 +147,38 @@ export class GoalsDataService {
 
   getPatientEgfr(patientId: string): Observable<EgfrTableData> {
     return new Observable(observer => {
-      this.getObservationsByValueset(patientId, observationValuesets.Egfr)
+      this.getSegementedObservationsByValueSet(patientId, observationValuesets.Egfr)
         .pipe(finalize(() => {
           observer.complete();
         }))
-        .subscribe(observations => {
-          observations.map(obs => {
-            switch (obs.code.coding[0].code) {
-              case observationCodes.Egfr:
-                const egfr: EgfrTableData = {
-                  date: obs.effective.dateTime.date,
-                  egfr: obs.value.quantityValue.value,
-                  unit: obs.value.quantityValue.unit,
-                  test: obs.code.text
-                };
-                observer.next(egfr);
-                break;
-              default:
-            }
-          });
+        .subscribe(obsCollection => {
+          obsCollection.observations.map(observations => {
+            observations.primaryCode.display = this.formatEGFRCode(observations.primaryCode);
+            observations.observations.forEach(obs => {
+              const egfr: EgfrTableData = {
+                date: obs.effective.dateTime.date,
+                egfr: obs.value.quantityValue.value,
+                unit: obs.value.quantityValue.unit,
+                test: observations.primaryCode.display
+              };
+              observer.next(egfr);
+            });
+          })
         });
     });
+  }
+
+  formatEGFRCode(primaryCode: MccCoding): string {
+    //"Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum, Plasma or Blood"
+    if (primaryCode.display && primaryCode.display.indexOf("1.73 sq M.") > -1) {
+      let formattedString = "";
+      formattedString = primaryCode.display.substr(primaryCode.display.indexOf("sq M.") + 5);
+      formattedString = formattedString.substr(0, formattedString.indexOf("["));
+      formattedString = formattedString + "[" + primaryCode.code + "]";
+      formattedString = formattedString.charAt(0).toUpperCase() + formattedString.slice(1);
+      return formattedString;
+    }
+    else return primaryCode.display;
   }
 
   getPatientUacr(patientId: string): Observable<UacrTableData> {
@@ -256,6 +270,12 @@ export class GoalsDataService {
       tap(_ => this.log(`fetched MccObservation patientId=${patientId} valueSet=${valueSet}`)),
       catchError(this.handleError<MccObservation[]>(`getObservationsByValueset patientId=${patientId} valueSet=${valueSet}`))
     );
+  }
+
+  getSegementedObservationsByValueSet(patientId: string, valueSet: string): Observable<ObservationCollection> {
+    const url = `${environment.mccapiUrl}${this.segmentedObservationsByValueSetUrl}?subject=${patientId}&valueset=${valueSet}`;
+    return this.http.get<ObservationCollection>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   /**
