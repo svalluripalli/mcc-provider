@@ -115,11 +115,7 @@ export class GoalsDataService {
 
   getPatientVitalSigns(patientId: string): Observable<VitalSignsTableData> {
     return new Observable(observer => {
-      this.getObservationsByPanel(patientId, observationCodes.Blood_pressure)
-        .pipe(finalize(() => {
-          observer.complete();
-        }))
-        .subscribe(observations => {
+      this.getObservationsByPanel(patientId, observationCodes.Blood_pressure).subscribe(observations => {
           observations.map(obs => {
             let systolic = 0;
             let diastolic = 0;
