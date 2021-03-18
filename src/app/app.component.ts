@@ -90,11 +90,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.dataservice.setCurrentCarePlan(this.currentCarePlanId);
     this.route.queryParams.subscribe(params => {
       // @ts-ign
-      console.log2(params); // { order: "popular" }
+      console.log(params); // { order: "popular" }
 
       const dev = params.devmode;
       this.devmode = (dev === 'true');
-      console.log2('Development Mode: ' + this.devmode);
+      console.log('Development Mode: ' + this.devmode);
       if (params.subject != null) {
         this.currentSubjectId = params.subject;
         this.dataservice.setCurrentSubject(this.currentSubjectId);
@@ -108,7 +108,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     const skey = this.window.sessionStorage.SMART_KEY;
     const key = skey ? skey.replace(/['"]+/g, '') : "";
-    console.log2('Ang: Smart Key is ' + key);
+    console.log('Ang: Smart Key is ' + key);
     if (key != null) {
       this.updateDataContext(key, 14);
     }
@@ -123,14 +123,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   async updateDataContext(key: string, count: number): Promise<void> {
-    console.log2('Updating Context');
+    console.log('Updating Context');
     const info = JSON.parse(this.window.sessionStorage.getItem(key));
     if (info != null) {
-      console.log2('server: ' + info.serverUrl);
+      console.log('server: ' + info.serverUrl);
       const tokenResp = info.tokenResponse;
       if (tokenResp.access_token != null) {
-        console.log2('access_token: ' + tokenResp.access_token);
-        console.log2('patient: ' + tokenResp.patient);
+        console.log('access_token: ' + tokenResp.access_token);
+        console.log('patient: ' + tokenResp.patient);
         this.dataservice.updateFHIRConnection(info.serverUrl, tokenResp.access_token);
         this.patientSelected(tokenResp.patient);
         this.smartLaunch = true;
@@ -139,12 +139,12 @@ export class AppComponent implements OnInit, AfterViewInit {
         // Smart on FHIR still not ready (grrr....)
         if (count > 0) {
           const t = await this.waitFor(1000);
-          console.log2(t + '('  + count + ')' );
+          console.log(t + '('  + count + ')' );
           this.updateDataContext(key, count - 1);
         }
       }
     } else {
-      console.log2('No info for key ' + key + ' found');
+      console.log('No info for key ' + key + ' found');
     }
   }
 

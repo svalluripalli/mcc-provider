@@ -64,7 +64,7 @@ export class ObservationsService {
                     this.OBSERVATIONS.set(key, res);
                     return res;
                 }).catch((reason) => {
-                    console.log2("Error querying: " + `${environment.mccapiUrl}/${this._observationsUrl}?subject=${patientId}&code=${code}&sort=descending`);
+                    console.log("Error querying: " + `${environment.mccapiUrl}/${this._observationsUrl}?subject=${patientId}&code=${code}&sort=descending`);
                 });
         }
     };
@@ -87,7 +87,7 @@ export class ObservationsService {
                     this.OBSERVATIONS.set(key, res);
                     return res;
                 }).catch((reason) => {
-                    console.log2("Error querying: " + url);
+                    console.log("Error querying: " + url);
                 });
         }
     }
@@ -109,7 +109,7 @@ export class ObservationsService {
                     this.OBSERVATIONS.set(key, res);
                     return res;
                 }).catch((reason) => {
-                    console.log2("Error querying: " + code);
+                    console.log("Error querying: " + code);
                 });
         }
     }
@@ -127,7 +127,7 @@ export class ObservationsService {
                     this.QUESTIONNAIRES.set(key, res);
                     return res;
                 }).catch((reason) => {
-                    console.log2("Error querying: " + code);
+                    console.log("Error querying: " + code);
                 });
         }
     }
@@ -144,7 +144,7 @@ export class ObservationsService {
                     this.QUESTIONNAIRES.set(key, res);
                     return res;
                 }).catch((reason) => {
-                    console.log2("Error querying: " + code);
+                    console.log("Error querying: " + code);
                 });
         }
     }

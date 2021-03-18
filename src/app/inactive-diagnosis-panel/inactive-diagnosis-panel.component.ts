@@ -57,12 +57,12 @@ export class InactiveDiagnosisPanelComponent implements OnInit {
   }
 
   switchToHM(code: string) {
-    // console.log2('Switch to Health Maintenance icon clicked. code=', code);
+    // console.log('Switch to Health Maintenance icon clicked. code=', code);
     this.router.navigate(['/maint'], { queryParamsHandling: 'merge' });
   }
 
   switchToHS(code: string) {
-    // console.log2('Switch to Health Status icon clicked. code=', code);
+    // console.log('Switch to Health Status icon clicked. code=', code);
     this.router.navigate(['/status'], { queryParamsHandling: 'merge' });
   }
 

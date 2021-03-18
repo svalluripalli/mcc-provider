@@ -141,7 +141,7 @@ export class DataService {
 
   updateFHIRConnection(server: string, token: string) {
     this.authorizationToken = token;
-    console.log2('Token = ' + token);
+    console.log('Token = ' + token);
     this.mainfhirserver = server;
     let headersobj = new HttpHeaders();
     headersobj = headersobj.set('Content-Type', 'application/json').set('mcc-fhir-server', server).set('mcc-token', token);
