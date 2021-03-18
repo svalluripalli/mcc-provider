@@ -240,6 +240,7 @@ export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue:
 }
 
 export function reformatYYYYMMDD(dt): string {
+  return dt;
   if (dt) {
     const date = new Date(dt);
     return new Date(date.getTime() - (date.getTimezoneOffset() * 60000))
@@ -250,7 +251,7 @@ export function reformatYYYYMMDD(dt): string {
   }
 }
 
-export function getLineChartOptionsObject(min: number, max: number, suggestedMinDate: Date, suggestedMaxDate: Date): {} {
+export function getLineChartOptionsObject(min: number, max: number, suggestedMinDate: any, suggestedMaxDate: any): {} {
   const opts =
   {
     responsive: false,
@@ -266,8 +267,8 @@ export function getLineChartOptionsObject(min: number, max: number, suggestedMin
         type: 'time',
         distribution: 'linear',
         ticks: {
-          min: suggestedMinDate,
-          max: suggestedMaxDate,
+          // min: suggestedMinDate,
+          // max: suggestedMaxDate,
           maxTicksLimit: 7
         },
         time: {

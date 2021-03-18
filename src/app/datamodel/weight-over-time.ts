@@ -1,9 +1,10 @@
 import {ChartDataSets, ChartOptions, ChartPoint} from 'chart.js';
+import * as moment from 'moment';
 import {Label} from 'ng2-charts';
 import {getLineChartOptionsObject} from '../util/utility-functions';
 
 interface WotTableData {
-  date?: string;
+  date?: Date;
   value?: number;
   unit?: string;
   test?: string;
@@ -18,7 +19,7 @@ interface WotDataForDisplay {
   test?: string;
   value?: number;
   unit?: string;
-  date?: string;
+  date?: Date;
   result?: string;
 }
 
@@ -33,8 +34,8 @@ interface Wot {
   tableData?: Array<WotTableData>;
   chartData?: Array<ChartDataSets>;
   xAxisLabels?: Array<Label>;
-  suggestedMin?: Date;
-  suggestedMax?: Date;
+  suggestedMin?: moment.Moment;
+  suggestedMax?: moment.Moment;
   lineChartOptions?: ChartOptions & { annotation: any };
 }
 
@@ -52,9 +53,9 @@ const emptyWot: Wot = {
   tableData: emptyWotTableData,
   chartData: emptyWotChartData,
   xAxisLabels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-  suggestedMin: new Date('2020-01-01'),
-  suggestedMax: new Date('2020-06-30'),
-  lineChartOptions: {...getLineChartOptionsObject(105, 220, new Date('2020-01-01'),  new Date('2020-06-30')), annotation: []}
+  suggestedMin: moment('2020-01-01'),
+  suggestedMax: moment('2020-06-30'),
+  lineChartOptions: {...getLineChartOptionsObject(105, 220, moment('2020-01-01'),  moment('2020-06-30')), annotation: []}
 };
 
 export {

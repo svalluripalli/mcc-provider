@@ -114,6 +114,10 @@ The latest images are available at docker hub under mcccareplan/*.
 
 #Changelog
 
+2021-03-18
+- Release ("1.0.8")
+- Refactored tables (due to large amounts of console errors)
+
 2021-03-15    
 - Release ("1.0.7")
 - Changed eGFR to use "segmented" endpoint

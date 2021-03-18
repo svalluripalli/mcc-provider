@@ -2,13 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Constants } from '../common/constants';
 import { MccObservation } from '../generated-data-api';
 import { DataService } from '../services/data.service';
-import { ObservationsService } from '../services/observations.service';
 
-interface PatientLabResultsMap {
-  name: string;
-  value: string;
-  type: string;
-}
+declare var window: any;
 
 @Component({
   selector: 'app-lab-test-result',
@@ -21,11 +16,18 @@ export class LabTestResultComponent implements OnInit {
   longTermCondition: string;
 
   constructor(
-    public dataservice: DataService,
-    private obsService: ObservationsService
+    public dataservice: DataService
   ) { }
 
   ngOnInit(): void {
     console.log(`in LabTestResultComponent ngOnInit(): this.dataservices.egfr : `, this.dataservice.egfr);
+  }
+
+  getEGFRisLoaded(): boolean {
+    return window[Constants.EGFRisLoaded];
+  }
+
+  getUACRisLoaded(): boolean {
+    return window[Constants.UACRisLoaded];
   }
 }

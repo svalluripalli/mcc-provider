@@ -58,8 +58,7 @@ import {
   formatWotResult,
   getWotLineChartAnnotationsObject
 } from '../util/utility-functions';
-import { patchTsGetExpandoInitializer } from '@angular/compiler-cli/ngcc/src/packages/patch_ts_expando_initializer';
-import { ChartDataSets, ChartPoint } from 'chart.js';
+import { ChartDataSets } from 'chart.js';
 import * as moment from 'moment';
 import { CounselingSummary } from '../generated-data-api/models/CounselingSummary';
 import { CounselingService } from './counseling.service';
@@ -68,6 +67,9 @@ import { EducationSummary } from '../generated-data-api/models/EducationSummary'
 import { ReferralSummary } from '../generated-data-api/models/ReferralSummary';
 import { ReferralService } from './referrals.service';
 import { ObservationsService } from './observations.service';
+import { Constants } from '../common/constants';
+
+declare var window: any;
 
 @Injectable({
   providedIn: 'root'
@@ -264,7 +266,7 @@ export class DataService {
 
   async updateSocialConcerns(): Promise<boolean> {
     this.subjectdataservice.getSocialConcerns(this.currentPatientId, this.currentCareplanId)
-      .subscribe(concerns => this.socialConcerns = concerns);
+      .subscribe(concerns => { this.socialConcerns = concerns; window[Constants.SocialConcernsIsLoaded] = true; });
     return true;
   }
 
@@ -276,13 +278,13 @@ export class DataService {
 
   async updateCounseling(): Promise<boolean> {
     this.counselingService.getCounselingSummaries(this.currentPatientId, this.currentCareplanId)
-      .subscribe(counseling => this.counseling = counseling);
+      .subscribe(counseling => { this.counseling = counseling; window[Constants.CounselingIsLoaded] = true; });
     return true;
   }
 
   async updateReferrals(): Promise<boolean> {
     this.referralService.getReferralSummaries(this.currentPatientId, this.currentCareplanId)
-      .subscribe(referrals => this.referrals = referrals);
+      .subscribe(referrals => { this.referrals = referrals; window[Constants.ReferralsIsLoaded] = true; });
     return true;
   }
 
@@ -303,14 +305,13 @@ export class DataService {
 
   async updateEducation(): Promise<boolean> {
     this.educationService.getEducationSummaries(this.currentPatientId, this.currentCareplanId)
-      .subscribe(education => this.education = education);
+      .subscribe(education => { this.education = education; window[Constants.EducationIsLoaded] = true; });
     return true;
   }
 
   async updateMedications(): Promise<boolean> {
     this.medicationdataService.getMedicationSummaryBySubjectAndCareplan(this.currentPatientId, this.currentCareplanId)
       .subscribe(medications => {
-        console.log('in data.service.ts updateMedications medications: ', medications);
         this.activeMedications = medications.activeMedications;
         this.activeMedicationsDataSource.data = this.activeMedications;
         this.inactiveMedications = medications.inactiveMedications;
@@ -321,14 +322,12 @@ export class DataService {
   async updateDemographics(): Promise<boolean> {
     this.subjectdataservice.getSubject(this.currentPatientId)
       .subscribe(demograhic => this.demographic = demograhic);
-    // this.subjectdataservice.getConditions(this.currentPatientId)
-    //   .subscribe(condition => this.conditions = condition);
     return true;
   }
 
   async updateConditions(): Promise<boolean> {
     this.subjectdataservice.getConditions(this.currentPatientId)
-      .subscribe(condition => this.conditions = condition);
+      .subscribe(condition => { this.conditions = condition; window[Constants.ActiveDiagnosisIsLoaded] = true; window[Constants.InActiveDiagnosisIsLoaded] = true; });
     return true;
   }
 
@@ -367,7 +366,7 @@ export class DataService {
         finalize(() => {
           this.vitalSigns.chartData.push(systolicChartData);
           this.vitalSigns.chartData.push(diastolicChartData);
-          this.vitalSignsDataSource.data = this.vitalSigns.tableData;
+          this.vitalSignsDataSource.data = this.vitalSigns.tableData.sort((a, b) => { return moment(a.date).unix() > moment(b.date).unix() ? -1 : 1; });
           const vsLowDateRow: VitalSignsTableData = (this.vitalSigns.tableData.reduce((low, vs) =>
             reformatYYYYMMDD(low.date) < reformatYYYYMMDD(vs.date) ? low : vs));
           const vsHighDateRow: VitalSignsTableData = (this.vitalSigns.tableData.reduce((high, vs) =>
@@ -376,10 +375,10 @@ export class DataService {
           this.vitalSigns.mostRecentSystolic.value = vsHighDateRow.systolic;
           this.vitalSigns.mostRecentDiastolic.date = vsHighDateRow.date;
           this.vitalSigns.mostRecentDiastolic.value = vsHighDateRow.diastolic;
-          const minDate = new Date(moment(vsLowDateRow.date.toString()).startOf('month').format('MMMM DD YYYY H:mm A'));
+          const minDate = moment(vsLowDateRow.date);
           this.vitalSigns.suggestedMin = minDate;
-          const maxDate = new Date(moment(vsHighDateRow.date.toString()).add(1, 'M').startOf('month').format('YYYY-MM-DD hh:mm:ss'));
-          this.vitalSigns.suggestedMax = maxDate;
+          const maxDate = moment(vsHighDateRow.date);
+          this.vitalSigns.suggestedMax = minDate;
           this.vitalSigns.lineChartOptions = getLineChartOptionsObject(50, 180, this.vitalSigns.suggestedMin, this.vitalSigns.suggestedMax);
           this.vitalSigns.xAxisLabels = [];
           let yr = '';
@@ -398,6 +397,7 @@ export class DataService {
             );
           });
           this.vitalSigns.xAxisLabels = xAxisLabels;
+          window[Constants.BPisLoaded] = true;
         })
       )
       .subscribe(res => {
@@ -423,7 +423,7 @@ export class DataService {
     this.egfr = emptyEgfr;
     this.egfr.tableData = [];
     this.egfr.chartData = [];
-    this.goalsdataservice.getPatientEgfr(patientId)
+    await this.goalsdataservice.getPatientEgfr(patientId)
       .subscribe(res => {
         const egfr = {
           x: new Date(res.date),
@@ -447,6 +447,7 @@ export class DataService {
         }
       });
 
+    window[Constants.EGFRisLoaded] = true;
     return true;
   }
 
@@ -475,10 +476,10 @@ export class DataService {
     this.egfr.mostRecentEgfr.unit = vsHighDateRow.unit;
     this.egfr.mostRecentEgfr.test = vsHighDateRow.test;
     this.egfr.mostRecentEgfr.result = formatEgfrResult(vsHighDateRow.egfr, vsHighDateRow.unit);
-    const minDate = new Date(moment(vsLowDateRow.date.toString()).startOf('month').format('MMMM DD YYYY H:mm A'));
-    this.egfr.suggestedMin = minDate;
-    const maxDate = new Date(moment(vsHighDateRow.date.toString()).add(1, 'M').startOf('month').format('YYYY-MM-DD hh:mm:ss'));
-    this.egfr.suggestedMax = maxDate;
+    const minDate = moment(vsLowDateRow.date);
+    this.egfr.suggestedMin = minDate.toDate();
+    const maxDate = moment(vsHighDateRow.date);
+    this.egfr.suggestedMax = maxDate.toDate();
     const lineChartOptions = getLineChartOptionsObject(10, 70, this.egfr.suggestedMin, this.egfr.suggestedMax);
     const lineChartAnnotations = getEgrLineChartAnnotationsObject();
     this.egfr.lineChartOptions = { ...lineChartOptions, annotation: lineChartAnnotations };
@@ -518,7 +519,7 @@ export class DataService {
       .pipe(
         finalize(() => {
           this.uacr.chartData.push(uacrChartData);
-          this.uacrDataSource.data = this.uacr.tableData;
+          this.uacrDataSource.data = this.uacr.tableData.sort((a, b) => { return moment(a.date).unix() > moment(b.date).unix() ? -1 : 1; });
           const vsLowDateRow: UacrTableData = (this.uacr.tableData.reduce((low, e) =>
             reformatYYYYMMDD(low.date) < reformatYYYYMMDD(e.date) ? low : e));
           const vsHighDateRow: UacrTableData = (this.uacr.tableData.reduce((high, e) =>
@@ -528,9 +529,9 @@ export class DataService {
           this.uacr.mostRecentUacr.unit = vsHighDateRow.unit;
           this.uacr.mostRecentUacr.test = vsHighDateRow.test;
           this.uacr.mostRecentUacr.result = formatUacrResult(vsHighDateRow.uacr, vsHighDateRow.unit);
-          const minDate = new Date(moment(vsLowDateRow.date.toString()).startOf('month').format('MMMM DD YYYY H:mm A'));
+          const minDate = moment(vsLowDateRow.date, moment.defaultFormat);
           this.uacr.suggestedMin = minDate;
-          const maxDate = new Date(moment(vsHighDateRow.date.toString()).add(1, 'M').startOf('month').format('YYYY-MM-DD hh:mm:ss'));
+          const maxDate = moment(vsHighDateRow.date.toString());
           this.uacr.suggestedMax = maxDate;
           const lineChartOptions = getLineChartOptionsObject(0, 400, this.uacr.suggestedMin, this.uacr.suggestedMax);
           const lineChartAnnotations = getUacrLineChartAnnotationsObject();
@@ -552,6 +553,7 @@ export class DataService {
             );
           });
           this.uacr.xAxisLabels = xAxisLabels;
+          window[Constants.UACRisLoaded] = true;
         })
       )
       .subscribe(res => {
@@ -577,7 +579,8 @@ export class DataService {
       .pipe(
         finalize(() => {
           this.wot.chartData.push(wotChartData);
-          this.wotDataSource.data = this.wot.tableData;
+          this.wotDataSource.data = this.wot.tableData.sort((a, b) => { return moment(a.date).unix() > moment(b.date).unix() ? -1 : 1; });
+          window[Constants.WotIsLoaded] = true;
           const vsLowDateRow: WotTableData = (this.wot.tableData.reduce((low, e) =>
             reformatYYYYMMDD(low.date) < reformatYYYYMMDD(e.date) ? low : e));
           const vsHighDateRow: WotTableData = (this.wot.tableData.reduce((high, e) =>
@@ -587,9 +590,9 @@ export class DataService {
           this.wot.mostRecentWot.unit = vsHighDateRow.unit;
           this.wot.mostRecentWot.test = vsHighDateRow.test;
           this.wot.mostRecentWot.result = formatWotResult(vsHighDateRow.value, vsHighDateRow.unit);
-          const minDate = new Date(moment(vsLowDateRow.date.toString()).startOf('month').format('MMMM DD YYYY H:mm A'));
+          const minDate = moment(vsLowDateRow.date);
           this.wot.suggestedMin = minDate;
-          const maxDate = new Date(moment(vsHighDateRow.date.toString()).add(1, 'M').startOf('month').format('YYYY-MM-DD hh:mm:ss'));
+          const maxDate = moment(vsHighDateRow.date);
           this.wot.suggestedMax = maxDate;
           const lineChartOptions = getLineChartOptionsObject(50, 280, this.wot.suggestedMin, this.wot.suggestedMax);
           const lineChartAnnotations = getWotLineChartAnnotationsObject();

@@ -1,10 +1,11 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {DataService} from '../services/data.service';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort, Sort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import {GoalSummary} from '../generated-data-api';
-import {reformatYYYYMMDD} from '../util/utility-functions';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { GoalSummary } from '../generated-data-api';
+import { reformatYYYYMMDD } from '../util/utility-functions';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-consolidated-goals',
@@ -12,7 +13,7 @@ import {reformatYYYYMMDD} from '../util/utility-functions';
   styleUrls: ['./consolidated-goals.component.css']
 })
 export class ConsolidatedGoalsComponent implements OnInit, AfterViewInit {
-  consolidatedGoalsDataSource: MatTableDataSource<GoalSummary> = this.dataService.consolidatedGoalsDataSource;
+  consolidatedGoalsDataSource: MatTableDataSource<GoalSummary>;
 
   constructor(public dataService: DataService) {
   }
@@ -24,7 +25,7 @@ export class ConsolidatedGoalsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit(): void {
-
+    this.consolidatedGoalsDataSource = this.dataService.consolidatedGoalsDataSource;
   }
 
   ngAfterViewInit(): void {
@@ -34,7 +35,6 @@ export class ConsolidatedGoalsComponent implements OnInit, AfterViewInit {
       switch (header) {
         case ('status'): {
           return data.achievementStatus.text;
-          break;
         }
         case ('priority'): {
           if (data.priority.toLowerCase() === 'undefined') {
@@ -42,25 +42,20 @@ export class ConsolidatedGoalsComponent implements OnInit, AfterViewInit {
           } else {
             return data[header];
           }
-          break;
         }
-        case ('startDateText' ): {
-          return reformatYYYYMMDD(data[header]);
-          break;
+        case ('startDateText'): {
+          return moment(data[header]).unix();
         }
         case ('targetDateText'): {
-          return reformatYYYYMMDD(data[header]);
-          break;
+          return moment(data[header]).unix();
+        }
+        case ("achievementStatus"): {
+          return data[header].text;
         }
         default: {
           return data[header];
         }
       }
     };
-    const sortState: Sort = {active: 'priority', direction: 'asc'};
-    this.sort.active = sortState.active;
-    this.sort.direction = sortState.direction;
-    this.sort.sortChange.emit(sortState);
-
   }
 }

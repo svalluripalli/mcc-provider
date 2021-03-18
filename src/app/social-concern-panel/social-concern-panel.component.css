@@ -1,3 +1,12 @@
+tr.mat-header-row {
+  min-height: 48px;
+  height: 48px !important;
+}
+
+tr.mat-row {
+  min-height: 24px;
+  height: 24px !important;
+}
 
 .mat-grid-tile .mat-figure {
   align-items: flex-start;
@@ -5,20 +14,6 @@
   vertical-align: top;
   horiz-align: left;
   flex: 0 0 auto !important;
-}
-
-mat-table {
-  vertical-align: top;
-  min-width: 500px;
-}
-mat-header-row {
-  min-height: 24px;
-  height: 24px !important;
-}
-
-mat-row {
-  min-height: 24px;
-  height: 24px !important;
 }
 
 .mat-column-concern {
@@ -84,4 +79,13 @@ th.mat-header-cell, td.mat-cell {
 
 .mat-expansion-panel-header-title {
   margin-right: 0;
+}
+
+table.mat-table {
+  width:  100%;
+}
+
+table.mat-table th, table.mat-table td {
+  border-left: none !important;
+  border-right: none !important;
 }

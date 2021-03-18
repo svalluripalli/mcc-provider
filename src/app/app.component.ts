@@ -1,23 +1,21 @@
 import {
-  AfterContentInit,
   AfterViewInit,
-  ApplicationRef,
   ChangeDetectorRef,
   Component,
+  Inject,
   OnInit,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { FormControl, Validators } from '@angular/forms';
 import { SubjectDataService } from './services/subject-data-service.service';
-import { CareplanService } from './services/careplan.service';
 import { DataService } from './services/data.service';
 import { environment } from '../environments/environment';
 import { Observable } from 'rxjs';
-import { startWith, debounceTime, distinctUntilChanged, switchMap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { MccCarePlan } from './generated-data-api/models/MccCarePlan';
 import { ActivatedRoute, Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-root',
@@ -32,10 +30,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild('patSearch', { static: true }) patSearch: any;
   navLinks: any[];
   activeLinkIndex = -1;
+  window: any;
 
   constructor(public dataservice: DataService, public subjectdataservice: SubjectDataService,
     private route: ActivatedRoute, private changeDetector: ChangeDetectorRef,
-    private router: Router) {
+    private router: Router,
+    @Inject(DOCUMENT) private document) {
+      this.window = this.document.defaultView;
 
     this.navLinks = [
       {
@@ -68,8 +69,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   events: string[] = [];
   opened: boolean;
   apiURL: string;
-  // currentSubjectId = 'cc-pat-betsy';
-  // currentCarePlanId = 'cc-careplan-betsy-ckd';
   currentSubjectId = '';
   currentCarePlanId = '';
   patientSearch = new FormControl('', Validators.required);
@@ -90,6 +89,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.dataservice.setCurrentSubject(this.currentSubjectId);
     this.dataservice.setCurrentCarePlan(this.currentCarePlanId);
     this.route.queryParams.subscribe(params => {
+      // @ts-ign
       console.log(params); // { order: "popular" }
 
       const dev = params.devmode;
@@ -106,7 +106,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.activeLinkIndex = this.navLinks.indexOf(this.navLinks.find(tab => tab.link === '.' + this.router.url));
     });
 
-    const skey = sessionStorage.SMART_KEY;
+    const skey = this.window.sessionStorage.SMART_KEY;
     const key = skey ? skey.replace(/['"]+/g, '') : "";
     console.log('Ang: Smart Key is ' + key);
     if (key != null) {
@@ -124,7 +124,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   async updateDataContext(key: string, count: number): Promise<void> {
     console.log('Updating Context');
-    const info = JSON.parse(sessionStorage.getItem(key));
+    const info = JSON.parse(this.window.sessionStorage.getItem(key));
     if (info != null) {
       console.log('server: ' + info.serverUrl);
       const tokenResp = info.tokenResponse;
@@ -182,13 +182,21 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   initFilteredPatients() {
-    this.filteredPatients = new Observable<any[]>();
-    this.filteredPatients = this.patientSearch.valueChanges
-      .pipe(
-        startWith(''),
-        debounceTime(300),
-        distinctUntilChanged(),
-        switchMap(value => this._dataFilter(value || ''))
-      );
+    // this.filteredPatients = new Observable<any[]>();
+    // this.filteredPatients = this.patientSearch.valueChanges
+    //   .pipe(
+    //     startWith(''),
+    //     // debounceTime(300),
+    //     distinctUntilChanged(),
+    //     switchMap(value => this._dataFilter(value || ''))
+    //   );
   }
 }
+function bootstrap(arg0: any, arg1: any[]) {
+  throw new Error('Function not implemented.');
+}
+
+function Window(Window: any, arg1: { useValue: any; }): any {
+  throw new Error('Function not implemented.');
+}
+

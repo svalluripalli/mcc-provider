@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {DataService} from '../services/data.service';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {DiagnosisDialogComponent} from '../diagnosis-dialog/diagnosis-dialog.component';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DiagnosisDialogComponent } from '../diagnosis-dialog/diagnosis-dialog.component';
+import { Router } from '@angular/router';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import * as moment from 'moment';
 
 
 @Component({
@@ -11,17 +14,26 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./active-diagnosis-panel.component.css']
 })
 export class ActiveDiagnosisPanelComponent implements OnInit {
-  private route: ActivatedRoute;
-  private router: Router;
-  constructor(public dataservice: DataService, private dialog: MatDialog, private rt: ActivatedRoute, private rtr: Router) {
-    this.route = rt;
-    this.router = rtr;
-  }
+  displayedColumns: string[] = ['code', 'rxfilter', 'trend', 'firstOnset'];
+  dataSource: any;
 
-  displayedColumns = ['name', 'rxfilter', 'trend', 'date'];
+  @ViewChild(MatSort) sort: MatSort;
 
-  /* dataSource = DIAGNOISIS_DATA; */
+  constructor(public dataservice: DataService, private dialog: MatDialog, private router: Router) { }
+
   ngOnInit(): void {
+    this.dataSource = new MatTableDataSource(this.dataservice.conditions.activeConditions);
+    this.dataSource.sortingDataAccessor = (item, property): string | number => {
+      switch (property) {
+        case 'firstOnset': return moment(item[property]).unix();
+        case 'code': return item[property].text.toUpperCase();
+        default: return item[property];
+      }
+    };
+  }
+  
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   onRowClicked(row) {
@@ -38,30 +50,11 @@ export class ActiveDiagnosisPanelComponent implements OnInit {
     this.dialog.open(DiagnosisDialogComponent, dialogConfig);
   }
 
-  switchToHM(code: string) {
-    // console.log('Switch to Health Maintenance icon clicked. code=', code);
+  switchToHM() {
     this.router.navigate(['/maint'], { queryParamsHandling: 'merge' });
   }
 
-  switchToHS(code: string) {
-    // console.log('Switch to Health Status icon clicked. code=', code);
+  switchToHS() {
     this.router.navigate(['/status'], { queryParamsHandling: 'merge' });
   }
-
-
 }
-
-/*
-export interface Diagnosis {
-  checked: boolean;
-  name: string;
-  date: string;
-  highlighted?: boolean;
-  hovered?: boolean;
-}
-
-const DIAGNOISIS_DATA: Diagnosis[] = [
-  {checked: false, name: 'Chronic Kidney Disease', date: '04/26/2015' },
-  {checked: false, name: 'Diabetes', date: '12/13/2015' }
-]
-*/

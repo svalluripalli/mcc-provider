@@ -65,7 +65,7 @@ export class SubjectDataService{
     const url = `${environment.mccapiUrl}${this.conditionSummaryURL}?subject=${id}`;
 
     return this.http.get<ConditionLists>(url, this.httpOptions).pipe(
-      tap(_ => this.log('fetched Conditions')),
+      tap(_ => { this.log;}),
       catchError(this.handleError<ConditionLists>('getConditions'))
     );
 

@@ -1,12 +1,13 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {Color} from 'ng2-charts';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Color } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
-import {DataService} from '../services/data.service';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort, Sort} from '@angular/material/sort';
-import {UacrTableData} from '../datamodel/uacr';
-import {formatUacrResult, reformatYYYYMMDD} from '../util/utility-functions';
-import {MatTableDataSource} from '@angular/material/table';
+import { DataService } from '../services/data.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { UacrTableData } from '../datamodel/uacr';
+import { formatUacrResult, reformatYYYYMMDD } from '../util/utility-functions';
+import { MatTableDataSource } from '@angular/material/table';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-uacr',
@@ -15,7 +16,7 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class UACRComponent implements OnInit, AfterViewInit {
 
-  uacrDataSource: MatTableDataSource<UacrTableData> = this.dataservice.uacrDataSource;
+  uacrDataSource: MatTableDataSource<UacrTableData>;
   uacrRowMax = 7;
 
   public lineChartColors: Color[] = [
@@ -26,17 +27,17 @@ export class UACRComponent implements OnInit, AfterViewInit {
   ];
 
   public lineChartLegend = false;
-  public lineChartPlugins =  [pluginAnnotations];
+  public lineChartPlugins = [pluginAnnotations];
   public lineChartType = 'line';
 
   constructor(public dataservice: DataService) { }
 
-  displayedColumns = ['date', 'result'];
+  displayedColumns = ['date', 'uacr'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit(): void {
-
+    this.uacrDataSource = this.dataservice.uacrDataSource;
   }
 
   ngAfterViewInit(): void {
@@ -47,23 +48,14 @@ export class UACRComponent implements OnInit, AfterViewInit {
     this.uacrDataSource.sort = this.sort;
     this.uacrDataSource.sortingDataAccessor = (data: UacrTableData, header: string) => {
       switch (header) {
-        case ('result'): {
-          return data.uacr;
+        case ('date'): {
+          return moment(data.date).unix();
         }
-
-        case ('date' ): {
-          return reformatYYYYMMDD(data.date);
-        }
-
         default: {
           return data[header];
         }
       }
     };
-    const sortState: Sort = {active: 'date', direction: 'desc'};
-    this.sort.active = sortState.active;
-    this.sort.direction = sortState.direction;
-    this.sort.sortChange.emit(sortState);
   }
 
   UacrResult(uacr: UacrTableData): string {
