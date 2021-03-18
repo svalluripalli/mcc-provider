@@ -378,7 +378,7 @@ export class DataService {
           const minDate = moment(vsLowDateRow.date);
           this.vitalSigns.suggestedMin = minDate;
           const maxDate = moment(vsHighDateRow.date);
-          this.vitalSigns.suggestedMax = maxDate;
+          this.vitalSigns.suggestedMax = minDate;
           this.vitalSigns.lineChartOptions = getLineChartOptionsObject(50, 180, this.vitalSigns.suggestedMin, this.vitalSigns.suggestedMax);
           this.vitalSigns.xAxisLabels = [];
           let yr = '';
@@ -477,9 +477,9 @@ export class DataService {
     this.egfr.mostRecentEgfr.test = vsHighDateRow.test;
     this.egfr.mostRecentEgfr.result = formatEgfrResult(vsHighDateRow.egfr, vsHighDateRow.unit);
     const minDate = moment(vsLowDateRow.date);
-    this.egfr.suggestedMin = minDate;
+    this.egfr.suggestedMin = minDate.toDate();
     const maxDate = moment(vsHighDateRow.date);
-    this.egfr.suggestedMax = maxDate;
+    this.egfr.suggestedMax = maxDate.toDate();
     const lineChartOptions = getLineChartOptionsObject(10, 70, this.egfr.suggestedMin, this.egfr.suggestedMax);
     const lineChartAnnotations = getEgrLineChartAnnotationsObject();
     this.egfr.lineChartOptions = { ...lineChartOptions, annotation: lineChartAnnotations };

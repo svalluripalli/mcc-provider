@@ -251,7 +251,7 @@ export function reformatYYYYMMDD(dt): string {
   }
 }
 
-export function getLineChartOptionsObject(min: number, max: number, suggestedMinDate: moment.Moment, suggestedMaxDate: moment.Moment): {} {
+export function getLineChartOptionsObject(min: number, max: number, suggestedMinDate: any, suggestedMaxDate: any): {} {
   const opts =
   {
     responsive: false,
@@ -267,8 +267,8 @@ export function getLineChartOptionsObject(min: number, max: number, suggestedMin
         type: 'time',
         distribution: 'linear',
         ticks: {
-          min: suggestedMinDate,
-          max: suggestedMaxDate,
+          // min: suggestedMinDate,
+          // max: suggestedMaxDate,
           maxTicksLimit: 7
         },
         time: {

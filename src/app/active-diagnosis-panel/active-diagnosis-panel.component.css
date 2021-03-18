@@ -1,17 +1,18 @@
-mat-table {
+tr.mat-table {
   vertical-align: top;
   min-width: 500px;
-
 }
-mat-header-row {
+
+tr.mat-header-row {
   min-height: 48px;
   height: 48px !important;
 }
 
-mat-row {
+tr.mat-row {
   min-height: 24px;
   height: 24px !important;
 }
+
 .mat-column-checked {
   word-wrap: break-word !important;
   white-space: unset !important;

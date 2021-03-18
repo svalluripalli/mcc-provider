@@ -34,8 +34,8 @@ interface Uacr {
   tableData?: Array<UacrTableData>;
   chartData?: Array<ChartDataSets>;
   xAxisLabels?: Array<Label>;
-  suggestedMin?: moment.Moment;
-  suggestedMax?: moment.Moment;
+  suggestedMin?: any;
+  suggestedMax?: any;
   lineChartOptions?: ChartOptions & { annotation: any };
 }
 
