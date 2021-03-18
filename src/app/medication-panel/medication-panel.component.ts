@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import {DataService} from '../services/data.service';
-import {MatPaginator} from '@angular/material/paginator';
+import { DataService } from '../services/data.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-medication-panel',
@@ -11,15 +12,18 @@ import {MatPaginator} from '@angular/material/paginator';
 export class MedicationPanelComponent implements OnInit, AfterViewInit {
 
   constructor(public dataService: DataService) { }
-  displayedColumns = ['name', 'reason', 'dose', 'prescribedBy', 'issues', 'priority'];
-  activeMedicationsDataSource = this.dataService.activeMedicationsDataSource;
+  displayedColumns = ['medication', 'reasons', 'dosages', 'requestedBy', 'issues', 'priority'];
+  activeMedicationsDataSource: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit(): void {
+    this.activeMedicationsDataSource = this.dataService.activeMedicationsDataSource;
   }
 
   ngAfterViewInit(): void {
+    this.activeMedicationsDataSource.sort = this.sort;
     this.activeMedicationsDataSource.paginator = this.paginator;
   }
 

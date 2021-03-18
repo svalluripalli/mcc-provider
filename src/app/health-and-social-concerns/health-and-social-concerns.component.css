@@ -1,3 +1,20 @@
-table, td {
-  vertical-align: top;
+/* For mobile phones: */
+
+section {
+  width: 100%;
+  float: left;
+  padding: 10px 0;
+}
+
+/* For tablets+: */
+
+@media only screen and (min-width: 700px) {
+  section {
+    width: 48%;
+    float: left;
+    padding: 0 0 0 1%;
+  }
+  section:first-of-type {
+    padding: 0 1% 0 0;
+  }
 }

@@ -14,43 +14,13 @@
       </div>
       </td>
     <td>
-<!--      <table width="100%">-->
-<!--        <tr>-->
-<!--          <td>Date</td>-->
-<!--          <td>Result</td>-->
-<!--        </tr>-->
-<!--        <tr class="resultCritical">-->
-<!--          <td>05/21/2017</td>-->
-<!--          <td>307 mg/g</td>-->
-<!--        </tr>-->
-<!--        <tr class="resultBorderline">-->
-<!--          <td>04/23/2017</td>-->
-<!--          <td>37 mg/g</td>-->
-<!--        </tr>-->
-<!--        <tr class="resultBorderline">-->
-<!--          <td>03/11/2017</td>-->
-<!--          <td>35 mg/g</td>-->
-<!--        </tr>-->
-<!--        <tr class="resultBorderline">-->
-<!--          <td>02/11/2017</td>-->
-<!--          <td>32 mg/g</td>-->
-<!--        </tr>-->
-<!--        <tr class="resultBorderline">-->
-<!--          <td>01/10/2017</td>-->
-<!--          <td>31 mg/g</td>-->
-<!--        </tr>-->
-<!--        <tr class="resultGood">-->
-<!--          <td>12/12/2016</td>-->
-<!--          <td>28 mg/g</td>-->
-<!--        </tr>-->
-<!--      </table>-->
-      <table mat-table matSort [dataSource]="uacrDataSource" width="100%">
+      <table mat-table matSort [dataSource]="uacrDataSource" matSort width="100%">
         <ng-container matColumnDef="date">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header="date">Date</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
           <td mat-cell *matCellDef="let uacr"> {{uacr.date | date: 'MM/dd/yyyy'}} </td>
         </ng-container>
-        <ng-container matColumnDef="result">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header="result">Result</th>
+        <ng-container matColumnDef="uacr">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Result</th>
           <td mat-cell *matCellDef="let uacr" [innerHTML]="UacrResult(uacr)"></td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {DataService} from '../services/data.service';
-import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {DiagnosisDialogComponent} from '../diagnosis-dialog/diagnosis-dialog.component';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DiagnosisDialogComponent } from '../diagnosis-dialog/diagnosis-dialog.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
+import * as moment from 'moment';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-inactive-diagnosis-panel',
@@ -12,15 +15,31 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 // todo: combine ActiveDiagnosisPanelCompenent and InactiveDiagnosisPanelCompenent into one component
 export class InactiveDiagnosisPanelComponent implements OnInit {
+  displayedColumns: string[] = ['code', 'rxfilter', 'trend', 'firstOnset'];
+  dataSource: any;
+  
+  @ViewChild(MatSort) sort: MatSort;
+
   private route: ActivatedRoute;
   private router: Router;
   constructor(public dataservice: DataService, private dialog: MatDialog, private rt: ActivatedRoute, private rtr: Router) {
     this.route = rt;
     this.router = rtr;
   }
-  displayedColumns = ['name', 'rxfilter', 'trend', 'date'];
 
   ngOnInit(): void {
+    this.dataSource = new MatTableDataSource(this.dataservice.conditions.inactiveConditions);
+    this.dataSource.sortingDataAccessor = (item, property): string | number => {
+      switch (property) {
+        case 'firstOnset': return moment(item[property]).unix();
+        case 'code': return item[property].text.toUpperCase();
+        default: return item[property];
+      }
+    };
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   onRowClicked(row) {

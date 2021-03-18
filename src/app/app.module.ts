@@ -45,6 +45,7 @@ import { ConsolidatedGoalsComponent } from './consolidated-goals/consolidated-go
 import { Testgraph1Component } from './testgraph1/testgraph1.component';
 import { ObservationsService } from './services/observations.service';
 import { NullCheckPipe } from './pipes/null-check.pipe';
+import { MatSortModule } from '@angular/material/sort';
 
 const routes: Routes = []; // sets up routes constant where you define your routes
 
@@ -82,6 +83,7 @@ const routes: Routes = []; // sets up routes constant where you define your rout
     NullCheckPipe
   ],
   imports: [
+    MatSortModule,
     FlexLayoutModule,
     ChartsModule,
     BrowserModule,

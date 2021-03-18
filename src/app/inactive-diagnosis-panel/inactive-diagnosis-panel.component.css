@@ -1,16 +1,9 @@
-
-
-mat-table {
-  vertical-align: top;
-  min-width: 380px;
-}
-
-mat-header-row {
+tr.mat-header-row {
   min-height: 48px;
   height: 48px !important;
 }
 
-mat-row {
+tr.mat-row {
   min-height: 24px;
   height: 24px !important;
 }
@@ -103,4 +96,14 @@ th.mat-header-cell, td.mat-cell {
 
 .mat-expansion-panel-header-title {
   margin-right: 0;
+}
+
+
+table.mat-table {
+  width:  100%;
+}
+
+table.mat-table th, table.mat-table td {
+  border-left: none !important;
+  border-right: none !important;
 }

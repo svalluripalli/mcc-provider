@@ -1,9 +1,10 @@
 import {ChartDataSets, ChartOptions, ChartPoint} from 'chart.js';
+import * as moment from 'moment';
 import {Label} from 'ng2-charts';
 import {getLineChartOptionsObject} from '../util/utility-functions';
 
 interface UacrTableData {
-  date?: string;
+  date?: Date;
   uacr?: number;
   unit?: string;
   test?: string;
@@ -18,7 +19,7 @@ interface UacrDataForDisplay {
   test?: string;
   value?: number;
   unit?: string;
-  date?: string;
+  date?: Date;
   result?: string;
 }
 
@@ -33,8 +34,8 @@ interface Uacr {
   tableData?: Array<UacrTableData>;
   chartData?: Array<ChartDataSets>;
   xAxisLabels?: Array<Label>;
-  suggestedMin?: Date;
-  suggestedMax?: Date;
+  suggestedMin?: any;
+  suggestedMax?: any;
   lineChartOptions?: ChartOptions & { annotation: any };
 }
 
@@ -52,9 +53,9 @@ const emptyUacr: Uacr = {
   tableData: emptyUacrTableData,
   chartData: emptyUacrChartData,
   xAxisLabels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-  suggestedMin: new Date('2020-01-01'),
-  suggestedMax: new Date('2020-06-30'),
-  lineChartOptions: {...getLineChartOptionsObject(0, 2000, new Date('2020-01-01'),  new Date('2020-06-30')), annotation: []}
+  suggestedMin: moment('2020-01-01'),
+  suggestedMax: moment('2020-06-30'),
+  lineChartOptions: {...getLineChartOptionsObject(0, 2000, moment('2020-01-01'),  moment('2020-06-30')), annotation: []}
 };
 
 export {

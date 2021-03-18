@@ -12,12 +12,12 @@
   </tr>
   <tr>
     <td colspan="3">
-      <app-blood-pressure></app-blood-pressure>
+      <app-blood-pressure *ngIf="getBPisLoaded()"></app-blood-pressure>
     </td>
   </tr>
   <tr>
     <td [colSpan]="3">
-      <app-weight-over-time></app-weight-over-time>
+      <app-weight-over-time *ngIf="getWotIsLoaded()"></app-weight-over-time>
     </td>
   </tr>
   <tr *ngIf="!dataservice.vitalSignResults || dataservice.vitalSignResults.length === 0">

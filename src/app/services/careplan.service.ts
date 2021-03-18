@@ -81,6 +81,4 @@ export class CareplanService {
   private log(message: string) {
     this.messageService.add(`careplan-service: ${message}`);
   }
-
-
 }
