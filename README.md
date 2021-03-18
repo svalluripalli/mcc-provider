@@ -116,7 +116,7 @@ The latest images are available at docker hub under mcccareplan/*.
 
 2021-03-18
 - Release ("1.0.8")
-- Restructured tables (due to large amounts of console errors)
+- Refactored tables (due to large amounts of console errors)
 
 2021-03-15    
 - Release ("1.0.7")
