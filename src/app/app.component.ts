@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MccCarePlan } from './generated-data-api/models/MccCarePlan';
 import { ActivatedRoute, Router } from '@angular/router';
+import { version } from '../../package.json';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class AppComponent implements OnInit, AfterViewInit {
+  public version: string = version;
 
   // todo:  use of patSearch template variable to set focus not working..
   @ViewChild('patSearch', { static: true }) patSearch: any;
@@ -36,7 +38,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute, private changeDetector: ChangeDetectorRef,
     private router: Router,
     @Inject(DOCUMENT) private document) {
-      this.window = this.document.defaultView;
+    this.window = this.document.defaultView;
 
     this.navLinks = [
       {
@@ -139,7 +141,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         // Smart on FHIR still not ready (grrr....)
         if (count > 0) {
           const t = await this.waitFor(1000);
-          console.log(t + '('  + count + ')' );
+          console.log(t + '(' + count + ')');
           this.updateDataContext(key, count - 1);
         }
       }

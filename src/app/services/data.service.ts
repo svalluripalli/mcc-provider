@@ -25,7 +25,7 @@ import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { ContactsService } from './contacts.service';
 import { MedicationService } from './medication.service';
-import { concatMap, tap } from 'rxjs/operators';
+import { concatMap } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material/table';
 import { MessageService } from './message.service';
 import {
@@ -237,7 +237,10 @@ export class DataService {
 
   async updateCarePlan(): Promise<boolean> {
     this.careplanservice.getCarePlan(this.currentCareplanId)
-      .subscribe(careplan => this.careplan = careplan);
+      .subscribe(careplan => {
+        
+        this.careplan = careplan
+      });
     return true;
   }
 
