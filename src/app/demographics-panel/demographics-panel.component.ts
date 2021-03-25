@@ -14,7 +14,7 @@ export class DemographicsPanelComponent implements OnInit {
   getPeriodText(start: string, end: string): string {
     const out = '';
     if (end == null || end === '') {
-      if (start === null || start === '') {
+      if (start === null || start === '' || start === "undefined") {
         return 'undefined';
       }
       return out.concat(start, ' onward');

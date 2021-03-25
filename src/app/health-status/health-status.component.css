@@ -8,7 +8,7 @@ section {
 
 /* For tablets+: */
 
-@media only screen and (min-width: 1200px) {
+@media (min-width: 1200px) {
   section {
     width: 50%;
     float: left;
