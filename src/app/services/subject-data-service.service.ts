@@ -5,13 +5,13 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { MccPatient } from '../generated-data-api';
 import { MessageService } from './message.service';
-import { SocialConcern} from '../generated-data-api';
-import {environment} from '../../environments/environment';
-import {ConditionLists} from '../generated-data-api';
+import { SocialConcern } from '../generated-data-api';
+import { environment } from '../../environments/environment';
+import { ConditionLists } from '../generated-data-api';
 
 
-@Injectable({providedIn: 'root'})
-export class SubjectDataService{
+@Injectable({ providedIn: 'root' })
+export class SubjectDataService {
 
   baseServer = environment.mccapiUrl;
 
@@ -22,7 +22,7 @@ export class SubjectDataService{
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient,  private messageService: MessageService) { }
+  constructor(private http: HttpClient, private messageService: MessageService) { }
 
 
 
@@ -51,7 +51,7 @@ export class SubjectDataService{
   }
 
   /** GET Subjects by searchString. Will 404 if id not found */
-  getSubjects(searchFor: string): Observable<MccPatient>{
+  getSubjects(searchFor: string): Observable<MccPatient> {
     const url = `${environment.mccapiUrl}${this.patientURL}?name=${searchFor}`;
     return this.http.get<MccPatient>(url, this.httpOptions).pipe(
       tap(_ => this.log(`fetched subject id=${_.id}`)),
@@ -60,19 +60,17 @@ export class SubjectDataService{
   }
 
 
-  getConditions(id: string): Observable<ConditionLists>
-  {
+  getConditions(id: string): Observable<ConditionLists> {
     const url = `${environment.mccapiUrl}${this.conditionSummaryURL}?subject=${id}`;
 
     return this.http.get<ConditionLists>(url, this.httpOptions).pipe(
-      tap(_ => { this.log;}),
+      tap(_ => { this.log; }),
       catchError(this.handleError<ConditionLists>('getConditions'))
     );
 
   }
-  getSocialConcerns(id: string, careplan: string): Observable<SocialConcern[]>
-  {
-    const url = `${environment.mccapiUrl}${this.concernURL}?subject=${id}&careplan=${careplan}`;
+  getSocialConcerns(id: string, careplan: string): Observable<SocialConcern[]> {
+    const url = `${environment.mccapiUrl}${this.concernURL}?subject=${id}${careplan ? '&careplan=' + careplan : ''}`;
 
     return this.http.get<SocialConcern[]>(url, this.httpOptions).pipe(
       tap(_ => this.log('fetched Concern')),
@@ -80,22 +78,20 @@ export class SubjectDataService{
     );
 
   }
-  getPateintsSortedByName()
-  {
+  getPateintsSortedByName() {
     /*
     https://api.logicahealth.org/MCCeCarePlanTest/open/Patient?_sort=family,given
      */
 
   }
 
-   getTotalPatients()
-   {
+  getTotalPatients() {
 
-     /*
-     https://api.logicahealth.org/MCCeCarePlanTest/open/Patient?_count=0
-     body.total
-      */
-   }
+    /*
+    https://api.logicahealth.org/MCCeCarePlanTest/open/Patient?_count=0
+    body.total
+     */
+  }
 
   /**
    * Handle Http operation that failed.

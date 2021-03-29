@@ -25,7 +25,7 @@ import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { ContactsService } from './contacts.service';
 import { MedicationService } from './medication.service';
-import { concatMap, tap } from 'rxjs/operators';
+import { concatMap } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material/table';
 import { MessageService } from './message.service';
 import {
@@ -237,7 +237,10 @@ export class DataService {
 
   async updateCarePlan(): Promise<boolean> {
     this.careplanservice.getCarePlan(this.currentCareplanId)
-      .subscribe(careplan => this.careplan = careplan);
+      .subscribe(careplan => {
+        // Inject 
+        this.careplan = careplan
+      });
     return true;
   }
 
@@ -246,7 +249,8 @@ export class DataService {
       .subscribe((cp) => {
         this.careplans = cp;
         if (this.careplans.length > 0) {
-          this.careplan = this.careplans[this.careplans.length - 1]; // Initialize selected careplan to last in MccCarePlan array
+          this.careplan = this.careplans[0];
+          //this.careplan = this.careplans[this.careplans.length - 1]; // Initialize selected careplan to last in MccCarePlan array
           this.currentCareplanId = this.careplan.fhirid;
           this.updateContacts();
           this.updateCounseling();
@@ -258,6 +262,8 @@ export class DataService {
         } else {
           this.careplan = dummyCarePlan;        // Initialize selected careplan to dummy careplan if no care plans available for subject
           this.updateContacts();
+          this.updateLabResults(this.currentPatientId, "general");
+          this.updateVitalSignResults(this.currentPatientId, "general");
         }
         this.updateSocialConcerns();
       });

@@ -113,6 +113,10 @@ The latest images are available at docker hub under mcccareplan/*.
 
 
 #Changelog
+Release 2021-03-29
+- Release ("1.0.9")
+- Handle no careplans (default labs/vitals)
+- Better responsiveness
 
 2021-03-18
 - Release ("1.0.8")
