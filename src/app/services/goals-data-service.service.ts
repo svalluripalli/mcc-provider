@@ -120,10 +120,12 @@ export class GoalsDataService {
           observer.complete();
         }))
         .subscribe(observations => {
+          let i: number = 0;
           observations.map(obs => {
             let systolic = 0;
             let diastolic = 0;
             obs.components.map(c => {
+              // This works now, may not with different data sets
               switch (c.code.coding[0].code) {
                 case observationCodes.Diastolic:
                   diastolic = c.value.quantityValue.value;
@@ -189,18 +191,13 @@ export class GoalsDataService {
         }))
         .subscribe(observations => {
           observations.map(obs => {
-            switch (obs.code.coding[0].code) {
-              case observationCodes.Uacr:
-                const uacr: UacrTableData = {
-                  date: obs.effective.dateTime.date,
-                  uacr: obs.value.quantityValue.value,
-                  unit: obs.value.quantityValue.unit,
-                  test: obs.code.text
-                };
-                observer.next(uacr);
-                break;
-              default:
-            }
+            const uacr: UacrTableData = {
+              date: obs.effective.dateTime.date,
+              uacr: obs.value.quantityValue.value,
+              unit: obs.value.quantityValue.unit,
+              test: obs.code.text
+            };
+            observer.next(uacr);
           });
         });
     });
@@ -214,18 +211,13 @@ export class GoalsDataService {
         }))
         .subscribe(observations => {
           observations.map(obs => {
-            switch (obs.code.coding[0].code) {
-              case observationCodes.Wot:
-                const wot: WotTableData = {
-                  date: obs.effective.dateTime.date,
-                  value: obs.value.quantityValue.value,
-                  unit: obs.value.quantityValue.unit,
-                  test: obs.code.text
-                };
-                observer.next(wot);
-                break;
-              default:
-            }
+            const wot: WotTableData = {
+              date: obs.effective.dateTime.date,
+              value: obs.value.quantityValue.value,
+              unit: obs.value.quantityValue.unit,
+              test: obs.code.text
+            };
+            observer.next(wot);
           });
         });
     });

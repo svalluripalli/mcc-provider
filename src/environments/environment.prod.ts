@@ -1,4 +1,6 @@
 /* tslint:disable */
+declare var window: any;
+
 export const environment = {
   production: true,
   mccapiUrl:  window["env"]["apiServer"] || 'https://mcc-niddk-backend.wl.r.appspot.com',

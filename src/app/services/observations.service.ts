@@ -199,7 +199,7 @@ export class ObservationsService {
     }
 
     getVitalSignResults(patientId: string, longTermCondition: string): any {
-        longTermCondition = "ckd";
+        if (!longTermCondition || longTermCondition !== "general") longTermCondition = "ckd";
         let results: FormattedResult[] = [];
         let callsToMake: PatientLabResultsMap[] = Constants.vitalSignsMap.get(longTermCondition);
         let promiseArray = [];

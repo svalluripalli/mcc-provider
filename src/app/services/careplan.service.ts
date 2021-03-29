@@ -15,7 +15,7 @@ import { MessageService } from './message.service';
 })
 export class CareplanService {
 
-  private baseURL = '/careplan';
+  private baseURL = '/find/best/careplan';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

@@ -11,6 +11,7 @@ declare var window: any;
   styleUrls: ['./lab-test-result.component.css']
 })
 export class LabTestResultComponent implements OnInit {
+  loadingText: string = "Loading...";
   results: MccObservation[] = [];
   patientId: string;
   longTermCondition: string;
@@ -21,6 +22,8 @@ export class LabTestResultComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(`in LabTestResultComponent ngOnInit(): this.dataservices.egfr : `, this.dataservice.egfr);
+    // Determine if there is no careplan selected)
+    
   }
 
   getEGFRisLoaded(): boolean {
