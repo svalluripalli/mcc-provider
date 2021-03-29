@@ -249,7 +249,8 @@ export class DataService {
       .subscribe((cp) => {
         this.careplans = cp;
         if (this.careplans.length > 0) {
-          this.careplan = this.careplans[this.careplans.length - 1]; // Initialize selected careplan to last in MccCarePlan array
+          this.careplan = this.careplans[0];
+          //this.careplan = this.careplans[this.careplans.length - 1]; // Initialize selected careplan to last in MccCarePlan array
           this.currentCareplanId = this.careplan.fhirid;
           this.updateContacts();
           this.updateCounseling();
@@ -261,6 +262,8 @@ export class DataService {
         } else {
           this.careplan = dummyCarePlan;        // Initialize selected careplan to dummy careplan if no care plans available for subject
           this.updateContacts();
+          this.updateLabResults(this.currentPatientId, "general");
+          this.updateVitalSignResults(this.currentPatientId, "general");
         }
         this.updateSocialConcerns();
       });
