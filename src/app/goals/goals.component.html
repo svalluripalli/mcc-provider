@@ -1,15 +1,15 @@
 <table width="100%" valign="top">
-  <tr>
+  <tr *ngIf="featureToggling.goalsAndPreferences.goals">
     <td width="100%" valign="top">
       <app-consolidated-goals></app-consolidated-goals>
     </td>
   </tr>
-  <tr>
+  <tr *ngIf="featureToggling.goalsAndPreferences.targets">
     <td colspan="2">
       <app-target-values></app-target-values>
     </td>
   </tr>
-  <tr>
+  <tr *ngIf="featureToggling.goalsAndPreferences.patientChoices">
     <td colspan="2" valign="top">
       <app-patient-choices></app-patient-choices>
     </td>

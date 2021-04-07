@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import featureToggling from "../../assets/json/feature-toggling.json";
 
 @Component({
   selector: 'app-health-status',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./health-status.component.css']
 })
 export class HealthStatusComponent implements OnInit {
+  featureToggling: any = featureToggling;
 
   constructor() { }
 
