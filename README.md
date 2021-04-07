@@ -116,7 +116,7 @@ The latest images are available at docker hub under mcccareplan/*.
 | ---- | --------- | ----------- |
 | /assets/json | lab-mappings.json | Defines the lab results to query on the "Health Status" screen | 
 | /assets/json | vital-mappings.json | Defines the vital signs to query on the "Health Status" screen |
-
+| /assets/json | feature-toggling.json | Toggle functionality on/off across the application |
 
 #Changelog
 Release 2021-03-29
