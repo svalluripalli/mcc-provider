@@ -251,6 +251,7 @@ export class Constants {
     static EducationIsLoaded: string = "Education-is-loaded-patient-app-1";
     static CounselingIsLoaded: string = "Counseling-is-loaded-patient-app-1";
     static ReferralsIsLoaded: string = "Referrals-is-loaded-patient-app-1";
+    static MedicationsIsLoaded: string = "Medications-is-loaded-patient-app-1";
 }
 
 interface PatientLabResultsMap {

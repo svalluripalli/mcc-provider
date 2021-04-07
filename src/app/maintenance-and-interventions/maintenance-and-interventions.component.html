@@ -1,7 +1,7 @@
 <table width="100%">
   <tr>
     <td>
-      <app-medication-panel></app-medication-panel>
+      <app-medication-panel *ngIf="getMedicationIsReady()"></app-medication-panel>
     </td>
   </tr>
   <tr>
