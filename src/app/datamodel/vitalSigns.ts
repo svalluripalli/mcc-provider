@@ -1,5 +1,5 @@
 import {ChartData, ChartDataSets, ChartOptions, ChartPoint} from 'chart.js';
-import * as moment from 'moment';
+import moment from 'moment';
 import {Label} from 'ng2-charts';
 import {getLineChartOptionsObject} from '../util/utility-functions';
 

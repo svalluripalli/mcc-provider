@@ -59,7 +59,7 @@ import {
   getWotLineChartAnnotationsObject
 } from '../util/utility-functions';
 import { ChartDataSets } from 'chart.js';
-import * as moment from 'moment';
+import moment from 'moment';
 import { CounselingSummary } from '../generated-data-api/models/CounselingSummary';
 import { CounselingService } from './counseling.service';
 import { EducationService } from './education.service';

@@ -111,6 +111,12 @@ The latest images are available at docker hub under mcccareplan/*.
 | devmode | enable development mode | true |
 | subject | FHIR Id of the launch subject | cc-pat-pnoelle |
 
+## Environment variables to override after build
+| Path | File Name | Description |
+| ---- | --------- | ----------- |
+| /assets/json | lab-mappings.json | Defines the lab results to query on the "Health Status" screen | 
+| /assets/json | vital-mappings.json | Defines the vital signs to query on the "Health Status" screen |
+
 
 #Changelog
 Release 2021-03-29

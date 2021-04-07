@@ -7,7 +7,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { UacrTableData } from '../datamodel/uacr';
 import { formatUacrResult, reformatYYYYMMDD } from '../util/utility-functions';
 import { MatTableDataSource } from '@angular/material/table';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
   selector: 'app-uacr',
