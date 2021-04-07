@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { reformatYYYYMMDD } from '../util/utility-functions';
 import { VitalSignsTableData } from '../datamodel/vitalSigns';
 import { MatTableDataSource } from '@angular/material/table';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
   selector: 'app-blood-pressure',

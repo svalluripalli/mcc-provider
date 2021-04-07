@@ -6,7 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { WotTableData } from '../datamodel/weight-over-time';
 import { formatWotResult, reformatYYYYMMDD } from '../util/utility-functions';
 import { MatTableDataSource } from '@angular/material/table';
-import * as moment from 'moment';
+import moment from 'moment';
 import { MatSort } from '@angular/material/sort';
 
 @Component({

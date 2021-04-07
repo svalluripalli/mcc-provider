@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import * as moment from 'moment';
+import moment from 'moment';
 import { DataService } from '../services/data.service';
 import { GoalsDataService } from '../services/goals-data-service.service';
 

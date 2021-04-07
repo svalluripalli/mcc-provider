@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DiagnosisDialogComponent } from '../diagnosis-dialog/diagnosis-dialog.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import * as moment from 'moment';
+import moment from 'moment';
 import { MatSort } from '@angular/material/sort';
 
 @Component({
