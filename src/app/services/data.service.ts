@@ -321,6 +321,7 @@ export class DataService {
         this.activeMedications = medications.activeMedications;
         this.activeMedicationsDataSource.data = this.activeMedications;
         this.inactiveMedications = medications.inactiveMedications;
+        window[Constants.MedicationsIsLoaded] = true;
       });
     return true;
   }

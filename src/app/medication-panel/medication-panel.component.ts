@@ -26,5 +26,4 @@ export class MedicationPanelComponent implements OnInit, AfterViewInit {
     this.activeMedicationsDataSource.sort = this.sort;
     this.activeMedicationsDataSource.paginator = this.paginator;
   }
-
 }
