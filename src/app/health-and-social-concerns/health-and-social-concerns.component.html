@@ -3,7 +3,7 @@
     <app-diagnosis-panel>
     </app-diagnosis-panel>
   </section>
-  <section *ngIf="getSocialConcernIsReady()">
+  <section *ngIf="getSocialConcernIsReady() && featureToggling.healthAndSocialConcerns.socialConcerns">
     <app-social-concern-panel>
     </app-social-concern-panel>
   </section>

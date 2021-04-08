@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Form } from "@angular/forms";
 import { environment } from "src/environments/environment";
 import { Constants } from "../common/constants";
 import { MccObservation, SimpleQuestionnaireItem } from "../generated-data-api";
 import { getDisplayValue, formatEffectiveDate, formatMccDate } from "../util/utility-functions";
+import labMappingsJSON from "../../assets/json/lab-mappings.json";
+import vitalMappingsJSON from "../../assets/json/vital-mappings.json";
 
 interface FormattedResult {
     name: string;
@@ -152,7 +153,10 @@ export class ObservationsService {
     getLabResults(patientId: string, longTermCondition: string): any {
         longTermCondition = "ckd";
         let results: FormattedResult[] = [];
-        let callsToMake: PatientLabResultsMap[] = Constants.labResultsMap.get(longTermCondition);
+        if (!labMappingsJSON[longTermCondition]) {
+            return Promise.resolve([]);
+        }
+        let callsToMake: PatientLabResultsMap[] = labMappingsJSON[longTermCondition];
         let promiseArray = [];
         if (!callsToMake) return Promise.resolve([]);
         callsToMake.forEach((v, i) => {
@@ -201,7 +205,10 @@ export class ObservationsService {
     getVitalSignResults(patientId: string, longTermCondition: string): any {
         if (!longTermCondition || longTermCondition !== "general") longTermCondition = "ckd";
         let results: FormattedResult[] = [];
-        let callsToMake: PatientLabResultsMap[] = Constants.vitalSignsMap.get(longTermCondition);
+        if (!vitalMappingsJSON[longTermCondition]) {
+            return Promise.resolve([]);
+        }
+        let callsToMake: PatientLabResultsMap[] = vitalMappingsJSON[longTermCondition];
         let promiseArray = [];
         if (!callsToMake) return Promise.resolve([]);
         callsToMake.forEach((v, i) => {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Constants } from '../common/constants';
+import featureToggling from "../../assets/json/feature-toggling.json";
 
 declare var window: any;
 
@@ -9,7 +10,8 @@ declare var window: any;
   styleUrls: ['./maintenance-and-interventions.component.css']
 })
 export class MaintenanceAndInterventionsComponent implements OnInit {
-
+  featureToggling: any = featureToggling;
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -19,12 +21,15 @@ export class MaintenanceAndInterventionsComponent implements OnInit {
     return window[Constants.EducationIsLoaded];
   }
 
-  
   getCounselingIsReady(): boolean {
     return window[Constants.CounselingIsLoaded];
   }
 
-  getReferralsIsReady(): boolean { 
+  getReferralsIsReady(): boolean {
     return window[Constants.ReferralsIsLoaded];
+  }
+
+  getMedicationIsReady(): boolean {
+    return window[Constants.MedicationsIsLoaded];
   }
 }

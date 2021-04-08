@@ -111,9 +111,21 @@ The latest images are available at docker hub under mcccareplan/*.
 | devmode | enable development mode | true |
 | subject | FHIR Id of the launch subject | cc-pat-pnoelle |
 
+## Environment variables to override after build
+| Path | File Name | Description |
+| ---- | --------- | ----------- |
+| /assets/json | lab-mappings.json | Defines the lab results to query on the "Health Status" screen | 
+| /assets/json | vital-mappings.json | Defines the vital signs to query on the "Health Status" screen |
+| /assets/json | feature-toggling.json | Toggle functionality on/off across the application |
 
 #Changelog
-Release 2021-03-29
+2021-04-08
+- Release ("1.1.0")
+- Labs/Vitals now configurable via JSON
+- Features can now be toggled on/off via JSON
+- Fix for medications table not loading
+
+2021-03-29
 - Release ("1.0.9")
 - Handle no careplans (default labs/vitals)
 - Better responsiveness
