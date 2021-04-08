@@ -119,7 +119,13 @@ The latest images are available at docker hub under mcccareplan/*.
 | /assets/json | feature-toggling.json | Toggle functionality on/off across the application |
 
 #Changelog
-Release 2021-03-29
+2021-04-08
+- Release ("1.1.0")
+- Labs/Vitals now configurable via JSON
+- Features can now be toggled on/off via JSON
+- Fix for medications table not loading
+
+2021-03-29
 - Release ("1.0.9")
 - Handle no careplans (default labs/vitals)
 - Better responsiveness
