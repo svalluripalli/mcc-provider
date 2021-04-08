@@ -1,8 +1,8 @@
 <div class="wrapper">
   <section>
-    <app-clinical-test-results></app-clinical-test-results>
+    <app-clinical-test-results *ngIf="featureToggling.status.clinicalResults"></app-clinical-test-results>
   </section>
   <section>
-    <app-lab-test-result></app-lab-test-result>
+    <app-lab-test-result *ngIf="featureToggling.status.labResults"></app-lab-test-result>
   </section>
 </div>

@@ -1,4 +1,4 @@
 
-<app-active-diagnosis-panel *ngIf="getActiveIsReady()"></app-active-diagnosis-panel>
-<app-inactive-diagnosis-panel *ngIf="getInActiveIsReady()"></app-inactive-diagnosis-panel>
+<app-active-diagnosis-panel *ngIf="featureToggling.healthAndSocialConcerns.activeDiagnoses && getActiveIsReady()"></app-active-diagnosis-panel>
+<app-inactive-diagnosis-panel *ngIf="featureToggling.healthAndSocialConcerns.inactiveDiagnoses && getInActiveIsReady()"></app-inactive-diagnosis-panel>
 
