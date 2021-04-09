@@ -431,6 +431,9 @@ export class DataService {
     this.egfr.tableData = [];
     this.egfr.chartData = [];
     await this.goalsdataservice.getPatientEgfr(patientId)
+      .pipe(finalize(() => {
+        this.filterDataSet(0);
+      }))
       .subscribe(res => {
         const egfr = {
           x: new Date(res.date),
@@ -463,6 +466,8 @@ export class DataService {
   selectedIndex: number;
 
   filterDataSet(index: number): void {
+    if (!this.aggregatedChartData || this.aggregatedChartData.length === 0) return;
+
     this.selectedIndex = index;
     const xAxisLabels: string[] = [];
 
