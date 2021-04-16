@@ -70,13 +70,13 @@ export class WeightOverTimeComponent implements OnInit, AfterViewInit {
     if (val) {
       switch (true) {
         case (val >= 200):
-          cssClass = 'resultBorderline';
+          cssClass = 'resultCritical';
           break;
         case (val < 200 && val >= 105):
-          cssClass = 'resultGood';
+          cssClass = 'resultBorderline';
           break;
         case (val < 105):
-          cssClass = 'resultCritical';
+          cssClass = 'resultGood';
           break;
         default:
           break;

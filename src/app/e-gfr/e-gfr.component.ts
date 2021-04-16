@@ -71,10 +71,10 @@ export class EGFRComponent implements OnInit, AfterViewInit {
     if (val) {
       switch (true) {
         case (val >= 60):
-          cssClass = 'resultBorderline';
+          cssClass = 'resultGood';
           break;
         case (val < 60 && val >= 15):
-          cssClass = 'resultGood';
+          cssClass = 'resultBorderline';
           break;
         case (val < 15):
           cssClass = 'resultCritical';
