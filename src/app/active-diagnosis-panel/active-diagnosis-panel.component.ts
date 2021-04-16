@@ -36,7 +36,7 @@ export class ActiveDiagnosisPanelComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  onRowClicked(row) {
+  openDialog(row) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
