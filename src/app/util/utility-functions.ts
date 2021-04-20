@@ -58,6 +58,7 @@ export function getDisplayValue(value: GenericType): any {
         break;
       }
       case 'CodeableConcept': {
+        console.log("CODEABLE CONCEPT HANDLER NEEDED", value);
         // todo:  formatTargetValue CodeableConcept
         break;
       }
@@ -254,6 +255,11 @@ export function reformatYYYYMMDD(dt): string {
 export function getLineChartOptionsObject(min: number, max: number, suggestedMinDate: any, suggestedMaxDate: any): {} {
   const opts =
   {
+    elements: {
+      line: {
+        tension: 0
+      }
+    },
     responsive: false,
     maintainAspectRatio: true,
     scales: {
