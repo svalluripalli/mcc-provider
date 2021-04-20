@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {MessageService} from './message.service';
-import {Observable, of} from 'rxjs';
-import {Contact} from '../generated-data-api';
-import {environment} from '../../environments/environment';
-import {catchError, map, tap} from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { MessageService } from './message.service';
+import { Observable, of } from 'rxjs';
+import { Contact } from '../generated-data-api';
+import { environment } from '../../environments/environment';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class ContactsService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient,  private messageService: MessageService) { }
+  constructor(private http: HttpClient, private messageService: MessageService) { }
 
 
   /** GET Contact by id. Return `undefined` when id not found */
@@ -47,7 +47,7 @@ export class ContactsService {
   getContactsBySubjectAndCareplan(subjectId: string, careplanId: string): Observable<Contact[]> {
     const url = `${environment.mccapiUrl}${this.baseURL}?subject=${subjectId}&careplan=${careplanId}`;
     return this.http.get<Contact[]>(url, this.httpOptions).pipe(
-      tap(_ => this.log(`fetched Contacts id=${subjectId}, careplan=${careplanId}`)),
+      tap((_) => { this.log(`fetched Contacts id=${subjectId}, careplan=${careplanId}`); console.log("fetched contacts data", _); }),
       catchError(this.handleError<Contact[]>(`getContacts id=${subjectId}, careplan=${careplanId}`))
     );
   }
