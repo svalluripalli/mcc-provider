@@ -17,7 +17,7 @@ import { MatSort } from '@angular/material/sort';
 export class InactiveDiagnosisPanelComponent implements OnInit {
   displayedColumns: string[] = ['code', 'rxfilter', 'trend', 'firstOnset'];
   dataSource: any;
-  
+
   @ViewChild(MatSort) sort: MatSort;
 
   private route: ActivatedRoute;
@@ -31,7 +31,7 @@ export class InactiveDiagnosisPanelComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.dataservice.conditions.inactiveConditions);
     this.dataSource.sortingDataAccessor = (item, property): string | number => {
       switch (property) {
-        case 'firstOnset': return moment(item[property]).unix();
+        case 'firstOnset': return moment(item[property]).isValid() ? moment(item[property]).unix() : item[property];
         case 'code': return item[property].text.toUpperCase();
         default: return item[property];
       }

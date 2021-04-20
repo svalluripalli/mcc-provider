@@ -25,13 +25,13 @@ export class ActiveDiagnosisPanelComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.dataservice.conditions.activeConditions);
     this.dataSource.sortingDataAccessor = (item, property): string | number => {
       switch (property) {
-        case 'firstOnset': return moment(item[property]).unix();
+        case 'firstOnset': return moment(item[property]).isValid() ? moment(item[property]).unix() : item[property];
         case 'code': return item[property].text.toUpperCase();
         default: return item[property];
       }
     };
   }
-  
+
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
