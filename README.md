@@ -126,7 +126,8 @@ The latest images are available at docker hub under mcccareplan/*.
 - Handle period onset values
 - Better labels for Questionnaires
 - More logging for debugging
-
+- Removed Bezier curves
+ 
 2021-04-08
 - Release ("1.1.0")
 - Labs/Vitals now configurable via JSON
