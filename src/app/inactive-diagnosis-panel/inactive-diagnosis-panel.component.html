@@ -3,7 +3,7 @@
   <!-- Name Column -->
   <ng-container matColumnDef="code">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Condition</th>
-    <td mat-cell *matCellDef="let condition"> {{condition.code.text}} </td>
+    <td mat-cell style="cursor: pointer;" (click)="openDialog(condition)" *matCellDef="let condition"> {{condition.code.text}} </td>
   </ng-container>
   <!-- Rx Filter Column -->
   <ng-container matColumnDef="rxfilter">
