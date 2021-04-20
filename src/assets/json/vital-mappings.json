@@ -33,7 +33,7 @@
             "type": "question"
         },
         {
-            "name": "Pain Severity (Wong-Baker)",
+            "name": "Pain Severity (Wong-Baker FACES)",
             "value": "38221-8",
             "type": "question"
         },
