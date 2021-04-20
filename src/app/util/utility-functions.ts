@@ -58,6 +58,7 @@ export function getDisplayValue(value: GenericType): any {
         break;
       }
       case 'CodeableConcept': {
+        console.log("CODEABLE CONCEPT HANDLER NEEDED", value);
         // todo:  formatTargetValue CodeableConcept
         break;
       }
