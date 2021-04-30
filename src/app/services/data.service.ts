@@ -477,7 +477,7 @@ export class DataService {
     this.egfr.tableData = [];
     this.egfr.tableData = (this.aggregatedTableData[index].data);
 
-    this.egfrDataSource.data = this.egfr.tableData;
+    this.egfrDataSource.data = this.egfr.tableData.sort((a, b) => { return moment(a.date).unix() > moment(b.date).unix() ? -1 : 1; });;
 
     const vsLowDateRow: EgfrTableData = (this.egfr.tableData.reduce((low, e) =>
       reformatYYYYMMDD(low.date) < reformatYYYYMMDD(e.date) ? low : e));
