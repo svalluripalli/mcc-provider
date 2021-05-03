@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import featureToggling from "../../assets/json/feature-toggling.json";
+import { Constants } from '../common/constants';
 
 @Component({
   selector: 'app-health-status',
@@ -7,7 +7,7 @@ import featureToggling from "../../assets/json/feature-toggling.json";
   styleUrls: ['./health-status.component.css']
 })
 export class HealthStatusComponent implements OnInit {
-  featureToggling: any = featureToggling;
+  featureToggling: any = Constants.featureToggling;
 
   constructor() { }
 

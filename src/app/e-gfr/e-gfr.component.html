@@ -11,7 +11,7 @@
       </select>
     </td>
   </tr>
-  <tr *ngIf="dataservice.selectedIndex >= 0">
+  <tr>
     <td>
       <div class="chart-wrapper">
         <canvas baseChart [datasets]="dataservice.egfr.chartData"
@@ -21,12 +21,12 @@
       </div>
     </td>
     <td>
-      <table mat-table matSort [dataSource]="egfrDataSource" width="100%">
+      <table mat-table matSort [dataSource]="egfrDataSource" matSort width="100%">
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
           <td mat-cell *matCellDef="let egfr"> {{egfr.date | date: 'MM/dd/yyyy'}} </td>
         </ng-container>
-        <ng-container matColumnDef="result">
+        <ng-container matColumnDef="egfr">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Result</th>
           <td mat-cell *matCellDef="let egfr" [innerHTML]="EgfrResult(egfr)"></td>
         </ng-container>

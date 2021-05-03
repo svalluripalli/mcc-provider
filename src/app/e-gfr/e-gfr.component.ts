@@ -7,6 +7,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { EgfrTableData } from '../datamodel/egfr';
 import { formatEgfrResult, reformatYYYYMMDD } from '../util/utility-functions';
 import { MatTableDataSource } from '@angular/material/table';
+import moment from 'moment';
 
 @Component({
   selector: 'app-e-gfr',
@@ -30,7 +31,7 @@ export class EGFRComponent implements OnInit, AfterViewInit {
   constructor(public dataservice: DataService) {
   }
 
-  displayedColumns = ['date', 'result'];
+  displayedColumns = ['date', 'egfr'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -49,11 +50,9 @@ export class EGFRComponent implements OnInit, AfterViewInit {
         case ('result'): {
           return data.egfr;
         }
-
         case ('date'): {
-          return reformatYYYYMMDD(data.date);
+          return moment(data.date).unix();
         }
-
         default: {
           return data[header];
         }

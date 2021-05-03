@@ -10,10 +10,7 @@ export class Constants {
     static CounselingIsLoaded: string = "Counseling-is-loaded-patient-app-1";
     static ReferralsIsLoaded: string = "Referrals-is-loaded-patient-app-1";
     static MedicationsIsLoaded: string = "Medications-is-loaded-patient-app-1";
-}
-
-interface PatientLabResultsMap {
-    name: string;
-    value: string;
-    type: string;
+    static featureToggling: any;
+    static labMappings: any;
+    static vitalMappings: any;
 }

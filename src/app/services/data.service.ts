@@ -457,7 +457,6 @@ export class DataService {
         }
       });
 
-    window[Constants.EGFRisLoaded] = true;
     return true;
   }
 
@@ -466,7 +465,7 @@ export class DataService {
   selectedIndex: number;
 
   filterDataSet(index: number): void {
-    if (!this.aggregatedChartData || this.aggregatedChartData.length === 0) return;
+    if (!this.aggregatedChartData || this.aggregatedChartData.length === 0) { window[Constants.EGFRisLoaded] = true; return; }
 
     this.selectedIndex = index;
     const xAxisLabels: string[] = [];
@@ -477,7 +476,7 @@ export class DataService {
     this.egfr.tableData = [];
     this.egfr.tableData = (this.aggregatedTableData[index].data);
 
-    this.egfrDataSource.data = this.egfr.tableData;
+    this.egfrDataSource.data = this.egfr.tableData.sort((a, b) => { return moment(a.date).unix() > moment(b.date).unix() ? -1 : 1; });;
 
     const vsLowDateRow: EgfrTableData = (this.egfr.tableData.reduce((low, e) =>
       reformatYYYYMMDD(low.date) < reformatYYYYMMDD(e.date) ? low : e));
@@ -512,6 +511,8 @@ export class DataService {
       );
     });
     this.egfr.xAxisLabels = xAxisLabels;
+    window[Constants.EGFRisLoaded] = true;
+
   }
 
   emptyChart(): void {
