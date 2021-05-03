@@ -17,6 +17,10 @@ import { map } from 'rxjs/operators';
 import { MccCarePlan } from './generated-data-api/models/MccCarePlan';
 import { ActivatedRoute, Router } from '@angular/router';
 import { version } from '../../package.json';
+import { Constants } from './common/constants';
+import featureToggling from "../assets/json/data/feature-toggling.json";
+import labMappings from "../assets/json/data/lab-mappings.json";
+import vitalMappings from "../assets/json/data/vital-mappings.json";
 
 @Component({
   selector: 'app-root',
@@ -84,7 +88,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   devmode = false;
   patientCarePlans: Observable<MccCarePlan[]>;
 
+  parseOverrides() {
+    Constants.featureToggling = featureToggling;
+    Constants.labMappings = labMappings;
+    Constants.vitalMappings = vitalMappings;
+}
+
   ngOnInit(): void {
+    this.parseOverrides();
     this.dataservice.mainfhirserver = this.basefhirserver;
     this.apiURL = environment.mccapiUrl;
     this.initFilteredPatients();
