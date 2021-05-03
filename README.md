@@ -114,11 +114,22 @@ The latest images are available at docker hub under mcccareplan/*.
 ## Environment variables to override after build
 | Path | File Name | Description |
 | ---- | --------- | ----------- |
-| /assets/json | lab-mappings.json | Defines the lab results to query on the "Health Status" screen | 
-| /assets/json | vital-mappings.json | Defines the vital signs to query on the "Health Status" screen |
-| /assets/json | feature-toggling.json | Toggle functionality on/off across the application |
+| /assets/json/data | lab-mappings.json | Defines the lab results to query on the "Health Status" screen.  Use the file found in  folder [/assets/json/data-backups](src/assets/json/data-backups) | 
+| /assets/json/data | vital-mappings.json | Defines the vital signs to query on the "Health Status" screen  Use the file found in  folder [/assets/json/data-backups](src/assets/json/data-backups) | 
+| /assets/json/data | feature-toggling.json | Toggle functionality on/off across the application  Use the file found in  folder [/assets/json/data-backups](src/assets/json/data-backups) | 
+
+Use docker -v command to overwrite the "json/data" with a folder of your own.  
+The file names and types must match exactly.  Also, you must include all json files even if you are only modifying one.
+
+$ docker run -v {Full 'json/data' Directory Path}:/usr/share/nginx/html/assets/json/data -d -p 80:80 --rm mcccareplan/mccproviderapp
 
 #Changelog
+2021-05-21
+- Release ("1.1.2")
+- Set feature toggling, vitals & labs options to be overridden by docker
+- Sort egfr default
+- CodeableConcept value handler
+
 2021-04-20
 - Release ("1.1.1")
 - Restored Condition Click functionality

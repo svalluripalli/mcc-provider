@@ -4,8 +4,6 @@ import { environment } from "src/environments/environment";
 import { Constants } from "../common/constants";
 import { MccObservation, SimpleQuestionnaireItem } from "../generated-data-api";
 import { getDisplayValue, formatEffectiveDate, formatMccDate } from "../util/utility-functions";
-import labMappingsJSON from "../../assets/json/lab-mappings.json";
-import vitalMappingsJSON from "../../assets/json/vital-mappings.json";
 
 interface FormattedResult {
     name: string;
@@ -153,10 +151,10 @@ export class ObservationsService {
     getLabResults(patientId: string, longTermCondition: string): any {
         longTermCondition = "ckd";
         let results: FormattedResult[] = [];
-        if (!labMappingsJSON[longTermCondition]) {
+        if (!Constants.labMappings[longTermCondition]) {
             return Promise.resolve([]);
         }
-        let callsToMake: PatientLabResultsMap[] = labMappingsJSON[longTermCondition];
+        let callsToMake: PatientLabResultsMap[] = Constants.labMappings[longTermCondition];
         let promiseArray = [];
         if (!callsToMake) return Promise.resolve([]);
         callsToMake.forEach((v, i) => {
@@ -205,10 +203,10 @@ export class ObservationsService {
     getVitalSignResults(patientId: string, longTermCondition: string): any {
         if (!longTermCondition || longTermCondition !== "general") longTermCondition = "ckd";
         let results: FormattedResult[] = [];
-        if (!vitalMappingsJSON[longTermCondition]) {
+        if (!Constants.vitalMappings[longTermCondition]) {
             return Promise.resolve([]);
         }
-        let callsToMake: PatientLabResultsMap[] = vitalMappingsJSON[longTermCondition];
+        let callsToMake: PatientLabResultsMap[] = Constants.vitalMappings[longTermCondition];
         let promiseArray = [];
         if (!callsToMake) return Promise.resolve([]);
         callsToMake.forEach((v, i) => {

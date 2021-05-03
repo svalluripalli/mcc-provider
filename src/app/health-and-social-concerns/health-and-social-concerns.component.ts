@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Constants } from '../common/constants';
-import featureToggling from "../../assets/json/feature-toggling.json";
 
 declare var window: any;
 
@@ -10,7 +9,7 @@ declare var window: any;
   styleUrls: ['./health-and-social-concerns.component.css']
 })
 export class HealthAndSocialConcernsComponent implements OnInit {
-  featureToggling: any = featureToggling;
+  featureToggling: any = Constants.featureToggling;
   
   constructor() { }
 
