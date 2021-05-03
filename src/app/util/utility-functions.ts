@@ -58,8 +58,7 @@ export function getDisplayValue(value: GenericType): any {
         break;
       }
       case 'CodeableConcept': {
-        console.log("CODEABLE CONCEPT HANDLER NEEDED", value);
-        // todo:  formatTargetValue CodeableConcept
+        formatted = value.codeableConceptValue.text;
         break;
       }
       case 'Quantity': {
@@ -137,7 +136,7 @@ export function formatGoalTargetValue(target: GoalTarget, mostRecentResultValue:
         break;
       }
       case 'CodeableConcept': {
-        // todo:  formatTargetValue CodeableConcept
+        formatted = target.value.codeableConceptValue.text;
         break;
       }
       case 'Quantity': {
