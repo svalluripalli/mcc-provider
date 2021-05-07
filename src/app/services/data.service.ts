@@ -465,7 +465,7 @@ export class DataService {
   selectedIndex: number;
 
   filterDataSet(index: number): void {
-    if (!this.aggregatedChartData || this.aggregatedChartData.length === 0) { setTimeout(() => { window[Constants.EGFRisLoaded] = true; }, 1000); return; }
+    if (!this.aggregatedChartData || this.aggregatedChartData.length === 0) { window[Constants.EGFRisLoaded] = true; return; }
 
     this.selectedIndex = index;
     const xAxisLabels: string[] = [];
@@ -511,7 +511,7 @@ export class DataService {
       );
     });
     this.egfr.xAxisLabels = xAxisLabels;
-    setTimeout(() => { window[Constants.EGFRisLoaded] = true; }, 1000);
+    window[Constants.EGFRisLoaded] = true;
   }
 
   emptyChart(): void {
@@ -565,7 +565,7 @@ export class DataService {
             );
           });
           this.uacr.xAxisLabels = xAxisLabels;
-          setTimeout(() => { window[Constants.UACRisLoaded] = true; }, 1000);
+          window[Constants.UACRisLoaded] = true;
         })
       )
       .subscribe(res => {
