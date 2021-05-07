@@ -9,6 +9,7 @@ export class NullCheckPipe implements PipeTransform {
             if (testValue === "null".toUpperCase()) return "";
             if (testValue === "Undefined".toUpperCase()) return "";
             if (testValue === "undefined onward".toUpperCase()) return "";
+            if (testValue.indexOf("null".toUpperCase()) > -1) return "";
         }
         return value;
     }

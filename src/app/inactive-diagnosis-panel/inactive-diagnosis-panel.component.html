@@ -3,7 +3,8 @@
   <!-- Name Column -->
   <ng-container matColumnDef="code">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Condition</th>
-    <td mat-cell style="cursor: pointer;" (click)="openDialog(condition)" *matCellDef="let condition"> {{condition.code.text}} </td>
+    <td mat-cell style="cursor: pointer;" (click)="openDialog(condition)" *matCellDef="let condition">
+      {{condition.code.text}} </td>
   </ng-container>
   <!-- Rx Filter Column -->
   <ng-container matColumnDef="rxfilter">
@@ -28,11 +29,12 @@
   <!-- Date Column -->
   <ng-container matColumnDef="firstOnset">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Date of Initial Diagnosis</th>
-    <td mat-cell *matCellDef="let condition"> {{condition.firstOnset}} </td>
+    <td mat-cell *matCellDef="let condition"> {{condition.firstOnset | nullCheck }} </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<mat-paginator *ngIf="dataSource && dataSource.length > 10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+<mat-paginator *ngIf="dataSource && dataSource.length > 10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+</mat-paginator>
 
 <!-- <button>Mark selected as active</button> -->
