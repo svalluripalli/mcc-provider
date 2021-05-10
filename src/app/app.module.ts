@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -46,6 +46,7 @@ import { Testgraph1Component } from './testgraph1/testgraph1.component';
 import { ObservationsService } from './services/observations.service';
 import { NullCheckPipe } from './pipes/null-check.pipe';
 import { MatSortModule } from '@angular/material/sort';
+import { RetryInterceptor } from './interceptors/404.retry.interceptor';
 
 const routes: Routes = []; // sets up routes constant where you define your routes
 
@@ -97,7 +98,7 @@ const routes: Routes = []; // sets up routes constant where you define your rout
     AppRoutingModule
   ],
   exports: [RouterModule],
-  providers: [ObservationsService],
+  providers: [ObservationsService, { provide: HTTP_INTERCEPTORS, useClass: RetryInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
