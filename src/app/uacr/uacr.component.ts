@@ -82,7 +82,4 @@ export class UACRComponent implements OnInit, AfterViewInit {
     }
     return cssClass;
   }
-
-
-
 }
