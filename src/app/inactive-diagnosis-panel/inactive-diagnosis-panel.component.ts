@@ -42,6 +42,7 @@ export class InactiveDiagnosisPanelComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+
   openDialog(row) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -50,11 +51,29 @@ export class InactiveDiagnosisPanelComponent implements OnInit {
     dialogConfig.width = '700px';
     dialogConfig.data = {
       name: this.dataservice.demographic.name,
-      condition: row.code.text,
-      history: row.history
+      condition: this.filterNulls(row.code.text),
+      history: this.filterNulls(row.history)
     };
     this.dialog.open(DiagnosisDialogComponent, dialogConfig);
   }
+
+  filterNulls(value) {
+    if (value) {
+      if (typeof value === 'string' && value.toUpperCase().indexOf("NULL") > -1) {
+        return "";
+      }
+      else if (value.toString && value.toString().toUpperCase().indexOf("NULL") > -1) {
+        return "";
+      }
+      else {
+        return value;
+      }
+    }
+    else {
+      return value;
+    }
+  }
+
 
   switchToHM(code: string) {
     // console.log('Switch to Health Maintenance icon clicked. code=', code);
