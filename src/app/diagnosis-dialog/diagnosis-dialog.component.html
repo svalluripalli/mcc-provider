@@ -4,27 +4,27 @@
     <!-- description Column -->
     <ng-container matColumnDef="description">
       <mat-header-cell *matHeaderCellDef> Description</mat-header-cell>
-      <mat-cell *matCellDef="let history"> {{history.code.text}} </mat-cell>
+      <mat-cell *matCellDef="let history"> {{history.code.text | nullCheck}} </mat-cell>
     </ng-container>
     <!-- onset Column -->
     <ng-container matColumnDef="onset">
       <mat-header-cell *matHeaderCellDef> Onset</mat-header-cell>
-      <mat-cell *matCellDef="let history"> {{history.onset}} </mat-cell>
+      <mat-cell *matCellDef="let history"> {{history.onset | nullCheck}} </mat-cell>
     </ng-container>
     <!-- abatement Column -->
     <ng-container matColumnDef="abatement">
       <mat-header-cell *matHeaderCellDef> Abatement</mat-header-cell>
-      <mat-cell *matCellDef="let history"> {{history.abatement}} </mat-cell>
+      <mat-cell *matCellDef="let history"> {{history.abatement | nullCheck}} </mat-cell>
     </ng-container>
     <!-- status Column -->
     <ng-container matColumnDef="status">
       <mat-header-cell *matHeaderCellDef> Status</mat-header-cell>
-      <mat-cell *matCellDef="let history"> {{history.clinicalStatus}} </mat-cell>
+      <mat-cell *matCellDef="let history"> {{history.clinicalStatus | nullCheck}} </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"
-             [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
-             (mouseout)="row.hovered = false"></mat-row>
+      [ngClass]="{hovered: row.hovered, highlighted: row.highlighted}" (mouseover)="row.hovered = true"
+      (mouseout)="row.hovered = false"></mat-row>
   </mat-table>
 </mat-dialog-content>
 <mat-dialog-actions>

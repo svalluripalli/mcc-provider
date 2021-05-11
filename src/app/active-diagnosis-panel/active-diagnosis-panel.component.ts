@@ -44,29 +44,12 @@ export class ActiveDiagnosisPanelComponent implements OnInit {
     dialogConfig.width = '700px';
     dialogConfig.data = {
       name: this.dataservice.demographic.name,
-      condition: this.filterNulls(row.code.text),
-      history: this.filterNulls(row.history)
+      condition: row.code.text,
+      history: row.history
     };
     this.dialog.open(DiagnosisDialogComponent, dialogConfig);
   }
 
-  filterNulls(value) {
-    if (value) {
-      if (typeof value === 'string' && value.toUpperCase().indexOf("NULL") > -1) {
-        return "";
-      }
-      else if (value.toString && value.toString().toUpperCase().indexOf("NULL") > -1) {
-        return "";
-      }
-      else {
-        return value;
-      }
-    }
-    else {
-      return value;
-    }
-  }
-  
   switchToHM() {
     this.router.navigate(['/maint'], { queryParamsHandling: 'merge' });
   }
