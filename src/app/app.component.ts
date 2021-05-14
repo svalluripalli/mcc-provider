@@ -30,7 +30,7 @@ import vitalMappings from "../assets/json/data/vital-mappings.json";
 })
 
 export class AppComponent implements OnInit, AfterViewInit {
-  public version: string = version + " - " + "BETA – Data may be incomplete!";
+  public version: string = version + " – " + "BETA – Data may be incomplete!";
 
   // todo:  use of patSearch template variable to set focus not working..
   @ViewChild('patSearch', { static: true }) patSearch: any;
