@@ -137,7 +137,7 @@ export class GoalsDataService {
               }
             });
             const vs: VitalSignsTableData = {
-              date: obs.effective.dateTime.date,
+              date: new Date((obs.effective.dateTime.date)),
               diastolic,
               systolic
             };
@@ -149,7 +149,7 @@ export class GoalsDataService {
 
   getPatientEgfr(patientId: string): Observable<EgfrTableData> {
     return new Observable(observer => {
-      this.getSegementedObservationsByValueSet(patientId, observationValuesets.Egfr)
+      this.getSegementedObservationsByValueSet(patientId, observationValuesets.Egfr, "mL/min/1.73m2,mL/min")
         .pipe(finalize(() => {
           observer.complete();
         }))
@@ -158,7 +158,7 @@ export class GoalsDataService {
             observations.primaryCode.display = this.formatEGFRCode(observations.primaryCode);
             observations.observations.forEach(obs => {
               const egfr: EgfrTableData = {
-                date: obs.effective.dateTime.date,
+                date: new Date(obs.effective.dateTime.date),
                 egfr: obs.value.quantityValue.value,
                 unit: obs.value.quantityValue.unit,
                 test: observations.primaryCode.display
@@ -192,7 +192,7 @@ export class GoalsDataService {
         .subscribe(observations => {
           observations.map(obs => {
             const uacr: UacrTableData = {
-              date: obs.effective.dateTime.date,
+              date: new Date(obs.effective.dateTime.date),
               uacr: obs.value.quantityValue.value,
               unit: obs.value.quantityValue.unit,
               test: obs.code.text
@@ -212,7 +212,7 @@ export class GoalsDataService {
         .subscribe(observations => {
           observations.map(obs => {
             const wot: WotTableData = {
-              date: obs.effective.dateTime.date,
+              date: new Date(obs.effective.dateTime.date),
               value: obs.value.quantityValue.value,
               unit: obs.value.quantityValue.unit,
               test: obs.code.text
@@ -264,8 +264,8 @@ export class GoalsDataService {
     );
   }
 
-  getSegementedObservationsByValueSet(patientId: string, valueSet: string): Observable<ObservationCollection> {
-    const url = `${environment.mccapiUrl}${this.segmentedObservationsByValueSetUrl}?subject=${patientId}&valueset=${valueSet}`;
+  getSegementedObservationsByValueSet(patientId: string, valueSet: string, unitTypes?: string): Observable<ObservationCollection> {
+    const url = `${environment.mccapiUrl}${this.segmentedObservationsByValueSetUrl}?subject=${patientId}&valueset=${valueSet}&requiredunit=${unitTypes}`;
     return this.http.get<ObservationCollection>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
