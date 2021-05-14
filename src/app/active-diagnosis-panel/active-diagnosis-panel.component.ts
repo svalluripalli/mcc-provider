@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import moment from 'moment';
+import { MatPaginator } from '@angular/material/paginator';
 
 
 @Component({
@@ -14,10 +15,11 @@ import moment from 'moment';
   styleUrls: ['./active-diagnosis-panel.component.css']
 })
 export class ActiveDiagnosisPanelComponent implements OnInit {
-  displayedColumns: string[] = ['code', 'rxfilter', 'trend', 'firstOnset'];
+  displayedColumns: string[] = ['code', 'rxfilter', 'trend', 'firstOnset', 'firstRecorded'];
   dataSource: any;
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public dataservice: DataService, private dialog: MatDialog, private router: Router) { }
 
@@ -25,6 +27,7 @@ export class ActiveDiagnosisPanelComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.dataservice.conditions.activeConditions);
     this.dataSource.sortingDataAccessor = (item, property): string | number => {
       switch (property) {
+        case "firstRecorded": return moment(item[property]).isValid() ? moment(item[property]).unix() : item[property];
         case 'firstOnset': return moment(item[property]).isValid() ? moment(item[property]).unix() : item[property];
         case 'code': return item[property].text.toUpperCase();
         default: return item[property];
@@ -34,6 +37,7 @@ export class ActiveDiagnosisPanelComponent implements OnInit {
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   openDialog(row) {

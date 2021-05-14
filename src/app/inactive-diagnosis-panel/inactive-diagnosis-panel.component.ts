@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import moment from 'moment';
 import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-inactive-diagnosis-panel',
@@ -15,10 +16,11 @@ import { MatSort } from '@angular/material/sort';
 
 // todo: combine ActiveDiagnosisPanelCompenent and InactiveDiagnosisPanelCompenent into one component
 export class InactiveDiagnosisPanelComponent implements OnInit {
-  displayedColumns: string[] = ['code', 'rxfilter', 'trend', 'firstOnset'];
+  displayedColumns: string[] = ['code', 'rxfilter', 'trend', 'firstOnset', 'firstRecorded'];
   dataSource: any;
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   private route: ActivatedRoute;
   private router: Router;
@@ -31,6 +33,7 @@ export class InactiveDiagnosisPanelComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.dataservice.conditions.inactiveConditions);
     this.dataSource.sortingDataAccessor = (item, property): string | number => {
       switch (property) {
+        case "firstRecorded": return moment(item[property]).isValid() ? moment(item[property]).unix() : item[property];
         case 'firstOnset': return moment(item[property]).isValid() ? moment(item[property]).unix() : item[property];
         case 'code': return item[property].text.toUpperCase();
         default: return item[property];
@@ -40,6 +43,7 @@ export class InactiveDiagnosisPanelComponent implements OnInit {
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   openDialog(row) {

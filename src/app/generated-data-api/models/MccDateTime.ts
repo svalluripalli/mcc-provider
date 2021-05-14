@@ -4,5 +4,5 @@
 
 export type MccDateTime = {
     rawDate: string;
-    date: Date;
+    date: string;
 }
