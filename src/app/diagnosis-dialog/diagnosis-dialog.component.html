@@ -11,6 +11,11 @@
       <mat-header-cell *matHeaderCellDef> Onset</mat-header-cell>
       <mat-cell *matCellDef="let history"> {{history.onset | nullCheck}} </mat-cell>
     </ng-container>
+    <!-- recorded Column -->
+    <ng-container matColumnDef="recorded">
+      <mat-header-cell *matHeaderCellDef> Recorded</mat-header-cell>
+      <mat-cell *matCellDef="let history"> {{history.recorded | date: 'MM/dd/yyyy'}} </mat-cell>
+    </ng-container>
     <!-- abatement Column -->
     <ng-container matColumnDef="abatement">
       <mat-header-cell *matHeaderCellDef> Abatement</mat-header-cell>
