@@ -17,12 +17,11 @@ mat-row {
   height: 24px !important;
 }
 
-
-.mat-column-description{
+.mat-column-description {
   word-wrap: break-word !important;
   white-space: unset !important;
-  flex: 0 0 50% !important;
-  width: 50% !important;
+  flex: 0 0 35% !important;
+  width: 35% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
   -ms-hyphens: auto;
@@ -32,6 +31,19 @@ mat-row {
 }
 
 .mat-column-onset {
+  word-wrap: break-word !important;
+  white-space: normal !important;
+  flex: 0 0 15% !important;
+  width: 15% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-column-recorded {
   word-wrap: break-word !important;
   white-space: normal !important;
   flex: 0 0 15% !important;
@@ -57,7 +69,7 @@ mat-row {
   hyphens: auto;
 }
 
-.mat-column-status{
+.mat-column-status {
   word-wrap: break-word !important;
   white-space: unset !important;
   flex: 0 0 20% !important;
@@ -69,4 +81,3 @@ mat-row {
   -webkit-hyphens: auto;
   hyphens: auto;
 }
-

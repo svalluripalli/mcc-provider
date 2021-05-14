@@ -10,7 +10,7 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class DiagnosisDialogComponent implements OnInit {
 
-  displayedColumns: string[] = ['description', 'onset', 'abatement', 'status'];
+  displayedColumns: string[] = ['description', 'onset', 'recorded', 'abatement', 'status'];
   dataSource;
   name: string;
   condition: string;
