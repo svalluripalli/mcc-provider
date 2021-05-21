@@ -124,6 +124,10 @@ The file names and types must match exactly.  Also, you must include all json fi
 $ docker run -v {Full 'json/data' Directory Path}:/usr/share/nginx/html/assets/json/data -d -p 80:80 --rm mcccareplan/mccproviderapp
 
 #Changelog
+2021-05-21
+- Release ("1.1.7")
+- Experimental fix for caching issues
+
 2021-05-14
 - Release ("1.1.6")
 - New unit type api param utilized for EGFR
