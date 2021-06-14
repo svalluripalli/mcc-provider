@@ -608,7 +608,7 @@ export class DataService {
           this.wot.suggestedMax = maxDate;
           const lineChartOptions = getLineChartOptionsObject(50, 280, this.wot.suggestedMin, this.wot.suggestedMax);
           const lineChartAnnotations = getWotLineChartAnnotationsObject();
-          this.wot.lineChartOptions = { ...lineChartOptions, annotation: lineChartAnnotations };
+          this.wot.lineChartOptions = { ...lineChartOptions, annotation: {} }; //lineChartAnnotations };
           this.wot.xAxisLabels = [];
           let yr = '';
           let prevYr = '';
