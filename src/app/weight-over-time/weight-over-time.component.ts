@@ -65,6 +65,7 @@ export class WeightOverTimeComponent implements OnInit, AfterViewInit {
   }
 
   getWotRowCssClass(wot: WotTableData): string {
+    return "";
     let cssClass = '';
     const val = wot.value;
     if (val) {
