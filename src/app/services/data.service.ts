@@ -593,7 +593,6 @@ export class DataService {
       .pipe(
         finalize(() => {
           this.wot.chartData.push(wotChartData);
-          debugger;
           this.wotDataSource.data = this.wot.tableData.sort((a, b) => { return moment(a.date).unix() > moment(b.date).unix() ? -1 : 1; });
           window[Constants.WotIsLoaded] = true;
           const vsHighDateRow: WotTableData = (this.wot.tableData.reduce((high, e) =>
