@@ -68,7 +68,6 @@ import { ReferralSummary } from '../generated-data-api/models/ReferralSummary';
 import { ReferralService } from './referrals.service';
 import { ObservationsService } from './observations.service';
 import { Constants } from '../common/constants';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 declare var window: any;
 
@@ -604,7 +603,6 @@ export class DataService {
           this.wot.mostRecentWot.result = formatWotResult(vsHighDateRow.value, vsHighDateRow.unit);
           const lineChartOptions = getLineChartOptionsObject();
           this.wot.lineChartOptions = { ...lineChartOptions, annotation: {} }; //lineChartAnnotations };
-          this.wot.lineChartOptions.scales.yAxes[0].scaleLabel = { display: true, labelString: Constants.featureToggling.preferredUnits.wot + "(s)" }
           this.wot.xAxisLabels = [];
           let yr = '';
           let prevYr = '';
