@@ -68,6 +68,7 @@ import { ReferralSummary } from '../generated-data-api/models/ReferralSummary';
 import { ReferralService } from './referrals.service';
 import { ObservationsService } from './observations.service';
 import { Constants } from '../common/constants';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 declare var window: any;
 
@@ -76,6 +77,7 @@ declare var window: any;
 })
 
 export class DataService {
+  featureToggling: any = Constants.featureToggling;
 
   constructor(private subjectdataservice: SubjectDataService,
     private careplanservice: CareplanService,
@@ -591,10 +593,9 @@ export class DataService {
       .pipe(
         finalize(() => {
           this.wot.chartData.push(wotChartData);
+          debugger;
           this.wotDataSource.data = this.wot.tableData.sort((a, b) => { return moment(a.date).unix() > moment(b.date).unix() ? -1 : 1; });
           window[Constants.WotIsLoaded] = true;
-          const vsLowDateRow: WotTableData = (this.wot.tableData.reduce((low, e) =>
-            reformatYYYYMMDD(low.date) < reformatYYYYMMDD(e.date) ? low : e));
           const vsHighDateRow: WotTableData = (this.wot.tableData.reduce((high, e) =>
             reformatYYYYMMDD(high.date) >= reformatYYYYMMDD(e.date) ? high : e));
           this.wot.mostRecentWot.date = vsHighDateRow.date;
@@ -602,13 +603,9 @@ export class DataService {
           this.wot.mostRecentWot.unit = vsHighDateRow.unit;
           this.wot.mostRecentWot.test = vsHighDateRow.test;
           this.wot.mostRecentWot.result = formatWotResult(vsHighDateRow.value, vsHighDateRow.unit);
-          const minDate = moment(vsLowDateRow.date);
-          this.wot.suggestedMin = minDate;
-          const maxDate = moment(vsHighDateRow.date);
-          this.wot.suggestedMax = maxDate;
-          const lineChartOptions = getLineChartOptionsObject(50, 280, this.wot.suggestedMin, this.wot.suggestedMax);
-          const lineChartAnnotations = getWotLineChartAnnotationsObject();
+          const lineChartOptions = getLineChartOptionsObject();
           this.wot.lineChartOptions = { ...lineChartOptions, annotation: {} }; //lineChartAnnotations };
+          this.wot.lineChartOptions.scales.yAxes[0].scaleLabel = { display: true, labelString: Constants.featureToggling.preferredUnits.wot }
           this.wot.xAxisLabels = [];
           let yr = '';
           let prevYr = '';
