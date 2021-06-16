@@ -124,6 +124,12 @@ The file names and types must match exactly.  Also, you must include all json fi
 $ docker run -v {Full 'json/data' Directory Path}:/usr/share/nginx/html/assets/json/data -d -p 80:80 --rm mcccareplan/mccproviderapp
 
 #Changelog
+2021-06-15
+- Release ("1.1.8")
+- Updated WoT to have configurable preferred units
+- Updated WoT to have dynamic y-axis range
+- Updated WoT to render preferred units in title and data
+
 2021-06-14
 - Release ("1.1.7")
 - Remove Weight Over Time color banding

@@ -8,6 +8,7 @@ import { formatWotResult, reformatYYYYMMDD } from '../util/utility-functions';
 import { MatTableDataSource } from '@angular/material/table';
 import moment from 'moment';
 import { MatSort } from '@angular/material/sort';
+import { Constants } from '../common/constants';
 
 @Component({
   selector: 'app-weight-over-time',
@@ -17,6 +18,7 @@ import { MatSort } from '@angular/material/sort';
 
 
 export class WeightOverTimeComponent implements OnInit, AfterViewInit {
+  Constants = Constants;
   wotDataSource: MatTableDataSource<WotTableData>;
   wotRowMax = 7;
 
