@@ -15,6 +15,7 @@ import { UacrTableData } from '../datamodel/uacr';
 import { WotTableData } from '../datamodel/weight-over-time';
 import { ObservationCollection } from '../generated-data-api/models/ObservationCollection';
 import { MccCoding } from "../generated-data-api/models/MccCoding";
+import { Constants } from '../common/constants';
 
 enum observationCodes {
   Systolic = '8480-6',
@@ -211,6 +212,20 @@ export class GoalsDataService {
         }))
         .subscribe(observations => {
           observations.map(obs => {
+            switch (Constants.featureToggling.preferredUnits.wot) {
+              case "kg":
+                if (obs.value.quantityValue.unit === "lb") {
+                  obs.value.quantityValue.value = +(obs.value.quantityValue.value * 0.453592).toFixed(1);
+                  obs.value.quantityValue.unit = "kg";
+                }
+                break;
+              case "lb":
+                if (obs.value.quantityValue.unit === "kg") {
+                  obs.value.quantityValue.value = +(obs.value.quantityValue.value * 2.20462).toFixed(0);
+                  obs.value.quantityValue.unit = "lb";
+                }
+                break;
+            };
             const wot: WotTableData = {
               date: new Date(obs.effective.dateTime.date),
               value: obs.value.quantityValue.value,
@@ -267,7 +282,7 @@ export class GoalsDataService {
   getSegementedObservationsByValueSet(patientId: string, valueSet: string, unitTypes?: string): Observable<ObservationCollection> {
     const url = `${environment.mccapiUrl}${this.segmentedObservationsByValueSetUrl}?subject=${patientId}&valueset=${valueSet}&requiredunit=${unitTypes}`;
     return this.http.get<ObservationCollection>(url, this.httpOptions)
-      .pipe(catchError(this.handleError));
+      .pipe(catchError(this.handleError(`getSegementedObservationsByValueSet patientId=${patientId} valueSet=${valueSet}`)));
   }
 
   /**
