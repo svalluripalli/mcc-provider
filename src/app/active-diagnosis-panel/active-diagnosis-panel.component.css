@@ -96,7 +96,7 @@ tr.mat-row {
 th.mat-header-cell, td.mat-cell {
   text-align: left;
   border: 1px solid #CCC;
-  padding: 0 !important;
+
 }
 
 .app-active-diagnosis-panel {
