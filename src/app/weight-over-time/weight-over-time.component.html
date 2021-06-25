@@ -1,7 +1,7 @@
 <b>Change in weight over Time ({{Constants.featureToggling.preferredUnits.wot + "s"}})</b>
 <table width="100%">
   <tr>
-    <td>
+    <td class="col-50">
       <div class="chart-wrapper">
         <canvas baseChart [datasets]="this.dataservice.wot.chartData" [options]="this.dataservice.wot.lineChartOptions"
           [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins"
@@ -9,7 +9,7 @@
         </canvas>
       </div>
     </td>
-    <td>
+    <td class="col-50">
       <table mat-table [dataSource]="wotDataSource" matSort width="100%">
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
