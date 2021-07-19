@@ -1,5 +1,14 @@
+<app-active-diagnosis-panel *ngIf="featureToggling.healthAndSocialConcerns.activeDiagnoses && getActiveIsReady()">
+</app-active-diagnosis-panel>
 
-<app-active-diagnosis-panel *ngIf="featureToggling.healthAndSocialConcerns.activeDiagnoses && getActiveIsReady()"></app-active-diagnosis-panel>
-<mat-spinner *ngIf="featureToggling.healthAndSocialConcerns.activeDiagnoses && !getActiveIsReady()" style="margin:0 auto;" mode="indeterminate"></mat-spinner>
-<app-inactive-diagnosis-panel *ngIf="featureToggling.healthAndSocialConcerns.inactiveDiagnoses && getInActiveIsReady()"></app-inactive-diagnosis-panel>
-<mat-spinner  *ngIf="featureToggling.healthAndSocialConcerns.inactiveDiagnoses && !getInActiveIsReady()" style="margin:0 auto;" mode="indeterminate"></mat-spinner>
+<div *ngIf="featureToggling.healthAndSocialConcerns.activeDiagnoses && !getActiveIsReady()" style="height: 200px;">
+    <mat-spinner style="margin:0 auto;" mode="indeterminate"></mat-spinner>
+</div>
+
+<app-inactive-diagnosis-panel *ngIf="featureToggling.healthAndSocialConcerns.inactiveDiagnoses && getInActiveIsReady()">
+</app-inactive-diagnosis-panel>
+
+<div *ngIf="featureToggling.healthAndSocialConcerns.inactiveDiagnoses && !getInActiveIsReady()" style="height: 200px;">
+    <mat-spinner style="margin:0 auto;" mode=" indeterminate">
+    </mat-spinner>
+</div>
