@@ -21,3 +21,7 @@ table.inner-table {
 table.inner-table tr td {
   border:none;
 }
+
+td { 
+  padding: 2px 5px;
+}

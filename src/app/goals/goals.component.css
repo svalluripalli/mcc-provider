@@ -1,7 +1,6 @@
 table {
   justify-items: stretch;
   border-color: white;
-  border-spacing: 15px 0px;
   border-width: 2px;
   width: available;
 }

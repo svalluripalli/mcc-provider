@@ -12,7 +12,7 @@
     </td>
   </tr>
   <tr>
-    <td>
+    <td class="col-50">
       <div class="chart-wrapper">
         <canvas baseChart [datasets]="dataservice.egfr.chartData"
           [options]="dataservice.egfr.lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
@@ -20,7 +20,7 @@
         </canvas>
       </div>
     </td>
-    <td>
+    <td class="col-50">
       <table mat-table matSort [dataSource]="egfrDataSource" matSort width="100%">
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
