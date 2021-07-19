@@ -126,8 +126,8 @@ $ docker run -v {Full 'json/data' Directory Path}:/usr/share/nginx/html/assets/j
 #Changelog
 2021-07-19
 - Release ("1.1.9")
-- Gave uniform widths to missized tables and charts on the "Health Status" page
-- Some small table padding improvements for more fluid ui
+- Gave uniform widths to tables and charts on the "Health Status" page to fix some odd sizing
+- Some small table padding improvements for cleaner ui
 - Fixed observation calls not adding header or handling errors correctly.  Should fix lab results not loading.
 - Added some loading spinners
 
