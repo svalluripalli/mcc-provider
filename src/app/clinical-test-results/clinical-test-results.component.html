@@ -22,7 +22,7 @@
   </tr>
   <tr *ngIf="!dataservice.vitalSignResults || dataservice.vitalSignResults.length === 0">
     <td colspan="3">
-      Loading...
+      <mat-spinner style="margin:0 auto;" mode="indeterminate"></mat-spinner>
     </td>
   </tr>
   <tr *ngFor="let res of dataservice.vitalSignResults">
