@@ -7,4 +7,7 @@
     <app-social-concern-panel>
     </app-social-concern-panel>
   </section>
+  <section *ngIf="!getSocialConcernIsReady() && featureToggling.healthAndSocialConcerns.socialConcerns">
+    <mat-spinner style="margin:0 auto;" mode="indeterminate"></mat-spinner>
+  </section>
 </div>

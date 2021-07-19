@@ -38,10 +38,12 @@ export class ObservationsService {
             return Promise.resolve(returnVal);
         }
         else {
-            return this.http.get(`${environment.mccapiUrl}/${this._observationUrl}?subject=${patientId}&code=${code}`).toPromise()
+            return this.http.get(`${environment.mccapiUrl}/${this._observationUrl}?subject=${patientId}&code=${code}`, this.HTTP_OPTIONS).toPromise()
                 .then((res: MccObservation) => {
                     this.OBSERVATIONS.set(key, res);
                     return res;
+                }).catch((reason) => {
+                    console.log("Error querying: " + this._observationUrl + "&code=" + code);
                 });
         }
     };
@@ -58,7 +60,7 @@ export class ObservationsService {
             return Promise.resolve(this.OBSERVATIONS.get(key));
         }
         else {
-            return this.http.get(`${environment.mccapiUrl}/${this._observationsUrl}?subject=${patientId}&code=${code}&sort=descending`).toPromise()
+            return this.http.get(`${environment.mccapiUrl}/${this._observationsUrl}?subject=${patientId}&code=${code}&sort=descending`, this.HTTP_OPTIONS).toPromise()
                 .then((res: MccObservation[]) => {
                     this.OBSERVATIONS.set(key, res);
                     return res;
