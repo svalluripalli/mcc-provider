@@ -24,3 +24,13 @@ body {
 .col-50 {
     width: 50%;
 }
+
+.clearfix {
+    overflow: auto;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
