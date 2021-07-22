@@ -124,6 +124,11 @@ The file names and types must match exactly.  Also, you must include all json fi
 $ docker run -v {Full 'json/data' Directory Path}:/usr/share/nginx/html/assets/json/data -d -p 80:80 --rm mcccareplan/mccproviderapp
 
 #Changelog
+2021-07-22
+- Release ("1.2.0")
+- Attempt to fix IE 11 Table overlap bug on "Health Status" screen (unable to debug IE11 locally)
+- More logging on "DATA" property assignments
+
 2021-07-19
 - Release ("1.1.9")
 - Gave uniform widths to tables and charts on the "Health Status" page to fix some odd sizing
