@@ -128,6 +128,7 @@ $ docker run -v {Full 'json/data' Directory Path}:/usr/share/nginx/html/assets/j
 - Release ("1.2.0")
 - Attempt to fix IE 11 Table overlap bug on "Health Status" screen (unable to debug IE11 locally)
 - More logging on "DATA" property assignments
+- Better spinner handling
 
 2021-07-19
 - Release ("1.1.9")
