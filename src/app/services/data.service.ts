@@ -171,13 +171,13 @@ export class DataService {
     this.currentPatientId = patientId;
     this.targetValues = [];
     this.targetValuesDataSource.data = this.targetValues;
-    console.log("DATA-174", JSON.stringify(this.targetValuesDataSource));
+    console.log("DATA-174", this.targetValuesDataSource);
     this.activeMedications = emptyMediciationSummary;
     this.vitalSigns = emptyVitalSigns;
     this.vitalSignsDataSource.data = this.vitalSigns.tableData;
-    console.log("DATA-178", JSON.stringify(this.vitalSignsDataSource));
+    console.log("DATA-178", this.vitalSignsDataSource);
     this.activeMedicationsDataSource.data = this.activeMedications;
-    console.log("DATA-180", JSON.stringify(this.activeMedicationsDataSource));
+    console.log("DATA-180", this.activeMedicationsDataSource);
     if ((!patientId || patientId.trim().length === 0)) {
       this.currentPatientId = dummyPatientId;
       this.currentCareplanId = dummyCareplanId;
