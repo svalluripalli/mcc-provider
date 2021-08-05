@@ -1,13 +1,14 @@
-import {ChartDataSets, ChartOptions, ChartPoint} from 'chart.js';
+import { ChartDataSets, ChartOptions, ChartPoint } from 'chart.js';
 import moment from 'moment';
-import {Label} from 'ng2-charts';
-import {getLineChartOptionsObject} from '../util/utility-functions';
+import { Label } from 'ng2-charts';
+import { getLineChartOptionsObject } from '../util/utility-functions';
 
 interface EgfrTableData {
   date?: Date;
-  egfr?: number;
+  egfr?: any;
   unit?: string;
   test?: string;
+  isNumber?: boolean;
 }
 
 interface EgfrData {
@@ -55,7 +56,7 @@ const emptyEgfr: Egfr = {
   xAxisLabels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
   suggestedMin: moment(new Date('2020-01-01')),
   suggestedMax: moment('2020-06-30'),
-  lineChartOptions: {...getLineChartOptionsObject(10, 70, moment('2020-01-01'),  moment('2020-06-30')), annotation: []}
+  lineChartOptions: { ...getLineChartOptionsObject(10, 70, moment('2020-01-01'), moment('2020-06-30')), annotation: [] }
 };
 
 export {

@@ -160,10 +160,22 @@ export class GoalsDataService {
             observations.observations.forEach(obs => {
               const egfr: EgfrTableData = {
                 date: new Date(obs.effective.dateTime.date),
-                egfr: obs.value.quantityValue.value,
-                unit: obs.value.quantityValue.unit,
                 test: observations.primaryCode.display
               };
+              switch (obs.value.valueType.toLowerCase()) {
+                case "string":
+                  egfr.egfr = obs.value.stringValue;
+                  egfr.unit = "";
+                  egfr.isNumber = false;
+                  break;
+                case "quantity":
+                  egfr.egfr = obs.value.quantityValue.value;
+                  egfr.unit = obs.value.quantityValue.unit;
+                  egfr.isNumber = true;
+                  break;
+                default:
+                  break;
+              }
               observer.next(egfr);
             });
           })
