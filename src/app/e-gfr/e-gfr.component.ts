@@ -47,9 +47,6 @@ export class EGFRComponent implements OnInit, AfterViewInit {
     this.egfrDataSource.sort = this.sort;
     this.egfrDataSource.sortingDataAccessor = (data: EgfrTableData, header: string) => {
       switch (header) {
-        case ('result'): {
-          return data.egfr;
-        }
         case ('date'): {
           return moment(data.date).unix();
         }
