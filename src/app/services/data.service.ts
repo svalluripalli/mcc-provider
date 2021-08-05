@@ -443,11 +443,13 @@ export class DataService {
           y: res.egfr
         };
         if (!this.aggregatedChartData.find(x => x.label === res.test)) {
-          this.aggregatedChartData.push({
-            data: [egfr],
-            label: res.test,
-            fill: false
-          })
+          if (res.isNumber) { // if the value is not a number we do not want to chart it
+            this.aggregatedChartData.push({
+              data: [egfr],
+              label: res.test,
+              fill: false
+            })
+          }
           this.aggregatedTableData.push({
             data: [res],
             label: res.test
@@ -455,7 +457,7 @@ export class DataService {
         }
         else {
           // @ts-ignore
-          this.aggregatedChartData.find(x => x.label === res.test).data.push(egfr);
+          if (res.isNumber) this.aggregatedChartData.find(x => x.label === res.test).data.push(egfr);
           this.aggregatedTableData.find(x => x.label === res.test).data.push(res);
         }
       });
