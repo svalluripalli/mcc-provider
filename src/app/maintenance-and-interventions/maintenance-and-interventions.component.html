@@ -6,6 +6,7 @@
   </tr>
   <tr *ngIf="featureToggling.maintenanceAndInterventions.medications && !getMedicationIsReady()">
     <td colspan="3" style="height: 200px;">
+      <div class="group-header">Medications</div>
       <mat-spinner style="margin:0 auto;" mode="indeterminate"></mat-spinner>
     </td>
   </tr>
@@ -16,6 +17,7 @@
   </tr>
   <tr *ngIf="featureToggling.maintenanceAndInterventions.education && !getEducationIsReady()">
     <td colspan="3" style="height: 200px;">
+      <div class="group-header">Education</div>
       <mat-spinner style="margin:0 auto;" mode="indeterminate"></mat-spinner>
     </td>
   </tr>
@@ -26,6 +28,7 @@
   </tr>
   <tr *ngIf="featureToggling.maintenanceAndInterventions.counseling && !getCounselingIsReady()">
     <td colspan="3" style="height: 200px;">
+      <div class="group-header">Counseling</div>
       <mat-spinner style="margin:0 auto;" mode="indeterminate"></mat-spinner>
     </td>
   </tr>
@@ -36,6 +39,7 @@
   </tr>
   <tr *ngIf="featureToggling.maintenanceAndInterventions.referrals && !getReferralsIsReady()">
     <td colspan="3" style="height: 200px;">
+      <div class="group-header">Referrals</div>
       <mat-spinner style="margin:0 auto;" mode="indeterminate"></mat-spinner>
     </td>
   </tr>
