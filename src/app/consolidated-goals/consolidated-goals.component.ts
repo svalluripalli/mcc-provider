@@ -4,7 +4,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { GoalSummary } from '../generated-data-api';
-import { reformatYYYYMMDD } from '../util/utility-functions';
 import moment from 'moment';
 
 @Component({

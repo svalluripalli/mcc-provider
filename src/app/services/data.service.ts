@@ -346,6 +346,7 @@ export class DataService {
       .subscribe(goals => {
         this.goals = goals;
         this.consolidatedGoalsDataSource.data = this.goals.allGoals;
+        window[Constants.GoalsIsLoaded] = true;
       });
     return true;
   }
@@ -358,6 +359,7 @@ export class DataService {
       ).subscribe(res => {
         this.targetValues.push(res);
         this.targetValuesDataSource.data = this.targetValues;
+        window[Constants.TargetsIsLoaded] = true;
       });
     return true;
   }

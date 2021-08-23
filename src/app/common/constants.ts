@@ -10,6 +10,9 @@ export class Constants {
     static CounselingIsLoaded: string = "Counseling-is-loaded-provider-app-1";
     static ReferralsIsLoaded: string = "Referrals-is-loaded-provider-app-1";
     static MedicationsIsLoaded: string = "Medications-is-loaded-provider-app-1";
+    static GoalsIsLoaded: string = "Goals-is-loaded-provider-app-1";
+    static TargetsIsLoaded: string = "Targets-is-loaded-provider-app-1";
+    static ChoicesIsLoaded: string = "Choices-is-loaded-provider-app-1";
     static featureToggling: any;
     static labMappings: any;
     static vitalMappings: any;

@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {DataService} from '../services/data.service';
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-care-team',
@@ -16,20 +16,20 @@ export class CareTeamComponent implements OnInit {
   iconNames = {
     types:
       [
-        {type: 'person', icon: 'person'},
-        {type: 'organization', icon: 'group'}
+        { type: 'person', icon: 'person' },
+        { type: 'organization', icon: 'group' }
       ],
     roles:
       [
-        {role: 'patient', icon: 'sick'},
-        {role: 'catering', icon: 'food_bank'},
-        {role: 'physician', icon: 'medical_services'},
-        {role: 'nurse', icon: 'medical_services'},
-        {role: 'caregiver', icon: 'medical_services'},
-        {role: 'ologist', icon: 'medical_services'},
-        {role: 'dietician', icon: 'fastfood'},
-        {role: 'social worker', icon: 'psychology'},
-        {role: 'pharmacist', icon: 'medical_services'},
+        { role: 'patient', icon: 'sick' },
+        { role: 'catering', icon: 'food_bank' },
+        { role: 'physician', icon: 'medical_services' },
+        { role: 'nurse', icon: 'medical_services' },
+        { role: 'caregiver', icon: 'medical_services' },
+        { role: 'ologist', icon: 'medical_services' },
+        { role: 'dietician', icon: 'fastfood' },
+        { role: 'social worker', icon: 'psychology' },
+        { role: 'pharmacist', icon: 'medical_services' },
       ]
   };
 
@@ -38,16 +38,20 @@ export class CareTeamComponent implements OnInit {
   }
 
   getTypeIcon(type) {
-     const icon = this.iconNames.types.filter( t => type.toLowerCase().includes(t.type.toLowerCase()));
-     if (icon.length >  0) {
-       return icon[0].icon;
-     } else {
-       return '';
-     }
+    if (!type)
+      return '';
+    const icon = this.iconNames.types.filter(t => type.toLowerCase().includes(t.type.toLowerCase()));
+    if (icon.length > 0) {
+      return icon[0].icon;
+    } else {
+      return '';
     }
+  }
 
   getRoleIcon(role) {
-    const icon = this.iconNames.roles.filter( r => role.toLowerCase().includes(r.role.toLowerCase()));
+    if (!role)
+      return '';
+    const icon = this.iconNames.roles.filter(r => role.toLowerCase().includes(r.role.toLowerCase()));
     if (icon.length > 0) {
       return icon[0].icon;
     } else {

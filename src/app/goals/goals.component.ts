@@ -14,4 +14,15 @@ export class GoalsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getGoalsReady(): boolean {
+    return window[Constants.GoalsIsLoaded];
+  }
+
+  getTargetsReady(): boolean {
+    return window[Constants.TargetsIsLoaded];
+  }
+
+  getChoicesReady(): boolean {
+    return window[Constants.ChoicesIsLoaded];
+  }
 }

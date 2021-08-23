@@ -124,6 +124,11 @@ The file names and types must match exactly.  Also, you must include all json fi
 $ docker run -v {Full 'json/data' Directory Path}:/usr/share/nginx/html/assets/json/data -d -p 80:80 --rm mcccareplan/mccproviderapp
 
 #Changelog
+2021-08-23
+- Release ("1.2.4")
+- Changed spinners to display header while loading
+- Added more null handling to the care team
+
 2021-08-16
 - Release ("1.2.3")
 - Changed the "firstRecorded" date in Active/Inactive diagnosis panels to use "firstRecordedAsText" due to timezone rendering issues offsetting rendered date by a day
