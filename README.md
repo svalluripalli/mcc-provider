@@ -124,6 +124,10 @@ The file names and types must match exactly.  Also, you must include all json fi
 $ docker run -v {Full 'json/data' Directory Path}:/usr/share/nginx/html/assets/json/data -d -p 80:80 --rm mcccareplan/mccproviderapp
 
 #Changelog
+2021-09-16
+- Release ("1.2.6")
+- Fix for Target Values spinner never finishing
+
 2021-08-25
 - Release ("1.2.5")
 - Changed UACR table color coding to conform with graphing olor coding
