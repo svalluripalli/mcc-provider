@@ -199,7 +199,9 @@ export class DataService {
       this.updateCounseling();
       this.updateEducation();
       this.updateReferrals();
-      this.getPatientGoalTargets(this.currentPatientId);
+      this.getPatientGoalTargets(this.currentPatientId).then(() => {
+        window[Constants.TargetsIsLoaded] = true;
+      })
       this.getPatientBPInfo(this.currentPatientId);
       this.getPatientEgfrInfo(this.currentPatientId);
       this.getPatientUacrInfo(this.currentPatientId);
@@ -351,7 +353,6 @@ export class DataService {
     return true;
   }
 
-  // async getPatientGoalTargets(): Promise<boolean> {
   async getPatientGoalTargets(patientId): Promise<boolean> {
     this.goalsdataservice.getGoals(patientId)
       .pipe(
@@ -359,7 +360,6 @@ export class DataService {
       ).subscribe(res => {
         this.targetValues.push(res);
         this.targetValuesDataSource.data = this.targetValues;
-        window[Constants.TargetsIsLoaded] = true;
       });
     return true;
   }
