@@ -103,6 +103,7 @@ export class DataService {
 
   authorizationToken: string;
   mainfhirserver: string;
+  secondaryfhirserver: string;
   currentPatientId: string;
   currentCareplanId: string;
   demographic: MccPatient;
@@ -134,6 +135,18 @@ export class DataService {
   counseling: CounselingSummary[];
   referrals: ReferralSummary[];
   labResults: MccObservation[];
+// new results based on category
+activities: MccObservation[];
+exam: MccObservation[];
+questionaires: MccObservation[];
+procedure: MccObservation[];
+history: MccObservation[];
+imaging: MccObservation[];
+therapy: MccObservation[];
+
+
+
+
   vitalSignResults: MccObservation[];
   contacts: Contact[];
 
@@ -160,6 +173,34 @@ export class DataService {
     this.obsService.HTTP_OPTIONS = this.commonHttpOptions;
   }
 
+
+
+  updateFHIRConnection2( secondaryserver: string ) {
+
+
+
+    // this.authorizationToken = token;
+    // console.log('Token = ' + token);
+    // this.mainfhirserver = server;
+    this.secondaryfhirserver = secondaryserver;
+    let headersobj = new HttpHeaders();
+    headersobj = headersobj.set('Content-Type', 'application/json').set('mcc-fhir-server', this.mainfhirserver).set('mcc-token', this.authorizationToken).set('mcc-secondaryfhir-server', this.secondaryfhirserver);
+    this.commonHttpOptions = {
+      headers: headersobj
+    };
+    this.subjectdataservice.httpOptions = this.commonHttpOptions;
+    this.careplanservice.httpOptions = this.commonHttpOptions;
+    this.goalsdataservice.httpOptions = this.commonHttpOptions;
+    this.contactdataService.httpOptions = this.commonHttpOptions;
+    this.medicationdataService.httpOptions = this.commonHttpOptions;
+    this.counselingService.httpOptions = this.commonHttpOptions;
+    this.educationService.httpOptions = this.commonHttpOptions;
+    this.referralService.httpOptions = this.commonHttpOptions;
+    this.obsService.HTTP_OPTIONS = this.commonHttpOptions;
+  }
+
+
+
   getCurrentPatient(): Observable<MccPatient> {
     return this.subjectdataservice.getSubject(this.currentPatientId).pipe(
       map(data => data)
@@ -185,12 +226,7 @@ export class DataService {
       this.conditions = dummyConditions;
       // this.goals  = emptyGoalsList;
     } else {
-      /*
-       this.subjectdataservice.getSubject(this.currentPatientId)
-         .subscribe(demograhic => this.demographic = demograhic);
-       this.subjectdataservice.getConditions(this.currentPatientId)
-         .subscribe(condition => this.conditions = condition);
-        */
+
       this.updateDemographics();
       this.updateConditions();
       this.getCarePlansForSubject();
@@ -231,12 +267,7 @@ export class DataService {
       await this.updateReferrals();
       await this.updateMedications();
     }
-    /*
-    this.careplanservice.getCarePlan(this.currentCareplaId)
-      .subscribe(careplan => this.careplan = careplan);
-    this.subjectdataservice.getSocialConcerns(this.currentPatientId, this.currentCareplaId)
-      .subscribe(concerns => this.socialConcerns = concerns);
-    */
+
     return true;
   }
 
@@ -264,6 +295,18 @@ export class DataService {
           this.updateReferrals();
           this.updateLabResults(this.currentPatientId, this.currentCareplanId);
           this.updateVitalSignResults(this.currentPatientId, this.currentCareplanId);
+
+          this.updateActivities();
+          this.updateExam();
+          this.updateQuestionaires( );
+          this.updateProcedure( );
+          this.updateHistory( );
+          this.updateImaging( );
+          this.updateTherapy( );
+
+
+
+
         } else {
           this.careplan = dummyCarePlan;        // Initialize selected careplan to dummy careplan if no care plans available for subject
           this.updateContacts();
@@ -305,6 +348,52 @@ export class DataService {
     })
     return true;
   }
+
+
+
+
+  async updateActivities(): Promise<boolean> {
+    this.obsService.getObservationsByCategory(this.currentPatientId, 'activity')
+      .subscribe(activities => this.activities = activities);
+    return true;
+  }
+
+  async updateExam(): Promise<boolean> {
+    this.obsService.getObservationsByCategory(this.currentPatientId, 'exam')
+      .subscribe(exam => this.exam = exam);
+    return true;
+  }
+
+  async updateQuestionaires(): Promise<boolean> {
+    this.obsService.getObservationsByCategory(this.currentPatientId, 'survey')
+      .subscribe(questionaires => this.questionaires = questionaires);
+    return true;
+  }
+
+  async updateProcedure(): Promise<boolean> {
+    this.obsService.getObservationsByCategory(this.currentPatientId, 'procedure')
+      .subscribe(procedure => this.procedure = procedure);
+    return true;
+  }
+
+  async updateHistory(): Promise<boolean> {
+    this.obsService.getObservationsByCategory(this.currentPatientId, 'history')
+      .subscribe(history => this.history = history);
+    return true;
+  }
+
+  async updateImaging(): Promise<boolean> {
+    this.obsService.getObservationsByCategory(this.currentPatientId, 'imaging')
+      .subscribe(imaging => this.imaging = imaging);
+    return true;
+  }
+
+  async updateTherapy(): Promise<boolean> {
+    this.obsService.getObservationsByCategory(this.currentPatientId, 'therapy')
+      .subscribe(therapy => this.therapy = therapy);
+    return true;
+  }
+
 
   async updateVitalSignResults(patientId: string, longTermCondition: string): Promise<boolean> {
     this.obsService.getVitalSignResults(patientId, longTermCondition).then((res: MccObservation[]) => {

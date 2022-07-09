@@ -1,4 +1,5 @@
 export const environment = {
   production: false,
-  mccapiUrl:  window['env']['apiServer']
+  mccapiUrl:  window['env']['apiServer'] || 'http://localhost:8081'
+
 };
