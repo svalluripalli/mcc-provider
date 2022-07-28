@@ -377,7 +377,7 @@ therapy: MccObservation[];
   }
 
   async updateHistory(): Promise<boolean> {
-    this.obsService.getObservationsByCategory(this.currentPatientId, 'history')
+    this.obsService.getObservationsByCategory(this.currentPatientId, 'social-history')
       .subscribe(history => this.history = history);
     return true;
   }

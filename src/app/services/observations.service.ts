@@ -182,7 +182,7 @@ export class ObservationsService {
             resArr.forEach((res: any, index: number) => {
                 let correspondingCall = callsToMake[index];
                 if (!res || res.length < 1 || res.status === "notfound" || res.fhirid === "notfound") {
-                    results.push({ name: correspondingCall.name, value: "No Data Available", date: "" })
+                    // results.push({ name: correspondingCall.name, value: "xxxNo Data Availablexxx", date: "" })
                 }
                 else {
                     switch (correspondingCall.type) {
@@ -251,7 +251,7 @@ export class ObservationsService {
             resArr.forEach((res: any, index: number) => {
                 let correspondingCall = callsToMake[index];
                 if (!res || res.length < 1 || res.status === "notfound" || res.fhirid === "notfound") {
-                    results.push({ name: correspondingCall.name, value: "No Data Available", date: "" })
+                    // results.push({ name: correspondingCall.name, value: "No Data Available", date: "" })
                 }
                 else {
                     switch (correspondingCall.type) {

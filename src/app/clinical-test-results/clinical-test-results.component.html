@@ -20,7 +20,7 @@
       <app-weight-over-time *ngIf="getWotIsLoaded()"></app-weight-over-time>
     </td>
   </tr>
-  <tr *ngIf="!dataservice.vitalSignResults || dataservice.vitalSignResults.length === 0">
+  <tr *ngIf="!dataservice.vitalSignResults">
     <td colspan="3" style="height: 200px;">
       <mat-spinner style="margin:0 auto;" mode="indeterminate"></mat-spinner>
     </td>
