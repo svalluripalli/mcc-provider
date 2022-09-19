@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {ConditionHistory} from '../generated-data-api';
+import {ConditionHistory, GoalSummary} from '../generated-data-api';
 import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
@@ -13,20 +13,19 @@ export class GoalDialogComponent implements OnInit {
 
 
 
-  displayedColumns: string[] = ['lifecycleStatus', 'description', 'achievementStatus'];
-  lifecycleStatus: string;
-  description: string;
-  achievementStatus: string;
+  // displayedColumns: string[] = ['lifecycleStatus', 'description', 'achievementStatus'];
+  // lifecycleStatus: string;
+  // description: string;
+  // achievementStatus: string;
+  theGoal: GoalSummary;
 
 
 
   constructor(private dialogRef: MatDialogRef<GoalDialogComponent>,
-              @Inject(MAT_DIALOG_DATA)  goal: { lifecycleStatus: string,description:string,achievementStatus:string}) {
-
-
-    this.lifecycleStatus= goal.lifecycleStatus;
-    this.description= goal.description;
-    this.achievementStatus= goal.achievementStatus;
+              @Inject(MAT_DIALOG_DATA)  goal) {
+    console.log('GoalDialogComponentGoalDialogComponent ' +JSON.stringify(goal));
+    this.theGoal = goal;
+    ;
 
 
   }

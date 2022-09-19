@@ -29,6 +29,7 @@ import { PatientGoalsComponent } from './patient-goals/patient-goals.component';
 import { MaintenanceAndInterventionsComponent } from './maintenance-and-interventions/maintenance-and-interventions.component';
 import { MedicationPanelComponent } from './medication-panel/medication-panel.component';
 import { EducationPanelComponent } from './education-panel/education-panel.component';
+import { ActiveOrdersPanelComponent } from './active-orders-panel/active-orders-panel.component';
 import { CounselingPanelComponent } from './counseling-panel/counseling-panel.component';
 import { ReferralPanelComponent } from './referral-panel/referral-panel.component';
 import { HealthStatusComponent } from './health-status/health-status.component';
@@ -103,7 +104,8 @@ const routes: Routes = []; // sets up routes constant where you define your rout
     DiagnosisDialogComponent,
     ConsolidatedGoalsComponent,
     Testgraph1Component,
-    NullCheckPipe
+    NullCheckPipe,
+    ActiveOrdersPanelComponent
   ],
   imports: [
     MatSortModule,

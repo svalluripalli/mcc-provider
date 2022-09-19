@@ -49,7 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.navLinks = [
       {
-        label: 'Health and Social Concerns',
+        label: 'Health Concerns',
         link: './health',
         index: 0
       }, {
@@ -168,8 +168,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   async updateDataContext(key: string, count: number): Promise<void> {
-    console.log('Updating Context aaaaaaaaaaa' + key);
-    console.log('Updating Context aaaaaaaaaaa');
+
     const info = JSON.parse(this.window.sessionStorage.getItem(key));
     if (info != null) {
 
