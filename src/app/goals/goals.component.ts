@@ -48,6 +48,10 @@ export class GoalsComponent implements OnInit {
     return window[Constants.GoalsIsLoaded];
   }
 
+  addNewGoalFeature() : boolean {
+    return false;
+  }
+
   getTargetsReady(): boolean {
     return window[Constants.TargetsIsLoaded];
   }
