@@ -123,12 +123,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
     );
 
-    console.error('this.myForm.controls[secondaryfhirserver]' + this.myForm.controls['secondaryfhirserver'].value);
-    this.myForm.controls['secondaryfhirserver'].setValue(this.secondaryfhirserver);
+    // console.error('this.myForm.controls[secondaryfhirserver]' + this.myForm.controls['secondaryfhirserver'].value);
+    // this.myForm.controls['secondaryfhirserver'].setValue(this.secondaryfhirserver);
 
     this.parseOverrides();
     this.dataservice.mainfhirserver = this.basefhirserver;
-    this.dataservice.secondaryfhirserver = this.secondaryfhirserver;
+    // this.dataservice.secondaryfhirserver = this.secondaryfhirserver;
     this.apiURL = environment.mccapiUrl;
     this.initFilteredPatients();
     this.dataservice.setCurrentSubject(this.currentSubjectId);
