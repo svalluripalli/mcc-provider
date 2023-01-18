@@ -7,6 +7,7 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+import { checkAuthorize } from 'e-care-common-data-services';
 import { DOCUMENT } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SubjectDataService } from './services/subject-data-service.service';
@@ -49,7 +50,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     this.navLinks = [
       {
-        label: 'Health Concerns',
+        label: 'Health and Social Concerns',
         link: './health',
         index: 0
       }, {
@@ -123,12 +124,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
     );
 
-    // console.error('this.myForm.controls[secondaryfhirserver]' + this.myForm.controls['secondaryfhirserver'].value);
-    // this.myForm.controls['secondaryfhirserver'].setValue(this.secondaryfhirserver);
+    console.error('this.myForm.controls[secondaryfhirserver]' + this.myForm.controls['secondaryfhirserver'].value);
+    this.myForm.controls['secondaryfhirserver'].setValue(this.secondaryfhirserver);
 
     this.parseOverrides();
     this.dataservice.mainfhirserver = this.basefhirserver;
-    // this.dataservice.secondaryfhirserver = this.secondaryfhirserver;
+    this.dataservice.secondaryfhirserver = this.secondaryfhirserver;
     this.apiURL = environment.mccapiUrl;
     this.initFilteredPatients();
     this.dataservice.setCurrentSubject(this.currentSubjectId);
@@ -155,6 +156,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     const key = skey ? skey.replace(/['"]+/g, '') : "";
     console.log('Ang: Smart Key is ' + key);
     if (key != null) {
+      checkAuthorize().then(val => {
+        console.log({val})
+      }).catch(err => {
+        console.log({err})
+      })
       this.updateDataContext(key, 14);
     }
   }
@@ -168,7 +174,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   async updateDataContext(key: string, count: number): Promise<void> {
-
+    console.log('Updating Context aaaaaaaaaaa' + key);
+    console.log('Updating Context aaaaaaaaaaa');
     const info = JSON.parse(this.window.sessionStorage.getItem(key));
     if (info != null) {
 
@@ -195,7 +202,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    //
+
   }
 
   private _dataFilter(val: string): Observable<any> {
