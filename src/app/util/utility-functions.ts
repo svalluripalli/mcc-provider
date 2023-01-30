@@ -35,7 +35,7 @@ export function getInnerValue(value: GenericType): any {
   return rval;
 }
 
-function getDisplayValueExtract(value: any): any {
+export function getDisplayValueExtract(value: any): any {
   if (value.valueString) {
     return value.valueString;
   } else if (value.valueInteger) {
