@@ -25,9 +25,9 @@ import {
 import { GoalLists } from '../generated-data-api';
 import { MedicationSummary } from '../generated-data-api';
 import { finalize, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
-import { ContactsService } from './contacts.service';
+
 import { MedicationService } from './medication.service';
 import { concatMap } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material/table';
@@ -73,7 +73,6 @@ export class DataService {
     private subjectdataservice: SubjectDataService,
     private careplanservice: CareplanService,
     private goalsdataservice: GoalsDataService,
-    private contactdataService: ContactsService,
     private medicationdataService: MedicationService,
     private counselingService: CounselingService,
     private educationService: EducationService,
@@ -155,7 +154,7 @@ export class DataService {
     this.subjectdataservice.httpOptions = this.commonHttpOptions;
     this.careplanservice.httpOptions = this.commonHttpOptions;
     this.goalsdataservice.httpOptions = this.commonHttpOptions;
-    this.contactdataService.httpOptions = this.commonHttpOptions;
+
     this.medicationdataService.httpOptions = this.commonHttpOptions;
     this.counselingService.httpOptions = this.commonHttpOptions;
     this.educationService.httpOptions = this.commonHttpOptions;
@@ -180,7 +179,7 @@ export class DataService {
     this.subjectdataservice.httpOptions = this.commonHttpOptions;
     this.careplanservice.httpOptions = this.commonHttpOptions;
     this.goalsdataservice.httpOptions = this.commonHttpOptions;
-    this.contactdataService.httpOptions = this.commonHttpOptions;
+
     this.medicationdataService.httpOptions = this.commonHttpOptions;
     this.counselingService.httpOptions = this.commonHttpOptions;
     this.educationService.httpOptions = this.commonHttpOptions;
@@ -188,11 +187,12 @@ export class DataService {
     this.obsService.HTTP_OPTIONS = this.commonHttpOptions;
   }
 
-  getCurrentPatient(): Observable<MccPatient> {
-    return this.subjectdataservice
-      .getSubject(this.currentPatientId)
-      .pipe(map(data => data));
-  }
+  // getCurrentPatientxxx(): Observable<MccPatient> {
+  //   console.error("getSubject 0 "+ JSON.stringify(this.currentPatientId));
+  //   return this.subjectdataservice
+  //     .getSubject(this.currentPatientId)
+  //     .pipe(map(data => data));
+  // }
 
   async setCurrentSubject(patientId: string): Promise<boolean> {
     this.log('Setting patient to Id = '.concat(patientId));
@@ -318,12 +318,35 @@ export class DataService {
   }
 
   async updateContacts(): Promise<boolean> {
-    this.contactdataService
-      .getContactsBySubjectAndCareplan(
-        this.currentPatientId,
-        this.currentCareplanId
-      )
-      .subscribe(contacts => (this.contacts = contacts));
+
+    //   const emptyContactsaaa: Contact[] = [
+    //   {
+    //     type: 'ddddaaaaa',
+    //     role: 'ddddaaaa',
+    //     name: 'ddddaaaaAwating data load...',
+    //     phone: 'addddaaa',
+    //     email: 'aaaa',
+    //     address: 'aaaa'
+    //   }
+    // ];
+
+    console.log('updateContacts 11111 ' + JSON.stringify(this.demographic));
+    this.contacts = this.demographic.contacts;
+
+
+    // this.subjectdataservice
+    // .getSubject(this.currentPatientId)
+    // .subscribe(demograhic => (  'updateContacts ssssss '  + JSON.stringify(this),  this.demographic = demograhic), this.contacts = emptyContactsaaa));
+
+
+
+    // this.contacts = emptyContactsaaa;
+    // console.log('updateContacts a' );
+    // console.log('updateContacts a' );
+    // console.log('updateContacts aaaa '  + JSON.stringify(this.subjectdataservice.getSubject(this.currentPatientId)));
+
+
+    //  this.subjectdataservice.getSubject(this.currentPatientId).subscribe(subject => ( console.log('updateContacts f'+ JSON.stringify(this) ), this.contacts = subject.contacts));;
     return true;
   }
 
@@ -462,9 +485,12 @@ export class DataService {
   }
 
   async updateDemographics(): Promise<boolean> {
+
+    console.error("getSubject 00" + this.currentPatientId);
+
     this.subjectdataservice
       .getSubject(this.currentPatientId)
-      .subscribe(demograhic => (this.demographic = demograhic));
+      .subscribe(demograhic => (console.error("getSubject 111" + demograhic),this.demographic = demograhic));
     return true;
   }
 

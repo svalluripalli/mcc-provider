@@ -58,7 +58,7 @@ export type { ReferralSummary } from './models/ReferralSummary';
 export type { Repeat } from './models/Repeat';
 export type { SimpleQuestionnaireItem } from './models/SimpleQuestionnaireItem';
 export type { SocialConcern } from './models/SocialConcern';
-
+export type { MccObservation } from './models/MccObservation';
 export { CacheControllerService } from './services/CacheControllerService';
 export { CareplanControllerService } from './services/CareplanControllerService';
 export { ConditionControllerService } from './services/ConditionControllerService';

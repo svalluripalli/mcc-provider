@@ -205,15 +205,15 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   }
 
-  private _dataFilter(val: string): Observable<any> {
-    // call the http data to find matching patients
-    if (val.length >= this.minSearchCharacters) {
-      return this.subjectdataservice.getSubjects(val)
-        .pipe(
-          map(response => response)
-        );
-    }
-  }
+  // private _dataFilteraaa(val: string): Observable<any> {
+  //   // call the http data to find matching patients
+  //   if (val.length >= this.minSearchCharacters) {
+  //     return this.subjectdataservice.getSubjects(val)
+  //       .pipe(
+  //         map(response => response)
+  //       );
+  //   }
+  // }
 
   patientSelected(data) {
     this.currentSubjectId = data;

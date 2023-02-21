@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-
-import { MccPatient } from '../generated-data-api';
+import { HumanName, Patient, PatientContact } from 'fhir/r4';
+import {
+  getPatient as EccgetPatient,
+  getReference
+} from 'e-care-common-data-services';
+import { Contact, MccPatient } from '../generated-data-api';
 import { MessageService } from './message.service';
 import { SocialConcern } from '../generated-data-api';
 import { environment } from '../../environments/environment';
@@ -26,38 +30,125 @@ export class SubjectDataService {
 
 
 
-  /** GET Demographic by id. Return `undefined` when id not found */
-  getSubjectNo404<Data>(id: string): Observable<MccPatient> {
-    const url = `${environment.mccapiUrl}${this.patientURL}/${id}`;
-    return this.http.get<MccPatient[]>(url, this.httpOptions)
-      .pipe(
-        map(demographics => demographics[0]), // returns a {0|1} element array
-        tap(h => {
-          const outcome = h ? `fetched` : `did not find`;
-          this.log(`${outcome} hero id=${id}`);
-        }),
-        catchError(this.handleError<MccPatient>(`Subject id=${id}`))
-      );
-  }
 
   /** GET Subject by id. Will 404 if id not found */
   getSubject(id: string): Observable<MccPatient> {
-    console.log(this.httpOptions);
-    const url = `${environment.mccapiUrl}${this.patientURL}/${id}`;
-    return this.http.get<MccPatient>(url, this.httpOptions).pipe(
-      tap(_ => this.log(`fetched subject id=${id}`)),
-      catchError(this.handleError<MccPatient>(`getSubject id=${id}`))
-    );
+
+    console.error("getSubject aaa "+ id);
+    return from(EccgetPatient(id)).pipe(
+      map(observation => {
+        console.error("updateContacts oooo "+  JSON.stringify( observation));
+       return this.map2MCCObservation(observation);
+    }));
+    // console.log(this.httpOptions);
+    // const url = `${environment.mccapiUrl}${this.patientURL}/${id}`;
+    // return this.http.get<MccPatient>(url, this.httpOptions).pipe(
+    //   tap(_ => this.log(`fetched subject id=${id}`)),
+    //   catchError(this.handleError<MccPatient>(`getSubject id=${id}`))
+    // );
   }
 
-  /** GET Subjects by searchString. Will 404 if id not found */
-  getSubjects(searchFor: string): Observable<MccPatient> {
-    const url = `${environment.mccapiUrl}${this.patientURL}?name=${searchFor}`;
-    return this.http.get<MccPatient>(url, this.httpOptions).pipe(
-      tap(_ => this.log(`fetched subject id=${_.id}`)),
-      catchError(this.handleError<MccPatient>(`getSubjects searchFor=${searchFor}`))
-    );
+  // name?: string;
+  // id?: string;
+  // age?: string;
+  // fhirid?: string;
+  // dateOfBirth?: string;
+  // gender?: string;
+  // race?: string;
+  // ethnicity?: string;
+
+
+   calcAge(dateString) {
+    var birthday = +new Date(dateString);
+    return ~~((Date.now() - birthday) / (31557600000));
   }
+
+  getRace(fhirPatient: Patient): string {
+    for (var i = 0; i < fhirPatient.extension.length; i++) {
+      console.error("getSubject extension " + fhirPatient.extension[i].url);
+      if ("http://hl7.org/fhir/us/core/StructureDefinition/us-core-race" === fhirPatient.extension[i].url) {
+        for (var ii = 0; ii < fhirPatient.extension[i].extension.length; ii++) {
+          if ("text" === fhirPatient.extension[i].extension[ii].url) {
+            return fhirPatient.extension[i].extension[ii].valueString;
+          }
+        }
+      }
+    }
+    return 'UNKNOWN';
+  }
+
+  getEthnicity(fhirPatient: Patient): string {
+    for (var i = 0; i < fhirPatient.extension.length; i++) {
+      console.error("getSubject extension " + fhirPatient.extension[i].url);
+      if ("http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity" === fhirPatient.extension[i].url) {
+        for (var ii = 0; ii < fhirPatient.extension[i].extension.length; ii++) {
+          if ("text" === fhirPatient.extension[i].extension[ii].url) {
+            return fhirPatient.extension[i].extension[ii].valueString;
+          }
+        }
+      }
+    }
+    return 'UNKNOWN';
+  }
+
+  map2MCCObservation(fhirPatient : Patient) : MccPatient {
+// const p as MccPatient
+console.error("getSubject 123456 "+ JSON.stringify(fhirPatient));
+
+// fhirPatient.contact
+
+
+
+this.getRace(fhirPatient );
+
+console.error("getSubject 123456 "+ JSON.stringify(fhirPatient));
+
+console.log('updateContacts b' );
+console.log('updateContacts b' );
+console.log('updateContacts 1010 ' + JSON.stringify(fhirPatient) );
+
+  var mccPatient : MccPatient = Object.assign(fhirPatient, {
+    name: fhirPatient.name[0].text,
+    id: fhirPatient.id,
+    dateOfBirth: fhirPatient.birthDate,
+    age: this.calcAge(fhirPatient.birthDate).toString(),
+    race : this.getRace(fhirPatient ),
+    ethnicity : this.getEthnicity(fhirPatient)
+  });
+
+
+  console.log('getSubject gp '  );
+
+  console.error("getSubject 987654 "+ JSON.stringify(fhirPatient));
+
+  var gp =  getReference(fhirPatient.generalPractitioner[0].reference);
+
+
+  console.error("getSubject aaaaaaa "+ JSON.stringify(gp));
+
+  // console.log('updateContacts gp ' + JSON.stringify(gp) );
+
+
+  fhirPatient.generalPractitioner;
+  const emptyContactsasss: Contact[] = [
+    {
+      type: 'sssss',
+      role: 'ssssss',
+      name: fhirPatient.generalPractitioner[0].display,
+      phone: 'ssssss',
+      email: 'sss',
+      address: 'ssss'
+    }
+  ];
+  mccPatient.contacts = emptyContactsasss;
+
+  console.error("updateContacts d "+ JSON.stringify(mccPatient));
+
+    return mccPatient;
+
+
+  }
+
 
 
   getConditions(id: string): Observable<ConditionLists> {
@@ -78,20 +169,9 @@ export class SubjectDataService {
     );
 
   }
-  getPateintsSortedByName() {
-    /*
-    https://api.logicahealth.org/MCCeCarePlanTest/open/Patient?_sort=family,given
-     */
 
-  }
 
-  getTotalPatients() {
 
-    /*
-    https://api.logicahealth.org/MCCeCarePlanTest/open/Patient?_count=0
-    body.total
-     */
-  }
 
   /**
    * Handle Http operation that failed.
