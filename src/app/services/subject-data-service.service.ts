@@ -19,7 +19,7 @@ export class SubjectDataService {
 
   baseServer = environment.mccapiUrl;
 
-  private patientURL = '/patient';
+  // private patientURL = '/patient';
   private conditionSummaryURL = '/conditionsummary';
   private concernURL = '/socialconcerns';
   httpOptions = {
@@ -33,19 +33,10 @@ export class SubjectDataService {
 
   /** GET Subject by id. Will 404 if id not found */
   getSubject(id: string): Observable<MccPatient> {
-
-    console.error("getSubject aaa "+ id);
     return from(EccgetPatient(id)).pipe(
       map(observation => {
-        console.error("updateContacts oooo "+  JSON.stringify( observation));
        return this.map2MCCObservation(observation);
     }));
-    // console.log(this.httpOptions);
-    // const url = `${environment.mccapiUrl}${this.patientURL}/${id}`;
-    // return this.http.get<MccPatient>(url, this.httpOptions).pipe(
-    //   tap(_ => this.log(`fetched subject id=${id}`)),
-    //   catchError(this.handleError<MccPatient>(`getSubject id=${id}`))
-    // );
   }
 
   // name?: string;
@@ -65,7 +56,6 @@ export class SubjectDataService {
 
   getRace(fhirPatient: Patient): string {
     for (var i = 0; i < fhirPatient.extension.length; i++) {
-      console.error("getSubject extension " + fhirPatient.extension[i].url);
       if ("http://hl7.org/fhir/us/core/StructureDefinition/us-core-race" === fhirPatient.extension[i].url) {
         for (var ii = 0; ii < fhirPatient.extension[i].extension.length; ii++) {
           if ("text" === fhirPatient.extension[i].extension[ii].url) {
@@ -79,7 +69,6 @@ export class SubjectDataService {
 
   getEthnicity(fhirPatient: Patient): string {
     for (var i = 0; i < fhirPatient.extension.length; i++) {
-      console.error("getSubject extension " + fhirPatient.extension[i].url);
       if ("http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity" === fhirPatient.extension[i].url) {
         for (var ii = 0; ii < fhirPatient.extension[i].extension.length; ii++) {
           if ("text" === fhirPatient.extension[i].extension[ii].url) {
@@ -92,20 +81,8 @@ export class SubjectDataService {
   }
 
   map2MCCObservation(fhirPatient : Patient) : MccPatient {
-// const p as MccPatient
-console.error("getSubject 123456 "+ JSON.stringify(fhirPatient));
-
-// fhirPatient.contact
-
-
 
 this.getRace(fhirPatient );
-
-console.error("getSubject 123456 "+ JSON.stringify(fhirPatient));
-
-console.log('updateContacts b' );
-console.log('updateContacts b' );
-console.log('updateContacts 1010 ' + JSON.stringify(fhirPatient) );
 
   var mccPatient : MccPatient = Object.assign(fhirPatient, {
     name: fhirPatient.name[0].text,
@@ -117,14 +94,9 @@ console.log('updateContacts 1010 ' + JSON.stringify(fhirPatient) );
   });
 
 
-  console.log('getSubject gp '  );
-
-  console.error("getSubject 987654 "+ JSON.stringify(fhirPatient));
 
   var gp =  getReference(fhirPatient.generalPractitioner[0].reference);
 
-
-  console.error("getSubject aaaaaaa "+ JSON.stringify(gp));
 
   // console.log('updateContacts gp ' + JSON.stringify(gp) );
 
@@ -141,8 +113,6 @@ console.log('updateContacts 1010 ' + JSON.stringify(fhirPatient) );
     }
   ];
   mccPatient.contacts = emptyContactsasss;
-
-  console.error("updateContacts d "+ JSON.stringify(mccPatient));
 
     return mccPatient;
 

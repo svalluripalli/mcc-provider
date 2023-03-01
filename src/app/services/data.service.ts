@@ -242,7 +242,6 @@ export class DataService {
     this.currentCareplanId = planId;
     if (!planId || planId.trim().length === 0) {
       this.socialConcerns = emptySocialConcerns;
-      console.log('dont come here pls');
       this.careplan = dummyCarePlan;
     } else {
       await this.updateCarePlan();
@@ -318,36 +317,8 @@ export class DataService {
   }
 
   async updateContacts(): Promise<boolean> {
-
-    //   const emptyContactsaaa: Contact[] = [
-    //   {
-    //     type: 'ddddaaaaa',
-    //     role: 'ddddaaaa',
-    //     name: 'ddddaaaaAwating data load...',
-    //     phone: 'addddaaa',
-    //     email: 'aaaa',
-    //     address: 'aaaa'
-    //   }
-    // ];
-
-    console.log('updateContacts 11111 ' + JSON.stringify(this.demographic));
     this.contacts = this.demographic.contacts;
-
-
-    // this.subjectdataservice
-    // .getSubject(this.currentPatientId)
-    // .subscribe(demograhic => (  'updateContacts ssssss '  + JSON.stringify(this),  this.demographic = demograhic), this.contacts = emptyContactsaaa));
-
-
-
-    // this.contacts = emptyContactsaaa;
-    // console.log('updateContacts a' );
-    // console.log('updateContacts a' );
-    // console.log('updateContacts aaaa '  + JSON.stringify(this.subjectdataservice.getSubject(this.currentPatientId)));
-
-
-    //  this.subjectdataservice.getSubject(this.currentPatientId).subscribe(subject => ( console.log('updateContacts f'+ JSON.stringify(this) ), this.contacts = subject.contacts));;
-    return true;
+      return true;
   }
 
   async updateCounseling(): Promise<boolean> {
@@ -485,12 +456,9 @@ export class DataService {
   }
 
   async updateDemographics(): Promise<boolean> {
-
-    console.error("getSubject 00" + this.currentPatientId);
-
     this.subjectdataservice
       .getSubject(this.currentPatientId)
-      .subscribe(demograhic => (console.error("getSubject 111" + demograhic),this.demographic = demograhic));
+      .subscribe(demographic => (this.demographic = demographic));
     return true;
   }
 

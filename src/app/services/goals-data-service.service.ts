@@ -275,7 +275,6 @@ export class GoalsDataService {
   }
 
   map2MCCObservations(observations) {
-    console.error('map2MCCObservations '  +  JSON.stringify(observations));
     return observations.map(observation => this.map2MCCObservation(observation) );
   }
   map2MCCObservation(observation) {
@@ -308,7 +307,6 @@ export class GoalsDataService {
   getObservations(patientId: string, code: string): Observable<MccObservation[]> {
     return from(this.obsService.getObservations(patientId, code)).pipe(
       map(observation => {
-        console.error('getObservations '+ JSON.stringify(observation));
         this.map2MCCObservations(observation);
         return observation;
     })  );
@@ -317,7 +315,6 @@ export class GoalsDataService {
   getObservationsByPanel(patientId: string, code: string): Observable<MccObservation[]> {
     return from(this.obsService.getObservationsByPanel(patientId, code)).pipe(
       map(observation => {
-        console.error('getObservationsByPanel '+ JSON.stringify(observation));
         this.map2MCCObservations(observation);
         return observation;
     })  );
@@ -327,8 +324,6 @@ export class GoalsDataService {
   getObservationsByValueset(patientId: string, valueSet: string): Observable<MccObservation[]> {
     return from(this.obsService.getObservationsByValueSet(patientId, valueSet,'date', '100')).pipe(
       map(observation => {
-        console.error('getObservationsByValueset '+ valueSet);
-        console.error('getObservationsByValueset '+ JSON.stringify(observation));
         this.map2MCCObservations(observation);
         return observation;
     })  );
