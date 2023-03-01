@@ -34,7 +34,7 @@
     "chartjs-plugin-annotation": "^0.5.7",
     "classlist.js": "^1.1.20150312",
     "clone": "^2.1.2",
-    "fhirclient": "^2.3.11",
+    "fhirclient": "^2.3.10",
     "firebase": "^7.24.0",
     "flex-layout-srcs": "github:angular/flex-layout",
     "json-schema-to-typescript": "^8.2.0",
