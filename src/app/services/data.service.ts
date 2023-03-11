@@ -151,7 +151,7 @@ export class DataService {
     this.commonHttpOptions = {
       headers: headersobj
     };
-    this.subjectdataservice.httpOptions = this.commonHttpOptions;
+    // this.subjectdataservice.httpOptions = this.commonHttpOptions;
     this.careplanservice.httpOptions = this.commonHttpOptions;
     this.goalsdataservice.httpOptions = this.commonHttpOptions;
 
@@ -176,7 +176,7 @@ export class DataService {
     this.commonHttpOptions = {
       headers: headersobj
     };
-    this.subjectdataservice.httpOptions = this.commonHttpOptions;
+    // this.subjectdataservice.httpOptions = this.commonHttpOptions;
     this.careplanservice.httpOptions = this.commonHttpOptions;
     this.goalsdataservice.httpOptions = this.commonHttpOptions;
 
@@ -307,12 +307,12 @@ export class DataService {
   }
 
   async updateSocialConcerns(): Promise<boolean> {
-    this.subjectdataservice
-      .getSocialConcerns(this.currentPatientId, this.currentCareplanId)
-      .subscribe(concerns => {
-        this.socialConcerns = concerns;
-        window[Constants.SocialConcernsIsLoaded] = true;
-      });
+    // this.subjectdataservice
+    //   .getSocialConcerns(this.currentPatientId, this.currentCareplanId)
+    //   .subscribe(concerns => {
+    //     this.socialConcerns = concerns;
+    //     window[Constants.SocialConcernsIsLoaded] = true;
+    //   });
     return true;
   }
 
@@ -322,22 +322,22 @@ export class DataService {
   }
 
   async updateCounseling(): Promise<boolean> {
-    this.counselingService
-      .getCounselingSummaries(this.currentPatientId, this.currentCareplanId)
-      .subscribe(counseling => {
-        this.counseling = counseling;
-        window[Constants.CounselingIsLoaded] = true;
-      });
+    // this.counselingService
+    //   .getCounselingSummaries(this.currentPatientId, this.currentCareplanId)
+    //   .subscribe(counseling => {
+    //     this.counseling = counseling;
+    //     window[Constants.CounselingIsLoaded] = true;
+    //   });
     return true;
   }
 
   async updateReferrals(): Promise<boolean> {
-    this.referralService
-      .getReferralSummaries(this.currentPatientId, this.currentCareplanId)
-      .subscribe(referrals => {
-        this.referrals = referrals;
-        window[Constants.ReferralsIsLoaded] = true;
-      });
+    // this.referralService
+    //   .getReferralSummaries(this.currentPatientId, this.currentCareplanId)
+    //   .subscribe(referrals => {
+    //     this.referrals = referrals;
+    //     window[Constants.ReferralsIsLoaded] = true;
+    //   });
     return true;
   }
 
@@ -431,27 +431,27 @@ export class DataService {
   }
 
   async updateEducation(): Promise<boolean> {
-    this.educationService
-      .getEducationSummaries(this.currentPatientId, this.currentCareplanId)
-      .subscribe(education => {
-        this.education = education;
-        window[Constants.EducationIsLoaded] = true;
-      });
+    // this.educationService
+    //   .getEducationSummaries(this.currentPatientId, this.currentCareplanId)
+    //   .subscribe(education => {
+    //     this.education = education;
+    //     window[Constants.EducationIsLoaded] = true;
+    //   });
     return true;
   }
 
   async updateMedications(): Promise<boolean> {
-    this.medicationdataService
-      .getMedicationSummaryBySubjectAndCareplan(
-        this.currentPatientId,
-        this.currentCareplanId
-      )
-      .subscribe(medications => {
-        this.activeMedications = medications.activeMedications;
-        this.activeMedicationsDataSource.data = this.activeMedications;
-        this.inactiveMedications = medications.inactiveMedications;
-        window[Constants.MedicationsIsLoaded] = true;
-      });
+    // this.medicationdataService
+    //   .getMedicationSummaryBySubjectAndCareplan(
+    //     this.currentPatientId,
+    //     this.currentCareplanId
+    //   )
+    //   .subscribe(medications => {
+    //     this.activeMedications = medications.activeMedications;
+    //     this.activeMedicationsDataSource.data = this.activeMedications;
+    //     this.inactiveMedications = medications.inactiveMedications;
+    //     window[Constants.MedicationsIsLoaded] = true;
+    //   });
     return true;
   }
 
@@ -463,40 +463,40 @@ export class DataService {
   }
 
   async updateConditions(): Promise<boolean> {
-    this.subjectdataservice
-      .getConditions(this.currentPatientId)
-      .subscribe(condition => {
-        this.conditions = condition;
-        window[Constants.ActiveDiagnosisIsLoaded] = true;
-        window[Constants.InActiveDiagnosisIsLoaded] = true;
-      });
+    // this.subjectdataservice
+    //   .getConditions(this.currentPatientId)
+    //   .subscribe(condition => {
+    //     this.conditions = condition;
+    //     window[Constants.ActiveDiagnosisIsLoaded] = true;
+    //     window[Constants.InActiveDiagnosisIsLoaded] = true;
+    //   });
     return true;
   }
 
   async getPatientGoals(): Promise<boolean> {
-    this.goalsdataservice.getGoals(this.currentPatientId).subscribe(goals => {
-      this.goals = goals;
-      this.consolidatedGoalsDataSource.data = this.goals.allGoals;
-      window[Constants.GoalsIsLoaded] = true;
-    });
+    // this.goalsdataservice.getGoals(this.currentPatientId).subscribe(goals => {
+    //   this.goals = goals;
+    //   this.consolidatedGoalsDataSource.data = this.goals.allGoals;
+    //   window[Constants.GoalsIsLoaded] = true;
+    // });
     return true;
   }
 
   async getPatientGoalTargets(patientId): Promise<boolean> {
-    this.goalsdataservice
-      .getGoals(patientId)
-      .pipe(
-        concatMap(goals =>
-          this.goalsdataservice.getPatientGoalTargets(
-            patientId,
-            goals.activeTargets
-          )
-        )
-      )
-      .subscribe(res => {
-        this.targetValues.push(res);
-        this.targetValuesDataSource.data = this.targetValues;
-      });
+    // this.goalsdataservice
+    //   .getGoals(patientId)
+    //   .pipe(
+    //     concatMap(goals =>
+    //       this.goalsdataservice.getPatientGoalTargets(
+    //         patientId,
+    //         goals.activeTargets
+    //       )
+    //     )
+    //   )
+    //   .subscribe(res => {
+    //     this.targetValues.push(res);
+    //     this.targetValuesDataSource.data = this.targetValues;
+    //   });
     return true;
   }
 
@@ -596,42 +596,42 @@ export class DataService {
     this.egfr = emptyEgfr;
     this.egfr.tableData = [];
     this.egfr.chartData = [];
-    this.goalsdataservice
-      .getPatientEgfr(patientId)
-      .pipe(
-        finalize(() => {
-          this.filterDataSet(0);
-        })
-      )
-      .subscribe(res => {
-        const egfr = {
-          x: new Date(res.date),
-          y: res.egfr
-        };
-        if (!this.aggregatedChartData.find(x => x.label === res.test)) {
-          if (res.isNumber) {
-            // if the value is not a number we do not want to chart it
-            this.aggregatedChartData.push({
-              data: [egfr],
-              label: res.test,
-              fill: false
-            });
-          }
-          this.aggregatedTableData.push({
-            data: [res],
-            label: res.test
-          });
-        } else {
-          // @ts-ignore
-          if (res.isNumber)
-            this.aggregatedChartData
-              .find(x => x.label === res.test)
-              .data.push((egfr as unknown) as number[]);
-          this.aggregatedTableData
-            .find(x => x.label === res.test)
-            .data.push(res);
-        }
-      });
+    // this.goalsdataservice
+    //   .getPatientEgfr(patientId)
+    //   .pipe(
+    //     finalize(() => {
+    //       this.filterDataSet(0);
+    //     })
+    //   )
+    //   .subscribe(res => {
+    //     const egfr = {
+    //       x: new Date(res.date),
+    //       y: res.egfr
+    //     };
+    //     if (!this.aggregatedChartData.find(x => x.label === res.test)) {
+    //       if (res.isNumber) {
+    //         // if the value is not a number we do not want to chart it
+    //         this.aggregatedChartData.push({
+    //           data: [egfr],
+    //           label: res.test,
+    //           fill: false
+    //         });
+    //       }
+    //       this.aggregatedTableData.push({
+    //         data: [res],
+    //         label: res.test
+    //       });
+    //     } else {
+    //       // @ts-ignore
+    //       if (res.isNumber)
+    //         this.aggregatedChartData
+    //           .find(x => x.label === res.test)
+    //           .data.push((egfr as unknown) as number[]);
+    //       this.aggregatedTableData
+    //         .find(x => x.label === res.test)
+    //         .data.push(res);
+    //     }
+    //   });
 
     return true;
   }

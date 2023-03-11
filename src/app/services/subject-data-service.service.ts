@@ -9,47 +9,23 @@ import {
 } from 'e-care-common-data-services';
 import { Contact, MccPatient } from '../generated-data-api';
 import { MessageService } from './message.service';
-import { SocialConcern } from '../generated-data-api';
-import { environment } from '../../environments/environment';
-import { ConditionLists } from '../generated-data-api';
 
 
 @Injectable({ providedIn: 'root' })
 export class SubjectDataService {
 
-  baseServer = environment.mccapiUrl;
-
-  // private patientURL = '/patient';
-  private conditionSummaryURL = '/conditionsummary';
-  private concernURL = '/socialconcerns';
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
-
   constructor(private http: HttpClient, private messageService: MessageService) { }
-
-
-
 
   /** GET Subject by id. Will 404 if id not found */
   getSubject(id: string): Observable<MccPatient> {
     return from(EccgetPatient(id)).pipe(
-      map(observation => {
-       return this.map2MCCObservation(observation);
-    }));
+      map(patient => {
+        return this.map2MCCPatient(patient);
+      }));
   }
 
-  // name?: string;
-  // id?: string;
-  // age?: string;
-  // fhirid?: string;
-  // dateOfBirth?: string;
-  // gender?: string;
-  // race?: string;
-  // ethnicity?: string;
 
-
-   calcAge(dateString) {
+  calcAge(dateString) {
     var birthday = +new Date(dateString);
     return ~~((Date.now() - birthday) / (31557600000));
   }
@@ -80,39 +56,35 @@ export class SubjectDataService {
     return 'UNKNOWN';
   }
 
-  map2MCCObservation(fhirPatient : Patient) : MccPatient {
+  map2MCCPatient(fhirPatient: Patient): MccPatient {
 
-this.getRace(fhirPatient );
+    this.getRace(fhirPatient);
 
-  var mccPatient : MccPatient = Object.assign(fhirPatient, {
-    name: fhirPatient.name[0].text,
-    id: fhirPatient.id,
-    dateOfBirth: fhirPatient.birthDate,
-    age: this.calcAge(fhirPatient.birthDate).toString(),
-    race : this.getRace(fhirPatient ),
-    ethnicity : this.getEthnicity(fhirPatient)
-  });
-
-
-
-  var gp =  getReference(fhirPatient.generalPractitioner[0].reference);
+    var mccPatient: MccPatient = Object.assign(fhirPatient, {
+      name: fhirPatient.name[0].text,
+      id: fhirPatient.id,
+      dateOfBirth: fhirPatient.birthDate,
+      age: this.calcAge(fhirPatient.birthDate).toString(),
+      race: this.getRace(fhirPatient),
+      ethnicity: this.getEthnicity(fhirPatient)
+    });
 
 
-  // console.log('updateContacts gp ' + JSON.stringify(gp) );
 
+    var gp = getReference(fhirPatient.generalPractitioner[0].reference);
 
-  fhirPatient.generalPractitioner;
-  const emptyContactsasss: Contact[] = [
-    {
-      type: 'sssss',
-      role: 'ssssss',
-      name: fhirPatient.generalPractitioner[0].display,
-      phone: 'ssssss',
-      email: 'sss',
-      address: 'ssss'
-    }
-  ];
-  mccPatient.contacts = emptyContactsasss;
+    fhirPatient.generalPractitioner;
+    const emptyContacts: Contact[] = [
+      {
+        type: '',
+        role: '',
+        name: fhirPatient.generalPractitioner[0].display,
+        phone: '',
+        email: '',
+        address: ''
+      }
+    ];
+    mccPatient.contacts = emptyContacts;
 
     return mccPatient;
 
@@ -121,24 +93,6 @@ this.getRace(fhirPatient );
 
 
 
-  getConditions(id: string): Observable<ConditionLists> {
-    const url = `${environment.mccapiUrl}${this.conditionSummaryURL}?subject=${id}`;
-
-    return this.http.get<ConditionLists>(url, this.httpOptions).pipe(
-      tap((_) => { this.log; console.log("Fetched Conditions", _); }),
-      catchError(this.handleError<ConditionLists>('getConditions'))
-    );
-
-  }
-  getSocialConcerns(id: string, careplan: string): Observable<SocialConcern[]> {
-    const url = `${environment.mccapiUrl}${this.concernURL}?subject=${id}${careplan ? '&careplan=' + careplan : ''}`;
-
-    return this.http.get<SocialConcern[]>(url, this.httpOptions).pipe(
-      tap(_ => this.log('fetched Concern')),
-      catchError(this.handleError<SocialConcern[]>('getSocialConcerns', []))
-    );
-
-  }
 
 
 

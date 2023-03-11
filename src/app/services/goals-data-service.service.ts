@@ -54,7 +54,7 @@ export class GoalsDataService {
   }
 
   // Get Goals by Subject Id
-  getGoals(id: string): Observable<GoalLists> {
+  getGoalszzzz(id: string): Observable<GoalLists> {
     const url = `${environment.mccapiUrl}${this.goalSummaryURL}?subject=${id}`;
     return this.http.get<GoalLists>(url, this.httpOptions).pipe(
       tap(_ => this.log('fetched Goal Summary')),
