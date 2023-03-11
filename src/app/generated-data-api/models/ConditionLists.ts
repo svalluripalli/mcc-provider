@@ -4,7 +4,7 @@
 
 import type { ConditionSummary } from './ConditionSummary';
 
-export type ConditionLists = {
+export type ConditionListsaaaaaa = {
     activeConditions: Array<ConditionSummary>;
     inactiveConditions: Array<ConditionSummary>;
     activeConcerns: Array<ConditionSummary>;

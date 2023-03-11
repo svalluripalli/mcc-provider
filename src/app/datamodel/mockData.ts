@@ -1,7 +1,7 @@
 import { CarePlan } from 'fhir/r4';
 import {TargetValue} from './targetvalue';
 import {
-  ConditionLists,
+
   Contact,
   GoalLists,
   GoalSummary,
@@ -493,12 +493,7 @@ export const dummySubject: MccPatient = {
 export const dummyPatientId = '';
 export const dummyCareplanId = '';
 
-export const dummyConditions: ConditionLists = {
-  activeConditions: [],
-  inactiveConditions: [],
-  activeConcerns: [],
-  inactiveConcerns: []
-};
+
 
 export const dummyCarePlan: CarePlan = {
   title: 'Test careplan',

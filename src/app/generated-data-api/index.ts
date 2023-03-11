@@ -7,7 +7,7 @@ export { OpenAPI } from './core/OpenAPI';
 export type { Acceptance } from './models/Acceptance';
 export type { Bounds } from './models/Bounds';
 export type { ConditionHistory } from './models/ConditionHistory';
-export type { ConditionLists } from './models/ConditionLists';
+
 export type { ConditionSummary } from './models/ConditionSummary';
 export type { Contact } from './models/Contact';
 export type { CounselingSummary } from './models/CounselingSummary';

@@ -1,18 +1,18 @@
 import { CarePlan, Observation } from 'fhir/r4';
 import { Injectable } from '@angular/core';
-import { MccPatient } from '../generated-data-api';
+import { ConditionSummary, MccPatient } from '../generated-data-api';
 import { SubjectDataService } from './subject-data-service.service';
 import { CareplanService } from './careplan.service';
 import { GoalsDataService } from './goals-data-service.service';
 import { Contact, GoalSummary } from '../generated-data-api';
 import { SocialConcern } from '../generated-data-api';
-import { ConditionLists } from '../generated-data-api';
+
 import { TargetValue } from '../datamodel/targetvalue';
 import {
   dummyPatientId,
   dummyCareplanId,
   dummySubject,
-  dummyConditions,
+
   dummyCarePlan,
   emptySocialConcerns,
   emptyContacts,
@@ -68,6 +68,10 @@ declare var window: any;
 })
 export class DataService {
   featureToggling: any = Constants.featureToggling;
+  activeConditions: Array<ConditionSummary>;
+  inactiveConditions: Array<ConditionSummary>;
+  activeConcerns: Array<ConditionSummary>;
+  inactiveConcerns: Array<ConditionSummary>;
 
   constructor(
     private subjectdataservice: SubjectDataService,
@@ -101,7 +105,7 @@ export class DataService {
   careplan: CarePlan;
   careplans: CarePlan[];
   socialConcerns: SocialConcern[];
-  conditions: ConditionLists;
+
   targetValues: TargetValue[] = [];
   activeMedications: MedicationSummary[] = [];
   inactiveMedications: MedicationSummary[];
@@ -210,7 +214,7 @@ export class DataService {
       this.currentPatientId = dummyPatientId;
       this.currentCareplanId = dummyCareplanId;
       this.demographic = dummySubject;
-      this.conditions = dummyConditions;
+      // this.conditions = dummyConditions;
       // this.goals  = emptyGoalsList;
     } else {
       this.updateDemographics();
