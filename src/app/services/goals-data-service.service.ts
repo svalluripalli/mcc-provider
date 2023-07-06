@@ -17,6 +17,7 @@ import { ObservationCollection } from '../generated-data-api/models/ObservationC
 import { MccCoding } from "../generated-data-api/models/MccCoding";
 import { Constants } from '../common/constants';
 import { ObservationsService } from './observations.service';
+import { doLog } from '../log';
 
 enum observationCodes {
   Systolic = '8480-6',
@@ -58,6 +59,13 @@ export class GoalsDataService {
     const url = `${environment.mccapiUrl}${this.goalSummaryURL}?subject=${id}`;
     return this.http.get<GoalLists>(url, this.httpOptions).pipe(
       tap(_ => this.log('fetched Goal Summary')),
+	doLog({
+          level: 'debug',
+          event: 'getGoals',
+          page: 'goals-data-service',
+          message: `getGoals: success`
+        })
+      }),
       catchError(this.handleError<GoalLists>('getGoals'))
     );
   }
